@@ -10,7 +10,7 @@
     "mssql": "^ 3.3.0"
   },
   "scripts": {
-    "start": "node server.js"
+    "start": "pm2 start server.js"
   },
   "author": {
     "name": "Thai Thien Vu",

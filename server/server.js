@@ -75,7 +75,7 @@ app.put("/api/user/:id", function (req, res) {
 });
 
 // DELETE API
-app.delete("/api/user /:id", function (req, res) {
+app.delete("/api/user/:id", function (req, res) {
   var query = "DELETE FROM [user] WHERE Id=" + req.params.id;
   executeQuery(res, query);
 });
