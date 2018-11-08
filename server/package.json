@@ -1,5 +1,5 @@
 {
-  "name": "GruGru_Server",
+  "name": "grugru_server",
   "version": "0.0.1",
   "description": "Server for GruGru app",
   "main": "server.js",
