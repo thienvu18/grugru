@@ -1,0 +1,22 @@
+{
+  "name": "GruGru_Server",
+  "version": "0.0.1",
+  "description": "Server for GruGru app",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.14.0",
+    "body-parser": "^1.15.2",
+    "mssql": "^ 3.3.0"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": {
+    "name": "Thai Thien Vu",
+    "email": "thienvu1802@gmail.com"
+  },
+  "devDependencies": {
+    "eslint": "^5.8.0",
+    "eslint-config-google": "^0.11.0"
+  }
+}
