@@ -166,7 +166,10 @@
                 </WrapPanel>
             </StackPanel>
         </StackPanel>
-        <WrapPanel x:Name="wrpStatistical">
+        <WrapPanel x:Name="wrpStatistical" Visibility="Hidden" >
+            <Button x:Name="btnBackStatistical" >
+                <materialDesign:PackIcon Kind="ArrowLeftBoldCircleOutline" />
+            </Button>
             <Grid x:Name="temp4"></Grid>
             <TextBlock x:Name="tbTimestart"  Text="Ngày giờ bắt đầu:"></TextBlock>
             <DatePicker x:Name="dpDayStart"
@@ -239,6 +242,166 @@
             <Grid x:Name="temp12"></Grid>
             <TextBlock x:Name="tbTotal" Text="Tổng: 0000000 00000000"></TextBlock>
         </WrapPanel>
-
+        <WrapPanel x:Name="wrpJobCalendar" >
+            <Button x:Name="btnJobCalendar" >
+                <materialDesign:PackIcon Kind="ArrowLeftBoldCircleOutline" />
+            </Button>
+            <Grid x:Name="temp31"></Grid>
+            <TextBlock x:Name="tbDayStartCalendar"  Text="Chọn ngày trong tuần:"></TextBlock>
+            <DatePicker x:Name="dpDayStartCalendar"
+              materialDesign:HintAssist.Hint="Pick Date"
+              Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+            <Grid x:Name="temp32"></Grid>
+            <Button x:Name="btnUpdateCalendar" Content="Cập nhật"></Button>
+            <Grid x:Name="temp33"></Grid>
+            <Grid x:Name="gridCalendar" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50*"></RowDefinition>
+                        <RowDefinition Height="25*"></RowDefinition>
+                        <RowDefinition Height="100*"></RowDefinition>
+                        <RowDefinition Height="25*"></RowDefinition>
+                        <RowDefinition Height="100*"></RowDefinition>
+                        <RowDefinition Height="25*"></RowDefinition>
+                        <RowDefinition Height="100*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                <Grid x:Name="gridCalendarRow0" Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0">
+                        <TextBlock x:Name="tbMonday" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Thứ 2" TextWrapping="WrapWithOverflow" ></TextBlock>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                        <TextBlock x:Name="tbTuesday" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Thứ 3" TextWrapping="WrapWithOverflow" ></TextBlock>
+                        </Grid>
+                        <Grid Grid.Column="2">
+                        <TextBlock x:Name="tbWednesday" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Thứ 4" TextWrapping="WrapWithOverflow"></TextBlock>
+                        </Grid>
+                        <Grid Grid.Column="3">
+                        <TextBlock x:Name="tbThursday" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Thứ 5" TextWrapping="WrapWithOverflow"></TextBlock>
+                        </Grid>
+                        <Grid Grid.Column="4">
+                        <TextBlock x:Name="tbFriday" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Thứ 6" TextWrapping="WrapWithOverflow"></TextBlock>
+                        </Grid>
+                        <Grid Grid.Column="5">
+                        <TextBlock x:Name="tbSaturday" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Thứ 7" TextWrapping="WrapWithOverflow"></TextBlock>
+                        </Grid>
+                        <Grid Grid.Column="6">
+                        <TextBlock x:Name="tbSunday" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Chủ Nhật" TextWrapping="WrapWithOverflow"></TextBlock>
+                        </Grid>
+                    </Grid>
+                <Grid x:Name="gridCalendarRow1"  Grid.Row="1">
+                    <TextBlock x:Name="tbTime1" Text="9h-1h30'"></TextBlock>
+                    </Grid>
+                <Grid x:Name="gridCalendarRow2" Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0">
+                        <TextBox x:Name="tbMonday1" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"></TextBox>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                        <TextBox x:Name="tbTuesday1" BorderThickness="1"  Text="Họ và tên" TextWrapping="WrapWithOverflow"></TextBox>
+                        </Grid>
+                        <Grid Grid.Column="2">
+                        <TextBox x:Name="tbWednesday1" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"></TextBox>
+                        </Grid>
+                        <Grid Grid.Column="3">
+                        <TextBox x:Name="tbThursday1" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"></TextBox>
+                        </Grid>
+                        <Grid Grid.Column="4">
+                        <TextBox x:Name="tbFriday1" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"></TextBox>
+                        </Grid>
+                        <Grid Grid.Column="5">
+                        <TextBox x:Name="tbSaturday1" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"></TextBox>
+                        </Grid>
+                        <Grid Grid.Column="6">
+                        <TextBox x:Name="tbSunday1" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"></TextBox>
+                        </Grid>
+                    </Grid>
+                <Grid x:Name="gridCalendarRow3" Grid.Row="3">
+                    <TextBlock x:Name="tbTime2"  Text="1h30'-6h"></TextBlock>
+                    </Grid>
+                <Grid x:Name="gridCalendarRow4" Grid.Row="4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <TextBox x:Name="tbMonday2" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"></TextBox>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <TextBox x:Name="tbTuesday2" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"></TextBox>
+                    </Grid>
+                    <Grid Grid.Column="2">
+                        <TextBox x:Name="tbWednesday2" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"></TextBox>
+                    </Grid>
+                    <Grid Grid.Column="3">
+                        <TextBox x:Name="tbThursday2" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"></TextBox>
+                    </Grid>
+                    <Grid Grid.Column="4">
+                        <TextBox x:Name="tbFriday2" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"></TextBox>
+                    </Grid>
+                    <Grid Grid.Column="5">
+                        <TextBox x:Name="tbSaturday2" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"></TextBox>
+                    </Grid>
+                    <Grid Grid.Column="6">
+                        <TextBox x:Name="tbSunday2" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"></TextBox>
+                    </Grid>
+                </Grid>
+                <Grid x:Name="gridCalendarRow5" Grid.Row="5">
+                    <TextBlock x:Name="tbTime3"  Text="6h-10h"></TextBlock>
+                    </Grid>
+                <Grid x:Name="gridCalendarRow6" Grid.Row="6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <TextBox x:Name="tbMonday3" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"></TextBox>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <TextBox x:Name="tbTuesday3" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"></TextBox>
+                    </Grid>
+                    <Grid Grid.Column="2">
+                        <TextBox x:Name="tbWednesday3" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"></TextBox>
+                    </Grid>
+                    <Grid Grid.Column="3">
+                        <TextBox x:Name="tbThursday3" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"></TextBox>
+                    </Grid>
+                    <Grid Grid.Column="4">
+                        <TextBox x:Name="tbFriday3" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"></TextBox>
+                    </Grid>
+                    <Grid Grid.Column="5">
+                        <TextBox x:Name="tbSaturday3" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"></TextBox>
+                    </Grid>
+                    <Grid Grid.Column="6">
+                        <TextBox x:Name="tbSunday3" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"></TextBox>
+                    </Grid>
+                </Grid>
+                </Grid>
+        </WrapPanel>
     </Grid>
 </Window>

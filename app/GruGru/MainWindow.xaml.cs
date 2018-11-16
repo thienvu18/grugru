@@ -47,7 +47,8 @@ namespace GruGru
             this.Height = height+30;
             this.Width = width+30;
             //MainScreen();
-            StatisticalScreen();
+            //StatisticalScreen();
+            JobCalendarScreen();
 
             /*coffee.Width = 0.2 * width;
             coffee.Height =height-height006;
@@ -58,15 +59,15 @@ namespace GruGru
             topping.Width = 0.2 * width;
             topping.Height = height - height006;
             txbTopping.Width = 0.2 * width;*/
-               /* List<ThucUong> Items = new List<ThucUong>();
-             Items.Add(new ThucUong() { STT = 1, ten = "tra sua", gia = 15000, soluong = 1 });
-             Items.Add(new ThucUong() { STT = 1, ten = "coffee den", gia = 20000, soluong = 1 });
-            Items.Add(new ThucUong() { STT = 1, ten = "coffee den", gia = 20000, soluong = 1 });
-            Items.Add(new ThucUong() { STT = 1, ten = "coffee den", gia = 20000, soluong = 1 });
-            Items.Add(new ThucUong() { STT = 1, ten = "coffee den", gia = 20000, soluong = 1 });
-            Items.Add(new ThucUong() { STT = 1, ten = "coffee den", gia = 20000, soluong = 1 });
-            Items.Add(new ThucUong() { STT = 1, ten = "coffee den", gia = 20000, soluong = 1 });
-              lvListBill.ItemsSource = Items;*/
+            /* List<ThucUong> Items = new List<ThucUong>();
+          Items.Add(new ThucUong() { STT = 1, ten = "tra sua", gia = 15000, soluong = 1 });
+          Items.Add(new ThucUong() { STT = 1, ten = "coffee den", gia = 20000, soluong = 1 });
+         Items.Add(new ThucUong() { STT = 1, ten = "coffee den", gia = 20000, soluong = 1 });
+         Items.Add(new ThucUong() { STT = 1, ten = "coffee den", gia = 20000, soluong = 1 });
+         Items.Add(new ThucUong() { STT = 1, ten = "coffee den", gia = 20000, soluong = 1 });
+         Items.Add(new ThucUong() { STT = 1, ten = "coffee den", gia = 20000, soluong = 1 });
+         Items.Add(new ThucUong() { STT = 1, ten = "coffee den", gia = 20000, soluong = 1 });
+           lvListBill.ItemsSource = Items;*/
         }
         public class ThucUong
         {
@@ -259,7 +260,7 @@ namespace GruGru
             mtpHourStart.Height = height004;
             mtpHourStart.Width = width / 90*6;
 
-            temp6.Width = width / 180*6;
+            temp6.Width = width / 180*5;
 
             tbTimeEnd.FontSize = height002;
             tbTimeEnd.Height = height003;
@@ -275,7 +276,7 @@ namespace GruGru
             mtpHourEnd.Height = height004;
             mtpHourEnd.Width = width / 90*6;
 
-            temp8.Width = width / 180*6;
+            temp8.Width = width / 180*5;
 
             cbbTypeStatistical.FontSize = height0018;
             cbbTypeStatistical.Height = height004;
@@ -285,7 +286,7 @@ namespace GruGru
 
             tbxSearchStatistical.FontSize = height0018;
             tbxSearchStatistical.Height = height005;
-            tbxSearchStatistical.Width = width / 30 * 9;
+            tbxSearchStatistical.Width = width / 30 * 8.5;
 
             temp10.Width = width / 180*3;
 
@@ -306,6 +307,65 @@ namespace GruGru
             gvcNumber.Width = lvListStatistical.Width / 20*2;
 
             temp12.Width = width / 5*4;
+        }
+        public void JobCalendarScreen()
+        {
+
+            temp31.Width = width / 30;
+
+            tbDayStartCalendar.FontSize = height0028;
+            tbDayStartCalendar.Height = height004;
+            tbDayStartCalendar.Width = width / 6;
+
+            dpDayStartCalendar.FontSize = height002;
+            dpDayStartCalendar.Height = height005;
+            dpDayStartCalendar.Width = width / 10;
+
+            temp32.Width = width / 9*5;
+            temp33.Width = width * 0.06;
+
+            gridCalendar.Width = width * 0.85;
+            gridCalendar.Height = height * 0.9;
+
+            //thứ
+            tbMonday.FontSize = height003;
+            tbTuesday.FontSize = height003;
+            tbWednesday.FontSize = height003;
+            tbThursday.FontSize = height003;
+            tbFriday.FontSize = height003;
+            tbSaturday.FontSize = height003;
+            tbSunday.FontSize = height003;
+
+            //giờ làm
+            tbTime1.FontSize = height0025;
+            tbTime2.FontSize = height0025;
+            tbTime3.FontSize = height0025;
+
+            //họ và tên
+            tbMonday1.FontSize = height004;
+            tbTuesday1.FontSize = height004;
+            tbWednesday1.FontSize = height004;
+            tbThursday1.FontSize = height004;
+            tbFriday1.FontSize = height004;
+            tbSaturday1.FontSize = height004;
+            tbSunday1.FontSize = height004;
+
+            tbMonday2.FontSize = height004;
+            tbTuesday2.FontSize = height004;
+            tbWednesday2.FontSize = height004;
+            tbThursday2.FontSize = height004;
+            tbFriday2.FontSize = height004;
+            tbSaturday2.FontSize = height004;
+            tbSunday2.FontSize = height004;
+
+            tbMonday3.FontSize = height004;
+            tbTuesday3.FontSize = height004;
+            tbWednesday3.FontSize = height004;
+            tbThursday3.FontSize = height004;
+            tbFriday3.FontSize = height004;
+            tbSaturday3.FontSize = height004;
+            tbSunday3.FontSize = height004;
+
         }
     }
 }
