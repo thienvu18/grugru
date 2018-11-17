@@ -242,7 +242,7 @@
             <Grid x:Name="temp12"></Grid>
             <TextBlock x:Name="tbTotal" Text="Tổng: 0000000 00000000"></TextBlock>
         </WrapPanel>
-        <WrapPanel x:Name="wrpJobCalendar" >
+        <WrapPanel x:Name="wrpJobCalendar" Visibility="Hidden">
             <Button x:Name="btnJobCalendar" >
                 <materialDesign:PackIcon Kind="ArrowLeftBoldCircleOutline" />
             </Button>
@@ -403,5 +403,79 @@
                 </Grid>
                 </Grid>
         </WrapPanel>
+            <WrapPanel x:Name="wrpFind">
+                <Button x:Name="btnBackFind" >
+                    <materialDesign:PackIcon Kind="ArrowLeftBoldCircleOutline" />
+                </Button>
+                <Grid x:Name="temp41"></Grid>
+                <TextBlock x:Name="tbTimestartFind"  Text="Ngày giờ bắt đầu:"></TextBlock>
+                <DatePicker x:Name="dpDayStartFind"
+                materialDesign:HintAssist.Hint="Chọn ngày"
+                Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+                <Grid x:Name="temp42"></Grid>
+                <materialDesign:TimePicker x:Name="mtpHourStartFind"
+                Is24Hours="True"
+                Style="{StaticResource MaterialDesignFloatingHintTimePicker}"
+                materialDesign:HintAssist.Hint="Chọn giờ" />
+                <Grid x:Name="temp43"></Grid>
+                <TextBlock x:Name="tbTimeEndFind"  Text="Ngày giờ kết thúc:"></TextBlock>
+                <DatePicker x:Name="dpDayEndFind"
+                materialDesign:HintAssist.Hint="Chọn ngày"
+                Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+                <Grid x:Name="temp44"></Grid>
+                <materialDesign:TimePicker x:Name="mtpHourEndFind"
+                Is24Hours="True"
+                Style="{StaticResource MaterialDesignFloatingHintTimePicker}"
+                materialDesign:HintAssist.Hint="Chọn giờ" />
+                <Grid x:Name="temp45"></Grid>
+                <ComboBox x:Name="cbbTypeFind"
+            materialDesign:HintAssist.Hint="Hóa Đơn">
+                    <ComboBoxItem>
+                        Nhân viên
+                    </ComboBoxItem>
+                    <ComboBoxItem>
+                        Khách hàng
+                    </ComboBoxItem>
+                    <ComboBoxItem>
+                        Hóa đơn
+                    </ComboBoxItem>
+                    <ComboBoxItem>
+                        Thức uống
+                    </ComboBoxItem>
+                    <ComboBoxItem>
+                        Giá tiền
+                    </ComboBoxItem>
+                    <ComboBoxItem>
+                        Số lượng
+                    </ComboBoxItem>
+                </ComboBox>
+                <Grid x:Name="temp46"></Grid>
+                <TextBox x:Name="tbxSearchFind"
+              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+              materialDesign:HintAssist.Hint="Hóa đơn/ số lượng/ giá cả/ nhân viên/ khách hàng/ thức uống"
+              Text="{Binding Content}"
+              Margin="8 0 0 0"
+              VerticalAlignment="Bottom" />
+                <Grid x:Name="temp47"></Grid>
+                <Button x:Name="btnFind" Content="Tìm kiếm"></Button>
+                <Grid x:Name="temp48"></Grid>
+                <ScrollViewer VerticalScrollBarVisibility="Auto" >
+                    <ListView x:Name="lvListFind">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn x:Name="gvcFindSTT" Header="STT" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
+                                <GridViewColumn x:Name="gvcFindHour" Header="Giờ" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
+                                <GridViewColumn x:Name="gvcFindDay" Header="Ngày" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
+                                <GridViewColumn x:Name="gvcFindBillCode" Header="Mã hóa đơn" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
+                                <GridViewColumn x:Name="gvcFindEmployeeCode" Header="Mã nhân viên" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
+                                <GridViewColumn x:Name="gvcFindCustomerCode" Header="Mã khách hàng" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
+                                <GridViewColumn x:Name="gvcFindDrink" Header="Tên thức uống" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
+                                <GridViewColumn x:Name="gvcFindMoney" Header="Giá tiền" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
+                                <GridViewColumn x:Name="gvcFindNumber" Header="số lượng" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </ScrollViewer>
+            </WrapPanel>
     </Grid>
 </Window>

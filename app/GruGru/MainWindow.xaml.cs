@@ -48,7 +48,8 @@ namespace GruGru
             this.Width = width+30;
             //MainScreen();
             //StatisticalScreen();
-            JobCalendarScreen();
+            //JobCalendarScreen();
+            FindScreen();
 
             /*coffee.Width = 0.2 * width;
             coffee.Height =height-height006;
@@ -366,6 +367,71 @@ namespace GruGru
             tbSaturday3.FontSize = height004;
             tbSunday3.FontSize = height004;
 
+        }
+        public void FindScreen()
+        {
+            //hàng đầu tiên
+            temp41.Width = width / 90;
+
+            tbTimestartFind.FontSize = height002;
+            tbTimestartFind.Height = height003;
+            tbTimestartFind.Width = width / 90 * 8;
+
+            dpDayStartFind.FontSize = height0018;
+            dpDayStartFind.Height = height005;
+            dpDayStartFind.Width = width / 90 * 6;
+
+            temp42.Width = width / 180;
+
+            mtpHourStartFind.FontSize = height0018;
+            mtpHourStartFind.Height = height004;
+            mtpHourStartFind.Width = width / 90 * 6;
+
+            temp43.Width = width / 180 * 5;
+
+            tbTimeEndFind.FontSize = height002;
+            tbTimeEndFind.Height = height003;
+            tbTimeEndFind.Width = width / 90 * 8;
+
+            dpDayEndFind.FontSize = height0018;
+            dpDayEndFind.Height = height005;
+            dpDayEndFind.Width = width / 90 * 6;
+
+            temp44.Width = width / 180;
+
+            mtpHourEndFind.FontSize = height0018;
+            mtpHourEndFind.Height = height004;
+            mtpHourEndFind.Width = width / 90 * 6;
+
+            temp45.Width = width / 180 * 5;
+
+            cbbTypeFind.FontSize = height0018;
+            cbbTypeFind.Height = height004;
+            cbbTypeFind.Width = width / 90 * 6;
+
+            temp46.Width = width / 180;
+
+            tbxSearchFind.FontSize = height0018;
+            tbxSearchFind.Height = height005;
+            tbxSearchFind.Width = width / 30 * 8.5;
+
+            temp47.Width = width / 180 * 3;
+
+            //list Find
+            temp48.Width = width * 0.05;
+
+            lvListFind.Height = height * 0.9;
+            lvListFind.Width = width * 0.9;
+
+            gvcFindSTT.Width = lvListFind.Width / 20;
+            gvcFindHour.Width = lvListFind.Width / 20 * 2;
+            gvcFindDay.Width = lvListFind.Width / 20 * 2;
+            gvcFindBillCode.Width = lvListFind.Width / 20 * 2;
+            gvcFindEmployeeCode.Width = lvListFind.Width / 15 * 2;
+            gvcFindCustomerCode.Width = lvListFind.Width / 15 * 2;
+            gvcFindDrink.Width = lvListFind.Width / 15 * 3;
+            gvcFindMoney.Width = lvListFind.Width / 20 * 2;
+            gvcFindNumber.Width = lvListFind.Width / 20 * 2;
         }
     }
 }
