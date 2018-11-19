@@ -70,6 +70,7 @@ namespace GruGru
          Items.Add(new ThucUong() { STT = 1, ten = "coffee den", gia = 20000, soluong = 1 });
            lvListBill.ItemsSource = Items;*/
         }
+
         public class ThucUong
         {
             public int STT { get; set; }
@@ -77,6 +78,7 @@ namespace GruGru
             public long gia { get; set; }
             public int soluong { get; set; }
         }
+
         public void MainScreen()
         {
             //thanh ngang đầu tiên
@@ -242,6 +244,7 @@ namespace GruGru
             tbPayMoney.Height = heighttbBill;
             tbPayMoney.Width = gridInforBill.Width - 10;
         }
+
         public void StatisticalScreen()
         {
             //hàng đầu tiên
@@ -309,6 +312,7 @@ namespace GruGru
 
             temp12.Width = width / 5*4;
         }
+
         public void JobCalendarScreen()
         {
 
@@ -368,6 +372,7 @@ namespace GruGru
             tbSunday3.FontSize = height004;
 
         }
+
         public void FindScreen()
         {
             //hàng đầu tiên
@@ -420,6 +425,9 @@ namespace GruGru
             //list Find
             temp48.Width = width * 0.05;
 
+            gridFind.Height = height * 0.9;
+            gridFind.Width = width * 0.9;
+
             lvListFind.Height = height * 0.9;
             lvListFind.Width = width * 0.9;
 
@@ -432,6 +440,75 @@ namespace GruGru
             gvcFindDrink.Width = lvListFind.Width / 15 * 3;
             gvcFindMoney.Width = lvListFind.Width / 20 * 2;
             gvcFindNumber.Width = lvListFind.Width / 20 * 2;
+
+            //list thông tin khách hàng
+            temp49.Height = height*0.15;
+            temp49.Width = width;
+
+            temp48.Width = width * 0.1;
+
+            gridFind.Height = height * 0.85;
+            gridFind.Width = width * 0.8;
+
+            stpInforCustomer.Height = gridFind.Height;
+            stpInforCustomer.Width = gridFind.Width;
+
+            stpInforCustomer1.Height = stpInforCustomer.Height;
+            stpInforCustomer1.Width = stpInforCustomer.Width/2;
+
+            stpInforCustomer2.Height = stpInforCustomer.Height;
+            stpInforCustomer2.Width = stpInforCustomer.Width / 2;
+
+            //Mã khách hàng
+            tbCustomerCode.FontSize = height0028;
+
+            tbxCustomerCode.FontSize = height0028;
+            tbxCustomerCode.Width = stpInforCustomer1.Width * 0.6;
+
+            temp491.Height = stpInforCustomer1.Height / 12;
+
+            //Tên khách hàng
+            tbCustomerName.FontSize = height0028;
+            tbxCustomerName.FontSize = height0028;
+            tbxCustomerName.Width = stpInforCustomer1.Width * 0.6;
+
+            temp492.Height = stpInforCustomer1.Height / 12;
+
+            //Điểm
+            tbScore.FontSize = height0028;
+            tbxScore.FontSize = height0028;
+            tbxScore.Width = stpInforCustomer1.Width * 0.6;
+
+            temp493.Height = stpInforCustomer1.Height / 12;
+
+            //Cập nhật
+            btnCustomerUpdate.FontSize = height003;
+            btnCustomerUpdate.Height = height005;
+
+            //Số điện thoại
+            tbPhoneNumber.FontSize = height0028;
+            tbxPhoneNumber.FontSize = height0028;
+            tbxPhoneNumber.Width = stpInforCustomer2.Width * 0.6;
+
+            temp494.Height = stpInforCustomer1.Height / 12;
+
+            //Ngày sinh
+            tbBirthDay.FontSize = height0028;
+            tbxBirthDay.FontSize = height0028;
+            tbxBirthDay.Width = stpInforCustomer2.Width * 0.6;
+
+            temp495.Height = stpInforCustomer1.Height / 12;
+
+            //CMND
+            tbID.FontSize = height0028;
+            tbxID.FontSize = height0028;
+            tbxID.Width = stpInforCustomer2.Width * 0.6;
+
+            temp496.Height = stpInforCustomer1.Height / 12;
+
+            //Xóa
+            btnCustomerDelete.FontSize = height003;
+            btnCustomerDelete.Height = height005;
         }
     }
 }

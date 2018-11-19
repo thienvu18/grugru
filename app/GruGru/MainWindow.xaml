@@ -403,7 +403,7 @@
                 </Grid>
                 </Grid>
         </WrapPanel>
-            <WrapPanel x:Name="wrpFind">
+        <WrapPanel x:Name="wrpFind">
                 <Button x:Name="btnBackFind" >
                     <materialDesign:PackIcon Kind="ArrowLeftBoldCircleOutline" />
                 </Button>
@@ -429,12 +429,12 @@
                 materialDesign:HintAssist.Hint="Chọn giờ" />
                 <Grid x:Name="temp45"></Grid>
                 <ComboBox x:Name="cbbTypeFind"
-            materialDesign:HintAssist.Hint="Hóa Đơn">
+                     materialDesign:HintAssist.Hint="Hóa Đơn">
                     <ComboBoxItem>
-                        Nhân viên
+                        Thông tin nhân viên
                     </ComboBoxItem>
                     <ComboBoxItem>
-                        Khách hàng
+                        Thông tin khách hàng
                     </ComboBoxItem>
                     <ComboBoxItem>
                         Hóa đơn
@@ -458,9 +458,11 @@
               VerticalAlignment="Bottom" />
                 <Grid x:Name="temp47"></Grid>
                 <Button x:Name="btnFind" Content="Tìm kiếm"></Button>
+                <Grid x:Name="temp49"></Grid>
                 <Grid x:Name="temp48"></Grid>
-                <ScrollViewer VerticalScrollBarVisibility="Auto" >
-                    <ListView x:Name="lvListFind">
+            <Grid x:Name="gridFind">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Visibility="Hidden">
+                    <ListView x:Name="lvListFind" >
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn x:Name="gvcFindSTT" Header="STT" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
@@ -475,7 +477,34 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
-                </ScrollViewer>
-            </WrapPanel>
+            </ScrollViewer>
+                <StackPanel x:Name="stpInforCustomer" Orientation="Horizontal">
+                    <StackPanel x:Name="stpInforCustomer1">
+                        <TextBlock x:Name="tbCustomerCode" Text="Mã Khách hàng:"></TextBlock>
+                        <TextBox x:Name="tbxCustomerCode"></TextBox>
+                        <Grid x:Name="temp491"></Grid>
+                        <TextBlock x:Name="tbCustomerName" Text="Họ tên khách hàng:" ></TextBlock>
+                        <TextBox x:Name="tbxCustomerName"></TextBox>
+                        <Grid x:Name="temp492"></Grid>
+                        <TextBlock x:Name="tbScore" Text="Điểm tích lũy:" ></TextBlock>
+                        <TextBox x:Name="tbxScore" IsEnabled="False"></TextBox>
+                        <Grid x:Name="temp493"></Grid>
+                        <Button x:Name="btnCustomerUpdate" HorizontalAlignment="Center" Content="Cập Nhật"></Button>
+                    </StackPanel>
+                    <StackPanel x:Name="stpInforCustomer2">
+                        <TextBlock x:Name="tbPhoneNumber" Text="Số điện thoại:"></TextBlock>
+                        <TextBox x:Name="tbxPhoneNumber"></TextBox>
+                        <Grid x:Name="temp494"></Grid>
+                        <TextBlock x:Name="tbBirthDay" Text="Ngày sinh:"></TextBlock>
+                        <TextBox x:Name="tbxBirthDay"></TextBox>
+                        <Grid x:Name="temp495"></Grid>
+                        <TextBlock x:Name="tbID" Text="CMND:"></TextBlock>
+                        <TextBox x:Name="tbxID"></TextBox>
+                        <Grid x:Name="temp496"></Grid>
+                        <Button x:Name="btnCustomerDelete" HorizontalAlignment="Center" Content="Xóa"></Button>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </WrapPanel>
     </Grid>
 </Window>
