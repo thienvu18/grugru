@@ -15,21 +15,22 @@
         mc:Ignorable="d"
         Title="MainWindow">
     <Grid>
-        <StackPanel x:Name="stpMainScreen" Visibility="Hidden">
+        <StackPanel x:Name="stpMainScreen" >
             <StackPanel x:Name="stpTitle" Orientation="Horizontal">
-            <TextBlock x:Name="txbCoffee" Text="Coffee" TextAlignment="Center" Background="#FFFDDDF4"></TextBlock>
-            <TextBlock x:Name="txbMilktea" Text="Milk tea" Background="#FFFDDDF4" TextAlignment="Center"></TextBlock>
-            <TextBlock x:Name="txbTopping" Text="Topping" Background="#FFFDDDF4" TextAlignment="Center"></TextBlock>
-            <TextBlock x:Name="txbInfor" Text="Thông tin hóa đơn" Background="#FFFDC5EE"  TextAlignment="Center"></TextBlock>
-            <ComboBox x:Name="cbbEmployee" >
-                <Button x:Name="btnCalendar" Content="Lịch làm việc"></Button>
-                <Button x:Name="btnLogout" Content="Đăng xuất" ></Button>
-                <Button x:Name="btnRegister" Content="Đăng ký khách hàng" ></Button>
-            </ComboBox>
+                <TextBlock x:Name="txbCoffee" Text="Coffee" TextAlignment="Center" Background="#FFFDDDF4"></TextBlock>
+                <TextBlock x:Name="txbMilktea" Text="Milk tea" Background="#FFFDDDF4" TextAlignment="Center"></TextBlock>
+                <TextBlock x:Name="txbTopping" Text="Topping" Background="#FFFDDDF4" TextAlignment="Center"></TextBlock>
+                <TextBlock x:Name="txbInfor" Text="Thông tin hóa đơn" Background="#FFFDC5EE"  TextAlignment="Center"></TextBlock>
+                <ComboBox x:Name="cbbEmployee" >
+                    <Button x:Name="btnCalendar" Content="Lịch làm việc"></Button>
+                    <Button x:Name="btnLogout" Content="Đăng xuất" ></Button>
+                    <Button x:Name="btnRegister" Content="Đăng ký khách hàng" ></Button>
+                </ComboBox>
             </StackPanel>
             <StackPanel x:Name="stpMenu" Orientation="Horizontal">
                 <WrapPanel x:Name="stpDrink">
-                <Grid x:Name="gridCoffee">
+                    <Grid x:Name="temp01"></Grid>
+                    <Grid x:Name="gridCoffee">
                         <Grid.RowDefinitions>
                             <RowDefinition></RowDefinition>
                             <RowDefinition></RowDefinition>
@@ -45,6 +46,22 @@
                             <RowDefinition></RowDefinition>
                         </Grid.RowDefinitions>
                         <WrapPanel Grid.Row="0">
+                            <TextBlock x:Name="tbCf0" HorizontalAlignment="Center"  TextWrapping="WrapWithOverflow" Text="Sua tuoi tran chau duong den themaaaaaaaaaaaaa" ></TextBlock>
+                            <Button x:Name="btnChooseCf0" Content="+" ></Button>
+                            <ComboBox x:Name="cbbSizeCf0" FontWeight="Bold" materialDesign:HintAssist.Hint="S">
+                                <ComboBoxItem>
+                                    S
+                                </ComboBoxItem>
+                                <ComboBoxItem>
+                                    M
+                                </ComboBoxItem>
+                                <ComboBoxItem>
+                                    L
+                                </ComboBoxItem>
+                            </ComboBox>
+                            <Button x:Name="btnInforCf0" Content="..."></Button>
+                        </WrapPanel>
+                        <WrapPanel Grid.Row="1">
                             <TextBlock x:Name="tbCf1" HorizontalAlignment="Center"  TextWrapping="WrapWithOverflow" Text="Sua tuoi tran chau duong den themaaaaaaaaaaaaa" ></TextBlock>
                             <Button x:Name="btnChooseCf1" Content="+" ></Button>
                             <ComboBox x:Name="cbbSizeCf1" FontWeight="Bold" materialDesign:HintAssist.Hint="S">
@@ -58,30 +75,190 @@
                                     L
                                 </ComboBoxItem>
                             </ComboBox>
-                            <Button x:Name="btnInforcf1" Content="..."></Button>
+                            <Button x:Name="btnInforCf1" Content="..."></Button>
                         </WrapPanel>
-                </Grid>
-                <Grid x:Name="gridMilktea">
-                    <Grid Grid.Column="0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition></RowDefinition>
-                        </Grid.RowDefinitions>
-                        <WrapPanel Grid.Row="0">
-                            <TextBlock x:Name="tbMt1" HorizontalAlignment="Center"  TextWrapping="WrapWithOverflow" Text="Sua tuoi tran chau duong den themaaaaaaaaaaaaa" ></TextBlock>
-                            <Button x:Name="btnChooseMt1" Content="+" ></Button>
-                            <ComboBox x:Name="cbbSizeMt1" FontWeight="Bold"
-                                    materialDesign:HintAssist.Hint="S">
+                        <WrapPanel Grid.Row="2">
+                            <TextBlock x:Name="tbCf2" HorizontalAlignment="Center"  TextWrapping="WrapWithOverflow" Text="Sua tuoi tran chau duong den themaaaaaaaaaaaaa" ></TextBlock>
+                            <Button x:Name="btnChooseCf2" Content="+" ></Button>
+                            <ComboBox x:Name="cbbSizeCf2" FontWeight="Bold" materialDesign:HintAssist.Hint="S">
+                                <ComboBoxItem>
+                                    S
+                                </ComboBoxItem>
+                                <ComboBoxItem>
+                                    M
+                                </ComboBoxItem>
+                                <ComboBoxItem>
+                                    L
+                                </ComboBoxItem>
+                            </ComboBox>
+                            <Button x:Name="btnInforCf2" Content="..."></Button>
+                        </WrapPanel>
+                        <WrapPanel Grid.Row="3">
+                            <TextBlock x:Name="tbCf3" HorizontalAlignment="Center"  TextWrapping="WrapWithOverflow" Text="Sua tuoi tran chau duong den themaaaaaaaaaaaaa" ></TextBlock>
+                            <Button x:Name="btnChooseCf3" Content="+" ></Button>
+                            <ComboBox x:Name="cbbSizeCf3" FontWeight="Bold" materialDesign:HintAssist.Hint="S">
+                                <ComboBoxItem>
+                                    S
+                                </ComboBoxItem>
+                                <ComboBoxItem>
+                                    M
+                                </ComboBoxItem>
+                                <ComboBoxItem>
+                                    L
+                                </ComboBoxItem>
+                            </ComboBox>
+                            <Button x:Name="btnInforCf3" Content="..."></Button>
+                        </WrapPanel>
+                        <WrapPanel Grid.Row="4">
+                            <TextBlock x:Name="tbCf4" HorizontalAlignment="Center"  TextWrapping="WrapWithOverflow" Text="Sua tuoi tran chau duong den themaaaaaaaaaaaaa" ></TextBlock>
+                            <Button x:Name="btnChooseCf4" Content="+" ></Button>
+                            <ComboBox x:Name="cbbSizeCf4" FontWeight="Bold" materialDesign:HintAssist.Hint="S">
+                                <ComboBoxItem>
+                                    S
+                                </ComboBoxItem>
+                                <ComboBoxItem>
+                                    M
+                                </ComboBoxItem>
+                                <ComboBoxItem>
+                                    L
+                                </ComboBoxItem>
+                            </ComboBox>
+                            <Button x:Name="btnInforCf4" Content="..."></Button>
+                        </WrapPanel>
+                        <WrapPanel Grid.Row="5">
+                            <TextBlock x:Name="tbCf5" HorizontalAlignment="Center"  TextWrapping="WrapWithOverflow" Text="Sua tuoi tran chau duong den themaaaaaaaaaaaaa" ></TextBlock>
+                            <Button x:Name="btnChooseCf5" Content="+" ></Button>
+                            <ComboBox x:Name="cbbSizeCf5" FontWeight="Bold" materialDesign:HintAssist.Hint="S">
+                                <ComboBoxItem>
+                                    S
+                                </ComboBoxItem>
+                                <ComboBoxItem>
+                                    M
+                                </ComboBoxItem>
+                                <ComboBoxItem>
+                                    L
+                                </ComboBoxItem>
+                            </ComboBox>
+                            <Button x:Name="btnInforCf5" Content="..."></Button>
+                        </WrapPanel>
+                        <WrapPanel Grid.Row="6">
+                            <TextBlock x:Name="tbCf6" HorizontalAlignment="Center"  TextWrapping="WrapWithOverflow" Text="Sua tuoi tran chau duong den themaaaaaaaaaaaaa" ></TextBlock>
+                            <Button x:Name="btnChooseCf6" Content="+" ></Button>
+                            <ComboBox x:Name="cbbSizeCf6" FontWeight="Bold" materialDesign:HintAssist.Hint="S">
+                                <ComboBoxItem>
+                                    S
+                                </ComboBoxItem>
+                                <ComboBoxItem>
+                                    M
+                                </ComboBoxItem>
+                                <ComboBoxItem>
+                                    L
+                                </ComboBoxItem>
+                            </ComboBox>
+                            <Button x:Name="btnInforCf6" Content="..."></Button>
+                        </WrapPanel>
+                        <WrapPanel Grid.Row="7">
+                            <TextBlock x:Name="tbCf7" HorizontalAlignment="Center"  TextWrapping="WrapWithOverflow" Text="Sua tuoi tran chau duong den themaaaaaaaaaaaaa" ></TextBlock>
+                            <Button x:Name="btnChooseCf7" Content="+" ></Button>
+                            <ComboBox x:Name="cbbSizeCf7" FontWeight="Bold" materialDesign:HintAssist.Hint="S">
+                                <ComboBoxItem>
+                                    S
+                                </ComboBoxItem>
+                                <ComboBoxItem>
+                                    M
+                                </ComboBoxItem>
+                                <ComboBoxItem>
+                                    L
+                                </ComboBoxItem>
+                            </ComboBox>
+                            <Button x:Name="btnInforCf7" Content="..."></Button>
+                        </WrapPanel>
+                        <WrapPanel Grid.Row="8">
+                            <TextBlock x:Name="tbCf8" HorizontalAlignment="Center"  TextWrapping="WrapWithOverflow" Text="Sua tuoi tran chau duong den themaaaaaaaaaaaaa" ></TextBlock>
+                            <Button x:Name="btnChooseCf8" Content="+" ></Button>
+                            <ComboBox x:Name="cbbSizeCf8" FontWeight="Bold" materialDesign:HintAssist.Hint="S">
+                                <ComboBoxItem>
+                                    S
+                                </ComboBoxItem>
+                                <ComboBoxItem>
+                                    M
+                                </ComboBoxItem>
+                                <ComboBoxItem>
+                                    L
+                                </ComboBoxItem>
+                            </ComboBox>
+                            <Button x:Name="btnInforCf8" Content="..."></Button>
+                        </WrapPanel>
+                        <WrapPanel Grid.Row="9">
+                            <TextBlock x:Name="tbCf9" HorizontalAlignment="Center"  TextWrapping="WrapWithOverflow" Text="Sua tuoi tran chau duong den themaaaaaaaaaaaaa" ></TextBlock>
+                            <Button x:Name="btnChooseCf9" Content="+" ></Button>
+                            <ComboBox x:Name="cbbSizeCf9" FontWeight="Bold" materialDesign:HintAssist.Hint="S">
+                                <ComboBoxItem>
+                                    S
+                                </ComboBoxItem>
+                                <ComboBoxItem>
+                                    M
+                                </ComboBoxItem>
+                                <ComboBoxItem>
+                                    L
+                                </ComboBoxItem>
+                            </ComboBox>
+                            <Button x:Name="btnInforCf9" Content="..."></Button>
+                        </WrapPanel>
+                        <WrapPanel Grid.Row="10">
+                            <TextBlock x:Name="tbCf10" HorizontalAlignment="Center"  TextWrapping="WrapWithOverflow" Text="Sua tuoi tran chau duong den themaaaaaaaaaaaaa" ></TextBlock>
+                            <Button x:Name="btnChooseCf10" Content="+" ></Button>
+                            <ComboBox x:Name="cbbSizeCf10" FontWeight="Bold" materialDesign:HintAssist.Hint="S">
+                                <ComboBoxItem>
+                                    S
+                                </ComboBoxItem>
+                                <ComboBoxItem>
+                                    M
+                                </ComboBoxItem>
+                                <ComboBoxItem>
+                                    L
+                                </ComboBoxItem>
+                            </ComboBox>
+                            <Button x:Name="btnInforCf10" Content="..."></Button>
+                        </WrapPanel>
+                        <WrapPanel Grid.Row="11">
+                            <TextBlock x:Name="tbCf11" HorizontalAlignment="Center"  TextWrapping="WrapWithOverflow" Text="Sua tuoi tran chau duong den themaaaaaaaaaaaaa" ></TextBlock>
+                            <Button x:Name="btnChooseCf11" Content="+" ></Button>
+                            <ComboBox x:Name="cbbSizeCf11" FontWeight="Bold" materialDesign:HintAssist.Hint="S">
+                                <ComboBoxItem>
+                                    S
+                                </ComboBoxItem>
+                                <ComboBoxItem>
+                                    M
+                                </ComboBoxItem>
+                                <ComboBoxItem>
+                                    L
+                                </ComboBoxItem>
+                            </ComboBox>
+                            <Button x:Name="btnInforCf11" Content="..."></Button>
+                        </WrapPanel>
+                    </Grid>
+                    <Grid x:Name="temp02"></Grid>
+                    <Grid x:Name="gridMilktea">
+                        <Grid Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <WrapPanel Grid.Row="0">
+                                <TextBlock x:Name="tbMt0" HorizontalAlignment="Center"  TextWrapping="WrapWithOverflow" Text="Sua tuoi tran chau duong den themaaaaaaaaaaaaa" ></TextBlock>
+                                <Button x:Name="btnChooseMt0" Content="+" ></Button>
+                                <ComboBox x:Name="cbbSizeMt0" FontWeight="Bold" materialDesign:HintAssist.Hint="S">
                                     <ComboBoxItem>
                                         S
                                     </ComboBoxItem>
@@ -92,29 +269,222 @@
                                         L
                                     </ComboBoxItem>
                                 </ComboBox>
-                            <Button x:Name="btnInforMt1" Content="..."></Button>
-                        </WrapPanel>
+                                <Button x:Name="btnInforMt0" Content="..."></Button>
+                            </WrapPanel>
+                            <WrapPanel Grid.Row="1">
+                                <TextBlock x:Name="tbMt1" HorizontalAlignment="Center"  TextWrapping="WrapWithOverflow" Text="Sua tuoi tran chau duong den themaaaaaaaaaaaaa" ></TextBlock>
+                                <Button x:Name="btnChooseMt1" Content="+" ></Button>
+                                <ComboBox x:Name="cbbSizeMt1" FontWeight="Bold" materialDesign:HintAssist.Hint="S">
+                                    <ComboBoxItem>
+                                        S
+                                    </ComboBoxItem>
+                                    <ComboBoxItem>
+                                        M
+                                    </ComboBoxItem>
+                                    <ComboBoxItem>
+                                        L
+                                    </ComboBoxItem>
+                                </ComboBox>
+                                <Button x:Name="btnInforMt1" Content="..."></Button>
+                            </WrapPanel>
+                            <WrapPanel Grid.Row="2">
+                                <TextBlock x:Name="tbMt2" HorizontalAlignment="Center"  TextWrapping="WrapWithOverflow" Text="Sua tuoi tran chau duong den themaaaaaaaaaaaaa" ></TextBlock>
+                                <Button x:Name="btnChooseMt2" Content="+" ></Button>
+                                <ComboBox x:Name="cbbSizeMt2" FontWeight="Bold" materialDesign:HintAssist.Hint="S">
+                                    <ComboBoxItem>
+                                        S
+                                    </ComboBoxItem>
+                                    <ComboBoxItem>
+                                        M
+                                    </ComboBoxItem>
+                                    <ComboBoxItem>
+                                        L
+                                    </ComboBoxItem>
+                                </ComboBox>
+                                <Button x:Name="btnInforMt2" Content="..."></Button>
+                            </WrapPanel>
+                            <WrapPanel Grid.Row="3">
+                                <TextBlock x:Name="tbMt3" HorizontalAlignment="Center"  TextWrapping="WrapWithOverflow" Text="Sua tuoi tran chau duong den themaaaaaaaaaaaaa" ></TextBlock>
+                                <Button x:Name="btnChooseMt3" Content="+" ></Button>
+                                <ComboBox x:Name="cbbSizeMt3" FontWeight="Bold" materialDesign:HintAssist.Hint="S">
+                                    <ComboBoxItem>
+                                        S
+                                    </ComboBoxItem>
+                                    <ComboBoxItem>
+                                        M
+                                    </ComboBoxItem>
+                                    <ComboBoxItem>
+                                        L
+                                    </ComboBoxItem>
+                                </ComboBox>
+                                <Button x:Name="btnInforMt3" Content="..."></Button>
+                            </WrapPanel>
+                            <WrapPanel Grid.Row="4">
+                                <TextBlock x:Name="tbMt4" HorizontalAlignment="Center"  TextWrapping="WrapWithOverflow" Text="Sua tuoi tran chau duong den themaaaaaaaaaaaaa" ></TextBlock>
+                                <Button x:Name="btnChooseMt4" Content="+" ></Button>
+                                <ComboBox x:Name="cbbSizeMt4" FontWeight="Bold" materialDesign:HintAssist.Hint="S">
+                                    <ComboBoxItem>
+                                        S
+                                    </ComboBoxItem>
+                                    <ComboBoxItem>
+                                        M
+                                    </ComboBoxItem>
+                                    <ComboBoxItem>
+                                        L
+                                    </ComboBoxItem>
+                                </ComboBox>
+                                <Button x:Name="btnInforMt4" Content="..."></Button>
+                            </WrapPanel>
+                            <WrapPanel Grid.Row="5">
+                                <TextBlock x:Name="tbMt5" HorizontalAlignment="Center"  TextWrapping="WrapWithOverflow" Text="Sua tuoi tran chau duong den themaaaaaaaaaaaaa" ></TextBlock>
+                                <Button x:Name="btnChooseMt5" Content="+" ></Button>
+                                <ComboBox x:Name="cbbSizeMt5" FontWeight="Bold" materialDesign:HintAssist.Hint="S">
+                                    <ComboBoxItem>
+                                        S
+                                    </ComboBoxItem>
+                                    <ComboBoxItem>
+                                        M
+                                    </ComboBoxItem>
+                                    <ComboBoxItem>
+                                        L
+                                    </ComboBoxItem>
+                                </ComboBox>
+                                <Button x:Name="btnInforMt5" Content="..."></Button>
+                            </WrapPanel>
+                            <WrapPanel Grid.Row="6">
+                                <TextBlock x:Name="tbMt6" HorizontalAlignment="Center"  TextWrapping="WrapWithOverflow" Text="Sua tuoi tran chau duong den themaaaaaaaaaaaaa" ></TextBlock>
+                                <Button x:Name="btnChooseMt6" Content="+" ></Button>
+                                <ComboBox x:Name="cbbSizeMt6" FontWeight="Bold" materialDesign:HintAssist.Hint="S">
+                                    <ComboBoxItem>
+                                        S
+                                    </ComboBoxItem>
+                                    <ComboBoxItem>
+                                        M
+                                    </ComboBoxItem>
+                                    <ComboBoxItem>
+                                        L
+                                    </ComboBoxItem>
+                                </ComboBox>
+                                <Button x:Name="btnInforMt6" Content="..."></Button>
+                            </WrapPanel>
+                            <WrapPanel Grid.Row="7">
+                                <TextBlock x:Name="tbMt7" HorizontalAlignment="Center"  TextWrapping="WrapWithOverflow" Text="Sua tuoi tran chau duong den themaaaaaaaaaaaaa" ></TextBlock>
+                                <Button x:Name="btnChooseMt7" Content="+" ></Button>
+                                <ComboBox x:Name="cbbSizeMt7" FontWeight="Bold" materialDesign:HintAssist.Hint="S">
+                                    <ComboBoxItem>
+                                        S
+                                    </ComboBoxItem>
+                                    <ComboBoxItem>
+                                        M
+                                    </ComboBoxItem>
+                                    <ComboBoxItem>
+                                        L
+                                    </ComboBoxItem>
+                                </ComboBox>
+                                <Button x:Name="btnInforMt7" Content="..."></Button>
+                            </WrapPanel>
+                            <WrapPanel Grid.Row="8">
+                                <TextBlock x:Name="tbMt8" HorizontalAlignment="Center"  TextWrapping="WrapWithOverflow" Text="Sua tuoi tran chau duong den themaaaaaaaaaaaaa" ></TextBlock>
+                                <Button x:Name="btnChooseMt8" Content="+" ></Button>
+                                <ComboBox x:Name="cbbSizeMt8" FontWeight="Bold" materialDesign:HintAssist.Hint="S">
+                                    <ComboBoxItem>
+                                        S
+                                    </ComboBoxItem>
+                                    <ComboBoxItem>
+                                        M
+                                    </ComboBoxItem>
+                                    <ComboBoxItem>
+                                        L
+                                    </ComboBoxItem>
+                                </ComboBox>
+                                <Button x:Name="btnInforMt8" Content="..."></Button>
+                            </WrapPanel>
+                            <WrapPanel Grid.Row="9">
+                                <TextBlock x:Name="tbMt9" HorizontalAlignment="Center"  TextWrapping="WrapWithOverflow" Text="Sua tuoi tran chau duong den themaaaaaaaaaaaaa" ></TextBlock>
+                                <Button x:Name="btnChooseMt9" Content="+" ></Button>
+                                <ComboBox x:Name="cbbSizeMt9" FontWeight="Bold" materialDesign:HintAssist.Hint="S">
+                                    <ComboBoxItem>
+                                        S
+                                    </ComboBoxItem>
+                                    <ComboBoxItem>
+                                        M
+                                    </ComboBoxItem>
+                                    <ComboBoxItem>
+                                        L
+                                    </ComboBoxItem>
+                                </ComboBox>
+                                <Button x:Name="btnInforMt9" Content="..."></Button>
+                            </WrapPanel>
+                            <WrapPanel Grid.Row="10">
+                                <TextBlock x:Name="tbMt10" HorizontalAlignment="Center"  TextWrapping="WrapWithOverflow" Text="Sua tuoi tran chau duong den themaaaaaaaaaaaaa" ></TextBlock>
+                                <Button x:Name="btnChooseMt10" Content="+" ></Button>
+                                <ComboBox x:Name="cbbSizeMt10" FontWeight="Bold" materialDesign:HintAssist.Hint="S">
+                                    <ComboBoxItem>
+                                        S
+                                    </ComboBoxItem>
+                                    <ComboBoxItem>
+                                        M
+                                    </ComboBoxItem>
+                                    <ComboBoxItem>
+                                        L
+                                    </ComboBoxItem>
+                                </ComboBox>
+                                <Button x:Name="btnInforMt10" Content="..."></Button>
+                            </WrapPanel>
+                            <WrapPanel Grid.Row="11">
+                                <TextBlock x:Name="tbMt11" HorizontalAlignment="Center"  TextWrapping="WrapWithOverflow" Text="Sua tuoi tran chau duong den themaaaaaaaaaaaaa" ></TextBlock>
+                                <Button x:Name="btnChooseMt11" Content="+" ></Button>
+                                <ComboBox x:Name="cbbSizeMt11" FontWeight="Bold" materialDesign:HintAssist.Hint="S">
+                                    <ComboBoxItem>
+                                        S
+                                    </ComboBoxItem>
+                                    <ComboBoxItem>
+                                        M
+                                    </ComboBoxItem>
+                                    <ComboBoxItem>
+                                        L
+                                    </ComboBoxItem>
+                                </ComboBox>
+                                <Button x:Name="btnInforMt11" Content="..."></Button>
+                            </WrapPanel>
+                        </Grid>
                     </Grid>
-                </Grid>
-                <Grid x:Name="gridTopping">
-                    <Grid Grid.Column="0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition></RowDefinition>
-                        </Grid.RowDefinitions>
-                        <WrapPanel Grid.Row="0">
-                            <TextBlock x:Name="tbTp1" HorizontalAlignment="Center"  TextWrapping="WrapWithOverflow" Text="Sua tuoi tran chau duong den themaaaaaaaaaaaaa" ></TextBlock>
-                            <Button x:Name="btnChooseTp1" Content="+" ></Button>
+                    <Grid x:Name="temp03"></Grid>
+                    <Grid x:Name="gridTopping">
+                        <Grid Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <WrapPanel Grid.Row="0">
+                                <TextBlock x:Name="tbTp0" HorizontalAlignment="Center"  TextWrapping="WrapWithOverflow" Text="Sua tuoi tran chau duong den themaaaaaaaaaaaaa" ></TextBlock>
+                                <Button x:Name="btnChooseTp0" Content="+" ></Button>
+                                <ComboBox x:Name="cbbSizeTp0" FontWeight="Bold" materialDesign:HintAssist.Hint="S">
+                                    <ComboBoxItem>
+                                        S
+                                    </ComboBoxItem>
+                                    <ComboBoxItem>
+                                        M
+                                    </ComboBoxItem>
+                                    <ComboBoxItem>
+                                        L
+                                    </ComboBoxItem>
+                                </ComboBox>
+                                <Button x:Name="btnInforTp0" Content="..."></Button>
+                            </WrapPanel>
+                            <WrapPanel Grid.Row="1">
+                                <TextBlock x:Name="tbTp1" HorizontalAlignment="Center"  TextWrapping="WrapWithOverflow" Text="Sua tuoi tran chau duong den themaaaaaaaaaaaaa" ></TextBlock>
+                                <Button x:Name="btnChooseTp1" Content="+" ></Button>
                                 <ComboBox x:Name="cbbSizeTp1" FontWeight="Bold" materialDesign:HintAssist.Hint="S">
                                     <ComboBoxItem>
                                         S
@@ -126,11 +496,171 @@
                                         L
                                     </ComboBoxItem>
                                 </ComboBox>
-                            <Button x:Name="btnInforTp1" Content="..."></Button>
-                        </WrapPanel>
+                                <Button x:Name="btnInforTp1" Content="..."></Button>
+                            </WrapPanel>
+                            <WrapPanel Grid.Row="2">
+                                <TextBlock x:Name="tbTp2" HorizontalAlignment="Center"  TextWrapping="WrapWithOverflow" Text="Sua tuoi tran chau duong den themaaaaaaaaaaaaa" ></TextBlock>
+                                <Button x:Name="btnChooseTp2" Content="+" ></Button>
+                                <ComboBox x:Name="cbbSizeTp2" FontWeight="Bold" materialDesign:HintAssist.Hint="S">
+                                    <ComboBoxItem>
+                                        S
+                                    </ComboBoxItem>
+                                    <ComboBoxItem>
+                                        M
+                                    </ComboBoxItem>
+                                    <ComboBoxItem>
+                                        L
+                                    </ComboBoxItem>
+                                </ComboBox>
+                                <Button x:Name="btnInforTp2" Content="..."></Button>
+                            </WrapPanel>
+                            <WrapPanel Grid.Row="3">
+                                <TextBlock x:Name="tbTp3" HorizontalAlignment="Center"  TextWrapping="WrapWithOverflow" Text="Sua tuoi tran chau duong den themaaaaaaaaaaaaa" ></TextBlock>
+                                <Button x:Name="btnChooseTp3" Content="+" ></Button>
+                                <ComboBox x:Name="cbbSizeTp3" FontWeight="Bold" materialDesign:HintAssist.Hint="S">
+                                    <ComboBoxItem>
+                                        S
+                                    </ComboBoxItem>
+                                    <ComboBoxItem>
+                                        M
+                                    </ComboBoxItem>
+                                    <ComboBoxItem>
+                                        L
+                                    </ComboBoxItem>
+                                </ComboBox>
+                                <Button x:Name="btnInforTp3" Content="..."></Button>
+                            </WrapPanel>
+                            <WrapPanel Grid.Row="4">
+                                <TextBlock x:Name="tbTp4" HorizontalAlignment="Center"  TextWrapping="WrapWithOverflow" Text="Sua tuoi tran chau duong den themaaaaaaaaaaaaa" ></TextBlock>
+                                <Button x:Name="btnChooseTp4" Content="+" ></Button>
+                                <ComboBox x:Name="cbbSizeTp4" FontWeight="Bold" materialDesign:HintAssist.Hint="S">
+                                    <ComboBoxItem>
+                                        S
+                                    </ComboBoxItem>
+                                    <ComboBoxItem>
+                                        M
+                                    </ComboBoxItem>
+                                    <ComboBoxItem>
+                                        L
+                                    </ComboBoxItem>
+                                </ComboBox>
+                                <Button x:Name="btnInforTp4" Content="..."></Button>
+                            </WrapPanel>
+                            <WrapPanel Grid.Row="5">
+                                <TextBlock x:Name="tbTp5" HorizontalAlignment="Center"  TextWrapping="WrapWithOverflow" Text="Sua tuoi tran chau duong den themaaaaaaaaaaaaa" ></TextBlock>
+                                <Button x:Name="btnChooseTp5" Content="+" ></Button>
+                                <ComboBox x:Name="cbbSizeTp5" FontWeight="Bold" materialDesign:HintAssist.Hint="S">
+                                    <ComboBoxItem>
+                                        S
+                                    </ComboBoxItem>
+                                    <ComboBoxItem>
+                                        M
+                                    </ComboBoxItem>
+                                    <ComboBoxItem>
+                                        L
+                                    </ComboBoxItem>
+                                </ComboBox>
+                                <Button x:Name="btnInforTp5" Content="..."></Button>
+                            </WrapPanel>
+                            <WrapPanel Grid.Row="6">
+                                <TextBlock x:Name="tbTp6" HorizontalAlignment="Center"  TextWrapping="WrapWithOverflow" Text="Sua tuoi tran chau duong den themaaaaaaaaaaaaa" ></TextBlock>
+                                <Button x:Name="btnChooseTp6" Content="+" ></Button>
+                                <ComboBox x:Name="cbbSizeTp6" FontWeight="Bold" materialDesign:HintAssist.Hint="S">
+                                    <ComboBoxItem>
+                                        S
+                                    </ComboBoxItem>
+                                    <ComboBoxItem>
+                                        M
+                                    </ComboBoxItem>
+                                    <ComboBoxItem>
+                                        L
+                                    </ComboBoxItem>
+                                </ComboBox>
+                                <Button x:Name="btnInforTp6" Content="..."></Button>
+                            </WrapPanel>
+                            <WrapPanel Grid.Row="7">
+                                <TextBlock x:Name="tbTp7" HorizontalAlignment="Center"  TextWrapping="WrapWithOverflow" Text="Sua tuoi tran chau duong den themaaaaaaaaaaaaa" ></TextBlock>
+                                <Button x:Name="btnChooseTp7" Content="+" ></Button>
+                                <ComboBox x:Name="cbbSizeTp7" FontWeight="Bold" materialDesign:HintAssist.Hint="S">
+                                    <ComboBoxItem>
+                                        S
+                                    </ComboBoxItem>
+                                    <ComboBoxItem>
+                                        M
+                                    </ComboBoxItem>
+                                    <ComboBoxItem>
+                                        L
+                                    </ComboBoxItem>
+                                </ComboBox>
+                                <Button x:Name="btnInforTp7" Content="..."></Button>
+                            </WrapPanel>
+                            <WrapPanel Grid.Row="8">
+                                <TextBlock x:Name="tbTp8" HorizontalAlignment="Center"  TextWrapping="WrapWithOverflow" Text="Sua tuoi tran chau duong den themaaaaaaaaaaaaa" ></TextBlock>
+                                <Button x:Name="btnChooseTp8" Content="+" ></Button>
+                                <ComboBox x:Name="cbbSizeTp8" FontWeight="Bold" materialDesign:HintAssist.Hint="S">
+                                    <ComboBoxItem>
+                                        S
+                                    </ComboBoxItem>
+                                    <ComboBoxItem>
+                                        M
+                                    </ComboBoxItem>
+                                    <ComboBoxItem>
+                                        L
+                                    </ComboBoxItem>
+                                </ComboBox>
+                                <Button x:Name="btnInforTp8" Content="..."></Button>
+                            </WrapPanel>
+                            <WrapPanel Grid.Row="9">
+                                <TextBlock x:Name="tbTp9" HorizontalAlignment="Center"  TextWrapping="WrapWithOverflow" Text="Sua tuoi tran chau duong den themaaaaaaaaaaaaa" ></TextBlock>
+                                <Button x:Name="btnChooseTp9" Content="+" ></Button>
+                                <ComboBox x:Name="cbbSizeTp9" FontWeight="Bold" materialDesign:HintAssist.Hint="S">
+                                    <ComboBoxItem>
+                                        S
+                                    </ComboBoxItem>
+                                    <ComboBoxItem>
+                                        M
+                                    </ComboBoxItem>
+                                    <ComboBoxItem>
+                                        L
+                                    </ComboBoxItem>
+                                </ComboBox>
+                                <Button x:Name="btnInforTp9" Content="..."></Button>
+                            </WrapPanel>
+                            <WrapPanel Grid.Row="10">
+                                <TextBlock x:Name="tbTp10" HorizontalAlignment="Center"  TextWrapping="WrapWithOverflow" Text="Sua tuoi tran chau duong den themaaaaaaaaaaaaa" ></TextBlock>
+                                <Button x:Name="btnChooseTp10" Content="+" ></Button>
+                                <ComboBox x:Name="cbbSizeTp10" FontWeight="Bold" materialDesign:HintAssist.Hint="S">
+                                    <ComboBoxItem>
+                                        S
+                                    </ComboBoxItem>
+                                    <ComboBoxItem>
+                                        M
+                                    </ComboBoxItem>
+                                    <ComboBoxItem>
+                                        L
+                                    </ComboBoxItem>
+                                </ComboBox>
+                                <Button x:Name="btnInforTp10" Content="..."></Button>
+                            </WrapPanel>
+                            <WrapPanel Grid.Row="11">
+                                <TextBlock x:Name="tbTp11" HorizontalAlignment="Center"  TextWrapping="WrapWithOverflow" Text="Sua tuoi tran chau duong den themaaaaaaaaaaaaa" ></TextBlock>
+                                <Button x:Name="btnChooseTp11" Content="+" ></Button>
+                                <ComboBox x:Name="cbbSizeTp11" FontWeight="Bold" materialDesign:HintAssist.Hint="S">
+                                    <ComboBoxItem>
+                                        S
+                                    </ComboBoxItem>
+                                    <ComboBoxItem>
+                                        M
+                                    </ComboBoxItem>
+                                    <ComboBoxItem>
+                                        L
+                                    </ComboBoxItem>
+                                </ComboBox>
+                                <Button x:Name="btnInforTp11" Content="..."></Button>
+                            </WrapPanel>
+                        </Grid>
                     </Grid>
-                </Grid>
-                <Button x:Name="btnchange" DockPanel.Dock="Bottom" Content=">>" ></Button>
+                    <Button x:Name="btnchange" DockPanel.Dock="Bottom" Content=">>" ></Button>
                 </WrapPanel>
                 <WrapPanel x:Name="gridInforBill">
                     <TextBlock x:Name="tbBillNumber" Text="Số hóa đơn:"></TextBlock>
@@ -142,16 +672,16 @@
                     <TextBlock x:Name="tbTime" Text="Ngày giờ:   19:44:7        12/12/2018"></TextBlock>
 
                     <ScrollViewer VerticalScrollBarVisibility="Auto" >
-                    <ListView x:Name="lvListBill">
-                        <ListView.View >
-                            <GridView>
-                                <GridViewColumn x:Name="lvhOrdinal" Header="STT" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
-                                <GridViewColumn x:Name="lvhDrink" Header="Tên Thức uống" DisplayMemberBinding="{Binding ten}"></GridViewColumn>
-                                <GridViewColumn x:Name="lvhPrices" Header="Giá" DisplayMemberBinding="{Binding gia}"></GridViewColumn>
-                                <GridViewColumn x:Name="lvhNumber" Header="Số lượng" DisplayMemberBinding="{Binding soluong}"/>
+                        <ListView x:Name="lvListBill">
+                            <ListView.View >
+                                <GridView>
+                                    <GridViewColumn x:Name="lvhOrdinal" Header="STT" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
+                                    <GridViewColumn x:Name="lvhDrink" Header="Tên Thức uống" DisplayMemberBinding="{Binding ten}"></GridViewColumn>
+                                    <GridViewColumn x:Name="lvhPrices" Header="Giá" DisplayMemberBinding="{Binding gia}"></GridViewColumn>
+                                    <GridViewColumn x:Name="lvhNumber" Header="Số lượng" DisplayMemberBinding="{Binding soluong}"/>
                                 </GridView>
-                        </ListView.View>
-                    </ListView>
+                            </ListView.View>
+                        </ListView>
                     </ScrollViewer>
 
                     <TextBlock x:Name="tbOfferCode" Text="Mã khuyến mãi:" />
@@ -193,25 +723,25 @@
             <Grid x:Name="temp8"></Grid>
             <ComboBox x:Name="cbbTypeStatistical"
             materialDesign:HintAssist.Hint="Hóa Đơn">
-            <ComboBoxItem>
-                Nhân viên
-            </ComboBoxItem>
-            <ComboBoxItem>
-                Khách hàng
-            </ComboBoxItem>
-            <ComboBoxItem>
-                Hóa đơn
-            </ComboBoxItem>
-            <ComboBoxItem>
-               Thức uống
-            </ComboBoxItem>
-            <ComboBoxItem>
-                Giá tiền
-            </ComboBoxItem>
-            <ComboBoxItem>
-                Số lương
-            </ComboBoxItem>
-        </ComboBox>
+                <ComboBoxItem>
+                    Nhân viên
+                </ComboBoxItem>
+                <ComboBoxItem>
+                    Khách hàng
+                </ComboBoxItem>
+                <ComboBoxItem>
+                    Hóa đơn
+                </ComboBoxItem>
+                <ComboBoxItem>
+                    Thức uống
+                </ComboBoxItem>
+                <ComboBoxItem>
+                    Giá tiền
+                </ComboBoxItem>
+                <ComboBoxItem>
+                    Số lương
+                </ComboBoxItem>
+            </ComboBox>
             <Grid x:Name="temp9"></Grid>
             <TextBox x:Name="tbxSearchStatistical"
               Style="{StaticResource MaterialDesignFloatingHintTextBox}"
@@ -224,20 +754,20 @@
             <Grid x:Name="temp11"></Grid>
             <ScrollViewer VerticalScrollBarVisibility="Auto" >
                 <ListView x:Name="lvListStatistical">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn x:Name="gvcSTT" Header="STT" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
-                        <GridViewColumn x:Name="gvcHour" Header="Giờ" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
-                        <GridViewColumn x:Name="gvcDay" Header="Ngày" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
-                        <GridViewColumn x:Name="gvcBillCode" Header="Mã hóa đơn" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
-                        <GridViewColumn x:Name="gvcEmployeeCode" Header="Mã nhân viên" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
-                        <GridViewColumn x:Name="gvcCustomerCode" Header="Mã khách hàng" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
-                        <GridViewColumn x:Name="gvcDrink" Header="Tên thức uống" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
-                        <GridViewColumn x:Name="gvcMoney" Header="Giá tiền" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
-                        <GridViewColumn x:Name="gvcNumber" Header="số lượng" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
-                    </GridView>
-                </ListView.View>
-            </ListView>
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn x:Name="gvcSTT" Header="STT" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
+                            <GridViewColumn x:Name="gvcHour" Header="Giờ" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
+                            <GridViewColumn x:Name="gvcDay" Header="Ngày" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
+                            <GridViewColumn x:Name="gvcBillCode" Header="Mã hóa đơn" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
+                            <GridViewColumn x:Name="gvcEmployeeCode" Header="Mã nhân viên" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
+                            <GridViewColumn x:Name="gvcCustomerCode" Header="Mã khách hàng" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
+                            <GridViewColumn x:Name="gvcDrink" Header="Tên thức uống" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
+                            <GridViewColumn x:Name="gvcMoney" Header="Giá tiền" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
+                            <GridViewColumn x:Name="gvcNumber" Header="số lượng" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
             </ScrollViewer>
             <Grid x:Name="temp12"></Grid>
             <TextBlock x:Name="tbTotal" Text="Tổng: 0000000 00000000"></TextBlock>
@@ -255,95 +785,95 @@
             <Button x:Name="btnUpdateCalendar" Content="Cập nhật"></Button>
             <Grid x:Name="temp33"></Grid>
             <Grid x:Name="gridCalendar" >
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="50*"></RowDefinition>
-                        <RowDefinition Height="25*"></RowDefinition>
-                        <RowDefinition Height="100*"></RowDefinition>
-                        <RowDefinition Height="25*"></RowDefinition>
-                        <RowDefinition Height="100*"></RowDefinition>
-                        <RowDefinition Height="25*"></RowDefinition>
-                        <RowDefinition Height="100*"></RowDefinition>
-                    </Grid.RowDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50*"></RowDefinition>
+                    <RowDefinition Height="25*"></RowDefinition>
+                    <RowDefinition Height="100*"></RowDefinition>
+                    <RowDefinition Height="25*"></RowDefinition>
+                    <RowDefinition Height="100*"></RowDefinition>
+                    <RowDefinition Height="25*"></RowDefinition>
+                    <RowDefinition Height="100*"></RowDefinition>
+                </Grid.RowDefinitions>
                 <Grid x:Name="gridCalendarRow0" Grid.Row="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
                         <TextBlock x:Name="tbMonday" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Thứ 2" TextWrapping="WrapWithOverflow" ></TextBlock>
-                        </Grid>
-                        <Grid Grid.Column="1">
-                        <TextBlock x:Name="tbTuesday" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Thứ 3" TextWrapping="WrapWithOverflow" ></TextBlock>
-                        </Grid>
-                        <Grid Grid.Column="2">
-                        <TextBlock x:Name="tbWednesday" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Thứ 4" TextWrapping="WrapWithOverflow"></TextBlock>
-                        </Grid>
-                        <Grid Grid.Column="3">
-                        <TextBlock x:Name="tbThursday" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Thứ 5" TextWrapping="WrapWithOverflow"></TextBlock>
-                        </Grid>
-                        <Grid Grid.Column="4">
-                        <TextBlock x:Name="tbFriday" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Thứ 6" TextWrapping="WrapWithOverflow"></TextBlock>
-                        </Grid>
-                        <Grid Grid.Column="5">
-                        <TextBlock x:Name="tbSaturday" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Thứ 7" TextWrapping="WrapWithOverflow"></TextBlock>
-                        </Grid>
-                        <Grid Grid.Column="6">
-                        <TextBlock x:Name="tbSunday" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Chủ Nhật" TextWrapping="WrapWithOverflow"></TextBlock>
-                        </Grid>
                     </Grid>
+                    <Grid Grid.Column="1">
+                        <TextBlock x:Name="tbTuesday" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Thứ 3" TextWrapping="WrapWithOverflow" ></TextBlock>
+                    </Grid>
+                    <Grid Grid.Column="2">
+                        <TextBlock x:Name="tbWednesday" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Thứ 4" TextWrapping="WrapWithOverflow"></TextBlock>
+                    </Grid>
+                    <Grid Grid.Column="3">
+                        <TextBlock x:Name="tbThursday" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Thứ 5" TextWrapping="WrapWithOverflow"></TextBlock>
+                    </Grid>
+                    <Grid Grid.Column="4">
+                        <TextBlock x:Name="tbFriday" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Thứ 6" TextWrapping="WrapWithOverflow"></TextBlock>
+                    </Grid>
+                    <Grid Grid.Column="5">
+                        <TextBlock x:Name="tbSaturday" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Thứ 7" TextWrapping="WrapWithOverflow"></TextBlock>
+                    </Grid>
+                    <Grid Grid.Column="6">
+                        <TextBlock x:Name="tbSunday" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Chủ Nhật" TextWrapping="WrapWithOverflow"></TextBlock>
+                    </Grid>
+                </Grid>
                 <Grid x:Name="gridCalendarRow1"  Grid.Row="1">
                     <TextBlock x:Name="tbTime1" Text="9h-1h30'"></TextBlock>
-                    </Grid>
+                </Grid>
                 <Grid x:Name="gridCalendarRow2" Grid.Row="2">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
                         <TextBox x:Name="tbMonday1" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"></TextBox>
-                        </Grid>
-                        <Grid Grid.Column="1">
-                        <TextBox x:Name="tbTuesday1" BorderThickness="1"  Text="Họ và tên" TextWrapping="WrapWithOverflow"></TextBox>
-                        </Grid>
-                        <Grid Grid.Column="2">
-                        <TextBox x:Name="tbWednesday1" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"></TextBox>
-                        </Grid>
-                        <Grid Grid.Column="3">
-                        <TextBox x:Name="tbThursday1" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"></TextBox>
-                        </Grid>
-                        <Grid Grid.Column="4">
-                        <TextBox x:Name="tbFriday1" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"></TextBox>
-                        </Grid>
-                        <Grid Grid.Column="5">
-                        <TextBox x:Name="tbSaturday1" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"></TextBox>
-                        </Grid>
-                        <Grid Grid.Column="6">
-                        <TextBox x:Name="tbSunday1" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"></TextBox>
-                        </Grid>
                     </Grid>
+                    <Grid Grid.Column="1">
+                        <TextBox x:Name="tbTuesday1" BorderThickness="1"  Text="Họ và tên" TextWrapping="WrapWithOverflow"></TextBox>
+                    </Grid>
+                    <Grid Grid.Column="2">
+                        <TextBox x:Name="tbWednesday1" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"></TextBox>
+                    </Grid>
+                    <Grid Grid.Column="3">
+                        <TextBox x:Name="tbThursday1" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"></TextBox>
+                    </Grid>
+                    <Grid Grid.Column="4">
+                        <TextBox x:Name="tbFriday1" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"></TextBox>
+                    </Grid>
+                    <Grid Grid.Column="5">
+                        <TextBox x:Name="tbSaturday1" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"></TextBox>
+                    </Grid>
+                    <Grid Grid.Column="6">
+                        <TextBox x:Name="tbSunday1" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"></TextBox>
+                    </Grid>
+                </Grid>
                 <Grid x:Name="gridCalendarRow3" Grid.Row="3">
                     <TextBlock x:Name="tbTime2"  Text="1h30'-6h"></TextBlock>
-                    </Grid>
+                </Grid>
                 <Grid x:Name="gridCalendarRow4" Grid.Row="4">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
                         <TextBox x:Name="tbMonday2" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"></TextBox>
                     </Grid>
@@ -368,17 +898,17 @@
                 </Grid>
                 <Grid x:Name="gridCalendarRow5" Grid.Row="5">
                     <TextBlock x:Name="tbTime3"  Text="6h-10h"></TextBlock>
-                    </Grid>
+                </Grid>
                 <Grid x:Name="gridCalendarRow6" Grid.Row="6">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
                         <TextBox x:Name="tbMonday3" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"></TextBox>
                     </Grid>
@@ -401,65 +931,65 @@
                         <TextBox x:Name="tbSunday3" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"></TextBox>
                     </Grid>
                 </Grid>
-                </Grid>
+            </Grid>
         </WrapPanel>
-        <WrapPanel x:Name="wrpFind">
-                <Button x:Name="btnBackFind" >
-                    <materialDesign:PackIcon Kind="ArrowLeftBoldCircleOutline" />
-                </Button>
-                <Grid x:Name="temp41"></Grid>
-                <TextBlock x:Name="tbTimestartFind"  Text="Ngày giờ bắt đầu:"></TextBlock>
-                <DatePicker x:Name="dpDayStartFind"
+        <WrapPanel x:Name="wrpFind" Visibility="Hidden">
+            <Button x:Name="btnBackFind" >
+                <materialDesign:PackIcon Kind="ArrowLeftBoldCircleOutline" />
+            </Button>
+            <Grid x:Name="temp41"></Grid>
+            <TextBlock x:Name="tbTimestartFind"  Text="Ngày giờ bắt đầu:"></TextBlock>
+            <DatePicker x:Name="dpDayStartFind"
                 materialDesign:HintAssist.Hint="Chọn ngày"
                 Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
-                <Grid x:Name="temp42"></Grid>
-                <materialDesign:TimePicker x:Name="mtpHourStartFind"
+            <Grid x:Name="temp42"></Grid>
+            <materialDesign:TimePicker x:Name="mtpHourStartFind"
                 Is24Hours="True"
                 Style="{StaticResource MaterialDesignFloatingHintTimePicker}"
                 materialDesign:HintAssist.Hint="Chọn giờ" />
-                <Grid x:Name="temp43"></Grid>
-                <TextBlock x:Name="tbTimeEndFind"  Text="Ngày giờ kết thúc:"></TextBlock>
-                <DatePicker x:Name="dpDayEndFind"
+            <Grid x:Name="temp43"></Grid>
+            <TextBlock x:Name="tbTimeEndFind"  Text="Ngày giờ kết thúc:"></TextBlock>
+            <DatePicker x:Name="dpDayEndFind"
                 materialDesign:HintAssist.Hint="Chọn ngày"
                 Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
-                <Grid x:Name="temp44"></Grid>
-                <materialDesign:TimePicker x:Name="mtpHourEndFind"
+            <Grid x:Name="temp44"></Grid>
+            <materialDesign:TimePicker x:Name="mtpHourEndFind"
                 Is24Hours="True"
                 Style="{StaticResource MaterialDesignFloatingHintTimePicker}"
                 materialDesign:HintAssist.Hint="Chọn giờ" />
-                <Grid x:Name="temp45"></Grid>
-                <ComboBox x:Name="cbbTypeFind"
+            <Grid x:Name="temp45"></Grid>
+            <ComboBox x:Name="cbbTypeFind"
                      materialDesign:HintAssist.Hint="Hóa Đơn">
-                    <ComboBoxItem>
-                        Thông tin nhân viên
-                    </ComboBoxItem>
-                    <ComboBoxItem>
-                        Thông tin khách hàng
-                    </ComboBoxItem>
-                    <ComboBoxItem>
-                        Hóa đơn
-                    </ComboBoxItem>
-                    <ComboBoxItem>
-                        Thức uống
-                    </ComboBoxItem>
-                    <ComboBoxItem>
-                        Giá tiền
-                    </ComboBoxItem>
-                    <ComboBoxItem>
-                        Số lượng
-                    </ComboBoxItem>
-                </ComboBox>
-                <Grid x:Name="temp46"></Grid>
-                <TextBox x:Name="tbxSearchFind"
+                <ComboBoxItem>
+                    Thông tin nhân viên
+                </ComboBoxItem>
+                <ComboBoxItem>
+                    Thông tin khách hàng
+                </ComboBoxItem>
+                <ComboBoxItem>
+                    Hóa đơn
+                </ComboBoxItem>
+                <ComboBoxItem>
+                    Thức uống
+                </ComboBoxItem>
+                <ComboBoxItem>
+                    Giá tiền
+                </ComboBoxItem>
+                <ComboBoxItem>
+                    Số lượng
+                </ComboBoxItem>
+            </ComboBox>
+            <Grid x:Name="temp46"></Grid>
+            <TextBox x:Name="tbxSearchFind"
               Style="{StaticResource MaterialDesignFloatingHintTextBox}"
               materialDesign:HintAssist.Hint="Hóa đơn/ số lượng/ giá cả/ nhân viên/ khách hàng/ thức uống"
               Text="{Binding Content}"
               Margin="8 0 0 0"
               VerticalAlignment="Bottom" />
-                <Grid x:Name="temp47"></Grid>
-                <Button x:Name="btnFind" Content="Tìm kiếm"></Button>
-                <Grid x:Name="temp49"></Grid>
-                <Grid x:Name="temp48"></Grid>
+            <Grid x:Name="temp47"></Grid>
+            <Button x:Name="btnFind" Content="Tìm kiếm"></Button>
+            <Grid x:Name="temp49"></Grid>
+            <Grid x:Name="temp48"></Grid>
             <Grid x:Name="gridFind">
                 <ScrollViewer VerticalScrollBarVisibility="Auto" Visibility="Hidden">
                     <ListView x:Name="lvListFind" >
@@ -477,7 +1007,7 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
-            </ScrollViewer>
+                </ScrollViewer>
                 <StackPanel x:Name="stpInforCustomer" Orientation="Horizontal">
                     <StackPanel x:Name="stpInforCustomer1">
                         <TextBlock x:Name="tbCustomerCode" Text="Mã Khách hàng:"></TextBlock>

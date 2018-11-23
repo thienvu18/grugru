@@ -27,8 +27,8 @@ namespace GruGru
         //cbb: combobox
         //lv: listview
         //gvc: gridviewcolumn
-        Double height = SystemParameters.WorkArea.Height-30;
-        Double width = SystemParameters.WorkArea.Width-30;
+        Double height = SystemParameters.WorkArea.Height - 30;
+        Double width = SystemParameters.WorkArea.Width - 30;
         Double height005 = SystemParameters.WorkArea.Height * 0.05;//25
         Double height004 = SystemParameters.WorkArea.Height * 0.04;//20
         Double height003 = SystemParameters.WorkArea.Height * 0.03;//15
@@ -44,12 +44,12 @@ namespace GruGru
             InitializeComponent();
             this.Left = 0;
             this.Top = 0;
-            this.Height = height+30;
-            this.Width = width+30;
-            //MainScreen();
+            this.Height = height + 30;
+            this.Width = width + 30;
+            MainScreen();
             //StatisticalScreen();
             //JobCalendarScreen();
-            FindScreen();
+            //FindScreen();
 
             /*coffee.Width = 0.2 * width;
             coffee.Height =height-height006;
@@ -79,6 +79,24 @@ namespace GruGru
             public int soluong { get; set; }
         }
 
+        public void SetItem(TextBlock tb, Button btnChoose, Button btnInfor, ComboBox cbbSize)
+        {
+            tb.Height = gridCoffee.Height * 0.6 / 12;
+            tb.Width = gridCoffee.Width * 7 / 10;
+            tb.FontSize = height002;
+
+            btnChoose.Height = gridCoffee.Height * 0.6 / 12;
+            btnChoose.Width = gridCoffee.Width * 3 / 10;
+
+            btnInfor.Width = gridCoffee.Width * 3 / 10;
+            btnInfor.Height = gridCoffee.Height * 0.4 / 12;
+
+            cbbSize.Width = gridCoffee.Width * 7 / 10;
+            cbbSize.Height = gridCoffee.Height * 0.4 / 12;
+            cbbSize.FontSize = height0013;
+        }
+
+
         public void MainScreen()
         {
             //thanh ngang đầu tiên
@@ -100,7 +118,7 @@ namespace GruGru
             cbbEmployee.FontSize = height004;
 
             //menu
-            stpMenu.Height = height - stpTitle.Height-10;
+            stpMenu.Height = height - stpTitle.Height - 10;
             stpDrink.Height = stpMenu.Height;
             stpDrink.Width = 0.69 * width;
 
@@ -109,22 +127,23 @@ namespace GruGru
             btnchange.Width = 0.69 * width;
 
             //coffee
-            gridCoffee.Width = txbCoffee.Width-10;
-            gridCoffee.Height =stpDrink.Height-height003;
+            temp01.Width = 6;
+            gridCoffee.Width = txbCoffee.Width - 8;
+            gridCoffee.Height = stpDrink.Height - height003;
 
-            tbCf1.Height = gridCoffee.Height *0.6 /12;
-            tbCf1.Width = gridCoffee.Width *7/10;
-            tbCf1.FontSize = height002;
-
-            btnChooseCf1.Height = gridCoffee.Height * 0.6 / 12;
-            btnChooseCf1.Width = gridCoffee.Width *3/10;
-
-            btnInforcf1.Width = gridCoffee.Width *3/10;
-            btnInforcf1.Height = gridCoffee.Height * 0.4 / 12;
-
-            cbbSizeCf1.Width = gridCoffee.Width *7/10;
-            cbbSizeCf1.Height = gridCoffee.Height *0.4 /12;
-            cbbSizeCf1.FontSize = height0013;
+            //từng món trong ô Coffee
+            SetItem(tbCf0, btnChooseCf0, btnInforCf0, cbbSizeCf0);
+            SetItem(tbCf1, btnChooseCf1, btnInforCf1, cbbSizeCf1);
+            SetItem(tbCf2, btnChooseCf2, btnInforCf2, cbbSizeCf2);
+            SetItem(tbCf3, btnChooseCf3, btnInforCf3, cbbSizeCf3);
+            SetItem(tbCf4, btnChooseCf4, btnInforCf4, cbbSizeCf4);
+            SetItem(tbCf5, btnChooseCf5, btnInforCf5, cbbSizeCf5);
+            SetItem(tbCf6, btnChooseCf6, btnInforCf6, cbbSizeCf6);
+            SetItem(tbCf7, btnChooseCf7, btnInforCf7, cbbSizeCf7);
+            SetItem(tbCf8, btnChooseCf8, btnInforCf8, cbbSizeCf8);
+            SetItem(tbCf9, btnChooseCf9, btnInforCf9, cbbSizeCf9);
+            SetItem(tbCf10, btnChooseCf10, btnInforCf10, cbbSizeCf10);
+            SetItem(tbCf11, btnChooseCf11, btnInforCf11, cbbSizeCf11);
 
             /*tbCf2.Height = gridCoffee.Height * 2.2 / 15;
             tbCf2.Width= gridCoffee.Width /10*3;
@@ -139,40 +158,43 @@ namespace GruGru
             cbbSizeCf2.Text = "X";*/
 
             //Milktea
-            gridMilktea.Width = txbCoffee.Width;
+            temp02.Width = 6;
+            gridMilktea.Width = txbCoffee.Width-8;
             gridMilktea.Height = stpDrink.Height - height003;
 
-            tbMt1.Height = gridCoffee.Height * 0.6 / 12;
-            tbMt1.Width = gridCoffee.Width * 7 / 10;
-            tbMt1.FontSize = height002;
-
-            btnChooseMt1.Height = gridCoffee.Height * 0.6 / 12;
-            btnChooseMt1.Width = gridCoffee.Width * 3 / 10;
-
-            btnInforMt1.Width = gridCoffee.Width * 3 / 10;
-            btnInforMt1.Height = gridCoffee.Height * 0.4 / 12;
-
-            cbbSizeMt1.Width = gridCoffee.Width * 7 / 10;
-            cbbSizeMt1.Height = gridCoffee.Height * 0.4 / 12;
-            cbbSizeMt1.FontSize = height0013;
+            //từng món trong ô Milktea
+            SetItem(tbMt0, btnChooseMt0, btnInforMt0, cbbSizeMt0);
+            SetItem(tbMt1, btnChooseMt1, btnInforMt1, cbbSizeMt1);
+            SetItem(tbMt2, btnChooseMt2, btnInforMt2, cbbSizeMt2);
+            SetItem(tbMt3, btnChooseMt3, btnInforMt3, cbbSizeMt3);
+            SetItem(tbMt4, btnChooseMt4, btnInforMt4, cbbSizeMt4);
+            SetItem(tbMt5, btnChooseMt5, btnInforMt5, cbbSizeMt5);
+            SetItem(tbMt6, btnChooseMt6, btnInforMt6, cbbSizeMt6);
+            SetItem(tbMt7, btnChooseMt7, btnInforMt7, cbbSizeMt7);
+            SetItem(tbMt8, btnChooseMt8, btnInforMt8, cbbSizeMt8);
+            SetItem(tbMt9, btnChooseMt9, btnInforMt9, cbbSizeMt9);
+            SetItem(tbMt10, btnChooseMt10, btnInforMt10, cbbSizeMt10);
+            SetItem(tbMt11, btnChooseMt11, btnInforMt11, cbbSizeMt11);
 
             //Topping
-            gridTopping.Width = txbCoffee.Width;
+            temp03.Width = 6;
+            gridTopping.Width = txbCoffee.Width-8;
             gridTopping.Height = stpDrink.Height - height003;
 
-            tbTp1.Height = gridCoffee.Height * 0.6 / 12;
-            tbTp1.Width = gridCoffee.Width * 7 / 10;
-            tbTp1.FontSize = height002;
+            //Từng món trong ô Topping
+            SetItem(tbTp0, btnChooseTp0, btnInforTp0, cbbSizeTp0);
+            SetItem(tbTp1, btnChooseTp1, btnInforTp1, cbbSizeTp1);
+            SetItem(tbTp2, btnChooseTp2, btnInforTp2, cbbSizeTp2);
+            SetItem(tbTp3, btnChooseTp3, btnInforTp3, cbbSizeTp3);
+            SetItem(tbTp4, btnChooseTp4, btnInforTp4, cbbSizeTp4);
+            SetItem(tbTp5, btnChooseTp5, btnInforTp5, cbbSizeTp5);
+            SetItem(tbTp6, btnChooseTp6, btnInforTp6, cbbSizeTp6);
+            SetItem(tbTp7, btnChooseTp7, btnInforTp7, cbbSizeTp7);
+            SetItem(tbTp8, btnChooseTp8, btnInforTp8, cbbSizeTp8);
+            SetItem(tbTp9, btnChooseTp9, btnInforTp9, cbbSizeTp9);
+            SetItem(tbTp10, btnChooseTp10, btnInforTp10, cbbSizeTp10);
+            SetItem(tbTp11, btnChooseTp11, btnInforTp11, cbbSizeTp11);
 
-            btnChooseTp1.Height = gridCoffee.Height * 0.6 / 12;
-            btnChooseTp1.Width = gridCoffee.Width * 3 / 10;
-
-            btnInforTp1.Width = gridCoffee.Width * 3 / 10;
-            btnInforTp1.Height = gridCoffee.Height * 0.4 / 12;
-
-            cbbSizeTp1.Width = gridCoffee.Width * 7 / 10;
-            cbbSizeTp1.Height = gridCoffee.Height * 0.4 / 12;
-            cbbSizeTp1.FontSize = height0013;
 
             //InforBill
             gridInforBill.Width = 0.31 * width;
@@ -181,11 +203,11 @@ namespace GruGru
             Double heighttbBill = gridInforBill.Height * 3 / 60;
             tbBillNumber.FontSize = height0027;
             tbBillNumber.Height = heighttbBill;
-            tbBillNumber.Width = gridInforBill.Width * 2 / 6-5;
+            tbBillNumber.Width = gridInforBill.Width * 2 / 6 - 5;
 
             tbxBillNumber.FontSize = height0027;
-            tbxBillNumber.Height= heighttbBill;
-            tbxBillNumber.Width = gridInforBill.Width * 4 / 6-5;
+            tbxBillNumber.Height = heighttbBill;
+            tbxBillNumber.Width = gridInforBill.Width * 4 / 6 - 5;
 
             tbCustomer.FontSize = height0027;
             tbCustomer.Height = heighttbBill;
@@ -200,14 +222,14 @@ namespace GruGru
 
             tbEmployee.FontSize = height0027;
             tbEmployee.Height = heighttbBill;
-            tbEmployee.Width = gridInforBill.Width -10;
+            tbEmployee.Width = gridInforBill.Width - 10;
 
             tbTime.FontSize = height0027;
             tbTime.Height = heighttbBill;
             tbTime.Width = gridInforBill.Width - 10;
 
             lvListBill.FontSize = height0027;
-            lvListBill.Height = gridInforBill.Height *6/11;
+            lvListBill.Height = gridInforBill.Height * 6 / 11;
             lvListBill.Width = gridInforBill.Width;
 
             tbOfferCode.FontSize = height0027;
@@ -218,7 +240,7 @@ namespace GruGru
             cbbOfferCode.Height = heighttbBill;
             cbbOfferCode.Width = gridInforBill.Width * 5 / 8 - 5;
 
-            temp2.Height = heighttbBill/4;
+            temp2.Height = heighttbBill / 4;
             temp2.Width = gridInforBill.Width;
 
             tbTotalMoney.FontSize = height0028;
@@ -252,7 +274,7 @@ namespace GruGru
 
             tbTimestart.FontSize = height002;
             tbTimestart.Height = height003;
-            tbTimestart.Width = width / 90*8;
+            tbTimestart.Width = width / 90 * 8;
 
             dpDayStart.FontSize = height0018;
             dpDayStart.Height = height005;
@@ -262,29 +284,29 @@ namespace GruGru
 
             mtpHourStart.FontSize = height0018;
             mtpHourStart.Height = height004;
-            mtpHourStart.Width = width / 90*6;
+            mtpHourStart.Width = width / 90 * 6;
 
-            temp6.Width = width / 180*5;
+            temp6.Width = width / 180 * 5;
 
             tbTimeEnd.FontSize = height002;
             tbTimeEnd.Height = height003;
-            tbTimeEnd.Width = width / 90*8;
+            tbTimeEnd.Width = width / 90 * 8;
 
             dpDayEnd.FontSize = height0018;
             dpDayEnd.Height = height005;
-            dpDayEnd.Width = width / 90*6;
+            dpDayEnd.Width = width / 90 * 6;
 
             temp7.Width = width / 180;
 
             mtpHourEnd.FontSize = height0018;
             mtpHourEnd.Height = height004;
-            mtpHourEnd.Width = width / 90*6;
+            mtpHourEnd.Width = width / 90 * 6;
 
-            temp8.Width = width / 180*5;
+            temp8.Width = width / 180 * 5;
 
             cbbTypeStatistical.FontSize = height0018;
             cbbTypeStatistical.Height = height004;
-            cbbTypeStatistical.Width = width / 90*6;
+            cbbTypeStatistical.Width = width / 90 * 6;
 
             temp9.Width = width / 180;
 
@@ -292,25 +314,25 @@ namespace GruGru
             tbxSearchStatistical.Height = height005;
             tbxSearchStatistical.Width = width / 30 * 8.5;
 
-            temp10.Width = width / 180*3;
+            temp10.Width = width / 180 * 3;
 
             //list statistical
-            temp11.Width = width *0.05;
+            temp11.Width = width * 0.05;
 
             lvListStatistical.Height = height * 0.85;
             lvListStatistical.Width = width * 0.9;
 
             gvcSTT.Width = lvListStatistical.Width / 20;
-            gvcHour.Width = lvListStatistical.Width / 20*2;
-            gvcDay.Width = lvListStatistical.Width / 20*2;
-            gvcBillCode.Width = lvListStatistical.Width / 20*2;
-            gvcEmployeeCode.Width = lvListStatistical.Width / 15*2;
-            gvcCustomerCode.Width = lvListStatistical.Width / 15*2;
-            gvcDrink.Width = lvListStatistical.Width / 15*3;
-            gvcMoney.Width = lvListStatistical.Width / 20*2;
-            gvcNumber.Width = lvListStatistical.Width / 20*2;
+            gvcHour.Width = lvListStatistical.Width / 20 * 2;
+            gvcDay.Width = lvListStatistical.Width / 20 * 2;
+            gvcBillCode.Width = lvListStatistical.Width / 20 * 2;
+            gvcEmployeeCode.Width = lvListStatistical.Width / 15 * 2;
+            gvcCustomerCode.Width = lvListStatistical.Width / 15 * 2;
+            gvcDrink.Width = lvListStatistical.Width / 15 * 3;
+            gvcMoney.Width = lvListStatistical.Width / 20 * 2;
+            gvcNumber.Width = lvListStatistical.Width / 20 * 2;
 
-            temp12.Width = width / 5*4;
+            temp12.Width = width / 5 * 4;
         }
 
         public void JobCalendarScreen()
@@ -326,7 +348,7 @@ namespace GruGru
             dpDayStartCalendar.Height = height005;
             dpDayStartCalendar.Width = width / 10;
 
-            temp32.Width = width / 9*5;
+            temp32.Width = width / 9 * 5;
             temp33.Width = width * 0.06;
 
             gridCalendar.Width = width * 0.85;
@@ -442,7 +464,7 @@ namespace GruGru
             gvcFindNumber.Width = lvListFind.Width / 20 * 2;
 
             //list thông tin khách hàng
-            temp49.Height = height*0.15;
+            temp49.Height = height * 0.15;
             temp49.Width = width;
 
             temp48.Width = width * 0.1;
@@ -454,7 +476,7 @@ namespace GruGru
             stpInforCustomer.Width = gridFind.Width;
 
             stpInforCustomer1.Height = stpInforCustomer.Height;
-            stpInforCustomer1.Width = stpInforCustomer.Width/2;
+            stpInforCustomer1.Width = stpInforCustomer.Width / 2;
 
             stpInforCustomer2.Height = stpInforCustomer.Height;
             stpInforCustomer2.Width = stpInforCustomer.Width / 2;
