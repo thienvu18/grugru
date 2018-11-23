@@ -15,7 +15,48 @@
         mc:Ignorable="d"
         Title="MainWindow">
     <Grid>
-        <StackPanel x:Name="stpMainScreen" >
+        <Grid x:Name="GridLoginScreen">
+            <Image Source="backround.jpg" Stretch="Fill">
+                <Image.OpacityMask>
+                    <ImageBrush ImageSource="backround.jpg" Opacity="0.6"/>
+                </Image.OpacityMask>
+            </Image>
+        <Grid x:Name="GridLogin" Height="569" Width="792" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <materialDesign:Card x:Name="cardLogin" Margin="230,70,230,0" OpacityMask="#FFFFFDFD" Opacity="0.3"
+         Background="#FFFFFDFD" Height="420">
+            </materialDesign:Card>
+            <materialDesign:PackIcon Height="100" Width="100" HorizontalAlignment="Center"  Kind="AccountCircle" Margin="346,20,346,0" Foreground="#DD224BA4" />
+            <Label Content="Sign In" Margin="300,110,300,400" HorizontalAlignment="Center" FontSize="30"></Label>
+            <Label Target="{Binding ElementName=txtUsername }" Margin="245,165,400,345" FontSize="21">
+                _Username:
+            </Label>
+            <materialDesign:PackIcon Width="30" Height="30" Margin="275,200,350,330" Kind="Account" />
+            <TextBox x:Name="txtUsername" Width="250" 
+                 Margin="310,200,255,325" 
+                 FontSize="20"
+                 materialDesign:HintAssist.Hint="UserName" PreviewKeyDown="txtUsername_PreviewKeyDown">
+            </TextBox>
+            <Label Target="{Binding ElementName=txtPassword}" Margin="245,255,400,250" FontSize="21">
+                _Password:
+            </Label>
+            <materialDesign:PackIcon Width="28" Height="28" Margin="275,290,350,240" Kind="Key" />
+            <PasswordBox x:Name="txtPassword" Width="250" 
+                 Margin="310,290,255,235" 
+                 FontSize="20"
+                 materialDesign:HintAssist.Hint="Password" PreviewKeyDown="txtPassword_PreviewKeyDown">
+            </PasswordBox>
+            <TextBlock x:Name="tbMessageBox" FontSize="13" Margin="250,345,250,200" Foreground="Red"></TextBlock>
+            <Button x:Name="btnLogin" FontSize="30" Margin="300,378,300,145" Height="Auto" Background="#DD3164D4" Click="btnLogin_Click">Login</Button>
+            <CheckBox Margin="240,435,400,110"
+                      FontSize="15"
+                x:Name="RememberMe"
+                IsThreeState="False">
+                Remember Me
+            </CheckBox>
+            <Button x:Name="tbForgotPw" Margin="405,430,232,100" FontSize="15" FontStyle="Italic" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#D8000000">Fogot Password?</Button>
+        </Grid>
+        </Grid>
+        <StackPanel x:Name="stpMainScreen"  Visibility="Hidden">
             <StackPanel x:Name="stpTitle" Orientation="Horizontal">
                 <TextBlock x:Name="txbCoffee" Text="Coffee" TextAlignment="Center" Background="#FFFDDDF4"></TextBlock>
                 <TextBlock x:Name="txbMilktea" Text="Milk tea" Background="#FFFDDDF4" TextAlignment="Center"></TextBlock>

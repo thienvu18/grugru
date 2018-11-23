@@ -79,6 +79,7 @@ namespace GruGru
             public int soluong { get; set; }
         }
 
+
         public void SetItem(TextBlock tb, Button btnChoose, Button btnInfor, ComboBox cbbSize)
         {
             tb.Height = gridCoffee.Height * 0.6 / 12;
@@ -95,7 +96,6 @@ namespace GruGru
             cbbSize.Height = gridCoffee.Height * 0.4 / 12;
             cbbSize.FontSize = height0013;
         }
-
 
         public void MainScreen()
         {
@@ -124,7 +124,7 @@ namespace GruGru
 
             //chuyển trang
             btnchange.Height = height003;
-            btnchange.Width = 0.69 * width;
+            btnchange.Width = 0.69 * width-6;
 
             //coffee
             temp01.Width = 6;
@@ -531,6 +531,51 @@ namespace GruGru
             //Xóa
             btnCustomerDelete.FontSize = height003;
             btnCustomerDelete.Height = height005;
+        }
+
+        public void DoLogin()
+        {
+            if ((txtUsername.Text == "admin") && (txtPassword.Password == "123"))
+            {
+                GridLoginScreen.Visibility = System.Windows.Visibility.Hidden;
+                stpMainScreen.Visibility = System.Windows.Visibility.Visible;
+            }
+            else if ((txtUsername.Text == "") && (txtPassword.Password == ""))
+            {
+                tbMessageBox.Text = "invalid username and password!!!";
+            }
+            else if (txtUsername.Text == "")
+            {
+                tbMessageBox.Text = "invalid username!!!";
+            }
+            else if (txtPassword.Password == "")
+            {
+                tbMessageBox.Text = "invalid password!!!";
+            }
+            else
+            {
+                tbMessageBox.Text = "Username or password is wrong!!!";
+            }
+        }
+        private void btnLogin_Click(object sender, RoutedEventArgs e)
+        {
+            DoLogin();
+        }
+
+        private void txtUsername_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+            {
+                DoLogin();
+            }
+        }
+
+        private void txtPassword_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+            {
+                DoLogin();
+            }
         }
     }
 }
