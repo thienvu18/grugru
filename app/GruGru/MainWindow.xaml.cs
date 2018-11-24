@@ -38,6 +38,8 @@ namespace GruGru
         Double height0013 = SystemParameters.WorkArea.Height * 0.013;//15
         Double height0018 = SystemParameters.WorkArea.Height * 0.018;//15
         Double height0028 = SystemParameters.WorkArea.Height * 0.028;//40
+        Double height0023 = SystemParameters.WorkArea.Height * 0.023;//12.5
+
 
         public MainWindow()
         {
@@ -50,7 +52,9 @@ namespace GruGru
             //StatisticalScreen();
             //JobCalendarScreen();
             //FindScreen();
-
+            //CustomerScreen();
+            //SignUp();
+            InforScreen();
             /*coffee.Width = 0.2 * width;
             coffee.Height =height-height006;
             txbCoffee.Width = 0.2 * width;
@@ -79,6 +83,7 @@ namespace GruGru
             public int soluong { get; set; }
         }
 
+
         public void SetItem(TextBlock tb, Button btnChoose, Button btnInfor, ComboBox cbbSize)
         {
             tb.Height = gridCoffee.Height * 0.6 / 12;
@@ -95,7 +100,6 @@ namespace GruGru
             cbbSize.Height = gridCoffee.Height * 0.4 / 12;
             cbbSize.FontSize = height0013;
         }
-
 
         public void MainScreen()
         {
@@ -124,7 +128,7 @@ namespace GruGru
 
             //chuyển trang
             btnchange.Height = height003;
-            btnchange.Width = 0.69 * width;
+            btnchange.Width = 0.69 * width-6;
 
             //coffee
             temp01.Width = 6;
@@ -463,17 +467,60 @@ namespace GruGru
             gvcFindMoney.Width = lvListFind.Width / 20 * 2;
             gvcFindNumber.Width = lvListFind.Width / 20 * 2;
 
+        }
+
+        public void CustomerScreen()
+        {
+            //hàng đầu tiên
+            tbTimestartCustomer.FontSize = height002;
+            tbTimestartCustomer.Height = height003;
+            tbTimestartCustomer.Width = width / 90 * 8;
+
+            dpDayStartCustomer.FontSize = height0018;
+            dpDayStartCustomer.Height = height005;
+            dpDayStartCustomer.Width = width / 90 * 6;
+
+            temp52.Width = width / 180;
+
+            mtpHourStartCustomer.FontSize = height0018;
+            mtpHourStartCustomer.Height = height004;
+            mtpHourStartCustomer.Width = width / 90 * 6;
+
+            temp53.Width = width / 180 * 5;
+
+            tbTimeEndCustomer.FontSize = height002;
+            tbTimeEndCustomer.Height = height003;
+            tbTimeEndCustomer.Width = width / 90 * 8;
+
+            dpDayEndCustomer.FontSize = height0018;
+            dpDayEndCustomer.Height = height005;
+            dpDayEndCustomer.Width = width / 90 * 6;
+
+            temp54.Width = width / 180;
+
+            mtpHourEndCustomer.FontSize = height0018;
+            mtpHourEndCustomer.Height = height004;
+            mtpHourEndCustomer.Width = width / 90 * 6;
+
+            temp55.Width = width / 180 * 5;
+
+            tbxSearchCustomer.FontSize = height0018;
+            tbxSearchCustomer.Height = height005;
+            tbxSearchCustomer.Width = width / 30 * 9;
+
+            temp57.Width = width / 180 * 3;
+
             //list thông tin khách hàng
-            temp49.Height = height * 0.15;
-            temp49.Width = width;
+            temp59.Height = height * 0.15;
+            temp59.Width = width;
 
-            temp48.Width = width * 0.1;
+            temp58.Width = width * 0.1;
 
-            gridFind.Height = height * 0.85;
-            gridFind.Width = width * 0.8;
+            gridCustomer.Height = height * 0.85;
+            gridCustomer.Width = width * 0.8;
 
-            stpInforCustomer.Height = gridFind.Height;
-            stpInforCustomer.Width = gridFind.Width;
+            stpInforCustomer.Height = gridCustomer.Height;
+            stpInforCustomer.Width = gridCustomer.Width;
 
             stpInforCustomer1.Height = stpInforCustomer.Height;
             stpInforCustomer1.Width = stpInforCustomer.Width / 2;
@@ -531,6 +578,151 @@ namespace GruGru
             //Xóa
             btnCustomerDelete.FontSize = height003;
             btnCustomerDelete.Height = height005;
+        }
+
+        public void SignUp()
+        {
+            temp61.Width = width / 10 * 9;
+            temp61.Height = height / 30;
+            temp62.Width = width;
+            temp62.Height = height / 6;
+            temp66.Height = height * 0.5;//số bn cũng được
+            temp66.Width = width * 0.09;
+
+            //list thông tin khách hàng
+            gridNewCustomer.Height = height * 0.85;
+            gridNewCustomer.Width = width * 0.8;
+
+            stpInforNewCustomer.Height = gridNewCustomer.Height;
+            stpInforNewCustomer.Width = gridNewCustomer.Width;
+
+            //4 thông tin đầu
+            stpInforNewCustomerMini1.Height = stpInforNewCustomer.Height / 2;
+            stpInforNewCustomerMini1.Width = stpInforNewCustomer.Width;
+
+            //2 thông tin đầu
+            stpInforNewCustomerMini11.Height = stpInforNewCustomerMini1.Height;
+            stpInforNewCustomerMini11.Width = stpInforNewCustomerMini1.Width / 2;
+
+            stpInforNewCustomerMini12.Height = stpInforNewCustomerMini1.Height;
+            stpInforNewCustomerMini12.Width = stpInforNewCustomerMini1.Width / 2;
+
+            //Tên khách hàng
+            tbNewCustomerName.FontSize = height0028;
+            tbxNewCustomerName.FontSize = height0028;
+            tbxNewCustomerName.Width = stpInforNewCustomerMini11.Width * 0.6;
+
+            temp63.Height = stpInforNewCustomerMini11.Height / 6;
+
+            //CMND
+            tbNewID.FontSize = height0028;
+            tbxNewID.FontSize = height0028;
+            tbxNewID.Width = stpInforNewCustomerMini11.Width * 0.6;
+
+            //Số điện thoại
+            tbNewPhoneNumber.FontSize = height0028;
+            tbxNewPhoneNumber.FontSize = height0028;
+            tbxNewPhoneNumber.Width = stpInforNewCustomerMini12.Width * 0.6;
+
+            temp64.Height = stpInforNewCustomerMini12.Height / 6;
+
+            //Ngày sinh
+            tbNewBirthDay.FontSize = height0028;
+            tbxNewBirthDay.FontSize = height0028;
+            tbxNewBirthDay.Width = stpInforNewCustomerMini12.Width * 0.6;
+
+            //đăng ký
+            temp65.Height = stpInforNewCustomer.Height / 50;
+
+            btnSignUp.FontSize = height003;
+            btnSignUp.Height = height005;
+        }
+
+        public void InforScreen()
+        {
+            griInforDrinks.Height = height * 0.75;
+            griInforDrinks.Width = width * 0.7;
+
+            stpInforDrinksMini.Height = height * 0.7;
+            stpInforDrinksMini.Width = width * 0.65;
+
+            tbNameDrink.FontSize = height0023;
+            tbxNameDrink.FontSize = height0023;
+            tbxNameDrink.Width = stpInforDrinksMini.Width * 0.8;
+
+            temp71.Height = stpInforDrinksMini.Height / 30;
+
+            tbTypeDrink.FontSize = height0023;
+            tbxTypeDrink.FontSize = height0023;
+            tbxTypeDrink.Width = stpInforDrinksMini.Width * 0.8;
+
+            temp72.Height = stpInforDrinksMini.Height / 30;
+
+            tbIngredients.FontSize = height0023;
+
+            lvListIngredients.FontSize = height0023;
+            lvListIngredients.Height = stpInforDrinksMini.Height /5*3;
+            lvListIngredients.Width = stpInforDrinksMini.Width;
+
+            lvhOrdinalIngredient.Width = lvListIngredients.Width / 10;
+            lvhNameIngredient.Width = lvListIngredients.Width / 10*7;
+            lvhPercent.Width = lvListIngredients.Width / 10;
+            lvhKcal.Width = lvListIngredients.Width / 10;
+
+            stpInforDrinksMini1.Width = stpInforDrinksMini.Width;
+            gridbtnDeleteDrink.Width = stpInforDrinksMini1.Width / 3;
+            gridbtnUpdateInforDrink.Width = stpInforDrinksMini1.Width / 3;
+            gridbtnBackInforDrink.Width = stpInforDrinksMini1.Width / 3;
+
+            btnDeleteDrink.FontSize = height0027;
+            btnUpdateInforDrink.FontSize = height0027;
+            btnBackInforDrink.FontSize = height0027;
+            stpMainScreen.Opacity = 0.1;
+        }
+
+        public void DoLogin()
+        {
+            if ((txtUsername.Text == "admin") && (txtPassword.Password == "123"))
+            {
+                GridLoginScreen.Visibility = System.Windows.Visibility.Hidden;
+                stpMainScreen.Visibility = System.Windows.Visibility.Visible;
+            }
+            else if ((txtUsername.Text == "") && (txtPassword.Password == ""))
+            {
+                tbMessageBox.Text = "invalid username and password!!!";
+            }
+            else if (txtUsername.Text == "")
+            {
+                tbMessageBox.Text = "invalid username!!!";
+            }
+            else if (txtPassword.Password == "")
+            {
+                tbMessageBox.Text = "invalid password!!!";
+            }
+            else
+            {
+                tbMessageBox.Text = "Username or password is wrong!!!";
+            }
+        }
+        private void btnLogin_Click(object sender, RoutedEventArgs e)
+        {
+            DoLogin();
+        }
+
+        private void txtUsername_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+            {
+                DoLogin();
+            }
+        }
+
+        private void txtPassword_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+            {
+                DoLogin();
+            }
         }
     }
 }

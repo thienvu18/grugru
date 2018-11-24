@@ -15,6 +15,47 @@
         mc:Ignorable="d"
         Title="MainWindow">
     <Grid>
+        <Grid x:Name="GridLoginScreen" Visibility="Hidden">
+            <Image Source="backround.jpg" Stretch="Fill">
+                <Image.OpacityMask>
+                    <ImageBrush ImageSource="backround.jpg" Opacity="0.6"/>
+                </Image.OpacityMask>
+            </Image>
+        <Grid x:Name="GridLogin" Height="569" Width="792" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <materialDesign:Card x:Name="cardLogin" Margin="230,70,230,0" OpacityMask="#FFFFFDFD" Opacity="0.3"
+         Background="#FFFFFDFD" Height="420">
+            </materialDesign:Card>
+            <materialDesign:PackIcon Height="100" Width="100" HorizontalAlignment="Center"  Kind="AccountCircle" Margin="346,20,346,0" Foreground="#DD224BA4" />
+            <Label Content="Sign In" Margin="300,110,300,400" HorizontalAlignment="Center" FontSize="30"></Label>
+            <Label Target="{Binding ElementName=txtUsername }" Margin="245,165,400,345" FontSize="21">
+                _Username:
+            </Label>
+            <materialDesign:PackIcon Width="30" Height="30" Margin="275,200,350,330" Kind="Account" />
+            <TextBox x:Name="txtUsername" Width="250" 
+                 Margin="310,200,255,325" 
+                 FontSize="20"
+                 materialDesign:HintAssist.Hint="UserName" PreviewKeyDown="txtUsername_PreviewKeyDown">
+            </TextBox>
+            <Label Target="{Binding ElementName=txtPassword}" Margin="245,255,400,250" FontSize="21">
+                _Password:
+            </Label>
+            <materialDesign:PackIcon Width="28" Height="28" Margin="275,290,350,240" Kind="Key" />
+            <PasswordBox x:Name="txtPassword" Width="250" 
+                 Margin="310,290,255,235" 
+                 FontSize="20"
+                 materialDesign:HintAssist.Hint="Password" PreviewKeyDown="txtPassword_PreviewKeyDown">
+            </PasswordBox>
+            <TextBlock x:Name="tbMessageBox" FontSize="13" Margin="250,345,250,200" Foreground="Red"></TextBlock>
+            <Button x:Name="btnLogin" FontSize="30" Margin="300,378,300,145" Height="Auto" Background="#DD3164D4" Click="btnLogin_Click">Login</Button>
+            <CheckBox Margin="240,435,400,110"
+                      FontSize="15"
+                x:Name="RememberMe"
+                IsThreeState="False">
+                Remember Me
+            </CheckBox>
+            <Button x:Name="tbForgotPw" Margin="405,430,232,100" FontSize="15" FontStyle="Italic" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#D8000000">Fogot Password?</Button>
+        </Grid>
+        </Grid>
         <StackPanel x:Name="stpMainScreen" >
             <StackPanel x:Name="stpTitle" Orientation="Horizontal">
                 <TextBlock x:Name="txbCoffee" Text="Coffee" TextAlignment="Center" Background="#FFFDDDF4"></TextBlock>
@@ -696,7 +737,7 @@
                 </WrapPanel>
             </StackPanel>
         </StackPanel>
-        <WrapPanel x:Name="wrpStatistical" Visibility="Hidden" >
+        <WrapPanel x:Name="wrpStatistical" Visibility="Hidden">
             <Button x:Name="btnBackStatistical" >
                 <materialDesign:PackIcon Kind="ArrowLeftBoldCircleOutline" />
             </Button>
@@ -782,7 +823,7 @@
               materialDesign:HintAssist.Hint="Pick Date"
               Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
             <Grid x:Name="temp32"></Grid>
-            <Button x:Name="btnUpdateCalendar" Content="Cập nhật"></Button>
+            <Button x:Name="btnUpdateCalendar" Content="Cập Nhật"></Button>
             <Grid x:Name="temp33"></Grid>
             <Grid x:Name="gridCalendar" >
                 <Grid.RowDefinitions>
@@ -991,7 +1032,7 @@
             <Grid x:Name="temp49"></Grid>
             <Grid x:Name="temp48"></Grid>
             <Grid x:Name="gridFind">
-                <ScrollViewer VerticalScrollBarVisibility="Auto" Visibility="Hidden">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <ListView x:Name="lvListFind" >
                         <ListView.View>
                             <GridView>
@@ -1008,6 +1049,44 @@
                         </ListView.View>
                     </ListView>
                 </ScrollViewer>
+            </Grid>
+        </WrapPanel>
+        <WrapPanel x:Name="wrpCustomer" Visibility="Hidden">
+            <Button x:Name="btnBackCustomer" >
+                <materialDesign:PackIcon Kind="ArrowLeftBoldCircleOutline" />
+            </Button>
+            <Grid x:Name="temp51"></Grid>
+            <TextBlock x:Name="tbTimestartCustomer"  Text="Ngày giờ bắt đầu:"></TextBlock>
+            <DatePicker x:Name="dpDayStartCustomer"
+                materialDesign:HintAssist.Hint="Chọn ngày"
+                Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+            <Grid x:Name="temp52"></Grid>
+            <materialDesign:TimePicker x:Name="mtpHourStartCustomer"
+                Is24Hours="True"
+                Style="{StaticResource MaterialDesignFloatingHintTimePicker}"
+                materialDesign:HintAssist.Hint="Chọn giờ" />
+            <Grid x:Name="temp53"></Grid>
+            <TextBlock x:Name="tbTimeEndCustomer"  Text="Ngày giờ kết thúc:"></TextBlock>
+            <DatePicker x:Name="dpDayEndCustomer"
+                materialDesign:HintAssist.Hint="Chọn ngày"
+                Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+            <Grid x:Name="temp54"></Grid>
+            <materialDesign:TimePicker x:Name="mtpHourEndCustomer"
+                Is24Hours="True"
+                Style="{StaticResource MaterialDesignFloatingHintTimePicker}"
+                materialDesign:HintAssist.Hint="Chọn giờ" />
+            <Grid x:Name="temp55"></Grid>
+            <TextBox x:Name="tbxSearchCustomer"
+              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+              materialDesign:HintAssist.Hint="Mã khách hàng/ họ tên/ số điện thoại/ chứng minh"
+              Text="{Binding Content}"
+              Margin="8 0 0 0"
+              VerticalAlignment="Bottom" />
+            <Grid x:Name="temp57"></Grid>
+            <Button x:Name="btnCustomer" Content="Tìm kiếm"></Button>
+            <Grid x:Name="temp59"></Grid>
+            <Grid x:Name="temp58"></Grid>
+            <Grid x:Name="gridCustomer">
                 <StackPanel x:Name="stpInforCustomer" Orientation="Horizontal">
                     <StackPanel x:Name="stpInforCustomer1">
                         <TextBlock x:Name="tbCustomerCode" Text="Mã Khách hàng:"></TextBlock>
@@ -1036,5 +1115,77 @@
                 </StackPanel>
             </Grid>
         </WrapPanel>
+        <WrapPanel x:Name="wrpRegisterNewCustomer" Visibility="Hidden">
+            <Button x:Name="btnRegisterNewCustomer" >
+                <materialDesign:PackIcon Kind="ArrowLeftBoldCircleOutline" />
+            </Button>
+            <Grid x:Name="temp61"></Grid>
+            <Grid x:Name="temp62"></Grid>
+            <Grid x:Name="temp66"></Grid>
+            <Grid x:Name="gridNewCustomer">
+                <StackPanel x:Name="stpInforNewCustomer">
+                <StackPanel x:Name="stpInforNewCustomerMini1" Orientation="Horizontal">
+                        <StackPanel x:Name="stpInforNewCustomerMini11">
+                            <TextBlock x:Name="tbNewCustomerName" Text="Họ tên khách hàng:" ></TextBlock>
+                            <TextBox x:Name="tbxNewCustomerName"></TextBox>
+                            <Grid x:Name="temp63"></Grid>
+                            <TextBlock x:Name="tbNewID" Text="CMND:"></TextBlock>
+                            <TextBox x:Name="tbxNewID"></TextBox>
+                        </StackPanel>
+                        <StackPanel x:Name="stpInforNewCustomerMini12">
+                            <TextBlock x:Name="tbNewPhoneNumber" Text="Số điện thoại:"></TextBlock>
+                            <TextBox x:Name="tbxNewPhoneNumber"></TextBox>
+                            <Grid x:Name="temp64"></Grid>
+                            <TextBlock x:Name="tbNewBirthDay" Text="Ngày sinh:"></TextBlock>
+                            <TextBox x:Name="tbxNewBirthDay"></TextBox>
+                    </StackPanel>
+                    </StackPanel>
+                    <Grid x:Name="temp65"></Grid>
+                    <StackPanel x:Name="stpInforNewCustomerMini2">
+                    <Button x:Name="btnSignUp" Content="Đăng ký" HorizontalAlignment="Center" VerticalAlignment="Center"></Button>
+                </StackPanel>
+                </StackPanel>
+            </Grid>
+        </WrapPanel>
+        <!--chỉnh sửa thông tin thức uống
+        thông tin thức uống
+        -->
+        <Grid x:Name="griInforDrinks" HorizontalAlignment="Center" VerticalAlignment="Center" Background="White">
+            <StackPanel x:Name="stpInforDrinksMini" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock x:Name="tbNameDrink" Text="Tên thức uống:"></TextBlock>
+            <TextBox x:Name="tbxNameDrink" HorizontalAlignment="Center"
+                     Text="Sữa tươi trân châu đường đen"></TextBox>
+                <Grid x:Name="temp71"></Grid>
+            <TextBlock x:Name="tbTypeDrink" Text="Loại:"></TextBlock>
+            <TextBox x:Name="tbxTypeDrink" 
+                     Text="Trà sữa"></TextBox>
+                <Grid x:Name="temp72"></Grid>
+                <TextBlock x:Name="tbIngredients" Text="Thành phần"></TextBlock>
+            <ScrollViewer VerticalScrollBarVisibility="Auto" >
+                <ListView x:Name="lvListIngredients">
+                    <ListView.View >
+                        <GridView>
+                            <GridViewColumn x:Name="lvhOrdinalIngredient" Header="STT" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
+                                <GridViewColumn x:Name="lvhNameIngredient" Header="Tên thành phần" DisplayMemberBinding="{Binding ten}"></GridViewColumn>
+                                <GridViewColumn x:Name="lvhPercent" Header="%" DisplayMemberBinding="{Binding percent}"></GridViewColumn>
+                                <GridViewColumn x:Name="lvhKcal" Header="   Kcal" DisplayMemberBinding="{Binding Kcal}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </ScrollViewer>
+                <StackPanel x:Name="stpInforDrinksMini1" Orientation="Horizontal">
+                    <Grid x:Name="gridbtnBackInforDrink">
+                        <Button x:Name="btnBackInforDrink" VerticalAlignment="Center" HorizontalAlignment="Center" Content="Trở về"></Button>
+                    </Grid>
+                    <Grid x:Name="gridbtnDeleteDrink">
+                         <Button x:Name="btnDeleteDrink" VerticalAlignment="Center" HorizontalAlignment="Center" Content="Xóa"></Button>
+                    </Grid>
+                    <Grid x:Name="gridbtnUpdateInforDrink">
+                        <Button x:Name="btnUpdateInforDrink" VerticalAlignment="Center" HorizontalAlignment="Center" Content="Cập nhật"></Button>
+                    </Grid>
+                   
+                </StackPanel>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>
