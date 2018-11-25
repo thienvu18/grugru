@@ -15,7 +15,7 @@
         mc:Ignorable="d"
         Title="MainWindow">
     <Grid>
-        <Grid x:Name="GridLoginScreen" Visibility="Hidden">
+        <Grid x:Name="GridLoginScreen"  Visibility="Hidden">
             <Image Source="backround.jpg" Stretch="Fill">
                 <Image.OpacityMask>
                     <ImageBrush ImageSource="backround.jpg" Opacity="0.6"/>
@@ -56,7 +56,7 @@
             <Button x:Name="tbForgotPw" Margin="405,430,232,100" FontSize="15" FontStyle="Italic" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#D8000000">Fogot Password?</Button>
         </Grid>
         </Grid>
-        <StackPanel x:Name="stpMainScreen" >
+        <StackPanel x:Name="stpMainScreen"  Visibility="Hidden">
             <StackPanel x:Name="stpTitle" Orientation="Horizontal">
                 <TextBlock x:Name="txbCoffee" Text="Coffee" TextAlignment="Center" Background="#FFFDDDF4"></TextBlock>
                 <TextBlock x:Name="txbMilktea" Text="Milk tea" Background="#FFFDDDF4" TextAlignment="Center"></TextBlock>
@@ -1056,26 +1056,6 @@
                 <materialDesign:PackIcon Kind="ArrowLeftBoldCircleOutline" />
             </Button>
             <Grid x:Name="temp51"></Grid>
-            <TextBlock x:Name="tbTimestartCustomer"  Text="Ngày giờ bắt đầu:"></TextBlock>
-            <DatePicker x:Name="dpDayStartCustomer"
-                materialDesign:HintAssist.Hint="Chọn ngày"
-                Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
-            <Grid x:Name="temp52"></Grid>
-            <materialDesign:TimePicker x:Name="mtpHourStartCustomer"
-                Is24Hours="True"
-                Style="{StaticResource MaterialDesignFloatingHintTimePicker}"
-                materialDesign:HintAssist.Hint="Chọn giờ" />
-            <Grid x:Name="temp53"></Grid>
-            <TextBlock x:Name="tbTimeEndCustomer"  Text="Ngày giờ kết thúc:"></TextBlock>
-            <DatePicker x:Name="dpDayEndCustomer"
-                materialDesign:HintAssist.Hint="Chọn ngày"
-                Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
-            <Grid x:Name="temp54"></Grid>
-            <materialDesign:TimePicker x:Name="mtpHourEndCustomer"
-                Is24Hours="True"
-                Style="{StaticResource MaterialDesignFloatingHintTimePicker}"
-                materialDesign:HintAssist.Hint="Chọn giờ" />
-            <Grid x:Name="temp55"></Grid>
             <TextBox x:Name="tbxSearchCustomer"
               Style="{StaticResource MaterialDesignFloatingHintTextBox}"
               materialDesign:HintAssist.Hint="Mã khách hàng/ họ tên/ số điện thoại/ chứng minh"
@@ -1150,7 +1130,7 @@
         <!--chỉnh sửa thông tin thức uống
         thông tin thức uống
         -->
-        <Grid x:Name="griInforDrinks" HorizontalAlignment="Center" VerticalAlignment="Center" Background="White">
+        <Grid x:Name="griInforDrinks" HorizontalAlignment="Center" VerticalAlignment="Center" Background="White" Visibility="Hidden">
             <StackPanel x:Name="stpInforDrinksMini" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock x:Name="tbNameDrink" Text="Tên thức uống:"></TextBlock>
             <TextBox x:Name="tbxNameDrink" HorizontalAlignment="Center"
@@ -1187,5 +1167,49 @@
                 </StackPanel>
             </StackPanel>
         </Grid>
+        <WrapPanel x:Name="wrpAgent" >
+            <Button x:Name="btnBackAgent" >
+                <materialDesign:PackIcon Kind="ArrowLeftBoldCircleOutline" />
+            </Button>
+            <Grid x:Name="temp81"></Grid>
+            <TextBox x:Name="tbxSearchAgent"
+              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+              materialDesign:HintAssist.Hint="Mã khách hàng/ họ tên/ số điện thoại/ chứng minh"
+              Text="{Binding Content}"
+              Margin="8 0 0 0"
+              VerticalAlignment="Bottom" />
+            <Grid x:Name="temp87"></Grid>
+            <Button x:Name="btnAgent" Content="Tìm kiếm"></Button>
+            <Grid x:Name="temp89"></Grid>
+            <Grid x:Name="temp88"></Grid>
+            <Grid x:Name="gridAgent">
+                <StackPanel x:Name="stpInforAgent" Orientation="Horizontal">
+                    <StackPanel x:Name="stpInforAgent1">
+                        <TextBlock x:Name="tbAgentCode" Text="Mã nhân viên:"></TextBlock>
+                        <TextBox x:Name="tbxAgentCode"></TextBox>
+                        <Grid x:Name="temp891"></Grid>
+                        <TextBlock x:Name="tbAgentName" Text="Họ tên nhân viên:" ></TextBlock>
+                        <TextBox x:Name="tbxAgentName"></TextBox>
+                        <Grid x:Name="temp892"></Grid>
+                        <TextBlock x:Name="tbMonth" Text="Số tháng kinh nghiệm:" ></TextBlock>
+                        <TextBox x:Name="tbxMonth" IsEnabled="False"></TextBox>
+                        <Grid x:Name="temp893"></Grid>
+                        <Button x:Name="btnAgentUpdate" HorizontalAlignment="Center" Content="Cập Nhật"></Button>
+                    </StackPanel>
+                    <StackPanel x:Name="stpInforAgent2">
+                        <TextBlock x:Name="tbPhoneNumberAgent" Text="Số điện thoại:"></TextBlock>
+                        <TextBox x:Name="tbxPhoneNumberAgent"></TextBox>
+                        <Grid x:Name="temp894"></Grid>
+                        <TextBlock x:Name="tbBirthDayAgent" Text="Ngày sinh:"></TextBlock>
+                        <TextBox x:Name="tbxBirthDayAgent"></TextBox>
+                        <Grid x:Name="temp895"></Grid>
+                        <TextBlock x:Name="tbIDAgent" Text="CMND:"></TextBlock>
+                        <TextBox x:Name="tbxIDAgent"></TextBox>
+                        <Grid x:Name="temp896"></Grid>
+                        <Button x:Name="btnAgentDelete" HorizontalAlignment="Center" Content="Xóa"></Button>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </WrapPanel>
     </Grid>
 </Window>

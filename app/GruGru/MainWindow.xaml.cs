@@ -53,8 +53,9 @@ namespace GruGru
             //JobCalendarScreen();
             //FindScreen();
             //CustomerScreen();
+            AgentScreen();
             //SignUp();
-            InforScreen();
+            //InforScreen();
             /*coffee.Width = 0.2 * width;
             coffee.Height =height-height006;
             txbCoffee.Width = 0.2 * width;
@@ -472,43 +473,13 @@ namespace GruGru
         public void CustomerScreen()
         {
             //hàng đầu tiên
-            tbTimestartCustomer.FontSize = height002;
-            tbTimestartCustomer.Height = height003;
-            tbTimestartCustomer.Width = width / 90 * 8;
-
-            dpDayStartCustomer.FontSize = height0018;
-            dpDayStartCustomer.Height = height005;
-            dpDayStartCustomer.Width = width / 90 * 6;
-
-            temp52.Width = width / 180;
-
-            mtpHourStartCustomer.FontSize = height0018;
-            mtpHourStartCustomer.Height = height004;
-            mtpHourStartCustomer.Width = width / 90 * 6;
-
-            temp53.Width = width / 180 * 5;
-
-            tbTimeEndCustomer.FontSize = height002;
-            tbTimeEndCustomer.Height = height003;
-            tbTimeEndCustomer.Width = width / 90 * 8;
-
-            dpDayEndCustomer.FontSize = height0018;
-            dpDayEndCustomer.Height = height005;
-            dpDayEndCustomer.Width = width / 90 * 6;
-
-            temp54.Width = width / 180;
-
-            mtpHourEndCustomer.FontSize = height0018;
-            mtpHourEndCustomer.Height = height004;
-            mtpHourEndCustomer.Width = width / 90 * 6;
-
-            temp55.Width = width / 180 * 5;
+            temp51.Width = width / 10;
 
             tbxSearchCustomer.FontSize = height0018;
             tbxSearchCustomer.Height = height005;
-            tbxSearchCustomer.Width = width / 30 * 9;
+            tbxSearchCustomer.Width = width / 2;
 
-            temp57.Width = width / 180 * 3;
+            temp57.Width = width / 5;
 
             //list thông tin khách hàng
             temp59.Height = height * 0.15;
@@ -678,6 +649,87 @@ namespace GruGru
             btnUpdateInforDrink.FontSize = height0027;
             btnBackInforDrink.FontSize = height0027;
             stpMainScreen.Opacity = 0.1;
+        }
+
+        public void AgentScreen()
+        {
+            //hàng đầu tiên
+            temp81.Width = width / 10;
+
+            tbxSearchAgent.FontSize = height0018;
+            tbxSearchAgent.Height = height005;
+            tbxSearchAgent.Width = width / 2;
+
+            temp87.Width = width / 5;
+
+            //list thông tin khách hàng
+            temp89.Height = height * 0.15;
+            temp89.Width = width;
+
+            temp88.Width = width * 0.1;
+
+            gridAgent.Height = height * 0.85;
+            gridAgent.Width = width * 0.8;
+
+            stpInforAgent.Height = gridAgent.Height;
+            stpInforAgent.Width = gridAgent.Width;
+
+            stpInforAgent1.Height = stpInforAgent.Height;
+            stpInforAgent1.Width = stpInforAgent.Width / 2;
+
+            stpInforAgent2.Height = stpInforAgent.Height;
+            stpInforAgent2.Width = stpInforAgent.Width / 2;
+
+            //Mã khách hàng
+            tbAgentCode.FontSize = height0028;
+
+            tbxAgentCode.FontSize = height0028;
+            tbxAgentCode.Width = stpInforAgent1.Width * 0.6;
+
+            temp891.Height = stpInforAgent1.Height / 12;
+
+            //Tên khách hàng
+            tbAgentName.FontSize = height0028;
+            tbxAgentName.FontSize = height0028;
+            tbxAgentName.Width = stpInforAgent1.Width * 0.6;
+
+            temp892.Height = stpInforAgent1.Height / 12;
+
+            //Điểm
+            tbMonth.FontSize = height0028;
+            tbxMonth.FontSize = height0028;
+            tbxMonth.Width = stpInforAgent1.Width * 0.6;
+
+            temp893.Height = stpInforAgent1.Height / 12;
+
+            //Cập nhật
+            btnAgentUpdate.FontSize = height003;
+            btnAgentUpdate.Height = height005;
+
+            //Số điện thoại
+            tbPhoneNumberAgent.FontSize = height0028;
+            tbxPhoneNumberAgent.FontSize = height0028;
+            tbxPhoneNumberAgent.Width = stpInforAgent2.Width * 0.6;
+
+            temp894.Height = stpInforAgent1.Height / 12;
+
+            //Ngày sinh
+            tbBirthDayAgent.FontSize = height0028;
+            tbxBirthDayAgent.FontSize = height0028;
+            tbxBirthDayAgent.Width = stpInforAgent2.Width * 0.6;
+
+            temp895.Height = stpInforAgent1.Height / 12;
+
+            //CMND
+            tbIDAgent.FontSize = height0028;
+            tbxIDAgent.FontSize = height0028;
+            tbxIDAgent.Width = stpInforAgent2.Width * 0.6;
+
+            temp896.Height = stpInforAgent1.Height / 12;
+
+            //Xóa
+            btnAgentDelete.FontSize = height003;
+            btnAgentDelete.Height = height005;
         }
 
         public void DoLogin()
