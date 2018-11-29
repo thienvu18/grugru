@@ -39,7 +39,7 @@ namespace GruGru
         Double height0018 = SystemParameters.WorkArea.Height * 0.018;//15
         Double height0028 = SystemParameters.WorkArea.Height * 0.028;//40
         Double height0023 = SystemParameters.WorkArea.Height * 0.023;//12.5
-
+        int NumberOfDrinks = 36;
 
         public MainWindow()
         {
@@ -53,8 +53,8 @@ namespace GruGru
             //JobCalendarScreen();
             //FindScreen();
             //CustomerScreen();
-            AgentScreen();
-            //SignUp();
+            //AgentScreen();
+            SignUp();
             //InforScreen();
             /*coffee.Width = 0.2 * width;
             coffee.Height =height-height006;
@@ -87,21 +87,29 @@ namespace GruGru
 
         public void SetItem(TextBlock tb, Button btnChoose, Button btnInfor, ComboBox cbbSize)
         {
-            tb.Height = gridCoffee.Height * 0.6 / 12;
-            tb.Width = gridCoffee.Width * 7 / 10;
+            Double widthItem;
+            if(NumberOfDrinks%3==0)
+            {
+                widthItem = lvMenuDrink.Width * 3 / NumberOfDrinks;
+            }
+            else
+            {
+                widthItem = lvMenuDrink.Width/ ((int)(NumberOfDrinks /3)+1);
+            }
+            tb.Height = widthItem * 0.6 / 12;
+            tb.Width = lvMenuDrink.Width /3 * 7 / 10;
             tb.FontSize = height002;
 
-            btnChoose.Height = gridCoffee.Height * 0.6 / 12;
-            btnChoose.Width = gridCoffee.Width * 3 / 10;
+            btnChoose.Height = widthItem * 0.6 / 12;
+            btnChoose.Width = lvMenuDrink.Width /3 * 3 / 10;
 
-            btnInfor.Width = gridCoffee.Width * 3 / 10;
-            btnInfor.Height = gridCoffee.Height * 0.4 / 12;
+            btnInfor.Width = lvMenuDrink.Width /3 * 3 / 10;
+            btnInfor.Height = widthItem * 0.4 / 12;
 
-            cbbSize.Width = gridCoffee.Width * 7 / 10;
-            cbbSize.Height = gridCoffee.Height * 0.4 / 12;
+            cbbSize.Width = lvMenuDrink.Width /3 * 7 / 10;
+            cbbSize.Height = widthItem * 0.4 / 12;
             cbbSize.FontSize = height0013;
         }
-
         public void MainScreen()
         {
             //thanh ngang đầu tiên
@@ -122,16 +130,18 @@ namespace GruGru
             cbbEmployee.Width = 0.05 * width;
             cbbEmployee.FontSize = height004;
 
+
             //menu
             stpMenu.Height = height - stpTitle.Height - 10;
             stpDrink.Height = stpMenu.Height;
             stpDrink.Width = 0.69 * width;
 
-            //chuyển trang
-            btnchange.Height = height003;
-            btnchange.Width = 0.69 * width-6;
+            lvMenuDrink.Height = stpMenu.Height;
+            lvMenuDrink.Width = stpDrink.Width;
 
-            //coffee
+            //SetItem(tbDrink, btnChoose, cbbSize, btnInfor);
+
+            /*//coffee
             temp01.Width = 6;
             gridCoffee.Width = txbCoffee.Width - 8;
             gridCoffee.Height = stpDrink.Height - height003;
@@ -149,18 +159,6 @@ namespace GruGru
             SetItem(tbCf9, btnChooseCf9, btnInforCf9, cbbSizeCf9);
             SetItem(tbCf10, btnChooseCf10, btnInforCf10, cbbSizeCf10);
             SetItem(tbCf11, btnChooseCf11, btnInforCf11, cbbSizeCf11);
-
-            /*tbCf2.Height = gridCoffee.Height * 2.2 / 15;
-            tbCf2.Width= gridCoffee.Width /10*3;
-            tbCf2.FontSize = 15;
-            btnChooseCf2.Height = gridCoffee.Height * 2.2 / 15;
-            btnChooseCf2.Width = gridCoffee.Width / 10*2;
-            btnInforcf2.Width = gridCoffee.Width / 10*2;
-            btnInforcf2.Height = gridCoffee.Height * 0.8 / 15;
-            cbbSizeCf2.Width = gridCoffee.Width / 10*3;
-            cbbSizeCf2.Height = gridCoffee.Height * 0.8 / 15;
-            cbbSizeCf2.FontSize = height0025;
-            cbbSizeCf2.Text = "X";*/
 
             //Milktea
             temp02.Width = 6;
@@ -198,7 +196,7 @@ namespace GruGru
             SetItem(tbTp8, btnChooseTp8, btnInforTp8, cbbSizeTp8);
             SetItem(tbTp9, btnChooseTp9, btnInforTp9, cbbSizeTp9);
             SetItem(tbTp10, btnChooseTp10, btnInforTp10, cbbSizeTp10);
-            SetItem(tbTp11, btnChooseTp11, btnInforTp11, cbbSizeTp11);
+            SetItem(tbTp11, btnChooseTp11, btnInforTp11, cbbSizeTp11);*/
 
 
             //InforBill
@@ -270,6 +268,24 @@ namespace GruGru
             tbPayMoney.FontSize = height0028;
             tbPayMoney.Height = heighttbBill;
             tbPayMoney.Width = gridInforBill.Width - 10;
+
+            string[] ListName = new string[14] { "Trà sữa dâu","Cream","Bạc xỉu",
+                                             "Trà sữa nho","Pudding","Cafe đen",
+                                             "Trà sữa thái xanh","Thạch rau câu","Latte",
+                                             "Trà sữa truyền thống","Thạch phô mai","Cafe sữa đá",
+                                             "Trà sữa Việt Quất","Thạch trái cây" };
+            List<Drink> ListDrink = new List<Drink>();
+            for (int i = 0; i < 14; i++)
+            {
+                ListDrink.Add(new Drink() { Name = ListName[i] });
+            }
+
+            lvMenuDrink.ItemsSource = ListDrink;
+        }
+
+        public class Drink
+        {
+            public string Name { get; set; }
         }
 
         public void StatisticalScreen()
@@ -776,5 +792,6 @@ namespace GruGru
                 DoLogin();
             }
         }
+
     }
 }
