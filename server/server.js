@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 app.use(function (req, res, next) {
   //Enabling CORS 
   res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+  res.header("Access-Control-Allow-Methods", "GET,OPTIONS,POST");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, contentType,Content-Type, Accept, Authorization");
   next();
 });
@@ -21,8 +21,6 @@ app.use(function (req, res, next) {
 //Setting up server
 var server = app.listen(process.env.PORT || 8080, function () {
   var port = server.address().port;
-
-  console.log("App now running on port", port);
 });
 
 //Initiallising connection string
@@ -45,13 +43,13 @@ var dbConfig = {
 app.post("/api/login", function (req, res) {
   const username = req.body.username;
   const password = req.body.password;
-  const query = "SELECT * FROM NhanVien WHERE maNV = '" + username + "'";
+  const query = "SELECT NhanVien.*, LoaiNhanVien.loaiNV FROM NhanVien JOIN LoaiNhanVien ON NhanVien.idLoaiNV = LoaiNhanVien.id WHERE NhanVien.maNV = '" + username + "'";
 
   let request = new sql.Request();
 
   request.query(query, function (err, result) {
     if (err) {
-      console.log("Error while querying database :- " + err);
+       
       res.json({
         code: -3,
         msg: 'Khong the ket noi den CSDL'
@@ -61,14 +59,18 @@ app.post("/api/login", function (req, res) {
       if (result.length == 0) {
         res.json({
           code: -1,
-          msg: 'Khong tim thay user'
+          msg: 'Khong tim thay user',
         });
       } else {
         const user = result[0];
         if (user.matKhau == password) {
           res.json({
             code: 0,
-            msg: 'Dang nhap thanh cong'
+            msg: 'Dang nhap thanh cong',
+            payload: {
+              loaiNV: user.loaiNV,
+              hoTen: user.hoTen,
+            }
           });
         } else {
           res.json({
@@ -88,7 +90,7 @@ app.get('/api/getFoodList', function (req, res) {
 
   request.query(query, function (err, result) {
     if (err) {
-      console.log("Error while querying database :- " + err);
+       
       res.json({
         code: -3,
         msg: 'Co loi trong truy van CSDL'
@@ -132,19 +134,16 @@ app.post("/api/putOrder", function (req, res) {
   const idNhanVienLap = req.body.idNhanVienLap;
 
   var query;
-  console.log(idKhachHangMua);
   if (idKhachHangMua == null) {
     query = "INSERT INTO HoaDon (maHoaDon, thoiGianLap, gia, idKhachHangMua, idNhanVienLap) VALUES ('"+maHoaDon+"', '"+thoiGianLap+"', '"+gia+"', null, '"+idNhanVienLap+"')";
   } else {
     query = "INSERT INTO HoaDon (maHoaDon, thoiGianLap, gia, idKhachHangMua, idNhanVienLap) VALUES ('"+maHoaDon+"', '"+thoiGianLap+"', '"+gia+"', '"+idKhachHangMua+"', '"+idNhanVienLap+"')";
   }
-  console.log(query);
 
   let request = new sql.Request();
 
   request.query(query, function (err, result) {
     if (err) {
-      console.log("Error while querying database :- " + err);
       res.json({
         code: -3,
         msg: 'Co loi trong truy van CSDL'
@@ -159,14 +158,86 @@ app.post("/api/putOrder", function (req, res) {
   });
 });
 
-// //PUT API
-// app.put("/api/user/:id", function (req, res) {
-//   var query = "UPDATE [user] SET Name= " + req.body.Name + " , Email=  " + req.body.Email + "  WHERE Id= " + req.params.id;
-//   executeQuery(res, query);
-// });
+app.post("/api/addCustomer", function (req, res) {
+  const maKH = req.body.maKH;
+  const hoTen = req.body.hoTen;
+  const ngaySinh = req.body.ngaySinh;
+  const soDienThoai = req.body.soDienThoai;
 
-// // DELETE API
-// app.delete("/api/user/:id", function (req, res) {
-//   var query = "DELETE FROM [user] WHERE Id=" + req.params.id;
-//   executeQuery(res, query);
-// });
+  const query = "INSERT INTO KhachHang (maKH, hoTen, ngaySinh, soDienThoai) VALUES ('"+maKH+"', '"+hoTen+"', '"+ngaySinh+"', '"+soDienThoai+"')";
+  
+  let request = new sql.Request();
+
+  request.query(query, function (err, result) {
+    if (err) {
+      res.json({
+        code: -3,
+        msg: 'Co loi trong truy van CSDL'
+      });
+    }
+    else {
+      res.json({
+        code: 0,
+        msg: 'Them khach hang thanh cong'
+      });
+    }
+  });
+});
+
+app.post("/api/updateCustomer", function (req, res) {
+  const maKH = req.body.maKH;
+  const hoTen = req.body.hoTen;
+  const ngaySinh = req.body.ngaySinh;
+  const soDienThoai = req.body.soDienThoai;
+
+  const query = "UPDATE KhachHang SET maKH = '', hoTen='"+hoTen+"', ngaySinh='"+ngaySinh+"', soDienThoai='"+soDienThoai+"' WHERE )";
+  
+  let request = new sql.Request();
+
+  request.query(query, function (err, result) {
+    if (err) {
+      res.json({
+        code: -3,
+        msg: 'Co loi trong truy van CSDL'
+      });
+    }
+    else {
+      res.json({
+        code: 0,
+        msg: 'Them khach hang thanh cong'
+      });
+    }
+  });
+});
+
+app.get('/api/deleteCustomer/:id', function (req, res) {
+  const updateQuery = "UPDATE HoaDon SET idKhachHangMua = null WHERE idKhachHangMua = " + req.params.id;
+  const deleteQuery = "DELETE FROM KhachHang WHERE id = " + req.params.id;
+
+  let request = new sql.Request();
+
+  request.query(updateQuery, function (err, result) {
+    if (err) {
+      res.json({
+        code: -3,
+        msg: 'Co loi trong truy van CSDL'
+      });
+    }
+    else {
+      request.query(deleteQuery, function (err, result) {
+        if (err) {
+          res.json({
+            code: -3,
+            msg: 'Co loi trong truy van CSDL'
+          });
+        }
+        else {
+          res.json({
+            code: 0,
+            msg: 'Xoa khach hang thanh cong'
+          });
+        }
+      });
+    }
+  });
+});
