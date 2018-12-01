@@ -43,9 +43,10 @@ var dbConfig = {
 })()
 
 app.post("/api/login", function (req, res) {
-  let username = req.body.username;
-  let password = req.body.password;
-  let query = "SELECT * FROM NhanVien WHERE maNV = '" + username + "'";
+  const username = req.body.username;
+  const password = req.body.password;
+  const query = "SELECT * FROM NhanVien WHERE maNV = '" + username + "'";
+
   let request = new sql.Request();
 
   request.query(query, function (err, result) {
@@ -76,6 +77,84 @@ app.post("/api/login", function (req, res) {
           });
         }
       }
+    }
+  });
+});
+
+app.get('/api/getFoodList', function (req, res) {
+  const query = "SELECT * FROM SanPham";
+
+  let request = new sql.Request();
+
+  request.query(query, function (err, result) {
+    if (err) {
+      console.log("Error while querying database :- " + err);
+      res.json({
+        code: -3,
+        msg: 'Co loi trong truy van CSDL'
+      });
+    }
+    else {
+      if (result.length == 0) {
+        res.json({
+          code: -1,
+          msg: 'Danh sach san pham rong'
+        });
+      } else {
+        let coffee = [];
+        let milkTea = [];
+        let topping = [];
+
+        result.forEach(food => {
+          if (food.maSanPham[0] == 'C') {
+            coffee.push(food);
+          } else if (food.maSanPham[0] == 'M') {
+            milkTea.push(food);
+          } else if (food.maSanPham[0] == 'T') {
+            topping.push(food);
+          } 
+        });
+        res.json({
+          coffees: coffee,
+          milkTeas: milkTea,
+          toppings: topping,
+        });
+      }
+    }
+  });
+});
+
+app.post("/api/putOrder", function (req, res) {
+  const maHoaDon = req.body.maHoaDon;
+  const thoiGianLap = req.body.thoiGianLap;
+  const gia = req.body.gia;
+  const idKhachHangMua = req.body.idKhachHangMua;
+  const idNhanVienLap = req.body.idNhanVienLap;
+
+  var query;
+  console.log(idKhachHangMua);
+  if (idKhachHangMua == null) {
+    query = "INSERT INTO HoaDon (maHoaDon, thoiGianLap, gia, idKhachHangMua, idNhanVienLap) VALUES ('"+maHoaDon+"', '"+thoiGianLap+"', '"+gia+"', null, '"+idNhanVienLap+"')";
+  } else {
+    query = "INSERT INTO HoaDon (maHoaDon, thoiGianLap, gia, idKhachHangMua, idNhanVienLap) VALUES ('"+maHoaDon+"', '"+thoiGianLap+"', '"+gia+"', '"+idKhachHangMua+"', '"+idNhanVienLap+"')";
+  }
+  console.log(query);
+
+  let request = new sql.Request();
+
+  request.query(query, function (err, result) {
+    if (err) {
+      console.log("Error while querying database :- " + err);
+      res.json({
+        code: -3,
+        msg: 'Co loi trong truy van CSDL'
+      });
+    }
+    else {
+      res.json({
+        code: 0,
+        msg: 'Them hoa don thanh cong'
+      });
     }
   });
 });
