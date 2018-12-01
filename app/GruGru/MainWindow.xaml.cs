@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Net;
+using System.IO;
+using System.Collections.Specialized;
 
 namespace GruGru
 {
@@ -750,7 +753,8 @@ namespace GruGru
 
         public void DoLogin()
         {
-            if ((txtUsername.Text == "admin") && (txtPassword.Password == "123"))
+            loginRequest();
+            /*if ((txtUsername.Text == "admin") && (txtPassword.Password == "123"))
             {
                 GridLoginScreen.Visibility = System.Windows.Visibility.Hidden;
                 stpMainScreen.Visibility = System.Windows.Visibility.Visible;
@@ -770,7 +774,8 @@ namespace GruGru
             else
             {
                 tbMessageBox.Text = "Username or password is wrong!!!";
-            }
+            }*/
+
         }
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
@@ -793,5 +798,20 @@ namespace GruGru
             }
         }
 
+        private void loginRequest()
+        {
+            using (var client = new WebClient())
+            {
+                var values = new NameValueCollection();
+                values["username"] = "hello";
+                values["password"] = "world";
+
+                var response = client.UploadValues("http:localhost:8080/api/login", values);
+
+                var responseString = Encoding.Default.GetString(response);
+                MessageBox.Show(responseString);
+            }
+        }
     }
 }
+
