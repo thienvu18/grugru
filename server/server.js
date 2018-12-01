@@ -42,23 +42,40 @@ var dbConfig = {
   }
 })()
 
-//POST API
 app.post("/api/login", function (req, res) {
-  let user = req.body.user;
-  let pass = req.body.pass;
-  console.log(user);
-  console.log(pass);
-  let query = "SELECT * FROM NhanVien WHERE maNV = '" + user + "'";
+  let username = req.body.username;
+  let password = req.body.password;
+  let query = "SELECT * FROM NhanVien WHERE maNV = '" + username + "'";
   let request = new sql.Request();
 
   request.query(query, function (err, result) {
     if (err) {
       console.log("Error while querying database :- " + err);
-      res.send(err);
+      res.json({
+        code: -3,
+        msg: 'Khong the ket noi den CSDL'
+      });
     }
     else {
-      console.log(result);
-      res.send(result);
+      if (result.length == 0) {
+        res.json({
+          code: -1,
+          msg: 'Khong tim thay user'
+        });
+      } else {
+        const user = result[0];
+        if (user.matKhau == password) {
+          res.json({
+            code: 0,
+            msg: 'Dang nhap thanh cong'
+          });
+        } else {
+          res.json({
+            code: -2,
+            msg: 'Dang nhap that bai'
+          });
+        }
+      }
     }
   });
 });
