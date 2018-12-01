@@ -21,6 +21,7 @@ app.use(function (req, res, next) {
 //Setting up server
 var server = app.listen(process.env.PORT || 8080, function () {
   var port = server.address().port;
+
   console.log("App now running on port", port);
 });
 
@@ -32,50 +33,44 @@ var dbConfig = {
   database: process.env.DB_NAME,
 };
 
-//Function to connect to database and execute query
-var executeQuery = function (res, query) {
-  sql.connect(dbConfig, function (err) {
+(async function () {
+  try {
+      await sql.connect(dbConfig);
+      console.log("Connect to db successfully");
+  } catch (err) {
+      console.log(err);
+  }
+})()
+
+//POST API
+app.post("/api/login", function (req, res) {
+  let user = req.body.user;
+  let pass = req.body.pass;
+  console.log(user);
+  console.log(pass);
+  let query = "SELECT * FROM NhanVien WHERE maNV = '" + user + "'";
+  let request = new sql.Request();
+
+  request.query(query, function (err, result) {
     if (err) {
-      console.log("Error while connecting database :- " + err);
+      console.log("Error while querying database :- " + err);
       res.send(err);
     }
     else {
-      // create Request object
-      var request = new sql.Request();
-      // query to the database
-      request.query(query, function (err, res) {
-        if (err) {
-          console.log("Error while querying database :- " + err);
-          res.send(err);
-        }
-        else {
-          res.send(res);
-        }
-      });
+      console.log(result);
+      res.send(result);
     }
   });
-}
-
-//GET API
-app.get("/api/user", function (req, res) {
-  var query = "select * from [user]";
-  executeQuery(res, query);
 });
 
-//POST API
-app.post("/api/user", function (req, res) {
-  var query = "INSERT INTO [user] (Name,Email,Password) VALUES (req.body.Name,req.body.Email,req.body.Password)";
-  executeQuery(res, query);
-});
+// //PUT API
+// app.put("/api/user/:id", function (req, res) {
+//   var query = "UPDATE [user] SET Name= " + req.body.Name + " , Email=  " + req.body.Email + "  WHERE Id= " + req.params.id;
+//   executeQuery(res, query);
+// });
 
-//PUT API
-app.put("/api/user/:id", function (req, res) {
-  var query = "UPDATE [user] SET Name= " + req.body.Name + " , Email=  " + req.body.Email + "  WHERE Id= " + req.params.id;
-  executeQuery(res, query);
-});
-
-// DELETE API
-app.delete("/api/user/:id", function (req, res) {
-  var query = "DELETE FROM [user] WHERE Id=" + req.params.id;
-  executeQuery(res, query);
-});
+// // DELETE API
+// app.delete("/api/user/:id", function (req, res) {
+//   var query = "DELETE FROM [user] WHERE Id=" + req.params.id;
+//   executeQuery(res, query);
+// });
