@@ -134,10 +134,11 @@ app.post("/api/putOrder", function(req, res) {
   const gia = req.body.gia;
   const idKhachHangMua = req.body.idKhachHangMua;
   const idNhanVienLap = req.body.idNhanVienLap;
+  const danhIdSachMonAn = req.body.danhIdSachMonAn;
 
-  var query;
+  var insertOrder;
   if (idKhachHangMua == null) {
-    query =
+    insertOrder =
       "INSERT INTO HoaDon (maHoaDon, thoiGianLap, gia, idKhachHangMua, idNhanVienLap) VALUES ('" +
       maHoaDon +
       "', '" +
@@ -148,7 +149,7 @@ app.post("/api/putOrder", function(req, res) {
       idNhanVienLap +
       "')";
   } else {
-    query =
+    insertOrder =
       "INSERT INTO HoaDon (maHoaDon, thoiGianLap, gia, idKhachHangMua, idNhanVienLap) VALUES ('" +
       maHoaDon +
       "', '" +
@@ -162,18 +163,48 @@ app.post("/api/putOrder", function(req, res) {
       "')";
   }
 
+  const getOrderId = "SELECT id FROM HoaDon WHERE maHoaDon = '" + maHoaDon + "'";
+
   let request = new sql.Request();
 
-  request.query(query, function(err, result) {
+  request.query(insertOrder, function(err, result) {
     if (err) {
       res.json({
         code: -3,
         msg: "Co loi trong truy van CSDL"
       });
     } else {
-      res.json({
-        code: 0,
-        msg: "Them hoa don thanh cong"
+      request.query(getOrderId, function(err, result) {
+        if (err) {
+          res.json({
+            code: -3,
+            msg: "Khong the ket noi den CSDL"
+          });
+        } else {
+          if (result.length == 0) {
+            res.json({
+              code: -1,
+              msg: "Them hoa don that bai"
+            });
+          } else {
+            const id = result[0];
+            danhIdSachMonAn.forEach(idMonAn => {
+              let insertOrderDetail = "INSERT INTO ChiTietHoaDon (idHoaDon, idMonAn) VALUES ("+id+", "+idMonAn+")";
+              request.query(insertOrderDetail, function(err, result) {
+                if (err) {
+                  res.json({
+                    code: -3,
+                    msg: "Khong the ket noi den CSDL"
+                  });
+                }
+              });
+            });
+            res.json({
+              code: 0,
+              msg: "Them hoa don thanh cong"
+            });
+          }
+        }
       });
     }
   });
@@ -308,7 +339,7 @@ app.get("/api/getCustomerInfo/:id", function(req, res) {
             maKH: customer.maKH,
             hoTen: customer.hoTen,
             ngaySinh: customer.ngaySinh,
-            soDienThoai: customer.soDienThoai,
+            soDienThoai: customer.soDienThoai
           }
         });
       }
