@@ -211,10 +211,10 @@ app.post("/api/putOrder", function(req, res) {
 });
 
 app.post("/api/addCustomer", function(req, res) {
-  const maKH = req.body.maKH;
   const hoTen = req.body.hoTen;
   const ngaySinh = req.body.ngaySinh;
   const soDienThoai = req.body.soDienThoai;
+  const maKH = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 9);;
 
   const query =
     "INSERT INTO KhachHang (maKH, hoTen, ngaySinh, soDienThoai) VALUES ('" +
