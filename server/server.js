@@ -3,6 +3,7 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var sql = require("mssql");
 var app = express();
+var moment = require('moment');
 
 require("dotenv").config();
 
@@ -212,11 +213,11 @@ app.post("/api/putOrder", function(req, res) {
 
 app.post("/api/addCustomer", function(req, res) {
   const hoTen = req.body.hoTen;
-  const ngaySinh = req.body.ngaySinh;
+  const ngaySinh = moment(req.body.ngaySinh, "DD-MM-YYYY").format("YYYY-MM-DD");
   const soDienThoai = req.body.soDienThoai;
-  const maKH = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 9);;
+  const maKH = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 9);
 
-  const query =
+  const insertCustommer =
     "INSERT INTO KhachHang (maKH, hoTen, ngaySinh, soDienThoai) VALUES ('" +
     maKH +
     "', '" +
@@ -226,22 +227,48 @@ app.post("/api/addCustomer", function(req, res) {
     "', '" +
     soDienThoai +
     "')";
+  const findExist = "SELECT 1 FROM KhachHang WHERE soDienThoai = '" + soDienThoai + "'";
 
   let request = new sql.Request();
 
-  request.query(query, function(err, result) {
+  request.query(findExist, function(err, result) {
     if (err) {
       res.json({
         code: -3,
         msg: "Co loi trong truy van CSDL"
       });
     } else {
-      res.json({
-        code: 0,
-        msg: "Them khach hang thanh cong"
-      });
+      if (result.length != 0) {
+        res.json({
+          code: -4,
+          msg: "Khách hàng đã tồn tại"
+        });
+      } else {
+        request.query(insertCustommer, function(err, result) {
+          if (err) {
+            console.log(err);
+            if (err.message.indexOf('Violation of UNIQUE KEY constraint') != -1) {
+              res.json({
+                code: -5,
+                msg: "Lỗi không xác định"
+              });
+            }
+            else res.json({
+              code: -3,
+              msg: "Co loi trong truy van CSDL"
+            });
+          } else {
+            res.json({
+              code: 0,
+              msg: "Them khach hang thanh cong"
+            });
+          }
+        });
+      }
     }
   });
+
+
 });
 
 app.post("/api/updateCustomer", function(req, res) {
