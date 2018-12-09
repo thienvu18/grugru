@@ -15,7 +15,7 @@
         mc:Ignorable="d"
         Title="MainWindow">
     <Grid>
-        <Grid x:Name="GridLoginScreen" Visibility="Visible">
+        <Grid x:Name="GridLoginScreen" Visibility="Hidden">
             <Image Source="backround.jpg" Stretch="Fill">
                 <Image.OpacityMask>
                     <ImageBrush ImageSource="backround.jpg" Opacity="0.6"/>
@@ -56,7 +56,7 @@
             <Button x:Name="tbForgotPw" Margin="405,430,232,100" FontSize="15" FontStyle="Italic" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#D8000000">Fogot Password?</Button>
         </Grid>
         </Grid>
-        <StackPanel x:Name="stpMainScreen" Visibility="Hidden">
+        <StackPanel x:Name="stpMainScreen" Visibility="Visible">
             <StackPanel x:Name="stpTitle" Orientation="Horizontal">
                 <TextBlock x:Name="txbCoffee" Text="Coffee" TextAlignment="Center" Background="#FFFDDDF4"></TextBlock>
                 <TextBlock x:Name="txbMilktea" Text="Milk tea" Background="#FFFDDDF4" TextAlignment="Center"></TextBlock>
@@ -64,18 +64,20 @@
                 <TextBlock x:Name="txbInfor" Text="Thông tin hóa đơn" Background="#FFFDC5EE"  TextAlignment="Center"></TextBlock>
                 <ComboBox x:Name="cbbEmployee" Visibility="Collapsed">
                     <!--<materialDesign:PackIcon Kind="HamburgerMenu" />-->
-                    <Button x:Name="btnPersonalInforMode" Content="Thông tin cá nhân" ></Button>
-                    <Button x:Name="btnRegisterMode" Content="Đăng ký khách hàng" ></Button>
-                    <Button x:Name="btnLogoutMode" Content="Đăng xuất" ></Button>
+                    <Button x:Name="btnPersonalInforMode" Content="Thông tin cá nhân" Click="btnPersonalInforMode_Click"  ></Button>
+                    <Button x:Name="btnCustomerInforMode" Content="Thông tin khách hàng" Click="btnCustomerInforMode_Click" ></Button>
+                    <Button x:Name="btnRegisterMode" Content="Đăng ký khách hàng" Click="btnRegisterMode_Click" ></Button>
+                    <Button x:Name="btnLogoutMode" Content="Đăng xuất" Click="btnLogoutMode_Click" ></Button>
                 </ComboBox>
                 <ComboBox x:Name="cbbManage" Visibility="Collapsed">
                     <!--<materialDesign:PackIcon Kind="HamburgerMenu" />-->
-                    <Button x:Name="btnPersonalInforMode1" Content="Thông tin cá nhân" ></Button>
-                    <Button x:Name="btnStatisticalMode1" Content="Thống kê"  Visibility="Collapsed"></Button>
-                    <Button x:Name="btnFindMode1" Content="Tìm kiếm" Visibility="Collapsed"></Button>
-                    <Button x:Name="btnRegisterMode1" Content="Đăng ký khách hàng" ></Button>
-                    <Button x:Name="btnManageMode1" Content="Quản lý nhân viên" Visibility="Collapsed"></Button>
-                    <Button x:Name="btnLogoutMode1" Content="Đăng xuất" ></Button>
+                    <Button x:Name="btnPersonalInforMode1" Content="Thông tin cá nhân" Click="btnPersonalInforMode_Click" ></Button>
+                    <Button x:Name="btnCustomerInforMode1" Content="Thông tin khách hàng" Click="btnCustomerInforMode_Click" ></Button>
+                    <Button x:Name="btnStatisticalMode1" Content="Thống kê" Click="btnStatisticalMode1_Click" ></Button>
+                    <Button x:Name="btnFindMode1" Content="Tìm kiếm" Click="btnFindMode1_Click" ></Button>
+                    <Button x:Name="btnRegisterMode1" Content="Đăng ký khách hàng"  Click="btnRegisterMode_Click"></Button>
+                    <Button x:Name="btnManageMode1" Content="Quản lý nhân viên" Click="btnManageMode1_Click" ></Button>
+                    <Button x:Name="btnLogoutMode1" Content="Đăng xuất" Click="btnLogoutMode_Click"></Button>
                 </ComboBox>
             </StackPanel>
             <StackPanel x:Name="stpMenu" Orientation="Horizontal">
@@ -691,7 +693,7 @@
             <Grid x:Name="temp81"></Grid>
             <TextBox x:Name="tbxSearchAgent"
               Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-              materialDesign:HintAssist.Hint="Mã khách hàng/ họ tên/ số điện thoại/ chứng minh"
+              materialDesign:HintAssist.Hint="Mã nhân viên/ họ tên/ số điện thoại/ chứng minh"
               Text="{Binding Content}"
               Margin="8 0 0 0"
               VerticalAlignment="Bottom" />

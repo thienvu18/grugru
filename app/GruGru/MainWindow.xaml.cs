@@ -57,10 +57,11 @@ namespace GruGru
             //JobCalendarScreen();
             //FindScreen();
             //CustomerScreen();
-            //AgentScreen();
+            AgentScreen();
             SignUp();
             //InforScreen();
-            
+            cbbManage.Visibility = System.Windows.Visibility.Visible;
+
             /* List<ThucUong> Items = new List<ThucUong>();
           Items.Add(new ThucUong() { STT = 1, ten = "tra sua", gia = 15000, soluong = 1 });
           Items.Add(new ThucUong() { STT = 1, ten = "coffee den", gia = 20000, soluong = 1 });
@@ -836,6 +837,54 @@ namespace GruGru
             lvMenuCoffees.ItemsSource = coffees;
             lvMenuMilkteas.ItemsSource = milkTeas;
             lvMenuToppings.ItemsSource = toppings;
+        }
+
+        private void btnPersonalInforMode_Click(object sender, RoutedEventArgs e)
+        {
+            //hiện thị thông tin cá nhân của nhân viên
+            stpMainScreen.Visibility = System.Windows.Visibility.Hidden;
+        }
+
+        private void btnRegisterMode_Click(object sender, RoutedEventArgs e)
+        {
+            //đăng kí khách hàng
+            stpMainScreen.Visibility = System.Windows.Visibility.Hidden;
+            wrpRegisterNewCustomer.Visibility = System.Windows.Visibility.Visible;
+        }
+
+        private void btnLogoutMode_Click(object sender, RoutedEventArgs e)
+        {
+            //đăng xuất
+            stpMainScreen.Visibility = System.Windows.Visibility.Hidden;
+            GridLogin.Visibility = System.Windows.Visibility.Visible;
+        }
+
+        private void btnStatisticalMode1_Click(object sender, RoutedEventArgs e)
+        {
+            //thống kê
+            stpMainScreen.Visibility = System.Windows.Visibility.Hidden;
+            wrpStatistical.Visibility = System.Windows.Visibility.Visible;
+        }
+
+        private void btnFindMode1_Click(object sender, RoutedEventArgs e)
+        {
+            //tìm kiếm
+            stpMainScreen.Visibility = System.Windows.Visibility.Hidden;
+            wrpFind.Visibility = System.Windows.Visibility.Visible;
+        }
+
+        private void btnManageMode1_Click(object sender, RoutedEventArgs e)
+        {
+            //quản lý nhân viên
+            stpMainScreen.Visibility = System.Windows.Visibility.Hidden;
+            wrpAgent.Visibility = System.Windows.Visibility.Visible;
+        }
+
+        private void btnCustomerInforMode_Click(object sender, RoutedEventArgs e)
+        {
+            //thông tin khách hàng
+            stpMainScreen.Visibility = System.Windows.Visibility.Hidden;
+            wrpCustomer.Visibility = System.Windows.Visibility.Visible;
         }
     }
 }
