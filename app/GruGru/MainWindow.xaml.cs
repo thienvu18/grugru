@@ -53,12 +53,13 @@ namespace GruGru
             this.Height = height + 30;
             this.Width = width + 30;
             MainScreen();
-            //StatisticalScreen();
-            //JobCalendarScreen();
-            //FindScreen();
-            //CustomerScreen();
+            StatisticalScreen();
+            JobCalendarScreen();
+            FindScreen();
+            CustomerScreen();
             AgentScreen();
             SignUp();
+            PersonalInforScreen();
             //InforScreen();
             cbbManage.Visibility = System.Windows.Visibility.Visible;
 
@@ -686,6 +687,82 @@ namespace GruGru
             btnAgentDelete.Height = height005;
         }
 
+        public void PersonalInforScreen()
+        {
+            //hàng đầu tiên
+            temp91.Width = width / 10*8;
+
+            temp92.Width = width ;
+            temp92.Height = height / 5;
+
+            temp93.Width = width*0.13;
+
+
+            gridPersonalInfor.Height = height * 0.85;
+            gridPersonalInfor.Width = width * 0.8;
+
+            stpInforPersonalInfor.Height = gridAgent.Height;
+            stpInforPersonalInfor.Width = gridAgent.Width;
+
+            stpInforPersonalInfor1.Height = stpInforAgent.Height;
+            stpInforPersonalInfor1.Width = stpInforAgent.Width / 2;
+
+            stpInforPersonalInfor2.Height = stpInforAgent.Height;
+            stpInforPersonalInfor2.Width = stpInforAgent.Width / 2;
+
+            //Mã nhân viên
+            tbPersonalInforCode.FontSize = height0028;
+
+            tbxPersonalInforCode.FontSize = height0028;
+            tbxPersonalInforCode.Width = stpInforPersonalInfor1.Width * 0.6;
+
+            temp991.Height = stpInforPersonalInfor1.Height / 12;
+
+            //Tên nhân viên
+            tbPersonalInforName.FontSize = height0028;
+            tbxPersonalInforName.FontSize = height0028;
+            tbxPersonalInforName.Width = stpInforPersonalInfor1.Width * 0.6;
+
+            temp992.Height = stpInforPersonalInfor1.Height / 12;
+
+            //tháng kinh nghiệm
+            tbMonthPersonalInfor.FontSize = height0028;
+            tbxMonthPersonalInfor.FontSize = height0028;
+            tbxMonthPersonalInfor.Width = stpInforPersonalInfor1.Width * 0.6;
+
+            temp993.Height = stpInforPersonalInfor1.Height / 12;
+
+            //Cập nhật
+            btnPersonalInforUpdate.FontSize = height003;
+            btnPersonalInforUpdate.Height = height005;
+
+            //Số điện thoại
+            tbPhoneNumberPersonalInfor.FontSize = height0028;
+            tbxPhoneNumberPersonalInfor.FontSize = height0028;
+            tbxPhoneNumberPersonalInfor.Width = stpInforPersonalInfor2.Width * 0.6;
+
+            temp994.Height = stpInforPersonalInfor1.Height / 12;
+
+            //Ngày sinh
+            tbBirthDayPersonalInfor.FontSize = height0028;
+            tbxBirthDayPersonalInfor.FontSize = height0028;
+            tbxBirthDayPersonalInfor.Width = stpInforPersonalInfor2.Width * 0.6;
+
+            temp995.Height = stpInforPersonalInfor1.Height / 12;
+
+            //CMND
+            tbIDPersonalInfor.FontSize = height0028;
+            tbxIDPersonalInfor.FontSize = height0028;
+            tbxIDPersonalInfor.Width = stpInforPersonalInfor2.Width * 0.6;
+
+            temp996.Height = stpInforPersonalInfor1.Height / 12;
+
+            //đổi mật khẩu
+            btnChangePassword.FontSize = height003;
+            btnChangePassword.Height = height005;
+        }
+
+
         public void DoLogin()
         {
             if ((txtUsername.Text == "") && (txtPassword.Password == ""))
@@ -885,6 +962,11 @@ namespace GruGru
             //thông tin khách hàng
             stpMainScreen.Visibility = System.Windows.Visibility.Hidden;
             wrpCustomer.Visibility = System.Windows.Visibility.Visible;
+        }
+
+        private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

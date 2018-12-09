@@ -56,7 +56,7 @@
             <Button x:Name="tbForgotPw" Margin="405,430,232,100" FontSize="15" FontStyle="Italic" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#D8000000">Fogot Password?</Button>
         </Grid>
         </Grid>
-        <StackPanel x:Name="stpMainScreen" Visibility="Visible">
+        <StackPanel x:Name="stpMainScreen" Visibility="Hidden">
             <StackPanel x:Name="stpTitle" Orientation="Horizontal">
                 <TextBlock x:Name="txbCoffee" Text="Coffee" TextAlignment="Center" Background="#FFFDDDF4"></TextBlock>
                 <TextBlock x:Name="txbMilktea" Text="Milk tea" Background="#FFFDDDF4" TextAlignment="Center"></TextBlock>
@@ -260,7 +260,7 @@
             </StackPanel>
         </StackPanel>
         <WrapPanel x:Name="wrpStatistical" Visibility="Hidden">
-            <Button x:Name="btnBackStatistical" >
+            <Button x:Name="btnBackStatistical" Click="btnBack_Click" >
                 <materialDesign:PackIcon Kind="ArrowLeftBoldCircleOutline" />
             </Button>
             <Grid x:Name="temp4"></Grid>
@@ -336,7 +336,7 @@
             <TextBlock x:Name="tbTotal" Text="Tổng: 0000000 00000000"></TextBlock>
         </WrapPanel>
         <WrapPanel x:Name="wrpJobCalendar" Visibility="Hidden">
-            <Button x:Name="btnJobCalendar" >
+            <Button x:Name="btnbackJobCalendar" Click="btnBack_Click" >
                 <materialDesign:PackIcon Kind="ArrowLeftBoldCircleOutline" />
             </Button>
             <Grid x:Name="temp31"></Grid>
@@ -497,7 +497,7 @@
             </Grid>
         </WrapPanel>
         <WrapPanel x:Name="wrpFind" Visibility="Hidden">
-            <Button x:Name="btnBackFind" >
+            <Button x:Name="btnBackFind" Click="btnBack_Click">
                 <materialDesign:PackIcon Kind="ArrowLeftBoldCircleOutline" />
             </Button>
             <Grid x:Name="temp41"></Grid>
@@ -574,7 +574,7 @@
             </Grid>
         </WrapPanel>
         <WrapPanel x:Name="wrpCustomer" Visibility="Hidden">
-            <Button x:Name="btnBackCustomer" >
+            <Button x:Name="btnBackCustomer" Click="btnBack_Click">
                 <materialDesign:PackIcon Kind="ArrowLeftBoldCircleOutline" />
             </Button>
             <Grid x:Name="temp51"></Grid>
@@ -618,7 +618,7 @@
             </Grid>
         </WrapPanel>
         <WrapPanel x:Name="wrpRegisterNewCustomer" Visibility="Hidden">
-            <Button x:Name="btnRegisterNewCustomer" >
+            <Button x:Name="btnbackRegisterNewCustomer" Click="btnBack_Click" >
                 <materialDesign:PackIcon Kind="ArrowLeftBoldCircleOutline" />
             </Button>
             <Grid x:Name="temp61"></Grid>
@@ -626,7 +626,7 @@
             <Grid x:Name="temp66"></Grid>
             <Grid x:Name="gridNewCustomer">
                 <StackPanel x:Name="stpInforNewCustomer">
-                <StackPanel x:Name="stpInforNewCustomerMini1" Orientation="Horizontal">
+                    <StackPanel x:Name="stpInforNewCustomerMini1" Orientation="Horizontal">
                         <StackPanel x:Name="stpInforNewCustomerMini11">
                             <TextBlock x:Name="tbNewCustomerName" Text="Họ tên khách hàng:" ></TextBlock>
                             <TextBox x:Name="tbxNewCustomerName"></TextBox>
@@ -640,12 +640,12 @@
                             <Grid x:Name="temp64"></Grid>
                             <TextBlock x:Name="tbNewBirthDay" Text="Ngày sinh:"></TextBlock>
                             <TextBox x:Name="tbxNewBirthDay"></TextBox>
-                    </StackPanel>
+                        </StackPanel>
                     </StackPanel>
                     <Grid x:Name="temp65"></Grid>
                     <StackPanel x:Name="stpInforNewCustomerMini2">
-                    <Button x:Name="btnSignUp" Content="Đăng ký" HorizontalAlignment="Center" VerticalAlignment="Center"></Button>
-                </StackPanel>
+                        <Button x:Name="btnSignUp" Content="Đăng ký" HorizontalAlignment="Center" VerticalAlignment="Center"></Button>
+                    </StackPanel>
                 </StackPanel>
             </Grid>
         </WrapPanel>
@@ -687,7 +687,7 @@
             </StackPanel>
         </Grid>
         <WrapPanel x:Name="wrpAgent" Visibility="Hidden" >
-            <Button x:Name="btnBackAgent" >
+            <Button x:Name="btnBackAgent" Click="btnBack_Click">
                 <materialDesign:PackIcon Kind="ArrowLeftBoldCircleOutline" />
             </Button>
             <Grid x:Name="temp81"></Grid>
@@ -726,6 +726,42 @@
                         <TextBox x:Name="tbxIDAgent"></TextBox>
                         <Grid x:Name="temp896"></Grid>
                         <Button x:Name="btnAgentDelete" HorizontalAlignment="Center" Content="Xóa"></Button>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </WrapPanel>
+        <WrapPanel x:Name="wrpPersonalInfor" Visibility="Visible" >
+            <Button x:Name="btnBackPersonalInfor" Click="btnBack_Click">
+                <materialDesign:PackIcon Kind="ArrowLeftBoldCircleOutline" />
+            </Button>
+            <Grid x:Name="temp91"></Grid>
+            <Grid x:Name="temp92"></Grid>
+            <Grid x:Name="temp93"></Grid>
+            <Grid x:Name="gridPersonalInfor">
+                <StackPanel x:Name="stpInforPersonalInfor" Orientation="Horizontal">
+                    <StackPanel x:Name="stpInforPersonalInfor1">
+                        <TextBlock x:Name="tbPersonalInforCode" Text="Mã nhân viên:"></TextBlock>
+                        <TextBox x:Name="tbxPersonalInforCode"></TextBox>
+                        <Grid x:Name="temp991"></Grid>
+                        <TextBlock x:Name="tbPersonalInforName" Text="Họ tên nhân viên:" ></TextBlock>
+                        <TextBox x:Name="tbxPersonalInforName"></TextBox>
+                        <Grid x:Name="temp992"></Grid>
+                        <TextBlock x:Name="tbMonthPersonalInfor" Text="Số tháng kinh nghiệm:" ></TextBlock>
+                        <TextBox x:Name="tbxMonthPersonalInfor" IsEnabled="False"></TextBox>
+                        <Grid x:Name="temp993"></Grid>
+                        <Button x:Name="btnPersonalInforUpdate" HorizontalAlignment="Center" Content="Cập Nhật"></Button>
+                    </StackPanel>
+                    <StackPanel x:Name="stpInforPersonalInfor2">
+                        <TextBlock x:Name="tbPhoneNumberPersonalInfor" Text="Số điện thoại:"></TextBlock>
+                        <TextBox x:Name="tbxPhoneNumberPersonalInfor"></TextBox>
+                        <Grid x:Name="temp994"></Grid>
+                        <TextBlock x:Name="tbBirthDayPersonalInfor" Text="Ngày sinh:"></TextBlock>
+                        <TextBox x:Name="tbxBirthDayPersonalInfor"></TextBox>
+                        <Grid x:Name="temp995"></Grid>
+                        <TextBlock x:Name="tbIDPersonalInfor" Text="CMND:"></TextBlock>
+                        <TextBox x:Name="tbxIDPersonalInfor"></TextBox>
+                        <Grid x:Name="temp996"></Grid>
+                        <Button x:Name="btnChangePassword" HorizontalAlignment="Center" Content="Đổi mật khẩu"></Button>
                     </StackPanel>
                 </StackPanel>
             </Grid>
