@@ -15,7 +15,7 @@
         mc:Ignorable="d"
         Title="MainWindow">
     <Grid>
-        <Grid x:Name="GridLoginScreen" >
+        <Grid x:Name="GridLoginScreen" Visibility="Visible">
             <Image Source="backround.jpg" Stretch="Fill">
                 <Image.OpacityMask>
                     <ImageBrush ImageSource="backround.jpg" Opacity="0.6"/>
@@ -62,25 +62,34 @@
                 <TextBlock x:Name="txbMilktea" Text="Milk tea" Background="#FFFDDDF4" TextAlignment="Center"></TextBlock>
                 <TextBlock x:Name="txbTopping" Text="Topping" Background="#FFFDDDF4" TextAlignment="Center"></TextBlock>
                 <TextBlock x:Name="txbInfor" Text="Thông tin hóa đơn" Background="#FFFDC5EE"  TextAlignment="Center"></TextBlock>
-                <ComboBox x:Name="cbbEmployee">
+                <ComboBox x:Name="cbbEmployee" Visibility="Collapsed">
                     <!--<materialDesign:PackIcon Kind="HamburgerMenu" />-->
-                    <Button x:Name="btnCalendar" Content="Lịch làm việc"></Button>
-                    <Button x:Name="btnLogout" Content="Đăng xuất" ></Button>
-                    <Button x:Name="btnRegister" Content="Đăng ký khách hàng" ></Button>
+                    <Button x:Name="btnPersonalInforMode" Content="Thông tin cá nhân" ></Button>
+                    <Button x:Name="btnRegisterMode" Content="Đăng ký khách hàng" ></Button>
+                    <Button x:Name="btnLogoutMode" Content="Đăng xuất" ></Button>
+                </ComboBox>
+                <ComboBox x:Name="cbbManage" Visibility="Collapsed">
+                    <!--<materialDesign:PackIcon Kind="HamburgerMenu" />-->
+                    <Button x:Name="btnPersonalInforMode1" Content="Thông tin cá nhân" ></Button>
+                    <Button x:Name="btnStatisticalMode1" Content="Thống kê"  Visibility="Collapsed"></Button>
+                    <Button x:Name="btnFindMode1" Content="Tìm kiếm" Visibility="Collapsed"></Button>
+                    <Button x:Name="btnRegisterMode1" Content="Đăng ký khách hàng" ></Button>
+                    <Button x:Name="btnManageMode1" Content="Quản lý nhân viên" Visibility="Collapsed"></Button>
+                    <Button x:Name="btnLogoutMode1" Content="Đăng xuất" ></Button>
                 </ComboBox>
             </StackPanel>
             <StackPanel x:Name="stpMenu" Orientation="Horizontal">
                 <WrapPanel x:Name="stpDrink">
                     <ScrollViewer VerticalScrollBarVisibility="Auto" >
-                        <ListView x:Name="lvMenuDrink" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                        <ListView x:Name="lvMenuCoffees" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
-                                    <UniformGrid Columns="3" HorizontalAlignment="Stretch" ></UniformGrid>
+                                    <UniformGrid Columns="1" HorizontalAlignment="Stretch" ></UniformGrid>
                                 </ItemsPanelTemplate>
                             </ItemsControl.ItemsPanel>
                             <ListView.ItemTemplate >
                                 <DataTemplate>
-                                    <Grid x:Name="stpItemMenuDrink" 
+                                    <Grid x:Name="stpItemMenuCoffees" 
                                                 VerticalAlignment="Stretch"
                                                 HorizontalAlignment="Stretch">
                                         <Grid.ColumnDefinitions>
@@ -92,12 +101,12 @@
                                             <RowDefinition></RowDefinition>
                                         </Grid.RowDefinitions>-->
                                         <StackPanel Grid.Column="0" >
-                                            <TextBlock x:Name="tbDrink"
+                                            <TextBlock x:Name="tbCoffees"
                                                    FontSize="18"
-                                                   Text="{Binding Name}"
+                                                   Text="{Binding tenSanPham}"
                                                    TextAlignment="Left"
                                                    TextWrapping="WrapWithOverflow"></TextBlock>
-                                            <ComboBox x:Name="cbbSize" FontWeight="Bold" materialDesign:HintAssist.Hint="S">
+                                            <ComboBox x:Name="cbbSizeCoffees" FontWeight="Bold" materialDesign:HintAssist.Hint="S">
                                             <ComboBoxItem>
                                                 S
                                             </ComboBoxItem>
@@ -110,14 +119,109 @@
                                         </ComboBox>
                                         </StackPanel>
                                         <StackPanel Grid.Column="1">
-                                            <Button x:Name="btnChoose" Width="50" VerticalAlignment="Top" HorizontalAlignment="Left" Content="+"></Button>
-                                            <Button x:Name="btnInfor" Width="50" VerticalAlignment="Bottom" HorizontalAlignment="Left" Content="..."></Button>
+                                            <Button x:Name="btnChooseCoffees" Width="50" VerticalAlignment="Top" HorizontalAlignment="Left" Content="+"></Button>
+                                            <Button x:Name="btnInforCoffees" Width="50" VerticalAlignment="Bottom" HorizontalAlignment="Left" Content="..."></Button>
                                         </StackPanel>
                                     </Grid>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
                         </ListView>
                     </ScrollViewer>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" >
+                        <ListView x:Name="lvMenuMilkteas" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <UniformGrid Columns="1" HorizontalAlignment="Stretch" ></UniformGrid>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ListView.ItemTemplate >
+                                <DataTemplate>
+                                    <Grid x:Name="stpItemMenuMilkteas" 
+                                                VerticalAlignment="Stretch"
+                                                HorizontalAlignment="Stretch">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="9*" />
+                                            <ColumnDefinition Width="1*" />
+                                        </Grid.ColumnDefinitions>
+                                        <!--<Grid.RowDefinitions>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                        </Grid.RowDefinitions>-->
+                                        <StackPanel Grid.Column="0" >
+                                            <TextBlock x:Name="tbMilkteas"
+                                                   FontSize="18"
+                                                   Text="{Binding tenSanPham}"
+                                                   TextAlignment="Left"
+                                                   TextWrapping="WrapWithOverflow"></TextBlock>
+                                            <ComboBox x:Name="cbbSizeMilkteas" FontWeight="Bold" materialDesign:HintAssist.Hint="S">
+                                                <ComboBoxItem>
+                                                    S
+                                                </ComboBoxItem>
+                                                <ComboBoxItem>
+                                                    M
+                                                </ComboBoxItem>
+                                                <ComboBoxItem>
+                                                    L
+                                                </ComboBoxItem>
+                                            </ComboBox>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="1">
+                                            <Button x:Name="btnChooseMilkteas" Width="50" VerticalAlignment="Top" HorizontalAlignment="Left" Content="+"></Button>
+                                            <Button x:Name="btnInforMilkteas" Width="50" VerticalAlignment="Bottom" HorizontalAlignment="Left" Content="..."></Button>
+                                        </StackPanel>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </ScrollViewer>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" >
+                        <ListView x:Name="lvMenuToppings" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <UniformGrid Columns="1" HorizontalAlignment="Stretch" ></UniformGrid>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ListView.ItemTemplate >
+                                <DataTemplate>
+                                    <Grid x:Name="stpItemMenuToppings" 
+                                                VerticalAlignment="Stretch"
+                                                HorizontalAlignment="Stretch">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="9*" />
+                                            <ColumnDefinition Width="1*" />
+                                        </Grid.ColumnDefinitions>
+                                        <!--<Grid.RowDefinitions>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                        </Grid.RowDefinitions>-->
+                                        <StackPanel Grid.Column="0" >
+                                            <TextBlock x:Name="tbToppings"
+                                                   FontSize="18"
+                                                   Text="{Binding tenSanPham}"
+                                                   TextAlignment="Left"
+                                                   TextWrapping="WrapWithOverflow"></TextBlock>
+                                            <ComboBox x:Name="cbbSizeToppings" FontWeight="Bold" materialDesign:HintAssist.Hint="S">
+                                                <ComboBoxItem>
+                                                    S
+                                                </ComboBoxItem>
+                                                <ComboBoxItem>
+                                                    M
+                                                </ComboBoxItem>
+                                                <ComboBoxItem>
+                                                    L
+                                                </ComboBoxItem>
+                                            </ComboBox>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="1">
+                                            <Button x:Name="btnChooseToppings" Width="50" VerticalAlignment="Top" HorizontalAlignment="Left" Content="+"></Button>
+                                            <Button x:Name="btnInforToppings" Width="50" VerticalAlignment="Bottom" HorizontalAlignment="Left" Content="..."></Button>
+                                        </StackPanel>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </ScrollViewer>
+
                 </WrapPanel>
                 <WrapPanel x:Name="gridInforBill">
                     <TextBlock x:Name="tbBillNumber" Text="Số hóa đơn:"></TextBlock>

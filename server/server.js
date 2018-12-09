@@ -71,10 +71,9 @@ app.post("/api/login", function(req, res) {
           res.json({
             code: 0,
             msg: "Dang nhap thanh cong",
-            payload: {
-              loaiNV: user.loaiNV,
-              hoTen: user.hoTen
-            }
+            loaiNV: user.loaiNV,
+            hoTen: user.hoTen
+
           });
         } else {
           res.json({
@@ -119,6 +118,7 @@ app.get("/api/getFoodList", function(req, res) {
           }
         });
         res.json({
+	  code: 0,
           coffees: coffee,
           milkTeas: milkTea,
           toppings: topping

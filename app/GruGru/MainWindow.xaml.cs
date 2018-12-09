@@ -15,6 +15,8 @@ using System.Windows.Shapes;
 using System.Net;
 using System.IO;
 using System.Collections.Specialized;
+using System.Net.Http;
+using Newtonsoft.Json;
 
 namespace GruGru
 {
@@ -42,7 +44,6 @@ namespace GruGru
         Double height0018 = SystemParameters.WorkArea.Height * 0.018;//15
         Double height0028 = SystemParameters.WorkArea.Height * 0.028;//40
         Double height0023 = SystemParameters.WorkArea.Height * 0.023;//12.5
-        int NumberOfDrinks = 36;
 
         public MainWindow()
         {
@@ -59,15 +60,7 @@ namespace GruGru
             //AgentScreen();
             SignUp();
             //InforScreen();
-            /*coffee.Width = 0.2 * width;
-            coffee.Height =height-height006;
-            txbCoffee.Width = 0.2 * width;
-            milktea.Width = 0.2 * width;
-            milktea.Height = height - height006;
-            txbMilktea.Width = 0.2 * width;
-            topping.Width = 0.2 * width;
-            topping.Height = height - height006;
-            txbTopping.Width = 0.2 * width;*/
+            
             /* List<ThucUong> Items = new List<ThucUong>();
           Items.Add(new ThucUong() { STT = 1, ten = "tra sua", gia = 15000, soluong = 1 });
           Items.Add(new ThucUong() { STT = 1, ten = "coffee den", gia = 20000, soluong = 1 });
@@ -88,31 +81,31 @@ namespace GruGru
         }
 
 
-        public void SetItem(TextBlock tb, Button btnChoose, Button btnInfor, ComboBox cbbSize)
+       /* public void SetItem(TextBlock tb, Button btnChoose, Button btnInfor, ComboBox cbbSize)
         {
             Double widthItem;
-            if(NumberOfDrinks%3==0)
+            if (NumberOfDrinks % 3 == 0)
             {
                 widthItem = lvMenuDrink.Width * 3 / NumberOfDrinks;
             }
             else
             {
-                widthItem = lvMenuDrink.Width/ ((int)(NumberOfDrinks /3)+1);
+                widthItem = lvMenuDrink.Width / ((int)(NumberOfDrinks / 3) + 1);
             }
             tb.Height = widthItem * 0.6 / 12;
-            tb.Width = lvMenuDrink.Width /3 * 7 / 10;
+            tb.Width = lvMenuDrink.Width / 3 * 7 / 10;
             tb.FontSize = height002;
 
             btnChoose.Height = widthItem * 0.6 / 12;
-            btnChoose.Width = lvMenuDrink.Width /3 * 3 / 10;
+            btnChoose.Width = lvMenuDrink.Width / 3 * 3 / 10;
 
-            btnInfor.Width = lvMenuDrink.Width /3 * 3 / 10;
+            btnInfor.Width = lvMenuDrink.Width / 3 * 3 / 10;
             btnInfor.Height = widthItem * 0.4 / 12;
 
-            cbbSize.Width = lvMenuDrink.Width /3 * 7 / 10;
+            cbbSize.Width = lvMenuDrink.Width / 3 * 7 / 10;
             cbbSize.Height = widthItem * 0.4 / 12;
             cbbSize.FontSize = height0013;
-        }
+        }*/
         public void MainScreen()
         {
             //thanh ngang đầu tiên
@@ -133,74 +126,22 @@ namespace GruGru
             cbbEmployee.Width = 0.05 * width;
             cbbEmployee.FontSize = height004;
 
+            cbbManage.Width = 0.05 * width;
+            cbbManage.FontSize = height004;
 
             //menu
             stpMenu.Height = height - stpTitle.Height - 10;
             stpDrink.Height = stpMenu.Height;
             stpDrink.Width = 0.69 * width;
 
-            lvMenuDrink.Height = stpMenu.Height;
-            lvMenuDrink.Width = stpDrink.Width;
+            lvMenuCoffees.Height = stpMenu.Height;
+            lvMenuCoffees.Width = stpDrink.Width/3;
 
-            //SetItem(tbDrink, btnChoose, cbbSize, btnInfor);
+            lvMenuMilkteas.Height = stpMenu.Height;
+            lvMenuMilkteas.Width = stpDrink.Width/3;
 
-            /*//coffee
-            temp01.Width = 6;
-            gridCoffee.Width = txbCoffee.Width - 8;
-            gridCoffee.Height = stpDrink.Height - height003;
-
-            //từng món trong ô Coffee
-            SetItem(tbCf0, btnChooseCf0, btnInforCf0, cbbSizeCf0);
-            SetItem(tbCf1, btnChooseCf1, btnInforCf1, cbbSizeCf1);
-            SetItem(tbCf2, btnChooseCf2, btnInforCf2, cbbSizeCf2);
-            SetItem(tbCf3, btnChooseCf3, btnInforCf3, cbbSizeCf3);
-            SetItem(tbCf4, btnChooseCf4, btnInforCf4, cbbSizeCf4);
-            SetItem(tbCf5, btnChooseCf5, btnInforCf5, cbbSizeCf5);
-            SetItem(tbCf6, btnChooseCf6, btnInforCf6, cbbSizeCf6);
-            SetItem(tbCf7, btnChooseCf7, btnInforCf7, cbbSizeCf7);
-            SetItem(tbCf8, btnChooseCf8, btnInforCf8, cbbSizeCf8);
-            SetItem(tbCf9, btnChooseCf9, btnInforCf9, cbbSizeCf9);
-            SetItem(tbCf10, btnChooseCf10, btnInforCf10, cbbSizeCf10);
-            SetItem(tbCf11, btnChooseCf11, btnInforCf11, cbbSizeCf11);
-
-            //Milktea
-            temp02.Width = 6;
-            gridMilktea.Width = txbCoffee.Width-8;
-            gridMilktea.Height = stpDrink.Height - height003;
-
-            //từng món trong ô Milktea
-            SetItem(tbMt0, btnChooseMt0, btnInforMt0, cbbSizeMt0);
-            SetItem(tbMt1, btnChooseMt1, btnInforMt1, cbbSizeMt1);
-            SetItem(tbMt2, btnChooseMt2, btnInforMt2, cbbSizeMt2);
-            SetItem(tbMt3, btnChooseMt3, btnInforMt3, cbbSizeMt3);
-            SetItem(tbMt4, btnChooseMt4, btnInforMt4, cbbSizeMt4);
-            SetItem(tbMt5, btnChooseMt5, btnInforMt5, cbbSizeMt5);
-            SetItem(tbMt6, btnChooseMt6, btnInforMt6, cbbSizeMt6);
-            SetItem(tbMt7, btnChooseMt7, btnInforMt7, cbbSizeMt7);
-            SetItem(tbMt8, btnChooseMt8, btnInforMt8, cbbSizeMt8);
-            SetItem(tbMt9, btnChooseMt9, btnInforMt9, cbbSizeMt9);
-            SetItem(tbMt10, btnChooseMt10, btnInforMt10, cbbSizeMt10);
-            SetItem(tbMt11, btnChooseMt11, btnInforMt11, cbbSizeMt11);
-
-            //Topping
-            temp03.Width = 6;
-            gridTopping.Width = txbCoffee.Width-8;
-            gridTopping.Height = stpDrink.Height - height003;
-
-            //Từng món trong ô Topping
-            SetItem(tbTp0, btnChooseTp0, btnInforTp0, cbbSizeTp0);
-            SetItem(tbTp1, btnChooseTp1, btnInforTp1, cbbSizeTp1);
-            SetItem(tbTp2, btnChooseTp2, btnInforTp2, cbbSizeTp2);
-            SetItem(tbTp3, btnChooseTp3, btnInforTp3, cbbSizeTp3);
-            SetItem(tbTp4, btnChooseTp4, btnInforTp4, cbbSizeTp4);
-            SetItem(tbTp5, btnChooseTp5, btnInforTp5, cbbSizeTp5);
-            SetItem(tbTp6, btnChooseTp6, btnInforTp6, cbbSizeTp6);
-            SetItem(tbTp7, btnChooseTp7, btnInforTp7, cbbSizeTp7);
-            SetItem(tbTp8, btnChooseTp8, btnInforTp8, cbbSizeTp8);
-            SetItem(tbTp9, btnChooseTp9, btnInforTp9, cbbSizeTp9);
-            SetItem(tbTp10, btnChooseTp10, btnInforTp10, cbbSizeTp10);
-            SetItem(tbTp11, btnChooseTp11, btnInforTp11, cbbSizeTp11);*/
-
+            lvMenuToppings.Height = stpMenu.Height;
+            lvMenuToppings.Width = stpDrink.Width/3;
 
             //InforBill
             gridInforBill.Width = 0.31 * width;
@@ -272,23 +213,16 @@ namespace GruGru
             tbPayMoney.Height = heighttbBill;
             tbPayMoney.Width = gridInforBill.Width - 10;
 
-            string[] ListName = new string[14] { "Trà sữa dâu","Cream","Bạc xỉu",
-                                             "Trà sữa nho","Pudding","Cafe đen",
-                                             "Trà sữa thái xanh","Thạch rau câu","Latte",
-                                             "Trà sữa truyền thống","Thạch phô mai","Cafe sữa đá",
-                                             "Trà sữa Việt Quất","Thạch trái cây" };
-            List<Drink> ListDrink = new List<Drink>();
-            for (int i = 0; i < 14; i++)
-            {
-                ListDrink.Add(new Drink() { Name = ListName[i] });
-            }
 
-            lvMenuDrink.ItemsSource = ListDrink;
         }
 
-        public class Drink
+        public class SanPham
         {
-            public string Name { get; set; }
+            public string id { get; set; }
+            public string maSanPham { get; set; }
+            public string tenSanPham { get; set; }
+            public string gia { get; set; }
+            public string thongTin { get; set; }
         }
 
         public void StatisticalScreen()
@@ -651,11 +585,11 @@ namespace GruGru
             tbIngredients.FontSize = height0023;
 
             lvListIngredients.FontSize = height0023;
-            lvListIngredients.Height = stpInforDrinksMini.Height /5*3;
+            lvListIngredients.Height = stpInforDrinksMini.Height / 5 * 3;
             lvListIngredients.Width = stpInforDrinksMini.Width;
 
             lvhOrdinalIngredient.Width = lvListIngredients.Width / 10;
-            lvhNameIngredient.Width = lvListIngredients.Width / 10*7;
+            lvhNameIngredient.Width = lvListIngredients.Width / 10 * 7;
             lvhPercent.Width = lvListIngredients.Width / 10;
             lvhKcal.Width = lvListIngredients.Width / 10;
 
@@ -753,13 +687,7 @@ namespace GruGru
 
         public void DoLogin()
         {
-            loginRequest();
-            /*if ((txtUsername.Text == "admin") && (txtPassword.Password == "123"))
-            {
-                GridLoginScreen.Visibility = System.Windows.Visibility.Hidden;
-                stpMainScreen.Visibility = System.Windows.Visibility.Visible;
-            }
-            else if ((txtUsername.Text == "") && (txtPassword.Password == ""))
+            if ((txtUsername.Text == "") && (txtPassword.Password == ""))
             {
                 tbMessageBox.Text = "invalid username and password!!!";
             }
@@ -773,8 +701,34 @@ namespace GruGru
             }
             else
             {
-                tbMessageBox.Text = "Username or password is wrong!!!";
-            }*/
+
+                string result = loginRequest();
+                dynamic stuff = JsonConvert.DeserializeObject(result);
+
+                string msg = stuff.msg;
+                string code = stuff.code;
+                if (code == "0")
+                {
+                    GridLoginScreen.Visibility = System.Windows.Visibility.Hidden;
+                    stpMainScreen.Visibility = System.Windows.Visibility.Visible;
+                    string type = stuff.loaiNV;
+                    string name = stuff.hoTen;
+                    LoadMenu();
+                    if (type == "1")//nhân viên
+                    {
+                        cbbEmployee.Visibility = System.Windows.Visibility.Visible;
+                    }
+                    else
+                    {
+                        cbbManage.Visibility = System.Windows.Visibility.Visible;
+                    }
+                    tbEmployee.Text = "Phục vụ: " + name;
+                }
+                else
+                {
+                    tbMessageBox.Text = "Username or password is wrong!!!";
+                }
+            }
 
         }
         private void btnLogin_Click(object sender, RoutedEventArgs e)
@@ -798,19 +752,90 @@ namespace GruGru
             }
         }
 
-        private void loginRequest()
+        private string loginRequest()
         {
-            using (var client = new WebClient())
+            string username = txtUsername.Text;//"usercfrnh"
+            string password = txtPassword.Password;//"13874383";
+            string json = "{\"username\": \"" + username + "\", \"password\": \"" + password + "\"}";
+            string url = "http://localhost:8080/api/login";
+
+            var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+            httpWebRequest.ContentType = "application/json";
+            httpWebRequest.Method = "POST";
+            using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
             {
-                var values = new NameValueCollection();
-                values["username"] = "hello";
-                values["password"] = "world";
-
-                var response = client.UploadValues("http:localhost:8080/api/login", values);
-
-                var responseString = Encoding.Default.GetString(response);
-                MessageBox.Show(responseString);
+                streamWriter.Write(json);
+                streamWriter.Write("\n");
+                streamWriter.Flush();
+                streamWriter.Close();
             }
+            string result;
+            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+            {
+                result = streamReader.ReadToEnd();
+            }
+            return result;
+        }
+
+        private void LoadMenu()
+        {
+            string url = "http://localhost:8080/api/getFoodList";
+
+            var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+            httpWebRequest.Method = "GET";
+            string result;
+            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+            {
+                result = streamReader.ReadToEnd();
+            }
+
+            dynamic stuff = JsonConvert.DeserializeObject(result);
+
+            string code = stuff.code;
+            List<SanPham> coffees = new List<SanPham>();
+            List<SanPham> milkTeas = new List<SanPham>();
+            List<SanPham> toppings = new List<SanPham>();
+
+            foreach (var item in stuff.coffees)
+            {
+                coffees.Add(new SanPham()
+                {
+                    id = item.id,
+                    gia = item.gia,
+                    maSanPham = item.maSanPham,
+                    tenSanPham = item.tenSanPham,
+                    thongTin = item.thongTin
+                });
+            }
+            foreach (var item in stuff.milkTeas)
+            {
+                milkTeas.Add(new SanPham()
+                {
+                    id = item.id,
+                    gia = item.gia,
+                    maSanPham = item.maSanPham,
+                    tenSanPham = item.tenSanPham,
+                    thongTin = item.thongTin
+                });
+            }
+
+            foreach (var item in stuff.toppings)
+            {
+                toppings.Add(new SanPham()
+                {
+                    id = item.id,
+                    gia = item.gia,
+                    maSanPham = item.maSanPham,
+                    tenSanPham = item.tenSanPham,
+                    thongTin = item.thongTin
+                });
+            }
+
+            lvMenuCoffees.ItemsSource = coffees;
+            lvMenuMilkteas.ItemsSource = milkTeas;
+            lvMenuToppings.ItemsSource = toppings;
         }
     }
 }
