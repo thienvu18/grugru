@@ -17,6 +17,7 @@ using System.IO;
 using System.Collections.Specialized;
 using System.Net.Http;
 using Newtonsoft.Json;
+using GruGru.Model;
 
 namespace GruGru
 {
@@ -216,15 +217,6 @@ namespace GruGru
             tbPayMoney.Width = gridInforBill.Width - 10;
 
 
-        }
-
-        public class SanPham
-        {
-            public string id { get; set; }
-            public string maSanPham { get; set; }
-            public string tenSanPham { get; set; }
-            public string gia { get; set; }
-            public string thongTin { get; set; }
         }
 
         public void StatisticalScreen()
