@@ -46,6 +46,8 @@ namespace GruGru
         Double height0028 = SystemParameters.WorkArea.Height * 0.028;//40
         Double height0023 = SystemParameters.WorkArea.Height * 0.023;//12.5
 
+        const string SERVER = "http://localhost:8080/api/";
+
         public MainWindow()
         {
             InitializeComponent();
@@ -828,7 +830,7 @@ namespace GruGru
             string username = txtUsername.Text;//"usercfrnh"
             string password = txtPassword.Password;//"13874383";
             string json = "{\"username\": \"" + username + "\", \"password\": \"" + password + "\"}";
-            string url = "http://localhost:8080/api/login";
+            string url = SERVER + "api/login";
 
             var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
             httpWebRequest.ContentType = "application/json";
@@ -851,7 +853,7 @@ namespace GruGru
 
         private void LoadMenu()
         {
-            string url = "http://localhost:8080/api/getFoodList";
+            string url = SERVER + "api/getFoodList";
 
             var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
             httpWebRequest.Method = "GET";
@@ -959,6 +961,27 @@ namespace GruGru
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        public string Get(string uri)
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
+            request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
+
+            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+            using (Stream stream = response.GetResponseStream())
+            using (StreamReader reader = new StreamReader(stream))
+            {
+                return reader.ReadToEnd();
+            }
+        }
+
+        private void TbxSearchCustomer_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string phoneNumber = tbxSearchCustomer.Text;
+            string res = Get(SERVER + "api/getCustomerByPhone/" + phoneNumber);
+            var resObject = JsonConvert.DeserializeObject(res);
+            //tbxSearchCustomer.ContextMenu = new ContextMenu();
         }
 
         public class Drink
