@@ -853,7 +853,7 @@ namespace GruGru
 
         private void LoadMenu()
         {
-            string url = SERVER + "api/getFoodList";
+            string url = SERVER + "getFoodList";
 
             var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
             httpWebRequest.Method = "GET";
@@ -979,7 +979,7 @@ namespace GruGru
         private void TbxSearchCustomer_TextChanged(object sender, TextChangedEventArgs e)
         {
             string phoneNumber = tbxSearchCustomer.Text;
-            string res = Get(SERVER + "api/getCustomerByPhone/" + phoneNumber);
+            string res = Get(SERVER + "/getCustomerByPhone/" + phoneNumber);
             var resObject = JsonConvert.DeserializeObject(res);
             //tbxSearchCustomer.ContextMenu = new ContextMenu();
         }
