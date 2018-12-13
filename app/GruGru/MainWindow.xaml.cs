@@ -46,7 +46,7 @@ namespace GruGru
         Double height0028 = SystemParameters.WorkArea.Height * 0.028;//40
         Double height0023 = SystemParameters.WorkArea.Height * 0.023;//12.5
 
-        const string SERVER = SERVER + "api/";
+        const string SERVER = "http://localhost:8080/api/";
 
         public MainWindow()
         {
