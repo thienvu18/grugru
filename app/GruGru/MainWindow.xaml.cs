@@ -87,31 +87,31 @@ namespace GruGru
         }
 
 
-       /* public void SetItem(TextBlock tb, Button btnChoose, Button btnInfor, ComboBox cbbSize)
-        {
-            Double widthItem;
-            if (NumberOfDrinks % 3 == 0)
-            {
-                widthItem = lvMenuDrink.Width * 3 / NumberOfDrinks;
-            }
-            else
-            {
-                widthItem = lvMenuDrink.Width / ((int)(NumberOfDrinks / 3) + 1);
-            }
-            tb.Height = widthItem * 0.6 / 12;
-            tb.Width = lvMenuDrink.Width / 3 * 7 / 10;
-            tb.FontSize = height002;
+        /* public void SetItem(TextBlock tb, Button btnChoose, Button btnInfor, ComboBox cbbSize)
+         {
+             Double widthItem;
+             if (NumberOfDrinks % 3 == 0)
+             {
+                 widthItem = lvMenuDrink.Width * 3 / NumberOfDrinks;
+             }
+             else
+             {
+                 widthItem = lvMenuDrink.Width / ((int)(NumberOfDrinks / 3) + 1);
+             }
+             tb.Height = widthItem * 0.6 / 12;
+             tb.Width = lvMenuDrink.Width / 3 * 7 / 10;
+             tb.FontSize = height002;
 
-            btnChoose.Height = widthItem * 0.6 / 12;
-            btnChoose.Width = lvMenuDrink.Width / 3 * 3 / 10;
+             btnChoose.Height = widthItem * 0.6 / 12;
+             btnChoose.Width = lvMenuDrink.Width / 3 * 3 / 10;
 
-            btnInfor.Width = lvMenuDrink.Width / 3 * 3 / 10;
-            btnInfor.Height = widthItem * 0.4 / 12;
+             btnInfor.Width = lvMenuDrink.Width / 3 * 3 / 10;
+             btnInfor.Height = widthItem * 0.4 / 12;
 
-            cbbSize.Width = lvMenuDrink.Width / 3 * 7 / 10;
-            cbbSize.Height = widthItem * 0.4 / 12;
-            cbbSize.FontSize = height0013;
-        }*/
+             cbbSize.Width = lvMenuDrink.Width / 3 * 7 / 10;
+             cbbSize.Height = widthItem * 0.4 / 12;
+             cbbSize.FontSize = height0013;
+         }*/
         public void MainScreen()
         {
             //thanh ngang đầu tiên
@@ -141,13 +141,13 @@ namespace GruGru
             stpDrink.Width = 0.69 * width;
 
             lvMenuCoffees.Height = stpMenu.Height;
-            lvMenuCoffees.Width = stpDrink.Width/3;
+            lvMenuCoffees.Width = stpDrink.Width / 3;
 
             lvMenuMilkteas.Height = stpMenu.Height;
-            lvMenuMilkteas.Width = stpDrink.Width/3;
+            lvMenuMilkteas.Width = stpDrink.Width / 3;
 
             lvMenuToppings.Height = stpMenu.Height;
-            lvMenuToppings.Width = stpDrink.Width/3;
+            lvMenuToppings.Width = stpDrink.Width / 3;
 
             //InforBill
             gridInforBill.Width = 0.31 * width;
@@ -685,12 +685,12 @@ namespace GruGru
         public void PersonalInforScreen()
         {
             //hàng đầu tiên
-            temp91.Width = width / 10*8;
+            temp91.Width = width / 10 * 8;
 
-            temp92.Width = width ;
+            temp92.Width = width;
             temp92.Height = height / 5;
 
-            temp93.Width = width*0.13;
+            temp93.Width = width * 0.13;
 
 
             gridPersonalInfor.Height = height * 0.85;
@@ -976,20 +976,12 @@ namespace GruGru
             }
         }
 
-        private void TbxSearchCustomer_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            string phoneNumber = tbxSearchCustomer.Text;
-            string res = Get(SERVER + "/getCustomerByPhone/" + phoneNumber);
-            var resObject = JsonConvert.DeserializeObject(res);
-            //tbxSearchCustomer.ContextMenu = new ContextMenu();
-        }
-
         public class Drink
         {
             public int id { get; set; }
             public int soLuong { get; set; }
             public string size { get; set; }
-           
+
         }
 
         List<Drink> ListDrinks = new List<Drink>();
@@ -998,10 +990,10 @@ namespace GruGru
         {
             int idtemp = int.Parse(((TextBlock)((StackPanel)((Grid)((StackPanel)((Button)sender).Parent).Parent).Children[0]).Children[2]).Text);
             string sizetemp = ((ComboBoxItem)((ComboBox)((StackPanel)((Grid)((StackPanel)((Button)sender).Parent).Parent).Children[0]).Children[1]).SelectedItem).Content.ToString();
-            bool temp=false;
+            bool temp = false;
             foreach (var item in ListDrinks)
             {
-                if((item.id==idtemp)&&(item.size==sizetemp))
+                if ((item.id == idtemp) && (item.size == sizetemp))
                 {
                     item.soLuong++;
                     temp = true;
@@ -1048,13 +1040,81 @@ namespace GruGru
                 streamWriter.Flush();
                 streamWriter.Close();
             }
-           /* string result;
-            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+            /* string result;
+             var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+             using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+             {
+                 result = streamReader.ReadToEnd();
+             }
+             return result;*/
+        }
+
+        private void TbxSearchCustomer_KeyUp(object sender, KeyEventArgs e)
+        {
+            bool found = false;
+            var border = (resultStack.Parent as ScrollViewer).Parent as Border;
+
+            string query = (sender as TextBox).Text;
+
+            if (query.Length == 0)
             {
-                result = streamReader.ReadToEnd();
+                // Clear   
+                resultStack.Children.Clear();
+                border.Visibility = System.Windows.Visibility.Hidden;
             }
-            return result;*/
+            else
+            {
+                border.Visibility = System.Windows.Visibility.Visible;
+                string res = Get(SERVER + "getCustomerByPhone/" + query);
+                dynamic resObject = JsonConvert.DeserializeObject(res);
+                // Clear the list   
+                resultStack.Children.Clear();
+
+                if (resObject.code == "0")
+                {
+                    for (int i = 0; i < resObject.payload.Count; i++)
+                    {
+                        string text = resObject.payload[i].hoTen;
+
+                        // The word starts with this... Autocomplete must work   
+                        TextBlock block = new TextBlock();
+
+                        // Add the text   
+                        block.Text = text;
+
+                        // A little style...   
+                        block.Margin = new Thickness(2, 3, 2, 3);
+                        block.Cursor = Cursors.Hand;
+
+                        // Mouse events   
+                        block.MouseLeftButtonUp += (s, notCare) =>
+                        {
+                            //tbxSearchCustomer.Text = (s as TextBlock).Text;
+                        };
+
+                        block.MouseEnter += (s, notCare) =>
+                        {
+                            TextBlock b = s as TextBlock;
+                            b.Background = Brushes.PeachPuff;
+                        };
+
+                        block.MouseLeave += (s, notCare) =>
+                        {
+                            TextBlock b = s as TextBlock;
+                            b.Background = Brushes.Transparent;
+                        };
+
+                        // Add to the panel   
+                        resultStack.Children.Add(block);
+                        found = true;
+                    }
+                }
+
+                if (!found)
+                {
+                    resultStack.Children.Add(new TextBlock() { Text = "No results found." });
+                }
+            }
         }
     }
 }

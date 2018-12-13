@@ -61,7 +61,7 @@
                 <Button x:Name="tbForgotPw" Margin="405,430,232,100" FontSize="15" FontStyle="Italic" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Orange">Fogot Password?</Button>
             </Grid>
         </Grid>
-        <StackPanel x:Name="stpMainScreen" Background="#e9e7e4" Visibility="Visible">
+        <StackPanel x:Name="stpMainScreen" Background="#e9e7e4" Visibility="Hidden">
             <StackPanel x:Name="stpTitle" Orientation="Horizontal">
                 <TextBlock x:Name="txbCoffee" Text="Coffee" TextAlignment="Center" Background="#b68648" ></TextBlock>
                 <TextBlock x:Name="txbMilktea" Text="Milk tea" Background="#efca8b" TextAlignment="Center"></TextBlock>
@@ -563,17 +563,25 @@
                 </ScrollViewer>
             </Grid>
         </WrapPanel>
-        <WrapPanel x:Name="wrpCustomer" Background="#ffd1d1" Visibility="Hidden">
+        <WrapPanel x:Name="wrpCustomer" Background="#ffd1d1" Visibility="Visible">
             <Button x:Name="btnBackCustomer" BorderBrush="#ffffff" Background="#e87f5c" Click="btnBack_Click">
                 <materialDesign:PackIcon Kind="ArrowLeftBoldCircleOutline" />
             </Button>
             <Grid x:Name="temp51"></Grid>
-            <TextBox x:Name="tbxSearchCustomer" Foreground="Black"
-              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-              materialDesign:HintAssist.Hint="Số điện thoại"
-              Margin="8 0 0 0"
-              VerticalAlignment="Bottom" 
-              TextChanged="TbxSearchCustomer_TextChanged"/>
+            <StackPanel>
+                <TextBox x:Name="tbxSearchCustomer" Foreground="Black"
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                    materialDesign:HintAssist.Hint="Số điện thoại"
+                    Margin="8 0 0 0"
+                    VerticalAlignment="Bottom" 
+                    KeyUp="TbxSearchCustomer_KeyUp"/>
+                <Border Width="298" Height="150" BorderBrush="Black"   
+                    BorderThickness="1" Visibility="Hidden">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <StackPanel Name="resultStack"></StackPanel>
+                    </ScrollViewer>
+                </Border>
+            </StackPanel>
             <Grid x:Name="temp57"></Grid>
             <Button x:Name="btnCustomer" Content="Tìm kiếm" BorderBrush="#ffffff" Background="#e87f5c"></Button>
             <Grid x:Name="temp59"></Grid>
