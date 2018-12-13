@@ -53,17 +53,23 @@ namespace GruGru
             this.Top = 0;
             this.Height = height + 30;
             this.Width = width + 30;
-            MainScreen();
-            StatisticalScreen();
-            JobCalendarScreen();
-            FindScreen();
-            CustomerScreen();
-            AgentScreen();
-            SignUp();
-            PersonalInforScreen();
-            //InforScreen();
-            cbbManage.Visibility = System.Windows.Visibility.Visible;
-
+            //MainScreen();
+            //StatisticalScreen();
+            // JobCalendarScreen();
+            // FindScreen();
+            //CustomerScreen();
+             AgentScreen();
+            // SignUp();
+            // InforScreen();
+            /*coffee.Width = 0.2 * width;
+            coffee.Height =height-height006;
+            txbCoffee.Width = 0.2 * width;
+            milktea.Width = 0.2 * width;
+            milktea.Height = height - height006;
+            txbMilktea.Width = 0.2 * width;
+            topping.Width = 0.2 * width;
+            topping.Height = height - height006;
+            txbTopping.Width = 0.2 * width;*/
             /* List<ThucUong> Items = new List<ThucUong>();
           Items.Add(new ThucUong() { STT = 1, ten = "tra sua", gia = 15000, soluong = 1 });
           Items.Add(new ThucUong() { STT = 1, ten = "coffee den", gia = 20000, soluong = 1 });
@@ -137,8 +143,31 @@ namespace GruGru
             stpDrink.Height = stpMenu.Height;
             stpDrink.Width = 0.69 * width;
 
-            lvMenuCoffees.Height = stpMenu.Height;
-            lvMenuCoffees.Width = stpDrink.Width/3;
+            lvMenuDrink.Height = stpMenu.Height;
+            lvMenuDrink.Width = stpDrink.Width;
+
+            tempmenu.Width = width*0.01;
+
+            //SetItem(tbDrink, btnChoose, cbbSize, btnInfor);
+
+            //coffee
+            temp01.Width = 6;
+            gridCoffee.Width = txbCoffee.Width - 8;
+            gridCoffee.Height = stpDrink.Height - height003;
+
+            //từng món trong ô Coffee
+            SetItem(tbCf0, btnChooseCf0, btnInforCf0, cbbSizeCf0);
+            SetItem(tbCf1, btnChooseCf1, btnInforCf1, cbbSizeCf1);
+            SetItem(tbCf2, btnChooseCf2, btnInforCf2, cbbSizeCf2);
+            SetItem(tbCf3, btnChooseCf3, btnInforCf3, cbbSizeCf3);
+            SetItem(tbCf4, btnChooseCf4, btnInforCf4, cbbSizeCf4);
+            SetItem(tbCf5, btnChooseCf5, btnInforCf5, cbbSizeCf5);
+            SetItem(tbCf6, btnChooseCf6, btnInforCf6, cbbSizeCf6);
+            SetItem(tbCf7, btnChooseCf7, btnInforCf7, cbbSizeCf7);
+            SetItem(tbCf8, btnChooseCf8, btnInforCf8, cbbSizeCf8);
+            SetItem(tbCf9, btnChooseCf9, btnInforCf9, cbbSizeCf9);
+            SetItem(tbCf10, btnChooseCf10, btnInforCf10, cbbSizeCf10);
+            SetItem(tbCf11, btnChooseCf11, btnInforCf11, cbbSizeCf11);
 
             lvMenuMilkteas.Height = stpMenu.Height;
             lvMenuMilkteas.Width = stpDrink.Width/3;
@@ -147,7 +176,7 @@ namespace GruGru
             lvMenuToppings.Width = stpDrink.Width/3;
 
             //InforBill
-            gridInforBill.Width = 0.31 * width;
+            gridInforBill.Width = 0.3 * width;
             gridInforBill.Height = height - height005;
 
             Double heighttbBill = gridInforBill.Height * 3 / 60;
@@ -771,39 +800,8 @@ namespace GruGru
             }
             else
             {
-
-                string result = loginRequest();
-                dynamic stuff = JsonConvert.DeserializeObject(result);
-
-                string msg = stuff.msg;
-                string code = stuff.code;
-                if (code == "0")
-                {
-                    GridLoginScreen.Visibility = System.Windows.Visibility.Hidden;
-                    stpMainScreen.Visibility = System.Windows.Visibility.Visible;
-                    string type = stuff.loaiNV;
-                    string name = stuff.hoTen;
-                    LoadMenu();
-                    if (type == "1")//nhân viên
-                    {
-                        cbbEmployee.Visibility = System.Windows.Visibility.Visible;
-                    }
-                    else
-                    {
-                        cbbManage.Visibility = System.Windows.Visibility.Visible;
-                    }
-                    tbEmployee.Text = "Phục vụ: " + name;
-                }
-                else
-                {
-                    tbMessageBox.Text = "Username or password is wrong!!!";
-                }
+                tbMessageBox.Text = "Username or password is wrong!!!";
             }
-
-        }
-        private void btnLogin_Click(object sender, RoutedEventArgs e)
-        {
-            DoLogin();
         }
 
         private void txtUsername_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -821,145 +819,7 @@ namespace GruGru
                 DoLogin();
             }
         }
-
-        private string loginRequest()
-        {
-            string username = txtUsername.Text;//"usercfrnh"
-            string password = txtPassword.Password;//"13874383";
-            string json = "{\"username\": \"" + username + "\", \"password\": \"" + password + "\"}";
-            string url = "http://localhost:8080/api/login";
-
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
-            httpWebRequest.ContentType = "application/json";
-            httpWebRequest.Method = "POST";
-            using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
-            {
-                streamWriter.Write(json);
-                streamWriter.Write("\n");
-                streamWriter.Flush();
-                streamWriter.Close();
-            }
-            string result;
-            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
-            {
-                result = streamReader.ReadToEnd();
-            }
-            return result;
-        }
-
-        private void LoadMenu()
-        {
-            string url = "http://localhost:8080/api/getFoodList";
-
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
-            httpWebRequest.Method = "GET";
-            string result;
-            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
-            {
-                result = streamReader.ReadToEnd();
-            }
-
-            dynamic stuff = JsonConvert.DeserializeObject(result);
-
-            string code = stuff.code;
-            List<SanPham> coffees = new List<SanPham>();
-            List<SanPham> milkTeas = new List<SanPham>();
-            List<SanPham> toppings = new List<SanPham>();
-
-            foreach (var item in stuff.coffees)
-            {
-                coffees.Add(new SanPham()
-                {
-                    id = item.id,
-                    gia = item.gia,
-                    maSanPham = item.maSanPham,
-                    tenSanPham = item.tenSanPham,
-                    thongTin = item.thongTin
-                });
-            }
-            foreach (var item in stuff.milkTeas)
-            {
-                milkTeas.Add(new SanPham()
-                {
-                    id = item.id,
-                    gia = item.gia,
-                    maSanPham = item.maSanPham,
-                    tenSanPham = item.tenSanPham,
-                    thongTin = item.thongTin
-                });
-            }
-
-            foreach (var item in stuff.toppings)
-            {
-                toppings.Add(new SanPham()
-                {
-                    id = item.id,
-                    gia = item.gia,
-                    maSanPham = item.maSanPham,
-                    tenSanPham = item.tenSanPham,
-                    thongTin = item.thongTin
-                });
-            }
-
-            lvMenuCoffees.ItemsSource = coffees;
-            lvMenuMilkteas.ItemsSource = milkTeas;
-            lvMenuToppings.ItemsSource = toppings;
-        }
-
-        private void btnPersonalInforMode_Click(object sender, RoutedEventArgs e)
-        {
-            //hiện thị thông tin cá nhân của nhân viên
-            stpMainScreen.Visibility = System.Windows.Visibility.Hidden;
-        }
-
-        private void btnRegisterMode_Click(object sender, RoutedEventArgs e)
-        {
-            //đăng kí khách hàng
-            stpMainScreen.Visibility = System.Windows.Visibility.Hidden;
-            wrpRegisterNewCustomer.Visibility = System.Windows.Visibility.Visible;
-        }
-
-        private void btnLogoutMode_Click(object sender, RoutedEventArgs e)
-        {
-            //đăng xuất
-            stpMainScreen.Visibility = System.Windows.Visibility.Hidden;
-            GridLogin.Visibility = System.Windows.Visibility.Visible;
-        }
-
-        private void btnStatisticalMode1_Click(object sender, RoutedEventArgs e)
-        {
-            //thống kê
-            stpMainScreen.Visibility = System.Windows.Visibility.Hidden;
-            wrpStatistical.Visibility = System.Windows.Visibility.Visible;
-        }
-
-        private void btnFindMode1_Click(object sender, RoutedEventArgs e)
-        {
-            //tìm kiếm
-            stpMainScreen.Visibility = System.Windows.Visibility.Hidden;
-            wrpFind.Visibility = System.Windows.Visibility.Visible;
-        }
-
-        private void btnManageMode1_Click(object sender, RoutedEventArgs e)
-        {
-            //quản lý nhân viên
-            stpMainScreen.Visibility = System.Windows.Visibility.Hidden;
-            wrpAgent.Visibility = System.Windows.Visibility.Visible;
-        }
-
-        private void btnCustomerInforMode_Click(object sender, RoutedEventArgs e)
-        {
-            //thông tin khách hàng
-            stpMainScreen.Visibility = System.Windows.Visibility.Hidden;
-            wrpCustomer.Visibility = System.Windows.Visibility.Visible;
-        }
-
-        private void btnBack_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+  
+     
     }
 }
-

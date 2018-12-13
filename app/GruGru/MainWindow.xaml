@@ -21,42 +21,42 @@
                     <ImageBrush ImageSource="backround.jpg" Opacity="0.6"/>
                 </Image.OpacityMask>
             </Image>
-        <Grid x:Name="GridLogin" Height="569" Width="792" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <materialDesign:Card x:Name="cardLogin" Margin="230,70,230,0" OpacityMask="#FFFFFDFD" Opacity="0.3"
-         Background="#FFFFFDFD" Height="420">
-            </materialDesign:Card>
-            <materialDesign:PackIcon Height="100" Width="100" HorizontalAlignment="Center"  Kind="AccountCircle" Margin="346,20,346,0" Foreground="#DD224BA4" />
-            <Label Content="Sign In" Margin="300,110,300,400" HorizontalAlignment="Center" FontSize="30"></Label>
-            <Label Target="{Binding ElementName=txtUsername }" Margin="245,165,400,345" FontSize="21">
-                _Username:
-            </Label>
-            <materialDesign:PackIcon Width="30" Height="30" Margin="275,200,350,330" Kind="Account" />
-            <TextBox x:Name="txtUsername" Width="250" 
+            <Grid x:Name="GridLogin" Height="569" Width="792" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <materialDesign:Card x:Name="cardLogin" Margin="230,70,230,0" Opacity="0.3"
+         Background="White" Height="429" Foreground="{x:Null}"/>
+                <materialDesign:PackIcon Height="100" Width="100" HorizontalAlignment="Center"  Kind="AccountCircle" Margin="346,10,346,0" Foreground="Orange" />
+                <Label Content="Sign In" Margin="300,110,300,400" HorizontalAlignment="Center" FontSize="30"></Label>
+                <Label Target="{Binding ElementName=txtUsername }" Margin="245,165,400,345" FontSize="21">
+                    _Username:
+                </Label>
+                <materialDesign:PackIcon Width="30" Height="30" Margin="275,200,350,330" Kind="Account" Foreground="Orange"/>
+                <TextBox x:Name="txtUsername" Width="250" 
                  Margin="310,200,255,325" 
                  FontSize="20"
                  materialDesign:HintAssist.Hint="UserName" PreviewKeyDown="txtUsername_PreviewKeyDown">
-            </TextBox>
-            <Label Target="{Binding ElementName=txtPassword}" Margin="245,255,400,250" FontSize="21">
-                _Password:
-            </Label>
-            <materialDesign:PackIcon Width="28" Height="28" Margin="275,290,350,240" Kind="Key" />
-            <PasswordBox x:Name="txtPassword" Width="250" 
+                </TextBox>
+                <Label Target="{Binding ElementName=txtPassword}" Margin="245,255,400,250" FontSize="21">
+                    _Password:
+                </Label>
+                <materialDesign:PackIcon Width="28" Height="28" Margin="275,290,350,240" Kind="Key" Foreground="Orange"/>
+                <PasswordBox x:Name="txtPassword" Width="250" 
                  Margin="310,290,255,235" 
                  FontSize="20"
                  materialDesign:HintAssist.Hint="Password" PreviewKeyDown="txtPassword_PreviewKeyDown">
-            </PasswordBox>
-            <TextBlock x:Name="tbMessageBox" FontSize="13" Margin="250,345,250,200" Foreground="Red"></TextBlock>
-            <Button x:Name="btnLogin" FontSize="30" Margin="300,378,300,145" Height="Auto" Background="#DD3164D4" Click="btnLogin_Click">Login</Button>
-            <CheckBox Margin="240,435,400,110"
+                </PasswordBox>
+                <TextBlock x:Name="tbMessageBox" FontSize="13" Margin="250,345,250,200"></TextBlock>
+                <Button x:Name="btnLogin" FontSize="30" Margin="300,378,300,145" Height="Auto" Background="Orange" BorderBrush="#FF11C8DA">Login</Button>
+                <CheckBox Margin="240,435,400,110"
                       FontSize="15"
                 x:Name="RememberMe"
-                IsThreeState="False">
-                Remember Me
-            </CheckBox>
-            <Button x:Name="tbForgotPw" Margin="405,430,232,100" FontSize="15" FontStyle="Italic" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#D8000000">Fogot Password?</Button>
+                IsThreeState="False"
+                      Foreground="CornflowerBlue">
+                    Remember Me
+                </CheckBox>
+                <Button x:Name="tbForgotPw" Margin="405,430,232,100" FontSize="15" FontStyle="Italic" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Orange">Fogot Password?</Button>
+            </Grid>
         </Grid>
-        </Grid>
-        <StackPanel x:Name="stpMainScreen" Visibility="Hidden">
+        <StackPanel x:Name="stpMainScreen" Background="#e9e7e4" Visibility="Hidden">
             <StackPanel x:Name="stpTitle" Orientation="Horizontal">
                 <TextBlock x:Name="txbCoffee" Text="Coffee" TextAlignment="Center" Background="#FFFDDDF4"></TextBlock>
                 <TextBlock x:Name="txbMilktea" Text="Milk tea" Background="#FFFDDDF4" TextAlignment="Center"></TextBlock>
@@ -201,6 +201,7 @@
                                                    FontSize="18"
                                                    Text="{Binding tenSanPham}"
                                                    TextAlignment="Left"
+                                                       
                                                    TextWrapping="WrapWithOverflow"></TextBlock>
                                             <ComboBox x:Name="cbbSizeToppings" FontWeight="Bold" materialDesign:HintAssist.Hint="S">
                                                 <ComboBoxItem>
@@ -225,13 +226,14 @@
                     </ScrollViewer>
 
                 </WrapPanel>
+                <Grid x:Name="tempmenu"></Grid>
                 <WrapPanel x:Name="gridInforBill">
                     <TextBlock x:Name="tbBillNumber" Text="Số hóa đơn:"></TextBlock>
                     <TextBox x:Name="tbxBillNumber"></TextBox>
                     <TextBlock x:Name="tbCustomer" Text="Khách hàng:"></TextBlock>
                     <TextBox x:Name="tbxCustomer"></TextBox>
                     <Grid x:Name="temp1"></Grid>
-                    <TextBlock x:Name="tbEmployee" Text="Phục vụ: Thái Thiên Vũ"></TextBlock>
+                    <TextBlock x:Name="tbEmployee" Text="Phục vụ:           Thái Thiên Vũ"></TextBlock>
                     <TextBlock x:Name="tbTime" Text="Ngày giờ:   19:44:7        12/12/2018"></TextBlock>
 
                     <ScrollViewer VerticalScrollBarVisibility="Auto" >
@@ -251,7 +253,7 @@
                     <ComboBox x:Name="cbbOfferCode"></ComboBox>
                     <Grid x:Name="temp2"></Grid>
                     <TextBlock x:Name="tbTotalMoney" Text="Tổng tiền: 45555555555"/>
-                    <Button x:Name="btnPay" Content="xuất" ></Button>
+                    <Button x:Name="btnPay" Content="Xuất" Background="#fcc542" BorderBrush="Orange"></Button>
                     <TextBlock x:Name="tbGetMoney" Text="Tiền nhận:"/>
                     <TextBox x:Name="tbxGetMoney" ></TextBox>
                     <Grid x:Name="temp3"></Grid>
@@ -263,89 +265,77 @@
             <Button x:Name="btnBackStatistical" Click="btnBack_Click" >
                 <materialDesign:PackIcon Kind="ArrowLeftBoldCircleOutline" />
             </Button>
-            <Grid x:Name="temp4"></Grid>
-            <TextBlock x:Name="tbTimestart"  Text="Ngày giờ bắt đầu:"></TextBlock>
+            <Grid x:Name="temp4"/>
+            <TextBlock x:Name="tbTimestart"  Text="Ngày giờ bắt đầu:" Foreground="Black"/>
             <DatePicker x:Name="dpDayStart"
                 materialDesign:HintAssist.Hint="Chọn ngày"
                 Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
-            <Grid x:Name="temp5"></Grid>
+            <Grid x:Name="temp5"/>
             <materialDesign:TimePicker x:Name="mtpHourStart"
                 Is24Hours="True"
                 Style="{StaticResource MaterialDesignFloatingHintTimePicker}"
                 materialDesign:HintAssist.Hint="Chọn giờ" />
-            <Grid x:Name="temp6"></Grid>
-            <TextBlock x:Name="tbTimeEnd"  Text="Ngày giờ kết thúc:"></TextBlock>
+            <Grid x:Name="temp6"/>
+            <TextBlock x:Name="tbTimeEnd"  Text="Ngày giờ kết thúc:" Foreground="Black"/>
             <DatePicker x:Name="dpDayEnd"
                 materialDesign:HintAssist.Hint="Chọn ngày"
                 Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
-            <Grid x:Name="temp7"></Grid>
+            <Grid x:Name="temp7"/>
             <materialDesign:TimePicker x:Name="mtpHourEnd"
                 Is24Hours="True"
                 Style="{StaticResource MaterialDesignFloatingHintTimePicker}"
                 materialDesign:HintAssist.Hint="Chọn giờ" />
-            <Grid x:Name="temp8"></Grid>
+            <Grid x:Name="temp8"/>
             <ComboBox x:Name="cbbTypeStatistical"
             materialDesign:HintAssist.Hint="Hóa Đơn">
-                <ComboBoxItem>
-                    Nhân viên
-                </ComboBoxItem>
-                <ComboBoxItem>
-                    Khách hàng
-                </ComboBoxItem>
-                <ComboBoxItem>
-                    Hóa đơn
-                </ComboBoxItem>
-                <ComboBoxItem>
-                    Thức uống
-                </ComboBoxItem>
-                <ComboBoxItem>
-                    Giá tiền
-                </ComboBoxItem>
-                <ComboBoxItem>
-                    Số lương
-                </ComboBoxItem>
+                <ComboBoxItem Content="Nhân viên"/>
+                <ComboBoxItem Content="Khách hàng"/>
+                <ComboBoxItem Content="Hóa đơn"/>
+                <ComboBoxItem Content="Thức uống"/>
+                <ComboBoxItem Content="Giá tiền"/>
+                <ComboBoxItem Content="Số lương"/>
             </ComboBox>
-            <Grid x:Name="temp9"></Grid>
-            <TextBox x:Name="tbxSearchStatistical"
+            <Grid x:Name="temp9"/>
+            <TextBox x:Name="tbxSearchStatistical" Foreground="Black"
               Style="{StaticResource MaterialDesignFloatingHintTextBox}"
               materialDesign:HintAssist.Hint="Hóa đơn/ số lượng/ giá cả/ nhân viên/ khách hàng/ thức uống"
               Text="{Binding Content}"
               Margin="8 0 0 0"
               VerticalAlignment="Bottom" />
-            <Grid x:Name="temp10"></Grid>
-            <Button x:Name="btnStatistical" Content="Thống kê"></Button>
-            <Grid x:Name="temp11"></Grid>
+            <Grid x:Name="temp10"/>
+            <Button x:Name="btnStatistical" Content="Thống kê" Background="#ffc400" BorderBrush="#00baba" Foreground="#ffffff"/>
+            <Grid x:Name="temp11"/>
             <ScrollViewer VerticalScrollBarVisibility="Auto" >
-                <ListView x:Name="lvListStatistical">
+                <ListView x:Name="lvListStatistical" Foreground="Black">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn x:Name="gvcSTT" Header="STT" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
-                            <GridViewColumn x:Name="gvcHour" Header="Giờ" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
-                            <GridViewColumn x:Name="gvcDay" Header="Ngày" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
-                            <GridViewColumn x:Name="gvcBillCode" Header="Mã hóa đơn" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
-                            <GridViewColumn x:Name="gvcEmployeeCode" Header="Mã nhân viên" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
-                            <GridViewColumn x:Name="gvcCustomerCode" Header="Mã khách hàng" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
-                            <GridViewColumn x:Name="gvcDrink" Header="Tên thức uống" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
-                            <GridViewColumn x:Name="gvcMoney" Header="Giá tiền" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
-                            <GridViewColumn x:Name="gvcNumber" Header="số lượng" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
+                            <GridViewColumn x:Name="gvcSTT" Header="STT" DisplayMemberBinding="{Binding STT}"/>
+                            <GridViewColumn x:Name="gvcHour" Header="Giờ" DisplayMemberBinding="{Binding STT}"/>
+                            <GridViewColumn x:Name="gvcDay" Header="Ngày" DisplayMemberBinding="{Binding STT}"/>
+                            <GridViewColumn x:Name="gvcBillCode" Header="Mã hóa đơn" DisplayMemberBinding="{Binding STT}"/>
+                            <GridViewColumn x:Name="gvcEmployeeCode" Header="Mã nhân viên" DisplayMemberBinding="{Binding STT}"/>
+                            <GridViewColumn x:Name="gvcCustomerCode" Header="Mã khách hàng" DisplayMemberBinding="{Binding STT}"/>
+                            <GridViewColumn x:Name="gvcDrink" Header="Tên thức uống" DisplayMemberBinding="{Binding STT}"/>
+                            <GridViewColumn x:Name="gvcMoney" Header="Giá tiền" DisplayMemberBinding="{Binding STT}"/>
+                            <GridViewColumn x:Name="gvcNumber" Header="số lượng" DisplayMemberBinding="{Binding STT}"/>
                         </GridView>
                     </ListView.View>
                 </ListView>
             </ScrollViewer>
-            <Grid x:Name="temp12"></Grid>
-            <TextBlock x:Name="tbTotal" Text="Tổng: 0000000 00000000"></TextBlock>
+            <Grid x:Name="temp12"/>
+            <TextBlock x:Name="tbTotal" Text="Tổng: 0000000 00000000" Foreground="Black"/>
         </WrapPanel>
         <WrapPanel x:Name="wrpJobCalendar" Visibility="Hidden">
             <Button x:Name="btnbackJobCalendar" Click="btnBack_Click" >
                 <materialDesign:PackIcon Kind="ArrowLeftBoldCircleOutline" />
             </Button>
             <Grid x:Name="temp31"></Grid>
-            <TextBlock x:Name="tbDayStartCalendar"  Text="Chọn ngày trong tuần:"></TextBlock>
+            <TextBlock x:Name="tbDayStartCalendar"  Text="Chọn ngày trong tuần:" Foreground="Black"></TextBlock>
             <DatePicker x:Name="dpDayStartCalendar"
               materialDesign:HintAssist.Hint="Pick Date"
               Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
             <Grid x:Name="temp32"></Grid>
-            <Button x:Name="btnUpdateCalendar" Content="Cập Nhật"></Button>
+            <Button x:Name="btnUpdateCalendar" Content="Cập Nhật" Background="#ffd200" BorderBrush="#FFA500"></Button>
             <Grid x:Name="temp33"></Grid>
             <Grid x:Name="gridCalendar" >
                 <Grid.RowDefinitions>
@@ -368,29 +358,29 @@
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
-                        <TextBlock x:Name="tbMonday" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Thứ 2" TextWrapping="WrapWithOverflow" ></TextBlock>
+                        <TextBlock x:Name="tbMonday" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Thứ 2" TextWrapping="WrapWithOverflow" Foreground="Black"></TextBlock>
                     </Grid>
                     <Grid Grid.Column="1">
-                        <TextBlock x:Name="tbTuesday" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Thứ 3" TextWrapping="WrapWithOverflow" ></TextBlock>
+                        <TextBlock x:Name="tbTuesday" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Thứ 3" TextWrapping="WrapWithOverflow"  Foreground="Black" ></TextBlock>
                     </Grid>
                     <Grid Grid.Column="2">
-                        <TextBlock x:Name="tbWednesday" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Thứ 4" TextWrapping="WrapWithOverflow"></TextBlock>
+                        <TextBlock x:Name="tbWednesday" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Thứ 4" TextWrapping="WrapWithOverflow"  Foreground="Black"></TextBlock>
                     </Grid>
                     <Grid Grid.Column="3">
-                        <TextBlock x:Name="tbThursday" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Thứ 5" TextWrapping="WrapWithOverflow"></TextBlock>
+                        <TextBlock x:Name="tbThursday" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Thứ 5" TextWrapping="WrapWithOverflow"  Foreground="Black"></TextBlock>
                     </Grid>
                     <Grid Grid.Column="4">
-                        <TextBlock x:Name="tbFriday" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Thứ 6" TextWrapping="WrapWithOverflow"></TextBlock>
+                        <TextBlock x:Name="tbFriday" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Thứ 6" TextWrapping="WrapWithOverflow"  Foreground="Black"></TextBlock>
                     </Grid>
                     <Grid Grid.Column="5">
-                        <TextBlock x:Name="tbSaturday" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Thứ 7" TextWrapping="WrapWithOverflow"></TextBlock>
+                        <TextBlock x:Name="tbSaturday" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Thứ 7" TextWrapping="WrapWithOverflow"  Foreground="Black"></TextBlock>
                     </Grid>
                     <Grid Grid.Column="6">
-                        <TextBlock x:Name="tbSunday" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Chủ Nhật" TextWrapping="WrapWithOverflow"></TextBlock>
+                        <TextBlock x:Name="tbSunday" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Chủ Nhật" TextWrapping="WrapWithOverflow"  Foreground="Black"></TextBlock>
                     </Grid>
                 </Grid>
                 <Grid x:Name="gridCalendarRow1"  Grid.Row="1">
-                    <TextBlock x:Name="tbTime1" Text="9h-1h30'"></TextBlock>
+                    <TextBlock x:Name="tbTime1" Text="9h-1h30'"  Foreground="Black"></TextBlock>
                 </Grid>
                 <Grid x:Name="gridCalendarRow2" Grid.Row="2">
                     <Grid.ColumnDefinitions>
@@ -403,29 +393,29 @@
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
-                        <TextBox x:Name="tbMonday1" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"></TextBox>
+                        <TextBox x:Name="tbMonday1" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"  Foreground="Black"></TextBox>
                     </Grid>
                     <Grid Grid.Column="1">
-                        <TextBox x:Name="tbTuesday1" BorderThickness="1"  Text="Họ và tên" TextWrapping="WrapWithOverflow"></TextBox>
+                        <TextBox x:Name="tbTuesday1" BorderThickness="1"  Text="Họ và tên" TextWrapping="WrapWithOverflow"  Foreground="Black"></TextBox>
                     </Grid>
                     <Grid Grid.Column="2">
-                        <TextBox x:Name="tbWednesday1" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"></TextBox>
+                        <TextBox x:Name="tbWednesday1" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"  Foreground="Black"></TextBox>
                     </Grid>
                     <Grid Grid.Column="3">
-                        <TextBox x:Name="tbThursday1" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"></TextBox>
+                        <TextBox x:Name="tbThursday1" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"  Foreground="Black"></TextBox>
                     </Grid>
                     <Grid Grid.Column="4">
-                        <TextBox x:Name="tbFriday1" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"></TextBox>
+                        <TextBox x:Name="tbFriday1" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"  Foreground="Black"></TextBox>
                     </Grid>
                     <Grid Grid.Column="5">
-                        <TextBox x:Name="tbSaturday1" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"></TextBox>
+                        <TextBox x:Name="tbSaturday1" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"  Foreground="Black"></TextBox>
                     </Grid>
                     <Grid Grid.Column="6">
-                        <TextBox x:Name="tbSunday1" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"></TextBox>
+                        <TextBox x:Name="tbSunday1" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"  Foreground="Black"></TextBox>
                     </Grid>
                 </Grid>
                 <Grid x:Name="gridCalendarRow3" Grid.Row="3">
-                    <TextBlock x:Name="tbTime2"  Text="1h30'-6h"></TextBlock>
+                    <TextBlock x:Name="tbTime2"  Text="1h30'-6h"  Foreground="Black"></TextBlock>
                 </Grid>
                 <Grid x:Name="gridCalendarRow4" Grid.Row="4">
                     <Grid.ColumnDefinitions>
@@ -438,29 +428,29 @@
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
-                        <TextBox x:Name="tbMonday2" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"></TextBox>
+                        <TextBox x:Name="tbMonday2" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"  Foreground="Black"></TextBox>
                     </Grid>
                     <Grid Grid.Column="1">
-                        <TextBox x:Name="tbTuesday2" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"></TextBox>
+                        <TextBox x:Name="tbTuesday2" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"  Foreground="Black"></TextBox>
                     </Grid>
                     <Grid Grid.Column="2">
-                        <TextBox x:Name="tbWednesday2" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"></TextBox>
+                        <TextBox x:Name="tbWednesday2" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"  Foreground="Black"></TextBox>
                     </Grid>
                     <Grid Grid.Column="3">
-                        <TextBox x:Name="tbThursday2" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"></TextBox>
+                        <TextBox x:Name="tbThursday2" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"  Foreground="Black"></TextBox>
                     </Grid>
                     <Grid Grid.Column="4">
-                        <TextBox x:Name="tbFriday2" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"></TextBox>
+                        <TextBox x:Name="tbFriday2" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"  Foreground="Black"></TextBox>
                     </Grid>
                     <Grid Grid.Column="5">
-                        <TextBox x:Name="tbSaturday2" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"></TextBox>
+                        <TextBox x:Name="tbSaturday2" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"  Foreground="Black"></TextBox>
                     </Grid>
                     <Grid Grid.Column="6">
-                        <TextBox x:Name="tbSunday2" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"></TextBox>
+                        <TextBox x:Name="tbSunday2" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"  Foreground="Black"></TextBox>
                     </Grid>
                 </Grid>
                 <Grid x:Name="gridCalendarRow5" Grid.Row="5">
-                    <TextBlock x:Name="tbTime3"  Text="6h-10h"></TextBlock>
+                    <TextBlock x:Name="tbTime3"  Text="6h-10h"  Foreground="Black"></TextBlock>
                 </Grid>
                 <Grid x:Name="gridCalendarRow6" Grid.Row="6">
                     <Grid.ColumnDefinitions>
@@ -473,25 +463,25 @@
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
-                        <TextBox x:Name="tbMonday3" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"></TextBox>
+                        <TextBox x:Name="tbMonday3" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"  Foreground="Black"></TextBox>
                     </Grid>
                     <Grid Grid.Column="1">
-                        <TextBox x:Name="tbTuesday3" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"></TextBox>
+                        <TextBox x:Name="tbTuesday3" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"  Foreground="Black"></TextBox>
                     </Grid>
                     <Grid Grid.Column="2">
-                        <TextBox x:Name="tbWednesday3" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"></TextBox>
+                        <TextBox x:Name="tbWednesday3" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"  Foreground="Black"></TextBox>
                     </Grid>
                     <Grid Grid.Column="3">
-                        <TextBox x:Name="tbThursday3" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"></TextBox>
+                        <TextBox x:Name="tbThursday3" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"  Foreground="Black"></TextBox>
                     </Grid>
                     <Grid Grid.Column="4">
-                        <TextBox x:Name="tbFriday3" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"></TextBox>
+                        <TextBox x:Name="tbFriday3" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"  Foreground="Black"></TextBox>
                     </Grid>
                     <Grid Grid.Column="5">
-                        <TextBox x:Name="tbSaturday3" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"></TextBox>
+                        <TextBox x:Name="tbSaturday3" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"  Foreground="Black"></TextBox>
                     </Grid>
                     <Grid Grid.Column="6">
-                        <TextBox x:Name="tbSunday3" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"></TextBox>
+                        <TextBox x:Name="tbSunday3" BorderThickness="1" Text="Họ và tên" TextWrapping="WrapWithOverflow"  Foreground="Black"></TextBox>
                     </Grid>
                 </Grid>
             </Grid>
@@ -501,7 +491,7 @@
                 <materialDesign:PackIcon Kind="ArrowLeftBoldCircleOutline" />
             </Button>
             <Grid x:Name="temp41"></Grid>
-            <TextBlock x:Name="tbTimestartFind"  Text="Ngày giờ bắt đầu:"></TextBlock>
+            <TextBlock x:Name="tbTimestartFind"  Text="Ngày giờ bắt đầu:" Foreground="Black"></TextBlock>
             <DatePicker x:Name="dpDayStartFind"
                 materialDesign:HintAssist.Hint="Chọn ngày"
                 Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
@@ -511,7 +501,7 @@
                 Style="{StaticResource MaterialDesignFloatingHintTimePicker}"
                 materialDesign:HintAssist.Hint="Chọn giờ" />
             <Grid x:Name="temp43"></Grid>
-            <TextBlock x:Name="tbTimeEndFind"  Text="Ngày giờ kết thúc:"></TextBlock>
+            <TextBlock x:Name="tbTimeEndFind"  Text="Ngày giờ kết thúc:" Foreground="Black"></TextBlock>
             <DatePicker x:Name="dpDayEndFind"
                 materialDesign:HintAssist.Hint="Chọn ngày"
                 Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
@@ -543,19 +533,19 @@
                 </ComboBoxItem>
             </ComboBox>
             <Grid x:Name="temp46"></Grid>
-            <TextBox x:Name="tbxSearchFind"
+            <TextBox x:Name="tbxSearchFind" Foreground="Black"
               Style="{StaticResource MaterialDesignFloatingHintTextBox}"
               materialDesign:HintAssist.Hint="Hóa đơn/ số lượng/ giá cả/ nhân viên/ khách hàng/ thức uống"
               Text="{Binding Content}"
               Margin="8 0 0 0"
               VerticalAlignment="Bottom" />
             <Grid x:Name="temp47"></Grid>
-            <Button x:Name="btnFind" Content="Tìm kiếm"></Button>
+            <Button x:Name="btnFind" Content="Tìm kiếm" Background="#1E90FF" BorderBrush="#ffffff"></Button>
             <Grid x:Name="temp49"></Grid>
             <Grid x:Name="temp48"></Grid>
             <Grid x:Name="gridFind">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <ListView x:Name="lvListFind" >
+                    <ListView x:Name="lvListFind" Foreground="Black">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn x:Name="gvcFindSTT" Header="STT" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
@@ -578,41 +568,41 @@
                 <materialDesign:PackIcon Kind="ArrowLeftBoldCircleOutline" />
             </Button>
             <Grid x:Name="temp51"></Grid>
-            <TextBox x:Name="tbxSearchCustomer"
+            <TextBox x:Name="tbxSearchCustomer" Foreground="Black"
               Style="{StaticResource MaterialDesignFloatingHintTextBox}"
               materialDesign:HintAssist.Hint="Mã khách hàng/ họ tên/ số điện thoại/ chứng minh"
               Text="{Binding Content}"
               Margin="8 0 0 0"
               VerticalAlignment="Bottom" />
             <Grid x:Name="temp57"></Grid>
-            <Button x:Name="btnCustomer" Content="Tìm kiếm"></Button>
+            <Button x:Name="btnCustomer" Content="Tìm kiếm" BorderBrush="#ffffff" Background="#e87f5c"></Button>
             <Grid x:Name="temp59"></Grid>
             <Grid x:Name="temp58"></Grid>
             <Grid x:Name="gridCustomer">
                 <StackPanel x:Name="stpInforCustomer" Orientation="Horizontal">
                     <StackPanel x:Name="stpInforCustomer1">
-                        <TextBlock x:Name="tbCustomerCode" Text="Mã Khách hàng:"></TextBlock>
+                        <TextBlock x:Name="tbCustomerCode" Text="Mã Khách hàng:" Foreground="Black"></TextBlock>
                         <TextBox x:Name="tbxCustomerCode"></TextBox>
                         <Grid x:Name="temp491"></Grid>
-                        <TextBlock x:Name="tbCustomerName" Text="Họ tên khách hàng:" ></TextBlock>
+                        <TextBlock x:Name="tbCustomerName" Text="Họ tên khách hàng:" Foreground="Black"></TextBlock>
                         <TextBox x:Name="tbxCustomerName"></TextBox>
                         <Grid x:Name="temp492"></Grid>
-                        <TextBlock x:Name="tbScore" Text="Điểm tích lũy:" ></TextBlock>
+                        <TextBlock x:Name="tbScore" Text="Điểm tích lũy:" Foreground="Black"></TextBlock>
                         <TextBox x:Name="tbxScore" IsEnabled="False"></TextBox>
                         <Grid x:Name="temp493"></Grid>
-                        <Button x:Name="btnCustomerUpdate" HorizontalAlignment="Center" Content="Cập Nhật"></Button>
+                        <Button x:Name="btnCustomerUpdate" HorizontalAlignment="Center" Content="Cập Nhật" BorderBrush="#A52A2A" Background="#CD5C5C"></Button>
                     </StackPanel>
                     <StackPanel x:Name="stpInforCustomer2">
-                        <TextBlock x:Name="tbPhoneNumber" Text="Số điện thoại:"></TextBlock>
+                        <TextBlock x:Name="tbPhoneNumber" Text="Số điện thoại:" Foreground="Black"></TextBlock>
                         <TextBox x:Name="tbxPhoneNumber"></TextBox>
                         <Grid x:Name="temp494"></Grid>
-                        <TextBlock x:Name="tbBirthDay" Text="Ngày sinh:"></TextBlock>
+                        <TextBlock x:Name="tbBirthDay" Text="Ngày sinh:" Foreground="Black"></TextBlock>
                         <TextBox x:Name="tbxBirthDay"></TextBox>
                         <Grid x:Name="temp495"></Grid>
-                        <TextBlock x:Name="tbID" Text="CMND:"></TextBlock>
+                        <TextBlock x:Name="tbID" Text="CMND:" Foreground="Black"></TextBlock>
                         <TextBox x:Name="tbxID"></TextBox>
                         <Grid x:Name="temp496"></Grid>
-                        <Button x:Name="btnCustomerDelete" HorizontalAlignment="Center" Content="Xóa"></Button>
+                        <Button x:Name="btnCustomerDelete" HorizontalAlignment="Center" Content="Xóa" BorderBrush="#A52A2A" Background="#CD5C5C"></Button>
                     </StackPanel>
                 </StackPanel>
             </Grid>
@@ -628,17 +618,17 @@
                 <StackPanel x:Name="stpInforNewCustomer">
                     <StackPanel x:Name="stpInforNewCustomerMini1" Orientation="Horizontal">
                         <StackPanel x:Name="stpInforNewCustomerMini11">
-                            <TextBlock x:Name="tbNewCustomerName" Text="Họ tên khách hàng:" ></TextBlock>
-                            <TextBox x:Name="tbxNewCustomerName"></TextBox>
+                            <TextBlock x:Name="tbNewCustomerName" Text="Họ tên khách hàng:" Foreground="Black"></TextBlock>
+                            <TextBox x:Name="tbxNewCustomerName" ></TextBox>
                             <Grid x:Name="temp63"></Grid>
-                            <TextBlock x:Name="tbNewID" Text="CMND:"></TextBlock>
+                            <TextBlock x:Name="tbNewID" Text="CMND:" Foreground="Black"></TextBlock>
                             <TextBox x:Name="tbxNewID"></TextBox>
                         </StackPanel>
                         <StackPanel x:Name="stpInforNewCustomerMini12">
-                            <TextBlock x:Name="tbNewPhoneNumber" Text="Số điện thoại:"></TextBlock>
+                            <TextBlock x:Name="tbNewPhoneNumber" Text="Số điện thoại:" Foreground="Black"></TextBlock>
                             <TextBox x:Name="tbxNewPhoneNumber"></TextBox>
                             <Grid x:Name="temp64"></Grid>
-                            <TextBlock x:Name="tbNewBirthDay" Text="Ngày sinh:"></TextBlock>
+                            <TextBlock x:Name="tbNewBirthDay" Text="Ngày sinh:" Foreground="Black"></TextBlock>
                             <TextBox x:Name="tbxNewBirthDay"></TextBox>
                         </StackPanel>
                     </StackPanel>
@@ -651,38 +641,38 @@
         </WrapPanel>
         <Grid x:Name="griInforDrinks" HorizontalAlignment="Center" VerticalAlignment="Center" Background="White" Visibility="Hidden">
             <StackPanel x:Name="stpInforDrinksMini" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock x:Name="tbNameDrink" Text="Tên thức uống:"></TextBlock>
-            <TextBox x:Name="tbxNameDrink" HorizontalAlignment="Center"
-                     Text="Sữa tươi trân châu đường đen"></TextBox>
+                <TextBlock x:Name="tbNameDrink" Text="Tên thức uống:" Foreground="Black"></TextBlock>
+                <TextBox x:Name="tbxNameDrink" HorizontalAlignment="Center"
+                     Text="Sữa tươi trân châu đường đen" Foreground="Black"></TextBox>
                 <Grid x:Name="temp71"></Grid>
-            <TextBlock x:Name="tbTypeDrink" Text="Loại:"></TextBlock>
-            <TextBox x:Name="tbxTypeDrink" 
-                     Text="Trà sữa"></TextBox>
+                <TextBlock x:Name="tbTypeDrink" Text="Loại:" Foreground="Black"></TextBlock>
+                <TextBox x:Name="tbxTypeDrink" 
+                     Text="Trà sữa" Foreground="Black"></TextBox>
                 <Grid x:Name="temp72"></Grid>
-                <TextBlock x:Name="tbIngredients" Text="Thành phần"></TextBlock>
-            <ScrollViewer VerticalScrollBarVisibility="Auto" >
-                <ListView x:Name="lvListIngredients">
-                    <ListView.View >
-                        <GridView>
-                            <GridViewColumn x:Name="lvhOrdinalIngredient" Header="STT" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
+                <TextBlock x:Name="tbIngredients" Text="Thành phần" Foreground="Black"></TextBlock>
+                <ScrollViewer VerticalScrollBarVisibility="Auto" >
+                    <ListView x:Name="lvListIngredients" Foreground="Black">
+                        <ListView.View >
+                            <GridView>
+                                <GridViewColumn x:Name="lvhOrdinalIngredient" Header="STT" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
                                 <GridViewColumn x:Name="lvhNameIngredient" Header="Tên thành phần" DisplayMemberBinding="{Binding ten}"></GridViewColumn>
                                 <GridViewColumn x:Name="lvhPercent" Header="%" DisplayMemberBinding="{Binding percent}"></GridViewColumn>
                                 <GridViewColumn x:Name="lvhKcal" Header="   Kcal" DisplayMemberBinding="{Binding Kcal}"/>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-            </ScrollViewer>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </ScrollViewer>
                 <StackPanel x:Name="stpInforDrinksMini1" Orientation="Horizontal">
                     <Grid x:Name="gridbtnBackInforDrink">
-                        <Button x:Name="btnBackInforDrink" VerticalAlignment="Center" HorizontalAlignment="Center" Content="Trở về"></Button>
+                        <Button x:Name="btnBackInforDrink" VerticalAlignment="Center" HorizontalAlignment="Center" Content="Trở về" BorderBrush="#FF4500" Background="#FFA500"></Button>
                     </Grid>
                     <Grid x:Name="gridbtnDeleteDrink">
-                         <Button x:Name="btnDeleteDrink" VerticalAlignment="Center" HorizontalAlignment="Center" Content="Xóa"></Button>
+                        <Button x:Name="btnDeleteDrink" VerticalAlignment="Center" HorizontalAlignment="Center" Content="Xóa" BorderBrush="#FF4500" Background="#FFA500"></Button>
                     </Grid>
                     <Grid x:Name="gridbtnUpdateInforDrink">
-                        <Button x:Name="btnUpdateInforDrink" VerticalAlignment="Center" HorizontalAlignment="Center" Content="Cập nhật"></Button>
+                        <Button x:Name="btnUpdateInforDrink" VerticalAlignment="Center" HorizontalAlignment="Center" Content="Cập nhật" BorderBrush="#FF4500" Background="#FFA500"></Button>
                     </Grid>
-                   
+
                 </StackPanel>
             </StackPanel>
         </Grid>
@@ -690,42 +680,42 @@
             <Button x:Name="btnBackAgent" Click="btnBack_Click">
                 <materialDesign:PackIcon Kind="ArrowLeftBoldCircleOutline" />
             </Button>
-            <Grid x:Name="temp81"></Grid>
-            <TextBox x:Name="tbxSearchAgent"
+            <Grid x:Name="temp81"/>
+            <TextBox x:Name="tbxSearchAgent" Foreground="Black" Background="#c7edc7"
               Style="{StaticResource MaterialDesignFloatingHintTextBox}"
               materialDesign:HintAssist.Hint="Mã nhân viên/ họ tên/ số điện thoại/ chứng minh"
               Text="{Binding Content}"
               Margin="8 0 0 0"
               VerticalAlignment="Bottom" />
-            <Grid x:Name="temp87"></Grid>
-            <Button x:Name="btnAgent" Content="Tìm kiếm"></Button>
-            <Grid x:Name="temp89"></Grid>
-            <Grid x:Name="temp88"></Grid>
+            <Grid x:Name="temp87"/>
+            <Button x:Name="btnAgent" Content="Tìm kiếm" Background="#03c203" BorderBrush="#006400"/>
+            <Grid x:Name="temp89"/>
+            <Grid x:Name="temp88"/>
             <Grid x:Name="gridAgent">
                 <StackPanel x:Name="stpInforAgent" Orientation="Horizontal">
                     <StackPanel x:Name="stpInforAgent1">
-                        <TextBlock x:Name="tbAgentCode" Text="Mã nhân viên:"></TextBlock>
-                        <TextBox x:Name="tbxAgentCode"></TextBox>
-                        <Grid x:Name="temp891"></Grid>
-                        <TextBlock x:Name="tbAgentName" Text="Họ tên nhân viên:" ></TextBlock>
-                        <TextBox x:Name="tbxAgentName"></TextBox>
-                        <Grid x:Name="temp892"></Grid>
-                        <TextBlock x:Name="tbMonth" Text="Số tháng kinh nghiệm:" ></TextBlock>
-                        <TextBox x:Name="tbxMonth" IsEnabled="False"></TextBox>
-                        <Grid x:Name="temp893"></Grid>
-                        <Button x:Name="btnAgentUpdate" HorizontalAlignment="Center" Content="Cập Nhật"></Button>
+                        <TextBlock x:Name="tbAgentCode" Text="Mã nhân viên:" Foreground="Black"/>
+                        <TextBox x:Name="tbxAgentCode"/>
+                        <Grid x:Name="temp891"/>
+                        <TextBlock x:Name="tbAgentName" Text="Họ tên nhân viên:" Foreground="Black"/>
+                        <TextBox x:Name="tbxAgentName"/>
+                        <Grid x:Name="temp892"/>
+                        <TextBlock x:Name="tbMonth" Text="Số tháng kinh nghiệm:" Foreground="Black"/>
+                        <TextBox x:Name="tbxMonth" IsEnabled="False"/>
+                        <Grid x:Name="temp893"/>
+                        <Button x:Name="btnAgentUpdate" HorizontalAlignment="Center" Content="Cập Nhật" Foreground="White" Background="#008000" BorderBrush="#ffffff"/>
                     </StackPanel>
                     <StackPanel x:Name="stpInforAgent2">
-                        <TextBlock x:Name="tbPhoneNumberAgent" Text="Số điện thoại:"></TextBlock>
-                        <TextBox x:Name="tbxPhoneNumberAgent"></TextBox>
-                        <Grid x:Name="temp894"></Grid>
-                        <TextBlock x:Name="tbBirthDayAgent" Text="Ngày sinh:"></TextBlock>
-                        <TextBox x:Name="tbxBirthDayAgent"></TextBox>
-                        <Grid x:Name="temp895"></Grid>
-                        <TextBlock x:Name="tbIDAgent" Text="CMND:"></TextBlock>
-                        <TextBox x:Name="tbxIDAgent"></TextBox>
-                        <Grid x:Name="temp896"></Grid>
-                        <Button x:Name="btnAgentDelete" HorizontalAlignment="Center" Content="Xóa"></Button>
+                        <TextBlock x:Name="tbPhoneNumberAgent" Text="Số điện thoại:" Foreground="Black"/>
+                        <TextBox x:Name="tbxPhoneNumberAgent"/>
+                        <Grid x:Name="temp894"/>
+                        <TextBlock x:Name="tbBirthDayAgent" Text="Ngày sinh:" Foreground="Black"/>
+                        <TextBox x:Name="tbxBirthDayAgent"/>
+                        <Grid x:Name="temp895"/>
+                        <TextBlock x:Name="tbIDAgent" Text="CMND:" Foreground="Black"/>
+                        <TextBox x:Name="tbxIDAgent"/>
+                        <Grid x:Name="temp896"/>
+                        <Button x:Name="btnAgentDelete" HorizontalAlignment="Center" Content="Xóa" Foreground="White" Background="#008000" BorderBrush="#ffffff"/>
                     </StackPanel>
                 </StackPanel>
             </Grid>
