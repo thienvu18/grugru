@@ -54,7 +54,11 @@ namespace GruGru
             this.Height = height + 30;
             this.Width = width + 30;
             //MainScreen();
+<<<<<<< Updated upstream
            StatisticalScreen();
+=======
+            //StatisticalScreen();
+>>>>>>> Stashed changes
             // JobCalendarScreen();
             // FindScreen();
             //CustomerScreen();
