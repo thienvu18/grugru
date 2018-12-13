@@ -130,12 +130,12 @@ app.get("/api/getFoodList", function(req, res) {
 });
 
 app.post("/api/putOrder", function(req, res) {
-  const maHoaDon = req.body.maHoaDon;
-  const thoiGianLap = req.body.thoiGianLap;
+  const maHoaDon = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 9); //Random
+  const thoiGianLap = moment(req.body.ngaySinh, "DD-MM-YYYY").format("YYYY-MM-DD");
   const gia = req.body.gia;
   const idKhachHangMua = req.body.idKhachHangMua;
   const idNhanVienLap = req.body.idNhanVienLap;
-  const danhIdSachMonAn = req.body.danhIdSachMonAn;
+  const danhSachMonAn = req.body.danhSachMonAn;
 
   var insertOrder;
   if (idKhachHangMua == null) {
@@ -189,8 +189,8 @@ app.post("/api/putOrder", function(req, res) {
             });
           } else {
             const id = result[0];
-            danhIdSachMonAn.forEach(idMonAn => {
-              let insertOrderDetail = "INSERT INTO ChiTietHoaDon (idHoaDon, idMonAn) VALUES ("+id+", "+idMonAn+")";
+            danhSachMonAn.forEach(monAn => {
+              let insertOrderDetail = "INSERT INTO ChiTietHoaDon (idHoaDon, idMonAn, soLuong, size) VALUES ("+id+", "+monAn.id+", "+monAn.soLuong+", '" + monAn.size+"' )";
               request.query(insertOrderDetail, function(err, result) {
                 if (err) {
                   res.json({
@@ -274,7 +274,7 @@ app.post("/api/addCustomer", function(req, res) {
 app.post("/api/updateCustomer", function(req, res) {
   const maKH = req.body.maKH;
   const hoTen = req.body.hoTen;
-  const ngaySinh = req.body.ngaySinh;
+  const ngaySinh = moment(req.body.ngaySinh, "DD-MM-YYYY").format("YYYY-MM-DD");
   const soDienThoai = req.body.soDienThoai;
 
   const query =
@@ -288,12 +288,13 @@ app.post("/api/updateCustomer", function(req, res) {
     soDienThoai +
     "' WHERE maKH = '" +
     maKH +
-    "')";
+    "'";
 
-  let request = new sql.Request();
+    let request = new sql.Request();
 
   request.query(query, function(err, result) {
     if (err) {
+      console.log(err);
       res.json({
         code: -3,
         msg: "Co loi trong truy van CSDL"
@@ -329,6 +330,7 @@ app.get("/api/deleteCustomer/:id", function(req, res) {
             msg: "Co loi trong truy van CSDL"
           });
         } else {
+          console.log(result);
           res.json({
             code: 0,
             msg: "Xoa khach hang thanh cong"
