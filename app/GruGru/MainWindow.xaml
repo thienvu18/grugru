@@ -573,17 +573,17 @@
                 </ScrollViewer>
             </Grid>
         </WrapPanel>
-        <WrapPanel x:Name="wrpCustomer" Visibility="Hidden">
+        <WrapPanel x:Name="wrpCustomer" Visibility="Visible">
             <Button x:Name="btnBackCustomer" Click="btnBack_Click">
                 <materialDesign:PackIcon Kind="ArrowLeftBoldCircleOutline" />
             </Button>
             <Grid x:Name="temp51"></Grid>
             <TextBox x:Name="tbxSearchCustomer"
               Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-              materialDesign:HintAssist.Hint="Mã khách hàng/ họ tên/ số điện thoại/ chứng minh"
-              Text="{Binding Content}"
+              materialDesign:HintAssist.Hint="Số điện thoại"
               Margin="8 0 0 0"
-              VerticalAlignment="Bottom" />
+              VerticalAlignment="Bottom" 
+              TextChanged="TbxSearchCustomer_TextChanged"/>
             <Grid x:Name="temp57"></Grid>
             <Button x:Name="btnCustomer" Content="Tìm kiếm"></Button>
             <Grid x:Name="temp59"></Grid>
@@ -730,7 +730,7 @@
                 </StackPanel>
             </Grid>
         </WrapPanel>
-        <WrapPanel x:Name="wrpPersonalInfor" Visibility="Visible" >
+        <WrapPanel x:Name="wrpPersonalInfor" Visibility="Hidden" >
             <Button x:Name="btnBackPersonalInfor" Click="btnBack_Click">
                 <materialDesign:PackIcon Kind="ArrowLeftBoldCircleOutline" />
             </Button>

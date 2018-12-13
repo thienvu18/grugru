@@ -375,3 +375,31 @@ app.get("/api/getCustomerInfo/:id", function(req, res) {
     }
   });
 });
+
+app.get("/api/getCustomerByPhone/:phoneNumber", function(req, res) {
+  const query = "SELECT TOP (10) * FROM KhachHang WHERE soDienThoai LIKE '" + req.params.phoneNumber + "%';";
+
+  let request = new sql.Request();
+
+  request.query(query, function(err, result) {
+    if (err) {
+      res.json({
+        code: -3,
+        msg: "Co loi trong truy van CSDL"
+      });
+    } else {
+      if (result.length == 0) {
+        res.json({
+          code: -1,
+          msg: "Khong tim thay khach hang"
+        });
+      } else {
+        res.json({
+          code: 0,
+          msg: "Thong tin khach hang da chon",
+          payload: result,
+        });
+      }
+    }
+  });
+})
