@@ -1,4 +1,4 @@
-//Initiallising node modules
+﻿//Initiallising node modules
 var express = require("express");
 var bodyParser = require("body-parser");
 var sql = require("mssql");
@@ -53,7 +53,7 @@ app.post("/api/login", function(req, res) {
     "'";
 
   let request = new sql.Request();
-
+	
   request.query(query, function(err, result) {
     if (err) {
       res.json({
@@ -69,6 +69,7 @@ app.post("/api/login", function(req, res) {
       } else {
         const user = result[0];
         if (user.matKhau == password) {
+console.log("ozxdzzk");
           res.json({
             code: 0,
             msg: "Dang nhap thanh cong",
@@ -84,17 +85,21 @@ app.post("/api/login", function(req, res) {
         }
       }
     }
+
+
   });
 });
 
 app.get("/api/getFoodList", function(req, res) {
-  const query = "SELECT * FROM SanPham";
+  const query = "SELECT TOP (100) * FROM SanPham";
 
   let request = new sql.Request();
 
   request.query(query, function(err, result) {
     if (err) {
+console.log(err);
       res.json({
+
         code: -3,
         msg: "Co loi trong truy van CSDL"
       });

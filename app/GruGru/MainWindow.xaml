@@ -56,7 +56,7 @@
             <Button x:Name="tbForgotPw" Margin="405,430,232,100" FontSize="15" FontStyle="Italic" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#D8000000">Fogot Password?</Button>
         </Grid>
         </Grid>
-        <StackPanel x:Name="stpMainScreen" Visibility="Hidden">
+        <StackPanel x:Name="stpMainScreen" Visibility="Visible">
             <StackPanel x:Name="stpTitle" Orientation="Horizontal">
                 <TextBlock x:Name="txbCoffee" Text="Coffee" TextAlignment="Center" Background="#FFFDDDF4"></TextBlock>
                 <TextBlock x:Name="txbMilktea" Text="Milk tea" Background="#FFFDDDF4" TextAlignment="Center"></TextBlock>
@@ -98,17 +98,13 @@
                                             <ColumnDefinition Width="9*" />
                                             <ColumnDefinition Width="1*" />
                                         </Grid.ColumnDefinitions>
-                                        <!--<Grid.RowDefinitions>
-                                            <RowDefinition></RowDefinition>
-                                            <RowDefinition></RowDefinition>
-                                        </Grid.RowDefinitions>-->
                                         <StackPanel Grid.Column="0" >
                                             <TextBlock x:Name="tbCoffees"
                                                    FontSize="18"
                                                    Text="{Binding tenSanPham}"
                                                    TextAlignment="Left"
                                                    TextWrapping="WrapWithOverflow"></TextBlock>
-                                            <ComboBox x:Name="cbbSizeCoffees" FontWeight="Bold" materialDesign:HintAssist.Hint="S">
+                                            <ComboBox x:Name="cbbSizeCoffees" FontWeight="Bold" SelectedIndex="0">
                                             <ComboBoxItem>
                                                 S
                                             </ComboBoxItem>
@@ -119,9 +115,10 @@
                                                 L
                                             </ComboBoxItem>
                                         </ComboBox>
+                                            <TextBlock Height="0" Width="0" Text="{Binding id}" ></TextBlock>
                                         </StackPanel>
                                         <StackPanel Grid.Column="1">
-                                            <Button x:Name="btnChooseCoffees" Width="50" VerticalAlignment="Top" HorizontalAlignment="Left" Content="+"></Button>
+                                            <Button x:Name="btnChooseCoffees" Width="50" VerticalAlignment="Top" HorizontalAlignment="Left" Content="+" Click="btnChoose_Click" ></Button>
                                             <Button x:Name="btnInforCoffees" Width="50" VerticalAlignment="Bottom" HorizontalAlignment="Left" Content="..."></Button>
                                         </StackPanel>
                                     </Grid>
@@ -251,7 +248,7 @@
                     <ComboBox x:Name="cbbOfferCode"></ComboBox>
                     <Grid x:Name="temp2"></Grid>
                     <TextBlock x:Name="tbTotalMoney" Text="Tổng tiền: 45555555555"/>
-                    <Button x:Name="btnPay" Content="xuất" ></Button>
+                    <Button x:Name="btnPay" Content="xuất" Click="btnPay_Click" ></Button>
                     <TextBlock x:Name="tbGetMoney" Text="Tiền nhận:"/>
                     <TextBox x:Name="tbxGetMoney" ></TextBox>
                     <Grid x:Name="temp3"></Grid>
@@ -730,7 +727,7 @@
                 </StackPanel>
             </Grid>
         </WrapPanel>
-        <WrapPanel x:Name="wrpPersonalInfor" Visibility="Visible" >
+        <WrapPanel x:Name="wrpPersonalInfor" Visibility="Hidden" >
             <Button x:Name="btnBackPersonalInfor" Click="btnBack_Click">
                 <materialDesign:PackIcon Kind="ArrowLeftBoldCircleOutline" />
             </Button>

@@ -62,6 +62,7 @@ namespace GruGru
             SignUp();
             PersonalInforScreen();
             //InforScreen();
+            LoadMenu();
             cbbManage.Visibility = System.Windows.Visibility.Visible;
 
             /* List<ThucUong> Items = new List<ThucUong>();
@@ -783,7 +784,6 @@ namespace GruGru
                     stpMainScreen.Visibility = System.Windows.Visibility.Visible;
                     string type = stuff.loaiNV;
                     string name = stuff.hoTen;
-                    LoadMenu();
                     if (type == "1")//nhân viên
                     {
                         cbbEmployee.Visibility = System.Windows.Visibility.Visible;
@@ -793,6 +793,7 @@ namespace GruGru
                         cbbManage.Visibility = System.Windows.Visibility.Visible;
                     }
                     tbEmployee.Text = "Phục vụ: " + name;
+                    LoadMenu();
                 }
                 else
                 {
@@ -890,7 +891,6 @@ namespace GruGru
                     thongTin = item.thongTin
                 });
             }
-
             foreach (var item in stuff.toppings)
             {
                 toppings.Add(new SanPham()
@@ -959,6 +959,79 @@ namespace GruGru
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        public class Drink
+        {
+            public int id { get; set; }
+            public int soLuong { get; set; }
+            public string size { get; set; }
+           
+        }
+
+        List<Drink> ListDrinks = new List<Drink>();
+
+        private void btnChoose_Click(object sender, RoutedEventArgs e)
+        {
+            int idtemp = int.Parse(((TextBlock)((StackPanel)((Grid)((StackPanel)((Button)sender).Parent).Parent).Children[0]).Children[2]).Text);
+            string sizetemp = ((ComboBoxItem)((ComboBox)((StackPanel)((Grid)((StackPanel)((Button)sender).Parent).Parent).Children[0]).Children[1]).SelectedItem).Content.ToString();
+            bool temp=false;
+            foreach (var item in ListDrinks)
+            {
+                if((item.id==idtemp)&&(item.size==sizetemp))
+                {
+                    item.soLuong++;
+                    temp = true;
+                    break;
+                }
+            }
+            if (temp == false)
+            {
+                ListDrinks.Add(new Drink()
+                {
+                    id = idtemp,
+                    soLuong = 1,
+                    size = sizetemp,
+                });
+            }
+        }
+
+        private void btnPay_Click(object sender, RoutedEventArgs e)
+        {
+            string gia = "100000";//"usercfrnh"
+            string idKhachHangMua = "1231156464864";//"13874383";
+            string idNhanVienLap = "1";
+
+            string json = JsonConvert.SerializeObject(ListDrinks);
+            //If you want to replace { with [ and } with ]
+            json = json.Replace("{", "[").Replace("}", "]");
+
+            //you can use this workaround to get rid of property names
+            string propHeader = "\"{0}\":";
+
+            json = json.Replace(string.Format(propHeader, "Id"), "")
+                .Replace(string.Format(propHeader, "Name"), "")
+                .Replace(string.Format(propHeader, "Age"), "");
+
+            string url = "http://localhost:8080/api/login";
+
+            var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+            httpWebRequest.ContentType = "application/json";
+            httpWebRequest.Method = "POST";
+            using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+            {
+                streamWriter.Write(json);
+                streamWriter.Write("\n");
+                streamWriter.Flush();
+                streamWriter.Close();
+            }
+           /* string result;
+            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+            {
+                result = streamReader.ReadToEnd();
+            }
+            return result;*/
         }
     }
 }
