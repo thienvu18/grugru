@@ -568,14 +568,22 @@
                 <materialDesign:PackIcon Kind="ArrowLeftBoldCircleOutline" />
             </Button>
             <Grid x:Name="temp51"></Grid>
-            <TextBox x:Name="tbxSearchCustomer" Foreground="Black"
-              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-              materialDesign:HintAssist.Hint="Số điện thoại"
-              Margin="8 0 0 0"
-              VerticalAlignment="Bottom" 
-              TextChanged="TbxSearchCustomer_TextChanged"/>
+            <StackPanel>
+                <TextBox x:Name="tbxSearchCustomer" Foreground="Black"
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                    materialDesign:HintAssist.Hint="Số điện thoại"
+                    Margin="8 0 0 0"
+                    VerticalAlignment="Bottom" 
+                    KeyUp="TbxSearchCustomer_KeyUp"/>
+                <Border Width="298" Height="150" BorderBrush="Black"   
+                    BorderThickness="1" Visibility="Hidden">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <StackPanel Name="resultStack"></StackPanel>
+                    </ScrollViewer>
+                </Border>
+            </StackPanel>
             <Grid x:Name="temp57"></Grid>
-            <Button x:Name="btnCustomer" Content="Tìm kiếm" BorderBrush="#ffffff" Background="#e87f5c"></Button>
+            <Button x:Name="btnCustomer" Content="Tìm kiếm" BorderBrush="#ffffff" Background="#e87f5c" Click="BtnCustomer_Click"></Button>
             <Grid x:Name="temp59"></Grid>
             <Grid x:Name="temp58"></Grid>
             <Grid x:Name="gridCustomer">
