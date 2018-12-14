@@ -3,7 +3,7 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var sql = require("mssql");
 var app = express();
-var moment = require('moment');
+var moment = require("moment");
 
 require("dotenv").config();
 
@@ -53,7 +53,7 @@ app.post("/api/login", function(req, res) {
     "'";
 
   let request = new sql.Request();
-	
+
   request.query(query, function(err, result) {
     if (err) {
       res.json({
@@ -69,13 +69,12 @@ app.post("/api/login", function(req, res) {
       } else {
         const user = result[0];
         if (user.matKhau == password) {
-console.log("ozxdzzk");
+          console.log("ozxdzzk");
           res.json({
             code: 0,
             msg: "Dang nhap thanh cong",
             loaiNV: user.loaiNV,
             hoTen: user.hoTen
-
           });
         } else {
           res.json({
@@ -85,8 +84,6 @@ console.log("ozxdzzk");
         }
       }
     }
-
-
   });
 });
 
@@ -97,9 +94,8 @@ app.get("/api/getFoodList", function(req, res) {
 
   request.query(query, function(err, result) {
     if (err) {
-console.log(err);
+      console.log(err);
       res.json({
-
         code: -3,
         msg: "Co loi trong truy van CSDL"
       });
@@ -124,7 +120,7 @@ console.log(err);
           }
         });
         res.json({
-	  code: 0,
+          code: 0,
           coffees: coffee,
           milkTeas: milkTea,
           toppings: topping
@@ -135,8 +131,13 @@ console.log(err);
 });
 
 app.post("/api/putOrder", function(req, res) {
-  const maHoaDon = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 9); //Random
-  const thoiGianLap = moment(req.body.ngaySinh, "DD-MM-YYYY").format("YYYY-MM-DD");
+  const maHoaDon = Math.random()
+    .toString(36)
+    .replace(/[^a-z]+/g, "")
+    .substr(0, 9); //Random
+  const thoiGianLap = moment(req.body.ngaySinh, "DD-MM-YYYY").format(
+    "YYYY-MM-DD"
+  );
   const gia = req.body.gia;
   const idKhachHangMua = req.body.idKhachHangMua;
   const idNhanVienLap = req.body.idNhanVienLap;
@@ -169,7 +170,8 @@ app.post("/api/putOrder", function(req, res) {
       "')";
   }
 
-  const getOrderId = "SELECT id FROM HoaDon WHERE maHoaDon = '" + maHoaDon + "'";
+  const getOrderId =
+    "SELECT id FROM HoaDon WHERE maHoaDon = '" + maHoaDon + "'";
 
   let request = new sql.Request();
 
@@ -195,7 +197,16 @@ app.post("/api/putOrder", function(req, res) {
           } else {
             const id = result[0];
             danhSachMonAn.forEach(monAn => {
-              let insertOrderDetail = "INSERT INTO ChiTietHoaDon (idHoaDon, idMonAn, soLuong, size) VALUES ("+id+", "+monAn.id+", "+monAn.soLuong+", '" + monAn.size+"' )";
+              let insertOrderDetail =
+                "INSERT INTO ChiTietHoaDon (idHoaDon, idMonAn, soLuong, size) VALUES (" +
+                id +
+                ", " +
+                monAn.id +
+                ", " +
+                monAn.soLuong +
+                ", '" +
+                monAn.size +
+                "' )";
               request.query(insertOrderDetail, function(err, result) {
                 if (err) {
                   res.json({
@@ -220,7 +231,10 @@ app.post("/api/addCustomer", function(req, res) {
   const hoTen = req.body.hoTen;
   const ngaySinh = moment(req.body.ngaySinh, "DD-MM-YYYY").format("YYYY-MM-DD");
   const soDienThoai = req.body.soDienThoai;
-  const maKH = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 9);
+  const maKH = Math.random()
+    .toString(36)
+    .replace(/[^a-z]+/g, "")
+    .substr(0, 9);
 
   const insertCustommer =
     "INSERT INTO KhachHang (maKH, hoTen, ngaySinh, soDienThoai) VALUES ('" +
@@ -232,7 +246,8 @@ app.post("/api/addCustomer", function(req, res) {
     "', '" +
     soDienThoai +
     "')";
-  const findExist = "SELECT 1 FROM KhachHang WHERE soDienThoai = '" + soDienThoai + "'";
+  const findExist =
+    "SELECT 1 FROM KhachHang WHERE soDienThoai = '" + soDienThoai + "'";
 
   let request = new sql.Request();
 
@@ -252,16 +267,18 @@ app.post("/api/addCustomer", function(req, res) {
         request.query(insertCustommer, function(err, result) {
           if (err) {
             console.log(err);
-            if (err.message.indexOf('Violation of UNIQUE KEY constraint') != -1) {
+            if (
+              err.message.indexOf("Violation of UNIQUE KEY constraint") != -1
+            ) {
               res.json({
                 code: -5,
                 msg: "Lỗi không xác định"
               });
-            }
-            else res.json({
-              code: -3,
-              msg: "Co loi trong truy van CSDL"
-            });
+            } else
+              res.json({
+                code: -3,
+                msg: "Co loi trong truy van CSDL"
+              });
           } else {
             res.json({
               code: 0,
@@ -272,8 +289,6 @@ app.post("/api/addCustomer", function(req, res) {
       }
     }
   });
-
-
 });
 
 app.post("/api/updateCustomer", function(req, res) {
@@ -295,7 +310,7 @@ app.post("/api/updateCustomer", function(req, res) {
     maKH +
     "'";
 
-    let request = new sql.Request();
+  let request = new sql.Request();
 
   request.query(query, function(err, result) {
     if (err) {
@@ -314,6 +329,7 @@ app.post("/api/updateCustomer", function(req, res) {
 });
 
 app.get("/api/deleteCustomer/:id", function(req, res) {
+  const findQuery = "SELECT 1 FROM KhachHang WHERE id = " + req.params.id;
   const updateQuery =
     "UPDATE HoaDon SET idKhachHangMua = null WHERE idKhachHangMua = " +
     req.params.id;
@@ -321,27 +337,42 @@ app.get("/api/deleteCustomer/:id", function(req, res) {
 
   let request = new sql.Request();
 
-  request.query(updateQuery, function(err, result) {
+  request.query(findQuery, function(err, result) {
     if (err) {
       res.json({
         code: -3,
         msg: "Co loi trong truy van CSDL"
       });
     } else {
-      request.query(deleteQuery, function(err, result) {
-        if (err) {
-          res.json({
-            code: -3,
-            msg: "Co loi trong truy van CSDL"
-          });
-        } else {
-          console.log(result);
-          res.json({
-            code: 0,
-            msg: "Xoa khach hang thanh cong"
-          });
-        }
-      });
+      if (result.length != 0) {
+        request.query(updateQuery, function(err, result) {
+          if (err) {
+            res.json({
+              code: -3,
+              msg: "Co loi trong truy van CSDL"
+            });
+          } else {
+            request.query(deleteQuery, function(err, result) {
+              if (err) {
+                res.json({
+                  code: -3,
+                  msg: "Co loi trong truy van CSDL"
+                });
+              } else {
+                res.json({
+                  code: 0,
+                  msg: "Xoa khach hang thanh cong"
+                });
+              }
+            });
+          }
+        });
+      } else {
+        res.json({
+          code: -4,
+          msg: "Khách hàng không tồn tại"
+        });
+      }
     }
   });
 });
@@ -382,7 +413,10 @@ app.get("/api/getCustomerInfo/:id", function(req, res) {
 });
 
 app.get("/api/getCustomerByPhone/:phoneNumber", function(req, res) {
-  const query = "SELECT TOP (10) * FROM KhachHang WHERE soDienThoai LIKE '" + req.params.phoneNumber + "%';";
+  const query =
+    "SELECT TOP (10) * FROM KhachHang WHERE soDienThoai LIKE '" +
+    req.params.phoneNumber +
+    "%';";
 
   let request = new sql.Request();
 
@@ -402,9 +436,9 @@ app.get("/api/getCustomerByPhone/:phoneNumber", function(req, res) {
         res.json({
           code: 0,
           msg: "Thong tin khach hang da chon",
-          payload: result,
+          payload: result
         });
       }
     }
   });
-})
+});

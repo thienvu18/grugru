@@ -1161,33 +1161,103 @@ namespace GruGru
         private void BtnCustomer_Click(object sender, RoutedEventArgs e)
         {
             string phoneNumber = tbxSearchCustomer.Text;
+            dynamic resObject;
 
             if (phoneNumber.Length == 0)
             {
                 MessageBox.Show("Vui lòng nhập số điện thoại để tìm kiếm");
                 return;
             }
+
             try
             {
                 string res = Get(SERVER + "getCustomerByPhone/" + phoneNumber);
-                dynamic resObject = JsonConvert.DeserializeObject(res);
-
-                if (resObject.code == "0")
-                {
-                    tbxCustomerCode.Text = resObject.payload[0].maKH;
-                    tbxCustomerName.Text = resObject.payload[0].hoTen;
-                    tbxScore.Text = resObject.payload[0].diemTichLuy;
-                    tbxPhoneNumber.Text = resObject.payload[0].soDienThoai;
-                    tbxBirthDay.Text = resObject.payload[0].ngaySinh;
-                    tbxID.Text = resObject.payload[0].cmnd;
-                }
-                else
-                {
-                    MessageBox.Show("Đã xảy ra lỗi, vui lòng bấm lại nút Tìm kiếm");
-                }
-            } catch
+                resObject = JsonConvert.DeserializeObject(res);
+            }
+            catch
             {
                 MessageBox.Show("Không thể kết nối đến server");
+                return;
+            }
+
+            if (resObject.code == "0")
+            {
+                string dob = resObject.payload[0].ngaySinh;
+
+                tbxCustomerId.Text = resObject.payload[0].id;
+                tbxCustomerCode.Text = resObject.payload[0].maKH;
+                tbxCustomerName.Text = resObject.payload[0].hoTen;
+                tbxScore.Text = resObject.payload[0].diemTichLuy;
+                tbxPhoneNumber.Text = resObject.payload[0].soDienThoai;
+                tbxBirthDay.Text = DateTime.Parse(dob).ToString("dd/MM/yyyy");
+                tbxID.Text = resObject.payload[0].cmnd;
+            }
+            else if (resObject.code == "-1")
+            {
+                MessageBox.Show("Không tìm thấy khách hàng");
+            }
+            else
+            {
+                MessageBox.Show("Đã xảy ra lỗi, vui lòng bấm lại nút Tìm kiếm");
+            }
+        }
+
+        private void BtnCustomerDelete_Click(object sender, RoutedEventArgs e)
+        {
+            string id = tbxCustomerId.Text;
+
+            if (id.Length == 0)
+            {
+                MessageBox.Show("Vui lòng tìm kiếm khách hàng trước khi xoá");
+                return;
+
+            }
+
+            string customerName = tbxCustomerName.Text;
+            string messageBoxText = "Bạn có chắc chắn muốn xoá khách hàng \"" + customerName + "\"?";
+            MessageBoxButton button = MessageBoxButton.YesNo;
+            MessageBoxImage icon = MessageBoxImage.Warning;
+            // Display message box
+            MessageBoxResult result = MessageBox.Show(messageBoxText, "", button, icon);
+            // Process message box results
+            switch (result)
+            {
+                case MessageBoxResult.Yes:
+                    dynamic resObject;
+                    try
+                    {
+                        string res = Get(SERVER + "deleteCustomer/" + id);
+                        resObject = JsonConvert.DeserializeObject(res);
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Không thể kết nối đến server");
+                        break;
+                    }
+                    if (resObject.code == "0")
+                    {
+                        MessageBox.Show("Xoá khách hàng thành công!");
+                        tbxCustomerId.Text = "";
+                        tbxCustomerCode.Text ="";
+                        tbxCustomerName.Text = "";
+                        tbxScore.Text = "";
+                        tbxPhoneNumber.Text = "";
+                        tbxBirthDay.Text = "";
+                        tbxID.Text = "";
+                    }
+                    else if (resObject.code == "-4")
+                    {
+                        MessageBox.Show("Khách hàng không tồn tại");
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Đã xảy ra lỗi, vui lòng thử lại!");
+                    }
+
+                    break;
+                default:
+                    break;
             }
         }
     }
