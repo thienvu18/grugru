@@ -976,6 +976,29 @@ namespace GruGru
             }
         }
 
+        public string Post(string uri, string payload)
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
+            request.ContentType = "application/json";
+            request.Method = "POST";
+            request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
+
+            using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+            {
+                streamWriter.Write(payload);
+                streamWriter.Write("\n");
+                streamWriter.Flush();
+                streamWriter.Close();
+            }
+
+            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+            using (Stream stream = response.GetResponseStream())
+            using (StreamReader reader = new StreamReader(stream))
+            {
+                return reader.ReadToEnd();
+            }
+        }
+
         public class Drink
         {
             public int id { get; set; }
@@ -1082,7 +1105,7 @@ namespace GruGru
                         // Add the text   
                         block.Text = text;
                         //Add id
-                        string fullPhoneNumber = ((string)resObject.payload[0].soDienThoai).Trim();
+                        string fullPhoneNumber = ((string)resObject.payload[i].soDienThoai).Trim();
                         block.Name = "_" + fullPhoneNumber;
 
                         // A little style...   
@@ -1155,7 +1178,7 @@ namespace GruGru
                 tbxBirthDay.Text = DateTime.Parse(dob).ToString("dd/MM/yyyy");
                 tbxID.Text = resObject.payload[0].cmnd;
             }
-            else if (resObject.code == "-1")
+            else if (resObject.code == "-4")
             {
                 MessageBox.Show("Không tìm thấy khách hàng");
             }
@@ -1201,7 +1224,7 @@ namespace GruGru
                     {
                         MessageBox.Show("Xoá khách hàng thành công!");
                         tbxCustomerId.Text = "";
-                        tbxCustomerCode.Text ="";
+                        tbxCustomerCode.Text = "";
                         tbxCustomerName.Text = "";
                         tbxScore.Text = "";
                         tbxPhoneNumber.Text = "";
@@ -1221,6 +1244,40 @@ namespace GruGru
                     break;
                 default:
                     break;
+            }
+        }
+
+        private void BtnCustomerUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            string id = tbxCustomerId.Text;
+
+            if (id.Length == 0)
+            {
+                MessageBox.Show("Vui lòng tìm kiếm khách hàng trước khi cập nhật");
+                return;
+
+            }
+
+            string payload = $"{{\"id\": {tbxCustomerId.Text},\"maKH\": \"{tbxCustomerCode.Text}\",\"hoTen\": \"{tbxCustomerName.Text}\",\"diemTichLuy\": {tbxScore.Text},\"soDienThoai\": \"{ tbxPhoneNumber.Text}\",\"ngaySinh\": \"{tbxBirthDay.Text}\",\"cmnd\": \"{tbxID.Text}\"}}";
+            dynamic resObject;
+            try
+            {
+                string res = Post(SERVER + "updateCustomer", payload);
+                resObject = JsonConvert.DeserializeObject(res);
+            }
+            catch
+            {
+                MessageBox.Show("Không thể kết nối đến server");
+                return;
+            }
+
+            if (resObject.code == "0")
+            {
+                MessageBox.Show("Cập nhật thông tin khách hàng thành công");
+            }
+            else
+            {
+                MessageBox.Show("Đã xảy ra lỗi, vui lòng thử lại");
             }
         }
     }

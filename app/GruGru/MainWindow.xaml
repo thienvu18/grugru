@@ -601,7 +601,7 @@
                         <TextBlock x:Name="tbScore" Text="Điểm tích lũy:" Foreground="Black"></TextBlock>
                         <TextBox x:Name="tbxScore" IsEnabled="False"></TextBox>
                         <Grid x:Name="temp493"></Grid>
-                        <Button x:Name="btnCustomerUpdate" HorizontalAlignment="Center" Content="Cập Nhật" BorderBrush="#A52A2A" Background="#CD5C5C"></Button>
+                        <Button x:Name="btnCustomerUpdate" HorizontalAlignment="Center" Content="Cập Nhật" BorderBrush="#A52A2A" Background="#CD5C5C" Click="BtnCustomerUpdate_Click"></Button>
                     </StackPanel>
                     <StackPanel x:Name="stpInforCustomer2">
                         <TextBlock x:Name="tbPhoneNumber" Text="Số điện thoại:" Foreground="Black"></TextBlock>

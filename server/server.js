@@ -292,24 +292,31 @@ app.post("/api/addCustomer", function(req, res) {
 });
 
 app.post("/api/updateCustomer", function(req, res) {
+  console.log(req.body);
+  const id = req.body.id;
   const maKH = req.body.maKH;
   const hoTen = req.body.hoTen;
-  const ngaySinh = moment(req.body.ngaySinh, "DD-MM-YYYY").format("YYYY-MM-DD");
+  const ngaySinh = moment(req.body.ngaySinh, "DD/MM/YYYY").format("YYYY-MM-DD");
   const soDienThoai = req.body.soDienThoai;
+  const diemTichLuy = req.body.diemTichLuy;
+  const cmnd = req.body.cmnd;
 
   const query =
     "UPDATE KhachHang SET maKH = '" +
     maKH +
-    "', hoTen='" +
+    "', hoTen=N'" +
     hoTen +
     "', ngaySinh='" +
     ngaySinh +
     "', soDienThoai='" +
     soDienThoai +
-    "' WHERE maKH = '" +
-    maKH +
-    "'";
-
+    "', diemTichLuy=" +
+    diemTichLuy +
+    ", cmnd='" +
+    cmnd +
+    "' WHERE id = " +
+    id;
+console.log(query);
   let request = new sql.Request();
 
   request.query(query, function(err, result) {
@@ -429,7 +436,7 @@ app.get("/api/getCustomerByPhone/:phoneNumber", function(req, res) {
     } else {
       if (result.length == 0) {
         res.json({
-          code: -1,
+          code: -4,
           msg: "Khong tim thay khach hang"
         });
       } else {
