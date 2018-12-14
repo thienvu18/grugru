@@ -830,7 +830,7 @@ namespace GruGru
             string username = txtUsername.Text;//"usercfrnh"
             string password = txtPassword.Password;//"13874383";
             string json = "{\"username\": \"" + username + "\", \"password\": \"" + password + "\"}";
-            string url = SERVER + "api/login";
+            string url = SERVER + "/login";
 
             var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
             httpWebRequest.ContentType = "application/json";
@@ -976,6 +976,14 @@ namespace GruGru
             }
         }
 
+        private void TbxSearchCustomer_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string phoneNumber = tbxSearchCustomer.Text;
+            string res = Get(SERVER + "/getCustomerByPhone/" + phoneNumber);
+            var resObject = JsonConvert.DeserializeObject(res);
+            //tbxSearchCustomer.ContextMenu = new ContextMenu();
+        }
+
         public string Post(string uri, string payload)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
@@ -1031,18 +1039,22 @@ namespace GruGru
                     soLuong = 1,
                     size = sizetemp,
                 });
+                ((Button)((StackPanel)((Grid)((StackPanel)((Button)sender).Parent).Parent).Children[1]).Children[1]).Visibility = System.Windows.Visibility.Visible;
             }
         }
 
         private void btnPay_Click(object sender, RoutedEventArgs e)
         {
+
             string gia = "100000";//"usercfrnh"
             string idKhachHangMua = "1231156464864";//"13874383";
             string idNhanVienLap = "1";
 
-            string json = JsonConvert.SerializeObject(ListDrinks);
+            string json = "{\"gia\": " + gia + ", \"idKhachHangMua\": " + idKhachHangMua + ", \"idNhanVienLap\": " + idNhanVienLap + ", \"danhSachMonAn\":";
+
+            json += JsonConvert.SerializeObject(ListDrinks);
             //If you want to replace { with [ and } with ]
-            json = json.Replace("{", "[").Replace("}", "]");
+            //json = json.Replace("{", "[").Replace("}", "]");
 
             //you can use this workaround to get rid of property names
             string propHeader = "\"{0}\":";
@@ -1050,8 +1062,9 @@ namespace GruGru
             json = json.Replace(string.Format(propHeader, "Id"), "")
                 .Replace(string.Format(propHeader, "Name"), "")
                 .Replace(string.Format(propHeader, "Age"), "");
+            json += "}";
 
-            string url = "http://localhost:8080/api/login";
+            string url = SERVER+"putOrder";
 
             var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
             httpWebRequest.ContentType = "application/json";
@@ -1063,13 +1076,37 @@ namespace GruGru
                 streamWriter.Flush();
                 streamWriter.Close();
             }
-            /* string result;
-             var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-             using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
-             {
-                 result = streamReader.ReadToEnd();
-             }
-             return result;*/
+            string result;
+            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+            {
+                result = streamReader.ReadToEnd();
+            }
+
+        }
+
+        private void btnMinus_Click(object sender, RoutedEventArgs e)
+        {
+            int idtemp = int.Parse(((TextBlock)((StackPanel)((Grid)((StackPanel)((Button)sender).Parent).Parent).Children[0]).Children[2]).Text);
+            string sizetemp = ((ComboBoxItem)((ComboBox)((StackPanel)((Grid)((StackPanel)((Button)sender).Parent).Parent).Children[0]).Children[1]).SelectedItem).Content.ToString();
+            bool temp = false;
+            foreach (var item in ListDrinks)
+            {
+                if ((item.id == idtemp) && (item.size == sizetemp))
+                {
+                    if (item.soLuong > 1)
+                    {
+                        item.soLuong--;
+                        temp = true;
+                        break;
+                    }
+                    else
+                    {
+                        ListDrinks.Remove(item);
+                        ((Button)((StackPanel)((Grid)((StackPanel)((Button)sender).Parent).Parent).Children[1]).Children[1]).Visibility = System.Windows.Visibility.Hidden;
+                    }
+                }
+            }
         }
 
         private void TbxSearchCustomer_KeyUp(object sender, KeyEventArgs e)
