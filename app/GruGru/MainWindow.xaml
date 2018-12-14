@@ -61,7 +61,7 @@
                 <Button x:Name="tbForgotPw" Margin="405,430,232,100" FontSize="15" FontStyle="Italic" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Orange">Fogot Password?</Button>
             </Grid>
         </Grid>
-        <StackPanel x:Name="stpMainScreen" Background="#e9e7e4" Visibility="Visible">
+        <StackPanel x:Name="stpMainScreen" Background="#e9e7e4" Visibility="Hidden">
             <StackPanel x:Name="stpTitle" Orientation="Horizontal">
                 <TextBlock x:Name="txbCoffee" Text="Coffee" TextAlignment="Center" Background="#b68648" ></TextBlock>
                 <TextBlock x:Name="txbMilktea" Text="Milk tea" Background="#efca8b" TextAlignment="Center"></TextBlock>
@@ -563,7 +563,7 @@
                 </ScrollViewer>
             </Grid>
         </WrapPanel>
-        <WrapPanel x:Name="wrpCustomer" Background="#ffd1d1" Visibility="Visible">
+        <WrapPanel x:Name="wrpCustomer" Background="#ffd1d1" Visibility="Hidden">
             <Button x:Name="btnBackCustomer" BorderBrush="#ffffff" Background="#e87f5c" Click="btnBack_Click">
                 <materialDesign:PackIcon Kind="ArrowLeftBoldCircleOutline" />
             </Button>

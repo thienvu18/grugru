@@ -958,11 +958,6 @@ namespace GruGru
             wrpCustomer.Visibility = System.Windows.Visibility.Visible;
         }
 
-        private void btnBack_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         public string Get(string uri)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
@@ -974,14 +969,6 @@ namespace GruGru
             {
                 return reader.ReadToEnd();
             }
-        }
-
-        private void TbxSearchCustomer_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            string phoneNumber = tbxSearchCustomer.Text;
-            string res = Get(SERVER + "/getCustomerByPhone/" + phoneNumber);
-            var resObject = JsonConvert.DeserializeObject(res);
-            //tbxSearchCustomer.ContextMenu = new ContextMenu();
         }
 
         public string Post(string uri, string payload)
