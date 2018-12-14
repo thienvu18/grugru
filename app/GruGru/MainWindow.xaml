@@ -563,7 +563,7 @@
                 </ScrollViewer>
             </Grid>
         </WrapPanel>
-        <WrapPanel x:Name="wrpCustomer" Background="#ffd1d1" Visibility="Hidden">
+        <WrapPanel x:Name="wrpCustomer" Background="#ffd1d1" Visibility="Visible">
             <Button x:Name="btnBackCustomer" BorderBrush="#ffffff" Background="#e87f5c" Click="btnBack_Click">
                 <materialDesign:PackIcon Kind="ArrowLeftBoldCircleOutline" />
             </Button>
@@ -589,6 +589,9 @@
             <Grid x:Name="gridCustomer">
                 <StackPanel x:Name="stpInforCustomer" Orientation="Horizontal">
                     <StackPanel x:Name="stpInforCustomer1">
+                        <!--Trick, ahihi-->
+                        <TextBox x:Name="tbxCustomerId" Visibility="Collapsed"></TextBox>
+                        <!--End Trick, ahihi-->
                         <TextBlock x:Name="tbCustomerCode" Text="Mã Khách hàng:" Foreground="Black"></TextBlock>
                         <TextBox x:Name="tbxCustomerCode"></TextBox>
                         <Grid x:Name="temp491"></Grid>
@@ -610,7 +613,7 @@
                         <TextBlock x:Name="tbID" Text="CMND:" Foreground="Black"></TextBlock>
                         <TextBox x:Name="tbxID"></TextBox>
                         <Grid x:Name="temp496"></Grid>
-                        <Button x:Name="btnCustomerDelete" HorizontalAlignment="Center" Content="Xóa" BorderBrush="#A52A2A" Background="#CD5C5C"></Button>
+                        <Button x:Name="btnCustomerDelete" HorizontalAlignment="Center" Content="Xóa" BorderBrush="#A52A2A" Background="#CD5C5C" Click="BtnCustomerDelete_Click"></Button>
                     </StackPanel>
                 </StackPanel>
             </Grid>
