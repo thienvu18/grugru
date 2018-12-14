@@ -61,7 +61,7 @@
                 <Button x:Name="tbForgotPw" Margin="405,430,232,100" FontSize="15" FontStyle="Italic" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Orange">Fogot Password?</Button>
             </Grid>
         </Grid>
-        <StackPanel x:Name="stpMainScreen" Background="#e9e7e4" Visibility="Hidden">
+        <StackPanel x:Name="stpMainScreen" Background="#e9e7e4" Visibility="Visible">
             <StackPanel x:Name="stpTitle" Orientation="Horizontal">
                 <TextBlock x:Name="txbCoffee" Text="Coffee" TextAlignment="Center" Background="#b68648" ></TextBlock>
                 <TextBlock x:Name="txbMilktea" Text="Milk tea" Background="#efca8b" TextAlignment="Center"></TextBlock>
@@ -124,7 +124,7 @@
                                         </StackPanel>
                                         <StackPanel Grid.Column="1">
                                             <Button x:Name="btnChooseCoffees" Width="50" VerticalAlignment="Top" HorizontalAlignment="Left" Content="+" Background="#fac129" BorderBrush="#ffa200" BorderThickness="2" Click="btnChoose_Click"></Button>
-                                            <Button x:Name="btnInforCoffees" Width="50" VerticalAlignment="Bottom" HorizontalAlignment="Left" Content="..." Background="#fac129" BorderBrush="#ffa200" BorderThickness="2"></Button>
+                                            <Button x:Name="btnMinusCoffees" Visibility="Hidden" Width="50" VerticalAlignment="Bottom" HorizontalAlignment="Left" Content="-" Background="#fac129" BorderBrush="#ffa200" BorderThickness="2" Click="btnMinus_Click"></Button>
                                         </StackPanel>
                                     </Grid>
                                 </DataTemplate>
@@ -170,8 +170,8 @@
                                             </ComboBox>
                                         </StackPanel>
                                         <StackPanel Grid.Column="1">
-                                            <Button x:Name="btnChooseMilkteas" Width="50" VerticalAlignment="Top" HorizontalAlignment="Left" Content="+"></Button>
-                                            <Button x:Name="btnInforMilkteas" Width="50" VerticalAlignment="Bottom" HorizontalAlignment="Left" Content="..."></Button>
+                                            <Button x:Name="btnChooseMilkteas" Width="50" VerticalAlignment="Top" HorizontalAlignment="Left" Content="+" Click="btnChoose_Click"></Button>
+                                            <Button x:Name="btnMinusMilkteas" Visibility="Hidden" Width="50" VerticalAlignment="Bottom" HorizontalAlignment="Left" Content="-" Click="btnMinus_Click"></Button>
                                         </StackPanel>
                                     </Grid>
                                 </DataTemplate>
@@ -217,8 +217,8 @@
                                             </ComboBox>
                                         </StackPanel>
                                         <StackPanel Grid.Column="1">
-                                            <Button x:Name="btnChooseToppings" Width="50" VerticalAlignment="Top" HorizontalAlignment="Left" Content="+"></Button>
-                                            <Button x:Name="btnInforToppings" Width="50" VerticalAlignment="Bottom" HorizontalAlignment="Left" Content="..."></Button>
+                                            <Button x:Name="btnChooseToppings" Width="50" VerticalAlignment="Top" HorizontalAlignment="Left" Content="+" Click="btnChoose_Click"></Button>
+                                            <Button x:Name="btnMinusToppings" Visibility="Hidden" Width="50" VerticalAlignment="Bottom" HorizontalAlignment="Left" Content="-" Click="btnMinus_Click" ></Button>
                                         </StackPanel>
                                     </Grid>
                                 </DataTemplate>
