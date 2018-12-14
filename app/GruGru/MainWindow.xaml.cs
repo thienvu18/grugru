@@ -1060,11 +1060,11 @@ namespace GruGru
             {
                 // Clear   
                 resultStack.Children.Clear();
-                border.Visibility = System.Windows.Visibility.Hidden;
+                border.Visibility = Visibility.Hidden;
             }
             else
             {
-                border.Visibility = System.Windows.Visibility.Visible;
+                border.Visibility = Visibility.Visible;
                 string res = Get(SERVER + "getCustomerByPhone/" + query);
                 dynamic resObject = JsonConvert.DeserializeObject(res);
                 // Clear the list   
@@ -1081,6 +1081,9 @@ namespace GruGru
 
                         // Add the text   
                         block.Text = text;
+                        //Add id
+                        string fullPhoneNumber = ((string)resObject.payload[0].soDienThoai).Trim();
+                        block.Name = "_" + fullPhoneNumber;
 
                         // A little style...   
                         block.Margin = new Thickness(2, 3, 2, 3);
@@ -1089,7 +1092,8 @@ namespace GruGru
                         // Mouse events   
                         block.MouseLeftButtonUp += (s, notCare) =>
                         {
-                            //tbxSearchCustomer.Text = (s as TextBlock).Text;
+                            tbxSearchCustomer.Text = (s as TextBlock).Name.Remove(0, 1);
+                            border.Visibility = Visibility.Hidden;
                         };
 
                         block.MouseEnter += (s, notCare) =>
@@ -1114,6 +1118,39 @@ namespace GruGru
                 {
                     resultStack.Children.Add(new TextBlock() { Text = "No results found." });
                 }
+            }
+        }
+
+        private void BtnCustomer_Click(object sender, RoutedEventArgs e)
+        {
+            string phoneNumber = tbxSearchCustomer.Text;
+
+            if (phoneNumber.Length == 0)
+            {
+                MessageBox.Show("Vui lòng nhập số điện thoại để tìm kiếm");
+                return;
+            }
+            try
+            {
+                string res = Get(SERVER + "getCustomerByPhone/" + phoneNumber);
+                dynamic resObject = JsonConvert.DeserializeObject(res);
+
+                if (resObject.code == "0")
+                {
+                    tbxCustomerCode.Text = resObject.payload[0].maKH;
+                    tbxCustomerName.Text = resObject.payload[0].hoTen;
+                    tbxScore.Text = resObject.payload[0].diemTichLuy;
+                    tbxPhoneNumber.Text = resObject.payload[0].soDienThoai;
+                    tbxBirthDay.Text = resObject.payload[0].ngaySinh;
+                    tbxID.Text = resObject.payload[0].cmnd;
+                }
+                else
+                {
+                    MessageBox.Show("Đã xảy ra lỗi, vui lòng bấm lại nút Tìm kiếm");
+                }
+            } catch
+            {
+                MessageBox.Show("Không thể kết nối đến server");
             }
         }
     }

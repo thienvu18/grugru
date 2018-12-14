@@ -563,7 +563,7 @@
                 </ScrollViewer>
             </Grid>
         </WrapPanel>
-        <WrapPanel x:Name="wrpCustomer" Background="#ffd1d1" Visibility="Visible">
+        <WrapPanel x:Name="wrpCustomer" Background="#ffd1d1" Visibility="Hidden">
             <Button x:Name="btnBackCustomer" BorderBrush="#ffffff" Background="#e87f5c" Click="btnBack_Click">
                 <materialDesign:PackIcon Kind="ArrowLeftBoldCircleOutline" />
             </Button>
@@ -583,7 +583,7 @@
                 </Border>
             </StackPanel>
             <Grid x:Name="temp57"></Grid>
-            <Button x:Name="btnCustomer" Content="Tìm kiếm" BorderBrush="#ffffff" Background="#e87f5c"></Button>
+            <Button x:Name="btnCustomer" Content="Tìm kiếm" BorderBrush="#ffffff" Background="#e87f5c" Click="BtnCustomer_Click"></Button>
             <Grid x:Name="temp59"></Grid>
             <Grid x:Name="temp58"></Grid>
             <Grid x:Name="gridCustomer">
