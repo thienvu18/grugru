@@ -18,6 +18,7 @@ using System.Collections.Specialized;
 using System.Net.Http;
 using Newtonsoft.Json;
 using GruGru.Model;
+using System.Collections.ObjectModel;
 
 namespace GruGru
 {
@@ -67,51 +68,19 @@ namespace GruGru
             LoadMenu();
             cbbManage.Visibility = System.Windows.Visibility.Visible;
 
-            /* List<ThucUong> Items = new List<ThucUong>();
-          Items.Add(new ThucUong() { STT = 1, ten = "tra sua", gia = 15000, soluong = 1 });
-          Items.Add(new ThucUong() { STT = 1, ten = "coffee den", gia = 20000, soluong = 1 });
-         Items.Add(new ThucUong() { STT = 1, ten = "coffee den", gia = 20000, soluong = 1 });
-         Items.Add(new ThucUong() { STT = 1, ten = "coffee den", gia = 20000, soluong = 1 });
-         Items.Add(new ThucUong() { STT = 1, ten = "coffee den", gia = 20000, soluong = 1 });
-         Items.Add(new ThucUong() { STT = 1, ten = "coffee den", gia = 20000, soluong = 1 });
-         Items.Add(new ThucUong() { STT = 1, ten = "coffee den", gia = 20000, soluong = 1 });
-           lvListBill.ItemsSource = Items;*/
-        }
+            /*List<ThucUong> Items = new List<ThucUong>();
+            Items.Add(new ThucUong() { STT = 1, ten = "tra sua", gia = 15000, soluong = 1 });
+            Items.Add(new ThucUong() { STT = 1, ten = "coffee den", gia = 20000, soluong = 1 });
+            Items.Add(new ThucUong() { STT = 1, ten = "coffee den", gia = 20000, soluong = 1 });
+            Items.Add(new ThucUong() { STT = 1, ten = "coffee den", gia = 20000, soluong = 1 });
+            Items.Add(new ThucUong() { STT = 1, ten = "coffee den", gia = 20000, soluong = 1 });
+            Items.Add(new ThucUong() { STT = 1, ten = "coffee den", gia = 20000, soluong = 1 });
+            Items.Add(new ThucUong() { STT = 1, ten = "coffee den", gia = 20000, soluong = 1 });
+            lvListBill.ItemsSource = Items;*/
 
-        public class ThucUong
-        {
-            public int STT { get; set; }
-            public string ten { get; set; }
-            public long gia { get; set; }
-            public int soluong { get; set; }
         }
 
 
-        /* public void SetItem(TextBlock tb, Button btnChoose, Button btnInfor, ComboBox cbbSize)
-         {
-             Double widthItem;
-             if (NumberOfDrinks % 3 == 0)
-             {
-                 widthItem = lvMenuDrink.Width * 3 / NumberOfDrinks;
-             }
-             else
-             {
-                 widthItem = lvMenuDrink.Width / ((int)(NumberOfDrinks / 3) + 1);
-             }
-             tb.Height = widthItem * 0.6 / 12;
-             tb.Width = lvMenuDrink.Width / 3 * 7 / 10;
-             tb.FontSize = height002;
-
-             btnChoose.Height = widthItem * 0.6 / 12;
-             btnChoose.Width = lvMenuDrink.Width / 3 * 3 / 10;
-
-             btnInfor.Width = lvMenuDrink.Width / 3 * 3 / 10;
-             btnInfor.Height = widthItem * 0.4 / 12;
-
-             cbbSize.Width = lvMenuDrink.Width / 3 * 7 / 10;
-             cbbSize.Height = widthItem * 0.4 / 12;
-             cbbSize.FontSize = height0013;
-         }*/
         public void MainScreen()
         {
             //thanh ngang đầu tiên
@@ -999,15 +968,20 @@ namespace GruGru
             public int id { get; set; }
             public int soLuong { get; set; }
             public string size { get; set; }
-
+            public int stt { get; set; }
+            public string ten { get; set; }
+            public decimal gia { get; set; }
         }
 
-        List<Drink> ListDrinks = new List<Drink>();
+        //List<Drink> ListDrinks = new List<Drink>();
+        ObservableCollection<Drink> ListDrinks = new ObservableCollection<Drink>();
 
         private void btnChoose_Click(object sender, RoutedEventArgs e)
         {
             int idtemp = int.Parse(((TextBlock)((StackPanel)((Grid)((StackPanel)((Button)sender).Parent).Parent).Children[0]).Children[2]).Text);
             string sizetemp = ((ComboBoxItem)((ComboBox)((StackPanel)((Grid)((StackPanel)((Button)sender).Parent).Parent).Children[0]).Children[1]).SelectedItem).Content.ToString();
+            string tentemp =((TextBlock)((StackPanel)((Grid)((StackPanel)((Button)sender).Parent).Parent).Children[0]).Children[0]).Text;
+            decimal giatemp = decimal.Parse(((TextBlock)((StackPanel)((Grid)((StackPanel)((Button)sender).Parent).Parent).Children[0]).Children[3]).Text);
             bool temp = false;
             foreach (var item in ListDrinks)
             {
@@ -1017,6 +991,7 @@ namespace GruGru
                     temp = true;
                     break;
                 }
+
             }
             if (temp == false)
             {
@@ -1025,32 +1000,31 @@ namespace GruGru
                     id = idtemp,
                     soLuong = 1,
                     size = sizetemp,
+                    gia = giatemp,
+                    ten = tentemp,
+                    stt = ListDrinks.Count() + 1,
                 });
+                
                 ((Button)((StackPanel)((Grid)((StackPanel)((Button)sender).Parent).Parent).Children[1]).Children[1]).Visibility = System.Windows.Visibility.Visible;
             }
+            lvListBill.ClearValue(ListView.ItemsSourceProperty);
+            lvListBill.ItemsSource=ListDrinks;
+            TongTien();
         }
 
         private void btnPay_Click(object sender, RoutedEventArgs e)
         {
 
-            string gia = "100000";//"usercfrnh"
+            string gia = TongTien().ToString();//"usercfrnh"
             string idKhachHangMua = "1231156464864";//"13874383";
             string idNhanVienLap = "1";
 
             string json = "{\"gia\": " + gia + ", \"idKhachHangMua\": " + idKhachHangMua + ", \"idNhanVienLap\": " + idNhanVienLap + ", \"danhSachMonAn\":";
 
             json += JsonConvert.SerializeObject(ListDrinks);
-            //If you want to replace { with [ and } with ]
-            //json = json.Replace("{", "[").Replace("}", "]");
-
-            //you can use this workaround to get rid of property names
-            string propHeader = "\"{0}\":";
-
-            json = json.Replace(string.Format(propHeader, "Id"), "")
-                .Replace(string.Format(propHeader, "Name"), "")
-                .Replace(string.Format(propHeader, "Age"), "");
             json += "}";
 
+           
             string url = SERVER+"putOrder";
 
             var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
@@ -1076,7 +1050,7 @@ namespace GruGru
         {
             int idtemp = int.Parse(((TextBlock)((StackPanel)((Grid)((StackPanel)((Button)sender).Parent).Parent).Children[0]).Children[2]).Text);
             string sizetemp = ((ComboBoxItem)((ComboBox)((StackPanel)((Grid)((StackPanel)((Button)sender).Parent).Parent).Children[0]).Children[1]).SelectedItem).Content.ToString();
-            bool temp = false;
+            int i = 0;
             foreach (var item in ListDrinks)
             {
                 if ((item.id == idtemp) && (item.size == sizetemp))
@@ -1084,16 +1058,23 @@ namespace GruGru
                     if (item.soLuong > 1)
                     {
                         item.soLuong--;
-                        temp = true;
-                        break;
                     }
                     else
                     {
-                        ListDrinks.Remove(item);
+                        ListDrinks.RemoveAt(i);
+                        for(int j = i; j < ListDrinks.Count; j++)
+                        {
+                            ListDrinks[j].stt--;
+                        }
                         ((Button)((StackPanel)((Grid)((StackPanel)((Button)sender).Parent).Parent).Children[1]).Children[1]).Visibility = System.Windows.Visibility.Hidden;
                     }
+                    break;
                 }
+                i++;
             }
+            lvListBill.ClearValue(ListView.ItemsSourceProperty);
+            lvListBill.ItemsSource = ListDrinks;
+            TongTien();
         }
 
         private void TbxSearchCustomer_KeyUp(object sender, KeyEventArgs e)
@@ -1302,6 +1283,39 @@ namespace GruGru
             else
             {
                 MessageBox.Show("Đã xảy ra lỗi, vui lòng thử lại");
+            }
+        }
+
+        public decimal TongTien()
+        {
+            decimal tongTien = 0;
+            foreach (var item in ListDrinks)
+            {
+                tongTien += item.gia * item.soLuong;
+            }
+            tbTotalMoney.Text = " Tổng tiền:        " + tongTien.ToString();
+            return tongTien;
+        }
+        public void TienCanTra()
+        {
+            decimal tiennhan = 0;
+
+            if (decimal.TryParse(tbxGetMoney.Text, out tiennhan))
+            {
+                tbPayMoney.Text = "    Tiền trả:        " + (tiennhan - TongTien()).ToString();
+            }
+            else
+            {
+                tbPayMoney.Text = "    Tiền trả:        " + "Tiền nhận không hợp lệ!!!";
+
+            }
+        }
+
+        private void tbxGetMoney_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+            {
+                TienCanTra();
             }
         }
     }
