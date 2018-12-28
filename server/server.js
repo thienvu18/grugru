@@ -177,6 +177,7 @@ app.post("/api/putOrder", function(req, res) {
 
   request.query(insertOrder, function(err, result) {
     if (err) {
+console.log(err);
       res.json({
         code: -3,
         msg: "Co loi trong truy van CSDL"
