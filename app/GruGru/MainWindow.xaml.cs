@@ -68,7 +68,6 @@ namespace GruGru
             PersonalInforScreen();
             //InforScreen();
             LoadMenu();
-            cbbManage.Visibility = System.Windows.Visibility.Visible;
             LoadCalendar();
         }
 
@@ -685,6 +684,7 @@ namespace GruGru
 
             temp993.Height = stpInforPersonalInfor1.Height / 12;
 
+
             //Cập nhật
             btnPersonalInforUpdate.FontSize = height003;
             btnPersonalInforUpdate.Height = height005;
@@ -738,7 +738,6 @@ namespace GruGru
 
                 string msg = stuff.msg;
                 string code = stuff.code;
-                MessageBox.Show(code);
                 if (code == "0")
                 {
 
@@ -746,13 +745,19 @@ namespace GruGru
                     stpMainScreen.Visibility = System.Windows.Visibility.Visible;
                     string type = stuff.loaiNV;
                     string name = stuff.hoTen;
+                    MessageBox.Show("1"+type+"1");
+                    cbbEmployee.Visibility = System.Windows.Visibility.Visible;
+                    cbbManage.Visibility = System.Windows.Visibility.Visible;
                     if (type == "1")//nhân viên
                     {
-                        cbbEmployee.Visibility = System.Windows.Visibility.Visible;
+                        MessageBox.Show("nhan vien");
+                        cbbManage.Visibility = System.Windows.Visibility.Hidden;
                     }
-                    else
+                    if (type == "2")
                     {
-                        cbbManage.Visibility = System.Windows.Visibility.Visible;
+                        MessageBox.Show("quan li");
+
+                        cbbEmployee.Visibility = System.Windows.Visibility.Hidden;
                     }
                     tbEmployee.Text = "Phục vụ: " + name;
                     LoadMenu();
@@ -790,7 +795,7 @@ namespace GruGru
             string username = txtUsername.Text;//"usercfrnh"
             string password = txtPassword.Password;//"13874383";
             string json = "{\"username\": \"" + username + "\", \"password\": \"" + password + "\"}";
-            string url = SERVER + "/login";
+            string url = SERVER + "login";
 
             var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
             httpWebRequest.ContentType = "application/json";
@@ -809,6 +814,33 @@ namespace GruGru
                 result = streamReader.ReadToEnd();
             }
             return result;
+        }
+
+        public void Statistical()
+        {
+            string BeginDate = dpDayStart.Text;
+            string BeginTime = mtpHourStart.Text;
+            string EndDate = dpDayEnd.Text;
+            string EndTime = mtpHourEnd.Text;
+            string TypeStatistical = cbbTypeStatistical.Text;
+            string TypeStatisticalName = tbxSearchStatistical.Text;
+            string json = "{\"BeginDate\": \"" + BeginDate + "\", \"BeginTime\": \"" + BeginTime + 
+                "\", \"EndDate\": \"" + EndDate + "\", \"EndTime\": \""+ EndTime +
+                "\", \"TypeStatistical\": \"" + TypeStatistical + "\", \"TypeStatisticalName\": \"" + TypeStatisticalName +"\"}";
+            string url = SERVER + "/Statistical";
+
+            var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+            httpWebRequest.Method = "GET";
+            string result;
+            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+            {
+                result = streamReader.ReadToEnd();
+            }
+
+            dynamic stuff = JsonConvert.DeserializeObject(result);
+
+            string code = stuff.code;
         }
 
         private void LoadMenu()
@@ -888,7 +920,7 @@ namespace GruGru
         {
             //đăng xuất
             stpMainScreen.Visibility = System.Windows.Visibility.Hidden;
-            GridLogin.Visibility = System.Windows.Visibility.Visible;
+            GridLoginScreen.Visibility = System.Windows.Visibility.Visible;
         }
 
         private void btnStatisticalMode1_Click(object sender, RoutedEventArgs e)

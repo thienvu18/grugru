@@ -48,7 +48,7 @@ app.post("/api/login", function(req, res) {
   const username = req.body.username;
   const password = req.body.password;
   const query =
-    "SELECT NhanVien.*, LoaiNhanVien.loaiNV FROM NhanVien JOIN LoaiNhanVien ON NhanVien.idLoaiNV = LoaiNhanVien.id WHERE NhanVien.maNV = '" +
+    "SELECT NhanVien.* FROM NhanVien WHERE NhanVien.maNV = '" +
     username +
     "'";
 
@@ -69,11 +69,10 @@ app.post("/api/login", function(req, res) {
       } else {
         const user = result[0];
         if (user.matKhau == password) {
-          console.log("ozxdzzk");
           res.json({
             code: 0,
             msg: "Dang nhap thanh cong",
-            loaiNV: user.loaiNV,
+            loaiNV: user.idLoaiNV,
             hoTen: user.hoTen
           });
         } else {
@@ -177,7 +176,6 @@ app.post("/api/putOrder", function(req, res) {
 
   request.query(insertOrder, function(err, result) {
     if (err) {
-console.log(err);
       res.json({
         code: -3,
         msg: "Co loi trong truy van CSDL"

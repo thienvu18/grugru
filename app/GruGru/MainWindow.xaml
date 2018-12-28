@@ -67,14 +67,15 @@
                 <TextBlock x:Name="txbMilktea" Text="Milk tea" Background="#efca8b" TextAlignment="Center"></TextBlock>
                 <TextBlock x:Name="txbTopping" Text="Topping" Background="#fcc542" TextAlignment="Center"></TextBlock>
                 <TextBlock x:Name="txbInfor" Text="Thông tin hóa đơn" Background="#f8e6b0"  TextAlignment="Center"></TextBlock>
-                <ComboBox x:Name="cbbEmployee" Background="#fbf9f2">
+                <Grid>
+                <ComboBox x:Name="cbbEmployee" Background="#fbf9f2" Visibility="Visible" >
                     <!--<materialDesign:PackIcon Kind="HamburgerMenu" />-->
                     <Button x:Name="btnPersonalInforMode" Content="Thông tin cá nhân" Background="#f4a50d" BorderBrush="#ffffff" Click="btnPersonalInforMode_Click"  ></Button>
                     <Button x:Name="btnCustomerInforMode" Content="Thông tin khách hàng" Background="#f4a50d" BorderBrush="#ffffff" Click="btnCustomerInforMode_Click" ></Button>
                     <Button x:Name="btnRegisterMode" Content="Đăng ký khách hàng" Background="#f4a50d" BorderBrush="#ffffff" Click="btnRegisterMode_Click" ></Button>
                     <Button x:Name="btnLogoutMode" Content="Đăng xuất" Background="#f4a50d" BorderBrush="#ffffff" Click="btnLogoutMode_Click" ></Button>
                 </ComboBox>
-                <ComboBox x:Name="cbbManage" Visibility="Collapsed">
+                <ComboBox x:Name="cbbManage" Visibility="Visible">
                     <!--<materialDesign:PackIcon Kind="HamburgerMenu" />-->
                     <Button x:Name="btnPersonalInforMode1" Content="Thông tin cá nhân" Click="btnPersonalInforMode_Click" ></Button>
                     <Button x:Name="btnCustomerInforMode1" Content="Thông tin khách hàng" Click="btnCustomerInforMode_Click" ></Button>
@@ -84,6 +85,8 @@
                     <Button x:Name="btnManageMode1" Content="Quản lý nhân viên" Click="btnManageMode1_Click" ></Button>
                     <Button x:Name="btnLogoutMode1" Content="Đăng xuất" Click="btnLogoutMode_Click"></Button>
                 </ComboBox>
+                </Grid>
+
             </StackPanel>
             <StackPanel x:Name="stpMenu" Orientation="Horizontal">
                 <WrapPanel x:Name="stpDrink">
