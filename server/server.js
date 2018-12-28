@@ -448,3 +448,34 @@ app.get("/api/getCustomerByPhone/:phoneNumber", function(req, res) {
     }
   });
 });
+
+app.get("/api/employeeByName/:name", function(req, res) {
+  const query =
+    "SELECT TOP (10) * FROM NhanVien WHERE hoTen LIKE '" +
+    req.params.name +
+    "%';";
+
+  let request = new sql.Request();
+
+  request.query(query, function(err, result) {
+    if (err) {
+      res.json({
+        code: -3,
+        msg: "Co loi trong truy van CSDL"
+      });
+    } else {
+      if (result.length == 0) {
+        res.json({
+          code: -4,
+          msg: "Khong tim thay nhân viên"
+        });
+      } else {
+        res.json({
+          code: 0,
+          msg: "Thong tin nhân viên da chon",
+          payload: result
+        });
+      }
+    }
+  });
+});
