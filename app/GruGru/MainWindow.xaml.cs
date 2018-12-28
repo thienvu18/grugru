@@ -19,6 +19,8 @@ using System.Net.Http;
 using Newtonsoft.Json;
 using GruGru.Model;
 using System.Collections.ObjectModel;
+using System.Xml.Linq;
+using System.Xml;
 
 namespace GruGru
 {
@@ -49,6 +51,42 @@ namespace GruGru
 
         const string SERVER = "http://localhost:8080/api/";
 
+        public string Get(string uri)
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
+            request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
+
+            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+            using (Stream stream = response.GetResponseStream())
+            using (StreamReader reader = new StreamReader(stream))
+            {
+                return reader.ReadToEnd();
+            }
+        }
+
+        public string Post(string uri, string payload)
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
+            request.ContentType = "application/json";
+            request.Method = "POST";
+            request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
+
+            using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+            {
+                streamWriter.Write(payload);
+                streamWriter.Write("\n");
+                streamWriter.Flush();
+                streamWriter.Close();
+            }
+
+            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+            using (Stream stream = response.GetResponseStream())
+            using (StreamReader reader = new StreamReader(stream))
+            {
+                return reader.ReadToEnd();
+            }
+        }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -64,19 +102,29 @@ namespace GruGru
             AgentScreen();
             SignUp();
             PersonalInforScreen();
-            InforScreen();
+            //InforScreen();
             LoadMenu();
-            cbbManage.Visibility = System.Windows.Visibility.Visible;
+            LoadCalendar();
+        }
 
-            /*List<ThucUong> Items = new List<ThucUong>();
-            Items.Add(new ThucUong() { STT = 1, ten = "tra sua", gia = 15000, soluong = 1 });
-            Items.Add(new ThucUong() { STT = 1, ten = "coffee den", gia = 20000, soluong = 1 });
-            Items.Add(new ThucUong() { STT = 1, ten = "coffee den", gia = 20000, soluong = 1 });
-            Items.Add(new ThucUong() { STT = 1, ten = "coffee den", gia = 20000, soluong = 1 });
-            Items.Add(new ThucUong() { STT = 1, ten = "coffee den", gia = 20000, soluong = 1 });
-            Items.Add(new ThucUong() { STT = 1, ten = "coffee den", gia = 20000, soluong = 1 });
-            Items.Add(new ThucUong() { STT = 1, ten = "coffee den", gia = 20000, soluong = 1 });
-            lvListBill.ItemsSource = Items;*/
+        class Name
+        {
+            public string name { get; set; }
+        }
+
+        public void LoadCalendar()
+        {
+            List<Name> ListName = new List<Name>();
+            string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
+            XDocument objDoc = XDocument.Load(path + "/Data.xml");
+            foreach (var item in objDoc.Descendants("Name"))
+            {
+                ListName.Add(new Name() { name = item.Value });
+
+            }
+            lvcalendar1.ItemsSource = ListName.GetRange(0,7);
+            lvcalendar2.ItemsSource = ListName.GetRange(7, 7);
+            lvcalendar3.ItemsSource = ListName.GetRange(14, 7);
 
         }
 
@@ -149,7 +197,7 @@ namespace GruGru
             tbTime.Height = heighttbBill;
             tbTime.Width = gridInforBill.Width - 10;
 
-            lvListBill.FontSize = height0027;
+            lvListBill.FontSize = height002;
             lvListBill.Height = gridInforBill.Height * 6 / 11;
             lvListBill.Width = gridInforBill.Width;
 
@@ -257,7 +305,7 @@ namespace GruGru
 
             temp12.Width = width / 5 * 4;
         }
-        
+
         public void JobCalendarScreen()
         {
 
@@ -291,30 +339,7 @@ namespace GruGru
             tbTime2.FontSize = height0025;
             tbTime3.FontSize = height0025;
 
-            //họ và tên
-            tbMonday1.FontSize = height004;
-            tbTuesday1.FontSize = height004;
-            tbWednesday1.FontSize = height004;
-            tbThursday1.FontSize = height004;
-            tbFriday1.FontSize = height004;
-            tbSaturday1.FontSize = height004;
-            tbSunday1.FontSize = height004;
-
-            tbMonday2.FontSize = height004;
-            tbTuesday2.FontSize = height004;
-            tbWednesday2.FontSize = height004;
-            tbThursday2.FontSize = height004;
-            tbFriday2.FontSize = height004;
-            tbSaturday2.FontSize = height004;
-            tbSunday2.FontSize = height004;
-
-            tbMonday3.FontSize = height004;
-            tbTuesday3.FontSize = height004;
-            tbWednesday3.FontSize = height004;
-            tbThursday3.FontSize = height004;
-            tbFriday3.FontSize = height004;
-            tbSaturday3.FontSize = height004;
-            tbSunday3.FontSize = height004;
+            
 
         }
 
@@ -695,6 +720,7 @@ namespace GruGru
 
             temp993.Height = stpInforPersonalInfor1.Height / 12;
 
+
             //Cập nhật
             btnPersonalInforUpdate.FontSize = height003;
             btnPersonalInforUpdate.Height = height005;
@@ -749,17 +775,24 @@ namespace GruGru
                 string code = stuff.code;
                 if (code == "0")
                 {
+
                     GridLoginScreen.Visibility = System.Windows.Visibility.Hidden;
                     stpMainScreen.Visibility = System.Windows.Visibility.Visible;
                     string type = stuff.loaiNV;
                     string name = stuff.hoTen;
+                    MessageBox.Show("1"+type+"1");
+                    cbbEmployee.Visibility = System.Windows.Visibility.Visible;
+                    cbbManage.Visibility = System.Windows.Visibility.Visible;
                     if (type == "1")//nhân viên
                     {
-                        cbbEmployee.Visibility = System.Windows.Visibility.Visible;
+                        MessageBox.Show("nhan vien");
+                        cbbManage.Visibility = System.Windows.Visibility.Hidden;
                     }
-                    else
+                    if (type == "2")
                     {
-                        cbbManage.Visibility = System.Windows.Visibility.Visible;
+                        MessageBox.Show("quan li");
+
+                        cbbEmployee.Visibility = System.Windows.Visibility.Hidden;
                     }
                     tbEmployee.Text = "Phục vụ: " + name;
                     LoadMenu();
@@ -798,25 +831,9 @@ namespace GruGru
             string username = txtUsername.Text;//"usercfrnh"
             string password = txtPassword.Password;//"13874383";
             string json = "{\"username\": \"" + username + "\", \"password\": \"" + password + "\"}";
-            string url = SERVER + "/login";
+            string url = SERVER + "login";
 
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
-            httpWebRequest.ContentType = "application/json";
-            httpWebRequest.Method = "POST";
-            using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
-            {
-                streamWriter.Write(json);
-                streamWriter.Write("\n");
-                streamWriter.Flush();
-                streamWriter.Close();
-            }
-            string result;
-            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
-            {
-                result = streamReader.ReadToEnd();
-            }
-            return result;
+            return Post(url, json);
         }
 
         public void Statistical()
@@ -832,14 +849,7 @@ namespace GruGru
                 "\", \"TypeStatistical\": \"" + TypeStatistical + "\", \"TypeStatisticalName\": \"" + TypeStatisticalName +"\"}";
             string url = SERVER + "/Statistical";
 
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
-            httpWebRequest.Method = "GET";
-            string result;
-            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
-            {
-                result = streamReader.ReadToEnd();
-            }
+            string result = Post(url, json);
 
             dynamic stuff = JsonConvert.DeserializeObject(result);
 
@@ -850,14 +860,7 @@ namespace GruGru
         {
             string url = SERVER + "getFoodList";
 
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
-            httpWebRequest.Method = "GET";
-            string result;
-            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
-            {
-                result = streamReader.ReadToEnd();
-            }
+            string result = Get(url);
 
             dynamic stuff = JsonConvert.DeserializeObject(result);
 
@@ -909,6 +912,7 @@ namespace GruGru
         {
             //hiện thị thông tin cá nhân của nhân viên
             stpMainScreen.Visibility = System.Windows.Visibility.Hidden;
+            wrpPersonalInfor.Visibility = System.Windows.Visibility.Visible;
         }
 
         private void btnRegisterMode_Click(object sender, RoutedEventArgs e)
@@ -922,7 +926,7 @@ namespace GruGru
         {
             //đăng xuất
             stpMainScreen.Visibility = System.Windows.Visibility.Hidden;
-            GridLogin.Visibility = System.Windows.Visibility.Visible;
+            GridLoginScreen.Visibility = System.Windows.Visibility.Visible;
         }
 
         private void btnStatisticalMode1_Click(object sender, RoutedEventArgs e)
@@ -951,42 +955,6 @@ namespace GruGru
             //thông tin khách hàng
             stpMainScreen.Visibility = System.Windows.Visibility.Hidden;
             wrpCustomer.Visibility = System.Windows.Visibility.Visible;
-        }
-
-        public string Get(string uri)
-        {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
-            request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
-
-            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
-            using (Stream stream = response.GetResponseStream())
-            using (StreamReader reader = new StreamReader(stream))
-            {
-                return reader.ReadToEnd();
-            }
-        }
-
-        public string Post(string uri, string payload)
-        {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
-            request.ContentType = "application/json";
-            request.Method = "POST";
-            request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
-
-            using (var streamWriter = new StreamWriter(request.GetRequestStream()))
-            {
-                streamWriter.Write(payload);
-                streamWriter.Write("\n");
-                streamWriter.Flush();
-                streamWriter.Close();
-            }
-
-            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
-            using (Stream stream = response.GetResponseStream())
-            using (StreamReader reader = new StreamReader(stream))
-            {
-                return reader.ReadToEnd();
-            }
         }
 
         public class Drink
@@ -1050,27 +1018,11 @@ namespace GruGru
             json += JsonConvert.SerializeObject(ListDrinks);
             json += "}";
 
-            MessageBox.Show(json);
            
             string url = SERVER+"putOrder";
 
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
-            httpWebRequest.ContentType = "application/json";
-            httpWebRequest.Method = "POST";
-            using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
-            {
-                streamWriter.Write(json);
-                streamWriter.Write("\n");
-                streamWriter.Flush();
-                streamWriter.Close();
-            }
-            string result;
-            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
-            {
-                result = streamReader.ReadToEnd();
-            }
-            MessageBox.Show(result);
+            string result = Post(url, json);
+
         }
 
         private void btnMinus_Click(object sender, RoutedEventArgs e)
@@ -1323,7 +1275,6 @@ namespace GruGru
             tbTotalMoney.Text = " Tổng tiền:        " + tongTien.ToString();
             return tongTien;
         }
-
         public void TienCanTra()
         {
             decimal tiennhan = 0;
@@ -1339,14 +1290,52 @@ namespace GruGru
             }
         }
 
-        private void tbxGetMoney_PreviewKeyDown(object sender, KeyEventArgs e)
+        private void tbxGetMoney_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Return)
+            TienCanTra();
+        }
+
+        private void BtnUpdateCalendar_Click(object sender, RoutedEventArgs e)
+        {
+            string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
+            XDocument objDoc = XDocument.Load(path + "/Data.xml");
+            objDoc.Root.RemoveNodes();
+
+            foreach (Name item in lvcalendar1.ItemsSource)
             {
-                TienCanTra();
+                objDoc.Root.Add(new XElement("Name", item.name)); // [index of user node]
+            }
+            foreach (Name item in lvcalendar2.ItemsSource)
+            {
+                objDoc.Root.Add(new XElement("Name", item.name)); // [index of user node]
+            }
+            foreach (Name item in lvcalendar3.ItemsSource)
+            {
+                objDoc.Root.Add(new XElement("Name", item.name)); // [index of user node]
+            }
+
+            objDoc.Save(path + "/Data.xml");
+        }
+
+        private void CbbSize_DropDownClosed(object sender, EventArgs e)
+        {
+            int idtemp = int.Parse(((TextBlock)((StackPanel)((Grid)((StackPanel)((ComboBox)sender).Parent).Parent).Children[0]).Children[2]).Text);
+            string sizetemp = ((ComboBoxItem)((ComboBox)((StackPanel)((Grid)((StackPanel)((ComboBox)sender).Parent).Parent).Children[0]).Children[1]).SelectedItem).Content.ToString();
+            ((Button)((StackPanel)((Grid)((StackPanel)((ComboBox)sender).Parent).Parent).Children[1]).Children[1]).Visibility = System.Windows.Visibility.Hidden;
+            foreach (var item in ListDrinks)
+            {
+                if ((item.id == idtemp)&& (item.size == sizetemp))
+                {
+                        ((Button)((StackPanel)((Grid)((StackPanel)((ComboBox)sender).Parent).Parent).Children[1]).Children[1]).Visibility = System.Windows.Visibility.Visible;
+                        break;
+                }
             }
         }
-     
+
+        private void BtnBack_Click(object sender, RoutedEventArgs e)
+        {
+            ((WrapPanel)((Grid)((WrapPanel)((Button)sender).Parent).Parent).Children[1]).Visibility = Visibility.Visible;
+            ((WrapPanel)((Button)sender).Parent).Visibility = Visibility.Hidden;
+        }
     }
 }
-
