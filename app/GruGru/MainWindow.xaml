@@ -15,7 +15,7 @@
         mc:Ignorable="d"
         Title="MainWindow">
     <Grid>
-        <Grid x:Name="GridLoginScreen" Visibility="Visible">
+        <Grid x:Name="GridLoginScreen" Visibility="Hidden">
             <Image Source="backround.jpg" RenderTransformOrigin="0.5,0.5" >
                 <Image.RenderTransform>
                     <TransformGroup>
@@ -77,13 +77,13 @@
                 </ComboBox>
                 <ComboBox x:Name="cbbManage" Visibility="Visible">
                     <!--<materialDesign:PackIcon Kind="HamburgerMenu" />-->
-                    <Button x:Name="btnPersonalInforMode1" Content="Thông tin cá nhân" Click="btnPersonalInforMode_Click" ></Button>
-                    <Button x:Name="btnCustomerInforMode1" Content="Thông tin khách hàng" Click="btnCustomerInforMode_Click" ></Button>
-                    <Button x:Name="btnStatisticalMode1" Content="Thống kê" Click="btnStatisticalMode1_Click" ></Button>
-                    <Button x:Name="btnFindMode1" Content="Tìm kiếm" Click="btnFindMode1_Click" ></Button>
-                    <Button x:Name="btnRegisterMode1" Content="Đăng ký khách hàng"  Click="btnRegisterMode_Click"></Button>
-                    <Button x:Name="btnManageMode1" Content="Quản lý nhân viên" Click="btnManageMode1_Click" ></Button>
-                    <Button x:Name="btnLogoutMode1" Content="Đăng xuất" Click="btnLogoutMode_Click"></Button>
+                        <Button x:Name="btnPersonalInforMode1" Content="Thông tin cá nhân" Click="btnPersonalInforMode_Click" Background="#ffd200" BorderBrush="Orange" Foreground="White"></Button>
+                        <Button x:Name="btnCustomerInforMode1" Content="Thông tin khách hàng" Click="btnCustomerInforMode_Click"  Background="#ffd200" BorderBrush="Orange" Foreground="White" ></Button>
+                        <Button x:Name="btnStatisticalMode1" Content="Thống kê" Click="btnStatisticalMode1_Click"  Background="#ffd200" BorderBrush="Orange" Foreground="White"></Button>
+                        <Button x:Name="btnFindMode1" Content="Tìm kiếm" Click="btnFindMode1_Click"  Background="#ffd200" BorderBrush="Orange" Foreground="White"></Button>
+                        <Button x:Name="btnRegisterMode1" Content="Đăng ký khách hàng"  Click="btnRegisterMode_Click"  Background="#ffd200" BorderBrush="Orange" Foreground="White"></Button>
+                        <Button x:Name="btnManageMode1" Content="Quản lý nhân viên" Click="btnManageMode1_Click"  Background="#ffd200" BorderBrush="Orange" Foreground="White"></Button>
+                        <Button x:Name="btnLogoutMode1" Content="Đăng xuất" Click="btnLogoutMode_Click"  Background="#ffd200" BorderBrush="Orange" Foreground="White"></Button>
                 </ComboBox>
                 </Grid>
 
@@ -297,18 +297,15 @@
                 materialDesign:HintAssist.Hint="Chọn giờ" />
             <Grid x:Name="temp8"/>
             <ComboBox x:Name="cbbTypeStatistical"
-            materialDesign:HintAssist.Hint="Hóa Đơn">
+            materialDesign:HintAssist.Hint="Khách hàng">
                 <ComboBoxItem Content="Nhân viên"/>
                 <ComboBoxItem Content="Khách hàng"/>
-                <ComboBoxItem Content="Hóa đơn"/>
                 <ComboBoxItem Content="Thức uống"/>
-                <ComboBoxItem Content="Giá tiền"/>
-                <ComboBoxItem Content="Số lương"/>
             </ComboBox>
             <Grid x:Name="temp9"/>
             <TextBox x:Name="tbxSearchStatistical" Foreground="Black"
               Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-              materialDesign:HintAssist.Hint="Hóa đơn/ số lượng/ giá cả/ nhân viên/ khách hàng/ thức uống"
+              materialDesign:HintAssist.Hint="Tên nhân viên/ khách hàng/ thức uống"
               Text="{Binding Content}"
               Margin="8 0 0 0"
               VerticalAlignment="Bottom" />
@@ -672,7 +669,7 @@
                 </StackPanel>
             </StackPanel>
         </Grid>
-        <WrapPanel x:Name="wrpAgent" Background="#d1efd1" Visibility="Hidden">
+        <WrapPanel x:Name="wrpAgent" Background="#d1efd1" Visibility="Visible">
             <Button x:Name="btnBackAgent" Background="#03c203" BorderBrush="#006400" Click="BtnBack_Click" >
                 <materialDesign:PackIcon Kind="ArrowLeft"/>
             </Button>
@@ -716,7 +713,7 @@
                 </StackPanel>
             </Grid>
         </WrapPanel>
-        <WrapPanel x:Name="wrpPersonalInfor" Background="#FFF8DC" Visibility="Visible" >
+        <WrapPanel x:Name="wrpPersonalInfor" Background="#FFF8DC" Visibility="Hidden" >
             <Button x:Name="btnBackPersonalInfor" Background="#A52A2A" Click="BtnBack_Click">
                 <materialDesign:PackIcon Kind="ArrowLeftBoldOutline" />
             </Button>
