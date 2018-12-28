@@ -61,7 +61,7 @@
                 <Button x:Name="tbForgotPw" Margin="405,430,232,100" FontSize="15" FontStyle="Italic" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Orange">Fogot Password?</Button>
             </Grid>
         </Grid>
-        <StackPanel x:Name="stpMainScreen" Background="#e9e7e4" Visibility="Visible">
+        <StackPanel x:Name="stpMainScreen" Background="#e9e7e4" Visibility="Hidden">
             <StackPanel x:Name="stpTitle" Orientation="Horizontal">
                 <TextBlock x:Name="txbCoffee" Text="Coffee" TextAlignment="Center" Background="#b68648" ></TextBlock>
                 <TextBlock x:Name="txbMilktea" Text="Milk tea" Background="#efca8b" TextAlignment="Center"></TextBlock>
@@ -715,12 +715,12 @@
                         <TextBlock x:Name="tbIDAgent" Text="CMND:"></TextBlock>
                         <TextBox x:Name="tbxIDAgent"></TextBox>
                         <Grid x:Name="temp896"></Grid>
-                        <Button x:Name="btnAgentDelete" HorizontalAlignment="Center" Content="Xóa"></Button>
+                        <Button x:Name="btnAgentDelete" HorizontalAlignment="Center" Content="Xóa" Background="#008000" BorderBrush="#ffffff"></Button>
                     </StackPanel>
                 </StackPanel>
             </Grid>
         </WrapPanel>
-        <WrapPanel x:Name="wrpPersonalInfor" Visibility="Hidden" >
+        <WrapPanel x:Name="wrpPersonalInfor" Visibility="Visible" >
             <Button x:Name="btnBackPersonalInfor" Click="btnBack_Click">
                 <materialDesign:PackIcon Kind="ArrowLeftBoldCircleOutline" />
             </Button>
