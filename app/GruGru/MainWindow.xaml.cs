@@ -18,6 +18,7 @@ using System.Collections.Specialized;
 using System.Net.Http;
 using Newtonsoft.Json;
 using GruGru.Model;
+using System.Collections.ObjectModel;
 
 namespace GruGru
 {
@@ -67,51 +68,19 @@ namespace GruGru
             LoadMenu();
             cbbManage.Visibility = System.Windows.Visibility.Visible;
 
-            /* List<ThucUong> Items = new List<ThucUong>();
-          Items.Add(new ThucUong() { STT = 1, ten = "tra sua", gia = 15000, soluong = 1 });
-          Items.Add(new ThucUong() { STT = 1, ten = "coffee den", gia = 20000, soluong = 1 });
-         Items.Add(new ThucUong() { STT = 1, ten = "coffee den", gia = 20000, soluong = 1 });
-         Items.Add(new ThucUong() { STT = 1, ten = "coffee den", gia = 20000, soluong = 1 });
-         Items.Add(new ThucUong() { STT = 1, ten = "coffee den", gia = 20000, soluong = 1 });
-         Items.Add(new ThucUong() { STT = 1, ten = "coffee den", gia = 20000, soluong = 1 });
-         Items.Add(new ThucUong() { STT = 1, ten = "coffee den", gia = 20000, soluong = 1 });
-           lvListBill.ItemsSource = Items;*/
-        }
+            /*List<ThucUong> Items = new List<ThucUong>();
+            Items.Add(new ThucUong() { STT = 1, ten = "tra sua", gia = 15000, soluong = 1 });
+            Items.Add(new ThucUong() { STT = 1, ten = "coffee den", gia = 20000, soluong = 1 });
+            Items.Add(new ThucUong() { STT = 1, ten = "coffee den", gia = 20000, soluong = 1 });
+            Items.Add(new ThucUong() { STT = 1, ten = "coffee den", gia = 20000, soluong = 1 });
+            Items.Add(new ThucUong() { STT = 1, ten = "coffee den", gia = 20000, soluong = 1 });
+            Items.Add(new ThucUong() { STT = 1, ten = "coffee den", gia = 20000, soluong = 1 });
+            Items.Add(new ThucUong() { STT = 1, ten = "coffee den", gia = 20000, soluong = 1 });
+            lvListBill.ItemsSource = Items;*/
 
-        public class ThucUong
-        {
-            public int STT { get; set; }
-            public string ten { get; set; }
-            public long gia { get; set; }
-            public int soluong { get; set; }
         }
 
 
-       /* public void SetItem(TextBlock tb, Button btnChoose, Button btnInfor, ComboBox cbbSize)
-        {
-            Double widthItem;
-            if (NumberOfDrinks % 3 == 0)
-            {
-                widthItem = lvMenuDrink.Width * 3 / NumberOfDrinks;
-            }
-            else
-            {
-                widthItem = lvMenuDrink.Width / ((int)(NumberOfDrinks / 3) + 1);
-            }
-            tb.Height = widthItem * 0.6 / 12;
-            tb.Width = lvMenuDrink.Width / 3 * 7 / 10;
-            tb.FontSize = height002;
-
-            btnChoose.Height = widthItem * 0.6 / 12;
-            btnChoose.Width = lvMenuDrink.Width / 3 * 3 / 10;
-
-            btnInfor.Width = lvMenuDrink.Width / 3 * 3 / 10;
-            btnInfor.Height = widthItem * 0.4 / 12;
-
-            cbbSize.Width = lvMenuDrink.Width / 3 * 7 / 10;
-            cbbSize.Height = widthItem * 0.4 / 12;
-            cbbSize.FontSize = height0013;
-        }*/
         public void MainScreen()
         {
             //thanh ngang đầu tiên
@@ -141,13 +110,13 @@ namespace GruGru
             stpDrink.Width = 0.69 * width;
 
             lvMenuCoffees.Height = stpMenu.Height;
-            lvMenuCoffees.Width = stpDrink.Width/3;
+            lvMenuCoffees.Width = stpDrink.Width / 3;
 
             lvMenuMilkteas.Height = stpMenu.Height;
-            lvMenuMilkteas.Width = stpDrink.Width/3;
+            lvMenuMilkteas.Width = stpDrink.Width / 3;
 
             lvMenuToppings.Height = stpMenu.Height;
-            lvMenuToppings.Width = stpDrink.Width/3;
+            lvMenuToppings.Width = stpDrink.Width / 3;
 
             //InforBill
             gridInforBill.Width = 0.31 * width;
@@ -685,12 +654,12 @@ namespace GruGru
         public void PersonalInforScreen()
         {
             //hàng đầu tiên
-            temp91.Width = width / 10*8;
+            temp91.Width = width / 10 * 8;
 
-            temp92.Width = width ;
+            temp92.Width = width;
             temp92.Height = height / 5;
 
-            temp93.Width = width*0.13;
+            temp93.Width = width * 0.13;
 
 
             gridPersonalInfor.Height = height * 0.85;
@@ -830,7 +799,7 @@ namespace GruGru
             string username = txtUsername.Text;//"usercfrnh"
             string password = txtPassword.Password;//"13874383";
             string json = "{\"username\": \"" + username + "\", \"password\": \"" + password + "\"}";
-            string url = SERVER + "api/login";
+            string url = SERVER + "/login";
 
             var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
             httpWebRequest.ContentType = "application/json";
@@ -958,11 +927,6 @@ namespace GruGru
             wrpCustomer.Visibility = System.Windows.Visibility.Visible;
         }
 
-        private void btnBack_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         public string Get(string uri)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
@@ -976,12 +940,27 @@ namespace GruGru
             }
         }
 
-        private void TbxSearchCustomer_TextChanged(object sender, TextChangedEventArgs e)
+        public string Post(string uri, string payload)
         {
-            string phoneNumber = tbxSearchCustomer.Text;
-            string res = Get(SERVER + "/getCustomerByPhone/" + phoneNumber);
-            var resObject = JsonConvert.DeserializeObject(res);
-            //tbxSearchCustomer.ContextMenu = new ContextMenu();
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
+            request.ContentType = "application/json";
+            request.Method = "POST";
+            request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
+
+            using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+            {
+                streamWriter.Write(payload);
+                streamWriter.Write("\n");
+                streamWriter.Flush();
+                streamWriter.Close();
+            }
+
+            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+            using (Stream stream = response.GetResponseStream())
+            using (StreamReader reader = new StreamReader(stream))
+            {
+                return reader.ReadToEnd();
+            }
         }
 
         public class Drink
@@ -989,24 +968,30 @@ namespace GruGru
             public int id { get; set; }
             public int soLuong { get; set; }
             public string size { get; set; }
-           
+            public int stt { get; set; }
+            public string ten { get; set; }
+            public decimal gia { get; set; }
         }
 
-        List<Drink> ListDrinks = new List<Drink>();
+        //List<Drink> ListDrinks = new List<Drink>();
+        ObservableCollection<Drink> ListDrinks = new ObservableCollection<Drink>();
 
         private void btnChoose_Click(object sender, RoutedEventArgs e)
         {
             int idtemp = int.Parse(((TextBlock)((StackPanel)((Grid)((StackPanel)((Button)sender).Parent).Parent).Children[0]).Children[2]).Text);
             string sizetemp = ((ComboBoxItem)((ComboBox)((StackPanel)((Grid)((StackPanel)((Button)sender).Parent).Parent).Children[0]).Children[1]).SelectedItem).Content.ToString();
-            bool temp=false;
+            string tentemp =((TextBlock)((StackPanel)((Grid)((StackPanel)((Button)sender).Parent).Parent).Children[0]).Children[0]).Text;
+            decimal giatemp = decimal.Parse(((TextBlock)((StackPanel)((Grid)((StackPanel)((Button)sender).Parent).Parent).Children[0]).Children[3]).Text);
+            bool temp = false;
             foreach (var item in ListDrinks)
             {
-                if((item.id==idtemp)&&(item.size==sizetemp))
+                if ((item.id == idtemp) && (item.size == sizetemp))
                 {
                     item.soLuong++;
                     temp = true;
                     break;
                 }
+
             }
             if (temp == false)
             {
@@ -1015,28 +1000,32 @@ namespace GruGru
                     id = idtemp,
                     soLuong = 1,
                     size = sizetemp,
+                    gia = giatemp,
+                    ten = tentemp,
+                    stt = ListDrinks.Count() + 1,
                 });
+                
+                ((Button)((StackPanel)((Grid)((StackPanel)((Button)sender).Parent).Parent).Children[1]).Children[1]).Visibility = System.Windows.Visibility.Visible;
             }
+            lvListBill.ClearValue(ListView.ItemsSourceProperty);
+            lvListBill.ItemsSource=ListDrinks;
+            TongTien();
         }
 
         private void btnPay_Click(object sender, RoutedEventArgs e)
         {
-            string gia = "100000";//"usercfrnh"
+
+            string gia = TongTien().ToString();//"usercfrnh"
             string idKhachHangMua = "1231156464864";//"13874383";
             string idNhanVienLap = "1";
 
-            string json = JsonConvert.SerializeObject(ListDrinks);
-            //If you want to replace { with [ and } with ]
-            json = json.Replace("{", "[").Replace("}", "]");
+            string json = "{\"gia\": " + gia + ", \"idKhachHangMua\": " + idKhachHangMua + ", \"idNhanVienLap\": " + idNhanVienLap + ", \"danhSachMonAn\":";
 
-            //you can use this workaround to get rid of property names
-            string propHeader = "\"{0}\":";
+            json += JsonConvert.SerializeObject(ListDrinks);
+            json += "}";
 
-            json = json.Replace(string.Format(propHeader, "Id"), "")
-                .Replace(string.Format(propHeader, "Name"), "")
-                .Replace(string.Format(propHeader, "Age"), "");
-
-            string url = "http://localhost:8080/api/login";
+           
+            string url = SERVER+"putOrder";
 
             var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
             httpWebRequest.ContentType = "application/json";
@@ -1048,13 +1037,286 @@ namespace GruGru
                 streamWriter.Flush();
                 streamWriter.Close();
             }
-           /* string result;
+            string result;
             var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
             using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
             {
                 result = streamReader.ReadToEnd();
             }
-            return result;*/
+
+        }
+
+        private void btnMinus_Click(object sender, RoutedEventArgs e)
+        {
+            int idtemp = int.Parse(((TextBlock)((StackPanel)((Grid)((StackPanel)((Button)sender).Parent).Parent).Children[0]).Children[2]).Text);
+            string sizetemp = ((ComboBoxItem)((ComboBox)((StackPanel)((Grid)((StackPanel)((Button)sender).Parent).Parent).Children[0]).Children[1]).SelectedItem).Content.ToString();
+            int i = 0;
+            foreach (var item in ListDrinks)
+            {
+                if ((item.id == idtemp) && (item.size == sizetemp))
+                {
+                    if (item.soLuong > 1)
+                    {
+                        item.soLuong--;
+                    }
+                    else
+                    {
+                        ListDrinks.RemoveAt(i);
+                        for(int j = i; j < ListDrinks.Count; j++)
+                        {
+                            ListDrinks[j].stt--;
+                        }
+                        ((Button)((StackPanel)((Grid)((StackPanel)((Button)sender).Parent).Parent).Children[1]).Children[1]).Visibility = System.Windows.Visibility.Hidden;
+                    }
+                    break;
+                }
+                i++;
+            }
+            lvListBill.ClearValue(ListView.ItemsSourceProperty);
+            lvListBill.ItemsSource = ListDrinks;
+            TongTien();
+        }
+
+        private void TbxSearchCustomer_KeyUp(object sender, KeyEventArgs e)
+        {
+            bool found = false;
+            var border = (resultStack.Parent as ScrollViewer).Parent as Border;
+
+            string query = (sender as TextBox).Text;
+
+            if (query.Length == 0)
+            {
+                // Clear   
+                resultStack.Children.Clear();
+                border.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                border.Visibility = Visibility.Visible;
+                string res = Get(SERVER + "getCustomerByPhone/" + query);
+                dynamic resObject = JsonConvert.DeserializeObject(res);
+                // Clear the list   
+                resultStack.Children.Clear();
+
+                if (resObject.code == "0")
+                {
+                    for (int i = 0; i < resObject.payload.Count; i++)
+                    {
+                        string text = resObject.payload[i].hoTen;
+
+                        // The word starts with this... Autocomplete must work   
+                        TextBlock block = new TextBlock();
+
+                        // Add the text   
+                        block.Text = text;
+                        //Add id
+                        string fullPhoneNumber = ((string)resObject.payload[i].soDienThoai).Trim();
+                        block.Name = "_" + fullPhoneNumber;
+
+                        // A little style...   
+                        block.Margin = new Thickness(2, 3, 2, 3);
+                        block.Cursor = Cursors.Hand;
+
+                        // Mouse events   
+                        block.MouseLeftButtonUp += (s, notCare) =>
+                        {
+                            tbxSearchCustomer.Text = (s as TextBlock).Name.Remove(0, 1);
+                            border.Visibility = Visibility.Hidden;
+                        };
+
+                        block.MouseEnter += (s, notCare) =>
+                        {
+                            TextBlock b = s as TextBlock;
+                            b.Background = Brushes.PeachPuff;
+                        };
+
+                        block.MouseLeave += (s, notCare) =>
+                        {
+                            TextBlock b = s as TextBlock;
+                            b.Background = Brushes.Transparent;
+                        };
+
+                        // Add to the panel   
+                        resultStack.Children.Add(block);
+                        found = true;
+                    }
+                }
+
+                if (!found)
+                {
+                    resultStack.Children.Add(new TextBlock() { Text = "No results found." });
+                }
+            }
+        }
+
+        private void BtnCustomer_Click(object sender, RoutedEventArgs e)
+        {
+            string phoneNumber = tbxSearchCustomer.Text;
+            dynamic resObject;
+
+            if (phoneNumber.Length == 0)
+            {
+                MessageBox.Show("Vui lòng nhập số điện thoại để tìm kiếm");
+                return;
+            }
+
+            try
+            {
+                string res = Get(SERVER + "getCustomerByPhone/" + phoneNumber);
+                resObject = JsonConvert.DeserializeObject(res);
+            }
+            catch
+            {
+                MessageBox.Show("Không thể kết nối đến server");
+                return;
+            }
+
+            if (resObject.code == "0")
+            {
+                string dob = resObject.payload[0].ngaySinh;
+
+                tbxCustomerId.Text = resObject.payload[0].id;
+                tbxCustomerCode.Text = resObject.payload[0].maKH;
+                tbxCustomerName.Text = resObject.payload[0].hoTen;
+                tbxScore.Text = resObject.payload[0].diemTichLuy;
+                tbxPhoneNumber.Text = resObject.payload[0].soDienThoai;
+                tbxBirthDay.Text = DateTime.Parse(dob).ToString("dd/MM/yyyy");
+                tbxID.Text = resObject.payload[0].cmnd;
+            }
+            else if (resObject.code == "-4")
+            {
+                MessageBox.Show("Không tìm thấy khách hàng");
+            }
+            else
+            {
+                MessageBox.Show("Đã xảy ra lỗi, vui lòng bấm lại nút Tìm kiếm");
+            }
+        }
+
+        private void BtnCustomerDelete_Click(object sender, RoutedEventArgs e)
+        {
+            string id = tbxCustomerId.Text;
+
+            if (id.Length == 0)
+            {
+                MessageBox.Show("Vui lòng tìm kiếm khách hàng trước khi xoá");
+                return;
+
+            }
+
+            string customerName = tbxCustomerName.Text;
+            string messageBoxText = "Bạn có chắc chắn muốn xoá khách hàng \"" + customerName + "\"?";
+            MessageBoxButton button = MessageBoxButton.YesNo;
+            MessageBoxImage icon = MessageBoxImage.Warning;
+            // Display message box
+            MessageBoxResult result = MessageBox.Show(messageBoxText, "", button, icon);
+            // Process message box results
+            switch (result)
+            {
+                case MessageBoxResult.Yes:
+                    dynamic resObject;
+                    try
+                    {
+                        string res = Get(SERVER + "deleteCustomer/" + id);
+                        resObject = JsonConvert.DeserializeObject(res);
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Không thể kết nối đến server");
+                        break;
+                    }
+                    if (resObject.code == "0")
+                    {
+                        MessageBox.Show("Xoá khách hàng thành công!");
+                        tbxCustomerId.Text = "";
+                        tbxCustomerCode.Text = "";
+                        tbxCustomerName.Text = "";
+                        tbxScore.Text = "";
+                        tbxPhoneNumber.Text = "";
+                        tbxBirthDay.Text = "";
+                        tbxID.Text = "";
+                    }
+                    else if (resObject.code == "-4")
+                    {
+                        MessageBox.Show("Khách hàng không tồn tại");
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Đã xảy ra lỗi, vui lòng thử lại!");
+                    }
+
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void BtnCustomerUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            string id = tbxCustomerId.Text;
+
+            if (id.Length == 0)
+            {
+                MessageBox.Show("Vui lòng tìm kiếm khách hàng trước khi cập nhật");
+                return;
+
+            }
+
+            string payload = $"{{\"id\": {tbxCustomerId.Text},\"maKH\": \"{tbxCustomerCode.Text}\",\"hoTen\": \"{tbxCustomerName.Text}\",\"diemTichLuy\": {tbxScore.Text},\"soDienThoai\": \"{ tbxPhoneNumber.Text}\",\"ngaySinh\": \"{tbxBirthDay.Text}\",\"cmnd\": \"{tbxID.Text}\"}}";
+            dynamic resObject;
+            try
+            {
+                string res = Post(SERVER + "updateCustomer", payload);
+                resObject = JsonConvert.DeserializeObject(res);
+            }
+            catch
+            {
+                MessageBox.Show("Không thể kết nối đến server");
+                return;
+            }
+
+            if (resObject.code == "0")
+            {
+                MessageBox.Show("Cập nhật thông tin khách hàng thành công");
+            }
+            else
+            {
+                MessageBox.Show("Đã xảy ra lỗi, vui lòng thử lại");
+            }
+        }
+
+        public decimal TongTien()
+        {
+            decimal tongTien = 0;
+            foreach (var item in ListDrinks)
+            {
+                tongTien += item.gia * item.soLuong;
+            }
+            tbTotalMoney.Text = " Tổng tiền:        " + tongTien.ToString();
+            return tongTien;
+        }
+        public void TienCanTra()
+        {
+            decimal tiennhan = 0;
+
+            if (decimal.TryParse(tbxGetMoney.Text, out tiennhan))
+            {
+                tbPayMoney.Text = "    Tiền trả:        " + (tiennhan - TongTien()).ToString();
+            }
+            else
+            {
+                tbPayMoney.Text = "    Tiền trả:        " + "Tiền nhận không hợp lệ!!!";
+
+            }
+        }
+
+        private void tbxGetMoney_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+            {
+                TienCanTra();
+            }
         }
     }
 }
