@@ -51,6 +51,42 @@ namespace GruGru
 
         const string SERVER = "http://localhost:8080/api/";
 
+        public string Get(string uri)
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
+            request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
+
+            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+            using (Stream stream = response.GetResponseStream())
+            using (StreamReader reader = new StreamReader(stream))
+            {
+                return reader.ReadToEnd();
+            }
+        }
+
+        public string Post(string uri, string payload)
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
+            request.ContentType = "application/json";
+            request.Method = "POST";
+            request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
+
+            using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+            {
+                streamWriter.Write(payload);
+                streamWriter.Write("\n");
+                streamWriter.Flush();
+                streamWriter.Close();
+            }
+
+            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+            using (Stream stream = response.GetResponseStream())
+            using (StreamReader reader = new StreamReader(stream))
+            {
+                return reader.ReadToEnd();
+            }
+        }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -797,23 +833,7 @@ namespace GruGru
             string json = "{\"username\": \"" + username + "\", \"password\": \"" + password + "\"}";
             string url = SERVER + "login";
 
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
-            httpWebRequest.ContentType = "application/json";
-            httpWebRequest.Method = "POST";
-            using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
-            {
-                streamWriter.Write(json);
-                streamWriter.Write("\n");
-                streamWriter.Flush();
-                streamWriter.Close();
-            }
-            string result;
-            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
-            {
-                result = streamReader.ReadToEnd();
-            }
-            return result;
+            return Post(url, json);
         }
 
         public void Statistical()
@@ -829,14 +849,7 @@ namespace GruGru
                 "\", \"TypeStatistical\": \"" + TypeStatistical + "\", \"TypeStatisticalName\": \"" + TypeStatisticalName +"\"}";
             string url = SERVER + "/Statistical";
 
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
-            httpWebRequest.Method = "GET";
-            string result;
-            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
-            {
-                result = streamReader.ReadToEnd();
-            }
+            string result = Post(url, json);
 
             dynamic stuff = JsonConvert.DeserializeObject(result);
 
@@ -847,14 +860,7 @@ namespace GruGru
         {
             string url = SERVER + "getFoodList";
 
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
-            httpWebRequest.Method = "GET";
-            string result;
-            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
-            {
-                result = streamReader.ReadToEnd();
-            }
+            string result = Get(url);
 
             dynamic stuff = JsonConvert.DeserializeObject(result);
 
@@ -951,42 +957,6 @@ namespace GruGru
             wrpCustomer.Visibility = System.Windows.Visibility.Visible;
         }
 
-        public string Get(string uri)
-        {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
-            request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
-
-            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
-            using (Stream stream = response.GetResponseStream())
-            using (StreamReader reader = new StreamReader(stream))
-            {
-                return reader.ReadToEnd();
-            }
-        }
-
-        public string Post(string uri, string payload)
-        {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
-            request.ContentType = "application/json";
-            request.Method = "POST";
-            request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
-
-            using (var streamWriter = new StreamWriter(request.GetRequestStream()))
-            {
-                streamWriter.Write(payload);
-                streamWriter.Write("\n");
-                streamWriter.Flush();
-                streamWriter.Close();
-            }
-
-            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
-            using (Stream stream = response.GetResponseStream())
-            using (StreamReader reader = new StreamReader(stream))
-            {
-                return reader.ReadToEnd();
-            }
-        }
-
         public class Drink
         {
             public int id { get; set; }
@@ -1051,22 +1021,7 @@ namespace GruGru
            
             string url = SERVER+"putOrder";
 
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
-            httpWebRequest.ContentType = "application/json";
-            httpWebRequest.Method = "POST";
-            using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
-            {
-                streamWriter.Write(json);
-                streamWriter.Write("\n");
-                streamWriter.Flush();
-                streamWriter.Close();
-            }
-            string result;
-            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
-            {
-                result = streamReader.ReadToEnd();
-            }
+            string result = Post(url, json);
 
         }
 
