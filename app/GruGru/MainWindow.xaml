@@ -50,7 +50,7 @@
                  materialDesign:HintAssist.Hint="Password" PreviewKeyDown="txtPassword_PreviewKeyDown">
                 </PasswordBox>
                 <TextBlock x:Name="tbMessageBox" FontSize="13" Margin="250,345,250,200" Foreground="Red"></TextBlock>
-                <Button x:Name="btnLogin" FontSize="30" Margin="300,378,300,145" Height="Auto" Background="Orange" BorderBrush="#FF11C8DA">Login</Button>
+                <Button x:Name="btnLogin" FontSize="30" Margin="300,378,300,145" Height="Auto" Background="Orange" BorderBrush="#FF11C8DA" Click="btnLogin_Click">Login</Button>
                 <CheckBox Margin="240,435,400,110"
                       FontSize="15"
                 x:Name="RememberMe"
