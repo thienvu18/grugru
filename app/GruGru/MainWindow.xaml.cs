@@ -258,7 +258,7 @@ namespace GruGru
 
             temp12.Width = width / 5 * 4;
         }
-
+        
         public void JobCalendarScreen()
         {
 
@@ -820,6 +820,33 @@ namespace GruGru
             return result;
         }
 
+        public void Statistical()
+        {
+            string BeginDate = dpDayStart.Text;
+            string BeginTime = mtpHourStart.Text;
+            string EndDate = dpDayEnd.Text;
+            string EndTime = mtpHourEnd.Text;
+            string TypeStatistical = cbbTypeStatistical.Text;
+            string TypeStatisticalName = tbxSearchStatistical.Text;
+            string json = "{\"BeginDate\": \"" + BeginDate + "\", \"BeginTime\": \"" + BeginTime + 
+                "\", \"EndDate\": \"" + EndDate + "\", \"EndTime\": \""+ EndTime +
+                "\", \"TypeStatistical\": \"" + TypeStatistical + "\", \"TypeStatisticalName\": \"" + TypeStatisticalName +"\"}";
+            string url = SERVER + "/Statistical";
+
+            var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+            httpWebRequest.Method = "GET";
+            string result;
+            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+            {
+                result = streamReader.ReadToEnd();
+            }
+
+            dynamic stuff = JsonConvert.DeserializeObject(result);
+
+            string code = stuff.code;
+        }
+
         private void LoadMenu()
         {
             string url = SERVER + "getFoodList";
@@ -1024,6 +1051,7 @@ namespace GruGru
             json += JsonConvert.SerializeObject(ListDrinks);
             json += "}";
 
+            MessageBox.Show(json);
            
             string url = SERVER+"putOrder";
 
@@ -1043,7 +1071,7 @@ namespace GruGru
             {
                 result = streamReader.ReadToEnd();
             }
-
+            MessageBox.Show(result);
         }
 
         private void btnMinus_Click(object sender, RoutedEventArgs e)
@@ -1296,6 +1324,7 @@ namespace GruGru
             tbTotalMoney.Text = " Tổng tiền:        " + tongTien.ToString();
             return tongTien;
         }
+
         public void TienCanTra()
         {
             decimal tiennhan = 0;
@@ -1318,6 +1347,8 @@ namespace GruGru
                 TienCanTra();
             }
         }
+
+     
     }
 }
 

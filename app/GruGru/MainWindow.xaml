@@ -61,7 +61,7 @@
                 <Button x:Name="tbForgotPw" Margin="405,430,232,100" FontSize="15" FontStyle="Italic" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Orange">Fogot Password?</Button>
             </Grid>
         </Grid>
-        <StackPanel x:Name="stpMainScreen" Background="#e9e7e4" Visibility="Visible">
+        <StackPanel x:Name="stpMainScreen" Background="#e9e7e4" Visibility="Hidden">
             <StackPanel x:Name="stpTitle" Orientation="Horizontal">
                 <TextBlock x:Name="txbCoffee" Text="Coffee" TextAlignment="Center" Background="#b68648" ></TextBlock>
                 <TextBlock x:Name="txbMilktea" Text="Milk tea" Background="#efca8b" TextAlignment="Center"></TextBlock>
@@ -267,7 +267,7 @@
                 </WrapPanel>
             </StackPanel>
         </StackPanel>
-        <WrapPanel x:Name="wrpStatistical" Background="#d3f7f8" Visibility="Hidden">
+        <WrapPanel x:Name="wrpStatistical" Background="#d3f7f8" Visibility="Visible">
             <Button x:Name="btnBackStatistical" Background="#00baba" BorderBrush="#32cbfd" Width="50">
                 <materialDesign:PackIcon Kind="ArrowLeftBoldCircle"/>
             </Button>
@@ -293,18 +293,15 @@
                 materialDesign:HintAssist.Hint="Chọn giờ" />
             <Grid x:Name="temp8"/>
             <ComboBox x:Name="cbbTypeStatistical"
-            materialDesign:HintAssist.Hint="Hóa Đơn">
+            materialDesign:HintAssist.Hint="Khách hàng">
                 <ComboBoxItem Content="Nhân viên"/>
                 <ComboBoxItem Content="Khách hàng"/>
-                <ComboBoxItem Content="Hóa đơn"/>
                 <ComboBoxItem Content="Thức uống"/>
-                <ComboBoxItem Content="Giá tiền"/>
-                <ComboBoxItem Content="Số lương"/>
             </ComboBox>
             <Grid x:Name="temp9"/>
             <TextBox x:Name="tbxSearchStatistical" Foreground="Black"
               Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-              materialDesign:HintAssist.Hint="Hóa đơn/ số lượng/ giá cả/ nhân viên/ khách hàng/ thức uống"
+              materialDesign:HintAssist.Hint=" Tên nhân viên/ khách hàng/ thức uống"
               Text="{Binding Content}"
               Margin="8 0 0 0"
               VerticalAlignment="Bottom" />
@@ -312,7 +309,7 @@
             <Button x:Name="btnStatistical" Content="Thống kê" Background="#ffc400" BorderBrush="#00baba" Foreground="#ffffff"/>
             <Grid x:Name="temp11"/>
             <ScrollViewer VerticalScrollBarVisibility="Auto" >
-                <ListView x:Name="lvListStatistical" Foreground="Black">
+                <ListView x:Name="lvListStatistical" Foreground="Black" >
                     <ListView.View>
                         <GridView>
                             <GridViewColumn x:Name="gvcSTT" Header="STT" DisplayMemberBinding="{Binding STT}"/>
@@ -723,52 +720,57 @@
                         <Button x:Name="btnAgentUpdate" HorizontalAlignment="Center" Content="Cập Nhật" Foreground="White" Background="#008000" BorderBrush="#ffffff"/>
                     </StackPanel>
                     <StackPanel x:Name="stpInforAgent2">
-                        <TextBlock x:Name="tbPhoneNumberAgent" Text="Số điện thoại:"></TextBlock>
+                        <TextBlock x:Name="tbPhoneNumberAgent" Text="Số điện thoại:" Foreground="Black"></TextBlock>
                         <TextBox x:Name="tbxPhoneNumberAgent"></TextBox>
                         <Grid x:Name="temp894"></Grid>
-                        <TextBlock x:Name="tbBirthDayAgent" Text="Ngày sinh:"></TextBlock>
+                        <TextBlock x:Name="tbBirthDayAgent" Text="Ngày sinh:" Foreground="Black"></TextBlock>
                         <TextBox x:Name="tbxBirthDayAgent"></TextBox>
                         <Grid x:Name="temp895"></Grid>
-                        <TextBlock x:Name="tbIDAgent" Text="CMND:"></TextBlock>
+                        <TextBlock x:Name="tbIDAgent" Text="CMND:" Foreground="Black"></TextBlock>
                         <TextBox x:Name="tbxIDAgent"></TextBox>
                         <Grid x:Name="temp896"></Grid>
-                        <Button x:Name="btnAgentDelete" HorizontalAlignment="Center" Content="Xóa"></Button>
+                        <Button x:Name="btnAgentDelete" HorizontalAlignment="Center" Content="Xóa" Foreground="White" Background="#008000" BorderBrush="#ffffff"></Button>
                     </StackPanel>
                 </StackPanel>
             </Grid>
         </WrapPanel>
-        <WrapPanel x:Name="wrpPersonalInfor" Visibility="Hidden" >
-            <Button x:Name="btnBackPersonalInfor" >
-                <materialDesign:PackIcon Kind="ArrowLeftBoldCircleOutline" />
+        <WrapPanel x:Name="wrpPersonalInfor" Background="#FFF8DC" Visibility="Hidden" >
+            <Button x:Name="btnBackPersonalInfor" Background="#A52A2A	">
+                <materialDesign:PackIcon Kind="ArrowLeftBoldOutline" />
             </Button>
             <Grid x:Name="temp91"></Grid>
-            <Grid x:Name="temp92"></Grid>
+            <Grid x:Name="temp92">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="78*"/>
+                    <RowDefinition Height="77*"/>
+                </Grid.RowDefinitions>
+            </Grid>
             <Grid x:Name="temp93"></Grid>
             <Grid x:Name="gridPersonalInfor">
                 <StackPanel x:Name="stpInforPersonalInfor" Orientation="Horizontal">
                     <StackPanel x:Name="stpInforPersonalInfor1">
-                        <TextBlock x:Name="tbPersonalInforCode" Text="Mã nhân viên:"></TextBlock>
+                        <TextBlock x:Name="tbPersonalInforCode" Text="Mã nhân viên:" Foreground="Black"></TextBlock>
                         <TextBox x:Name="tbxPersonalInforCode"></TextBox>
                         <Grid x:Name="temp991"></Grid>
-                        <TextBlock x:Name="tbPersonalInforName" Text="Họ tên nhân viên:" ></TextBlock>
+                        <TextBlock x:Name="tbPersonalInforName" Text="Họ tên nhân viên:" Foreground="Black"></TextBlock>
                         <TextBox x:Name="tbxPersonalInforName"></TextBox>
                         <Grid x:Name="temp992"></Grid>
-                        <TextBlock x:Name="tbMonthPersonalInfor" Text="Số tháng kinh nghiệm:" ></TextBlock>
+                        <TextBlock x:Name="tbMonthPersonalInfor" Text="Số tháng kinh nghiệm:" Foreground="Black"></TextBlock>
                         <TextBox x:Name="tbxMonthPersonalInfor" IsEnabled="False"></TextBox>
                         <Grid x:Name="temp993"></Grid>
-                        <Button x:Name="btnPersonalInforUpdate" HorizontalAlignment="Center" Content="Cập Nhật"></Button>
+                        <Button x:Name="btnPersonalInforUpdate" HorizontalAlignment="Center" Content="Cập Nhật" Background="#800000" Foreground="White"></Button>
                     </StackPanel>
                     <StackPanel x:Name="stpInforPersonalInfor2">
-                        <TextBlock x:Name="tbPhoneNumberPersonalInfor" Text="Số điện thoại:"></TextBlock>
+                        <TextBlock x:Name="tbPhoneNumberPersonalInfor" Text="Số điện thoại:" Foreground="Black"></TextBlock>
                         <TextBox x:Name="tbxPhoneNumberPersonalInfor"></TextBox>
                         <Grid x:Name="temp994"></Grid>
-                        <TextBlock x:Name="tbBirthDayPersonalInfor" Text="Ngày sinh:"></TextBlock>
+                        <TextBlock x:Name="tbBirthDayPersonalInfor" Text="Ngày sinh:" Foreground="Black"></TextBlock>
                         <TextBox x:Name="tbxBirthDayPersonalInfor"></TextBox>
                         <Grid x:Name="temp995"></Grid>
-                        <TextBlock x:Name="tbIDPersonalInfor" Text="CMND:"></TextBlock>
+                        <TextBlock x:Name="tbIDPersonalInfor" Text="CMND:" Foreground="Black"></TextBlock>
                         <TextBox x:Name="tbxIDPersonalInfor"></TextBox>
                         <Grid x:Name="temp996"></Grid>
-                        <Button x:Name="btnChangePassword" HorizontalAlignment="Center" Content="Đổi mật khẩu"></Button>
+                        <Button x:Name="btnChangePassword" HorizontalAlignment="Center" Content="Đổi mật khẩu" Background="#800000" Foreground="White"></Button>
                     </StackPanel>
                 </StackPanel>
             </Grid>
