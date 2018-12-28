@@ -64,7 +64,7 @@ namespace GruGru
             AgentScreen();
             SignUp();
             PersonalInforScreen();
-            //InforScreen();
+            InforScreen();
             LoadMenu();
             cbbManage.Visibility = System.Windows.Visibility.Visible;
 
@@ -79,7 +79,6 @@ namespace GruGru
             lvListBill.ItemsSource = Items;*/
 
         }
-
 
         public void MainScreen()
         {
@@ -726,7 +725,6 @@ namespace GruGru
             btnChangePassword.Height = height005;
         }
 
-
         public void DoLogin()
         {
             if ((txtUsername.Text == "") && (txtPassword.Password == ""))
@@ -773,6 +771,7 @@ namespace GruGru
             }
 
         }
+
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
             DoLogin();
@@ -1347,7 +1346,6 @@ namespace GruGru
                 TienCanTra();
             }
         }
-
      
     }
 }

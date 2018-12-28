@@ -124,7 +124,7 @@
                                             <TextBlock Height="0" Width="0" Text="{Binding gia}" ></TextBlock>
 
                                         </StackPanel>
-                                        <StackPanel Grid.Column="1">
+                                        <StackPanel Grid.Column = "1">
                                             <Button x:Name="btnChooseCoffees" Width="50" VerticalAlignment="Top" HorizontalAlignment="Left" Content="+" Background="#fac129" BorderBrush="#ffa200" BorderThickness="2" Click="btnChoose_Click"></Button>
                                             <Button x:Name="btnMinusCoffees" Visibility="Hidden" Width="50" VerticalAlignment="Bottom" HorizontalAlignment="Left" Content="-" Background="#fac129" BorderBrush="#ffa200" BorderThickness="2" Click="btnMinus_Click"></Button>
                                         </StackPanel>
@@ -174,8 +174,8 @@
                                             <TextBlock Height="0" Width="0" Text="{Binding gia}" ></TextBlock>
                                         </StackPanel>
                                         <StackPanel Grid.Column="1">
-                                            <Button x:Name="btnChooseMilkteas" Width="50" VerticalAlignment="Top" HorizontalAlignment="Left" Content="+" Click="btnChoose_Click"></Button>
-                                            <Button x:Name="btnMinusMilkteas" Visibility="Hidden" Width="50" VerticalAlignment="Bottom" HorizontalAlignment="Left" Content="-" Click="btnMinus_Click"></Button>
+                                            <Button x:Name="btnChooseMilkteas" Width="50" VerticalAlignment="Top" HorizontalAlignment="Left" Content="+" Click="btnChoose_Click" Background="#fac129" BorderBrush="#ffa200"></Button>
+                                            <Button x:Name="btnMinusMilkteas" Visibility="Hidden" Width="50" VerticalAlignment="Bottom" HorizontalAlignment="Left" Content="-" Click="btnMinus_Click" Background="#fac129" BorderBrush="#ffa200"></Button>
                                         </StackPanel>
                                     </Grid>
                                 </DataTemplate>
@@ -223,8 +223,8 @@
                                             <TextBlock Height="0" Width="0" Text="{Binding gia}" ></TextBlock>
                                         </StackPanel>
                                         <StackPanel Grid.Column="1">
-                                            <Button x:Name="btnChooseToppings" Width="50" VerticalAlignment="Top" HorizontalAlignment="Left" Content="+" Click="btnChoose_Click"></Button>
-                                            <Button x:Name="btnMinusToppings" Visibility="Hidden" Width="50" VerticalAlignment="Bottom" HorizontalAlignment="Left" Content="-" Click="btnMinus_Click" ></Button>
+                                            <Button x:Name="btnChooseToppings" Width="50" VerticalAlignment="Top" HorizontalAlignment="Left" Content="+" Click="btnChoose_Click" Background="#fac129" BorderBrush="#ffa200"></Button>
+                                            <Button x:Name="btnMinusToppings" Visibility="Hidden" Width="50" VerticalAlignment="Bottom" HorizontalAlignment="Left" Content="-" Click="btnMinus_Click" Background="#fac129" BorderBrush="#ffa200"></Button>
                                         </StackPanel>
                                     </Grid>
                                 </DataTemplate>
@@ -653,7 +653,7 @@
                 </StackPanel>
             </Grid>
         </WrapPanel>
-        <Grid x:Name="griInforDrinks" HorizontalAlignment="Center" VerticalAlignment="Center" Background="White" Visibility="Hidden">
+        <Grid x:Name="griInforDrinks" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#efeabf" Visibility="Hidden">
             <StackPanel x:Name="stpInforDrinksMini" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock x:Name="tbNameDrink" Text="Tên thức uống:" Foreground="Black"></TextBlock>
                 <TextBox x:Name="tbxNameDrink" HorizontalAlignment="Center"
