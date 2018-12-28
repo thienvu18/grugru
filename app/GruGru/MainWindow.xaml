@@ -738,7 +738,7 @@
             </Grid>
         </WrapPanel>
         <WrapPanel x:Name="wrpPersonalInfor" Visibility="Visible" >
-            <Button x:Name="btnBackPersonalInfor" Click="btnBack_Click">
+            <Button x:Name="btnBackPersonalInfor">
                 <materialDesign:PackIcon Kind="ArrowLeftBoldCircleOutline" />
             </Button>
             <Grid x:Name="temp91"></Grid>
