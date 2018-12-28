@@ -1275,6 +1275,7 @@ namespace GruGru
             tbTotalMoney.Text = " Tổng tiền:        " + tongTien.ToString();
             return tongTien;
         }
+
         public void TienCanTra()
         {
             decimal tiennhan = 0;
@@ -1336,6 +1337,142 @@ namespace GruGru
         {
             ((WrapPanel)((Grid)((WrapPanel)((Button)sender).Parent).Parent).Children[1]).Visibility = Visibility.Visible;
             ((WrapPanel)((Button)sender).Parent).Visibility = Visibility.Hidden;
+        }
+
+        private void btnAgent_Click(object sender, RoutedEventArgs e)
+        {
+            string nameOfEmployee = tbxSearchAgent.Text;
+            dynamic resObject;
+
+            if (nameOfEmployee.Length == 0)
+            {
+                MessageBox.Show("Vui lòng nhập tên để tìm kiếm");
+                return;
+            }
+
+            try
+            {
+                string res = Get(SERVER + "getEmployeeByName/" + nameOfEmployee);
+                resObject = JsonConvert.DeserializeObject(res);
+            }
+            catch
+            {
+                MessageBox.Show("Không thể kết nối đến server");
+                return;
+            }
+
+            if (resObject.code == "0")
+            {
+                string dob = resObject.payload[0].ngaySinh;
+
+                tbxAgentCode.Text = resObject.payload[0].maNV;
+                tbAgentName.Text = resObject.payload[0].hoTen;
+                tbxMonth.Text = resObject.payload[0].kinhNghiem;
+                tbxPhoneNumberAgent.Text = resObject.payload[0].soDienThoai;
+                tbBirthDayAgent.Text = DateTime.Parse(dob).ToString("dd/MM/yyyy");
+                tbxIDAgent.Text = resObject.payload[0].cmnd;
+            }
+            else if (resObject.code == "-4")
+            {
+                MessageBox.Show("Không tìm thấy nhân viên nào");
+            }
+            else
+            {
+                MessageBox.Show("Đã xảy ra lỗi, vui lòng bấm lại nút Tìm kiếm");
+            }
+        }
+
+        private void btnAgentUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            string name = tbAgentName.Text;
+
+            if (name.Length == 0)
+            {
+                MessageBox.Show("Vui lòng tìm kiếm nhân viên trước khi cập nhật");
+                return;
+
+            }
+
+            string payload = $"{{\"maKH\": \"{tbAgentCode.Text}\",\"hoTen\": \"{tbAgentName.Text}\",\"kinhNghiem\": {tbMonth.Text},\"soDienThoai\": \"{ tbPhoneNumberAgent.Text}\",\"ngaySinh\": \"{tbBirthDayAgent.Text}\",\"cmnd\": \"{tbxIDAgent.Text}\"}}";
+            dynamic resObject;
+            try
+            {
+                string res = Post(SERVER + "updateEmployee", payload);
+                resObject = JsonConvert.DeserializeObject(res);
+            }
+            catch
+            {
+                MessageBox.Show("Không thể kết nối đến server");
+                return;
+            }
+
+            if (resObject.code == "0")
+            {
+                MessageBox.Show("Cập nhật thông tin nhân viên thành công");
+            }
+            else
+            {
+                MessageBox.Show("Đã xảy ra lỗi, vui lòng thử lại");
+            }
+        }
+
+        private void btnAgentDelete_Click(object sender, RoutedEventArgs e)
+        {
+            string name = tbxAgentName.Text;
+
+            if (name.Length == 0)
+            {
+                MessageBox.Show("Vui lòng tìm kiếm nhân viên trước khi xoá");
+                return;
+
+            }
+
+            //string customerName = tbxCustomerName.Text;
+            string messageBoxText = "Bạn có chắc chắn muốn xoá nhân viên \"" + name + "\"?";
+            MessageBoxButton button = MessageBoxButton.YesNo;
+            MessageBoxImage icon = MessageBoxImage.Warning;
+            // Display message box
+            MessageBoxResult result = MessageBox.Show(messageBoxText, "", button, icon);
+            // Process message box results
+            switch (result)
+            {
+                case MessageBoxResult.Yes:
+                    dynamic resObject;
+                    try
+                    {
+                        string res = Get(SERVER + "deleteEmployee/" + name);
+                        resObject = JsonConvert.DeserializeObject(res);
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Không thể kết nối đến server");
+                        break;
+                    }
+                    if (resObject.code == "0")
+                    {
+                        MessageBox.Show("Xoá nhân viên thành công!");
+                        tbxAgentCode.Text = "";
+                        tbxAgentName.Text = "";
+                        tbMonth.Text = "";
+                        tbxPhoneNumberAgent.Text = "";
+                        tbxBirthDayAgent.Text = "";
+                        tbxIDAgent.Text = "";
+                    }
+                    else if (resObject.code == "-4")
+                    {
+                        MessageBox.Show("Nhân viên không tồn tại");
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Đã xảy ra lỗi, vui lòng thử lại!");
+                    }
+
+                    break;
+                default:
+                    break;
+            }
+
         }
     }
 }

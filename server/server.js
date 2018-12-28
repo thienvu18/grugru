@@ -449,7 +449,7 @@ app.get("/api/getCustomerByPhone/:phoneNumber", function(req, res) {
   });
 });
 
-app.get("/api/employeeByName/:name", function(req, res) {
+app.get("/api/getEmployeeByName/:name", function(req, res) {
   const query =
     "SELECT TOP (10) * FROM NhanVien WHERE hoTen LIKE '" +
     req.params.name +

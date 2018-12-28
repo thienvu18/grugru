@@ -681,7 +681,7 @@
               Margin="8 0 0 0"
               VerticalAlignment="Bottom" />
             <Grid x:Name="temp87"/>
-            <Button x:Name="btnAgent" Content="Tìm kiếm" Background="#03c203" BorderBrush="#006400"/>
+            <Button x:Name="btnAgent" Content="Tìm kiếm" Background="#03c203" BorderBrush="#006400" Click="btnAgent_Click"/>
             <Grid x:Name="temp89"/>
             <Grid x:Name="temp88"/>
             <Grid x:Name="gridAgent">
@@ -696,7 +696,7 @@
                         <TextBlock x:Name="tbMonth" Text="Số tháng kinh nghiệm:" Foreground="Black"/>
                         <TextBox x:Name="tbxMonth" IsEnabled="False"/>
                         <Grid x:Name="temp893"/>
-                        <Button x:Name="btnAgentUpdate" HorizontalAlignment="Center" Content="Cập Nhật" Foreground="White" Background="#008000" BorderBrush="#ffffff"/>
+                        <Button x:Name="btnAgentUpdate" HorizontalAlignment="Center" Content="Cập Nhật" Foreground="White" Background="#008000" BorderBrush="#ffffff" Click="btnAgentUpdate_Click"/>
                     </StackPanel>
                     <StackPanel x:Name="stpInforAgent2">
                         <TextBlock x:Name="tbPhoneNumberAgent" Text="Số điện thoại:" Foreground="Black"></TextBlock>
@@ -708,7 +708,7 @@
                         <TextBlock x:Name="tbIDAgent" Text="CMND:" Foreground="Black"></TextBlock>
                         <TextBox x:Name="tbxIDAgent"></TextBox>
                         <Grid x:Name="temp896"></Grid>
-                        <Button x:Name="btnAgentDelete" HorizontalAlignment="Center" Content="Xóa" Foreground="White" Background="#008000" BorderBrush="#ffffff"></Button>
+                        <Button x:Name="btnAgentDelete" HorizontalAlignment="Center" Content="Xóa" Foreground="White" Background="#008000" BorderBrush="#ffffff" Click="btnAgentDelete_Click"></Button>
                     </StackPanel>
                 </StackPanel>
             </Grid>
