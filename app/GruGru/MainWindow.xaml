@@ -15,7 +15,7 @@
         mc:Ignorable="d"
         Title="MainWindow">
     <Grid>
-        <Grid x:Name="GridLoginScreen" Visibility="Visible">
+        <Grid x:Name="GridLoginScreen" Visibility="Hidden">
             <Image Source="backround.jpg" RenderTransformOrigin="0.5,0.5" >
                 <Image.RenderTransform>
                     <TransformGroup>
@@ -587,7 +587,7 @@
                 </StackPanel>
             </Grid>
         </WrapPanel>
-        <WrapPanel x:Name="wrpRegisterNewCustomer" Background="#d0beac" Visibility="Hidden">
+        <WrapPanel x:Name="wrpRegisterNewCustomer" Background="#d0beac" Visibility="Visible">
             <Button x:Name="btnbackRegisterNewCustomer" Background="#CD853F" Click="BtnBack_Click"  >
                 <materialDesign:PackIcon Kind="ArrowLeftBoldCircleOutline" />
             </Button>
@@ -614,7 +614,7 @@
                     </StackPanel>
                     <Grid x:Name="temp65"></Grid>
                     <StackPanel x:Name="stpInforNewCustomerMini2">
-                        <Button x:Name="btnSignUp" Content="Đăng ký" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#8B4513" BorderBrush="#ffffff"></Button>
+                        <Button x:Name="btnSignUp" Content="Đăng ký" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#8B4513" BorderBrush="#ffffff" Click="BtnSignUp_Click"></Button>
                     </StackPanel>
                 </StackPanel>
             </Grid>

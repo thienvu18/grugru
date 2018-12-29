@@ -1551,5 +1551,74 @@ namespace GruGru
                 MessageBox.Show("Có lỗi sảy ra, vui lòng thử lại");
             }
         }
+
+        private void BtnSignUp_Click(object sender, RoutedEventArgs e)
+        {
+            string name = tbxNewCustomerName.Text;
+            string cmnd = tbxNewID.Text;
+            string phone = tbxNewPhoneNumber.Text;
+            string birthDay = tbxNewBirthDay.Text;
+
+            if (name.Length == 0)
+            {
+                MessageBox.Show("Họ và tên là bắt buộc");
+                return;
+
+            }
+            if (cmnd.Length == 0)
+            {
+                MessageBox.Show("Chứng minh nhân dân là bắt buộc");
+                return;
+
+            }
+            if (phone.Length == 0)
+            {
+                MessageBox.Show("Số điện thoại là bắt buộc");
+                return;
+
+            }
+            if (birthDay.Length == 0)
+            {
+                MessageBox.Show("Ngày sinh là bắt buộc");
+                return;
+
+            }
+            try
+            {
+                birthDay = DateTime.Parse(birthDay).ToString("dd/MM/yyyy");
+            } catch
+            {
+                MessageBox.Show("Ngày sinh không hợp lệ");
+                return;
+            }
+
+            string payload = $"{{\"hoTen\": \"{name}\",\"ngaySinh\": \"{birthDay}\",\"soDienThoai\": \"{phone}\",\"cmnd\": \"{ cmnd}\"}}";
+            MessageBox.Show(payload);
+            dynamic resObject;
+            try
+            {
+                string res = Post(SERVER + "addCustomer", payload);
+                resObject = JsonConvert.DeserializeObject(res);
+            }
+            catch
+            {
+                MessageBox.Show("Không thể kết nối đến server");
+                return;
+            }
+
+            if (resObject.code == "0")
+            {
+                MessageBox.Show("Tạo khách hàng thành công");
+            }
+            else if (resObject.code == "-4")
+            {
+                MessageBox.Show("Số điện thoại đã tồn tại");
+            }
+            else
+            {
+                MessageBox.Show("Đã xảy ra lỗi, vui lòng thử lại");
+            }
+
+        }
     }
 }
