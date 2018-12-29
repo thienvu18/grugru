@@ -751,8 +751,9 @@ namespace GruGru
             btnChangePassword.Height = height005;
         }
 
-        public void DoLogin()
+        public string DoLogin()
         {
+            string type="";
             if ((txtUsername.Text == "") && (txtPassword.Password == ""))
             {
                 tbMessageBox.Text = "invalid username and password!!!";
@@ -778,20 +779,16 @@ namespace GruGru
 
                     GridLoginScreen.Visibility = System.Windows.Visibility.Hidden;
                     stpMainScreen.Visibility = System.Windows.Visibility.Visible;
-                    string type = stuff.loaiNV;
+                    type = stuff.loaiNV;
                     string name = stuff.hoTen;
-                    MessageBox.Show("1"+type+"1");
                     cbbEmployee.Visibility = System.Windows.Visibility.Visible;
                     cbbManage.Visibility = System.Windows.Visibility.Visible;
                     if (type == "1")//nhân viên
                     {
-                        MessageBox.Show("nhan vien");
                         cbbManage.Visibility = System.Windows.Visibility.Hidden;
                     }
                     if (type == "2")
                     {
-                        MessageBox.Show("quan li");
-
                         cbbEmployee.Visibility = System.Windows.Visibility.Hidden;
                     }
                     tbEmployee.Text = "Phục vụ: " + name;
@@ -802,6 +799,7 @@ namespace GruGru
                     tbMessageBox.Text = "Username or password is wrong!!!";
                 }
             }
+            return type;
 
         }
 
@@ -927,6 +925,8 @@ namespace GruGru
             //đăng xuất
             stpMainScreen.Visibility = System.Windows.Visibility.Hidden;
             GridLoginScreen.Visibility = System.Windows.Visibility.Visible;
+            txtUsername.Text = "";
+            txtPassword.Password = "";
         }
 
         private void btnStatisticalMode1_Click(object sender, RoutedEventArgs e)
@@ -1473,6 +1473,17 @@ namespace GruGru
                     break;
             }
 
+        }
+
+        private void BtnCalendarMode_Click(object sender, RoutedEventArgs e)
+        {
+            wrpJobCalendar.Visibility = Visibility.Visible;
+            string type = DoLogin();
+            btnUpdateCalendar.Visibility = Visibility.Visible;
+            if (type=="1")
+            {
+                btnUpdateCalendar.Visibility = Visibility.Hidden;
+            }
         }
     }
 }

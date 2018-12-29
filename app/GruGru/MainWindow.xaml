@@ -15,7 +15,7 @@
         mc:Ignorable="d"
         Title="MainWindow">
     <Grid>
-        <Grid x:Name="GridLoginScreen" Visibility="Hidden">
+        <Grid x:Name="GridLoginScreen" Visibility="Visible">
             <Image Source="backround.jpg" RenderTransformOrigin="0.5,0.5" >
                 <Image.RenderTransform>
                     <TransformGroup>
@@ -71,14 +71,16 @@
                 <ComboBox x:Name="cbbEmployee" Background="#fbf9f2" Visibility="Visible" >
                     <!--<materialDesign:PackIcon Kind="HamburgerMenu" />-->
                     <Button x:Name="btnPersonalInforMode" Content="Thông tin cá nhân" Background="#f4a50d" BorderBrush="#ffffff" Click="btnPersonalInforMode_Click"  ></Button>
+                    <Button x:Name="btnCalendarMode" Content="Lịch làm việc" Background="#f4a50d" BorderBrush="#ffffff" Click="BtnCalendarMode_Click" ></Button>
                     <Button x:Name="btnCustomerInforMode" Content="Thông tin khách hàng" Background="#f4a50d" BorderBrush="#ffffff" Click="btnCustomerInforMode_Click" ></Button>
                     <Button x:Name="btnRegisterMode" Content="Đăng ký khách hàng" Background="#f4a50d" BorderBrush="#ffffff" Click="btnRegisterMode_Click" ></Button>
                     <Button x:Name="btnLogoutMode" Content="Đăng xuất" Background="#f4a50d" BorderBrush="#ffffff" Click="btnLogoutMode_Click" ></Button>
-                </ComboBox>
+                    </ComboBox>
                 <ComboBox x:Name="cbbManage" Visibility="Visible">
                     <!--<materialDesign:PackIcon Kind="HamburgerMenu" />-->
                         <Button x:Name="btnPersonalInforMode1" Content="Thông tin cá nhân" Click="btnPersonalInforMode_Click" Background="#ffd200" BorderBrush="Orange" Foreground="White"></Button>
                         <Button x:Name="btnCustomerInforMode1" Content="Thông tin khách hàng" Click="btnCustomerInforMode_Click"  Background="#ffd200" BorderBrush="Orange" Foreground="White" ></Button>
+                        <Button x:Name="btnCalendarMode1" Content="Lịch làm việc" Background="#ffd200" BorderBrush="#ffffff" Click="BtnCalendarMode_Click" ></Button>
                         <Button x:Name="btnStatisticalMode1" Content="Thống kê" Click="btnStatisticalMode1_Click"  Background="#ffd200" BorderBrush="Orange" Foreground="White"></Button>
                         <Button x:Name="btnFindMode1" Content="Tìm kiếm" Click="btnFindMode1_Click"  Background="#ffd200" BorderBrush="Orange" Foreground="White"></Button>
                         <Button x:Name="btnRegisterMode1" Content="Đăng ký khách hàng"  Click="btnRegisterMode_Click"  Background="#ffd200" BorderBrush="Orange" Foreground="White"></Button>
@@ -242,7 +244,7 @@
                     <TextBlock x:Name="tbCustomer" Text="Khách hàng:"></TextBlock>
                     <TextBox x:Name="tbxCustomer"></TextBox>
                     <Grid x:Name="temp1"></Grid>
-                    <TextBlock x:Name="tbEmployee" Text="Phục vụ:           Thái Thiên Vũ"></TextBlock>
+                    <TextBlock x:Name="tbEmployee" Text="Phục vụ:"></TextBlock>
                     <TextBlock x:Name="tbTime" Text="Ngày giờ:   19:44:7        12/12/2018"></TextBlock>
 
                     <ScrollViewer VerticalScrollBarVisibility="Auto" >
@@ -669,7 +671,7 @@
                 </StackPanel>
             </StackPanel>
         </Grid>
-        <WrapPanel x:Name="wrpAgent" Background="#d1efd1" Visibility="Visible">
+        <WrapPanel x:Name="wrpAgent" Background="#d1efd1" Visibility="Hidden">
             <Button x:Name="btnBackAgent" Background="#03c203" BorderBrush="#006400" Click="BtnBack_Click" >
                 <materialDesign:PackIcon Kind="ArrowLeft"/>
             </Button>
