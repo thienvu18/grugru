@@ -102,7 +102,7 @@ namespace GruGru
             AgentScreen();
             SignUp();
             PersonalInforScreen();
-            //InforScreen();
+            InforScreen();
             LoadMenu();
             LoadCalendar();
         }
@@ -114,6 +114,16 @@ namespace GruGru
 
         public void LoadCalendar()
         {
+            //load các thứ
+            List<Name> listday = new List<Name>();
+            listday.Add(new Name() { name = "Thứ 2" });
+            listday.Add(new Name() { name = "Thứ 3" });
+            listday.Add(new Name() { name = "Thứ 4" });
+            listday.Add(new Name() { name = "Thứ 5" });
+            listday.Add(new Name() { name = "Thứ 6" });
+            listday.Add(new Name() { name = "Thứ 7" });
+            listday.Add(new Name() { name = "Chủ nhật" });
+            lvcalendar0.ItemsSource = listday;
             List<Name> ListName = new List<Name>();
             string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
             XDocument objDoc = XDocument.Load(path + "/Data.xml");
@@ -325,15 +335,8 @@ namespace GruGru
             gridCalendar.Width = width * 0.85;
             gridCalendar.Height = height * 0.9;
 
-            //thứ
-            tbMonday.FontSize = height003;
-            tbTuesday.FontSize = height003;
-            tbWednesday.FontSize = height003;
-            tbThursday.FontSize = height003;
-            tbFriday.FontSize = height003;
-            tbSaturday.FontSize = height003;
-            tbSunday.FontSize = height003;
-
+            lvcalendar0.FontSize = height003;
+            
             //giờ làm
             tbTime1.FontSize = height0025;
             tbTime2.FontSize = height0025;
@@ -566,22 +569,19 @@ namespace GruGru
 
             temp71.Height = stpInforDrinksMini.Height / 30;
 
-            tbTypeDrink.FontSize = height0023;
-            tbxTypeDrink.FontSize = height0023;
-            tbxTypeDrink.Width = stpInforDrinksMini.Width * 0.8;
+            tbCostDrink.FontSize = height0023;
+            tbxCostDrink.FontSize = height0023;
+            tbxCostDrink.Width = stpInforDrinksMini.Width * 0.8;
 
             temp72.Height = stpInforDrinksMini.Height / 30;
 
             tbIngredients.FontSize = height0023;
 
-            lvListIngredients.FontSize = height0023;
-            lvListIngredients.Height = stpInforDrinksMini.Height / 5 * 3;
-            lvListIngredients.Width = stpInforDrinksMini.Width;
+            tbxIngredients.FontSize = height0023;
+            tbxIngredients.Height = stpInforDrinksMini.Height / 5 * 2;
+            tbxIngredients.Width = stpInforDrinksMini.Width;
 
-            lvhOrdinalIngredient.Width = lvListIngredients.Width / 10;
-            lvhNameIngredient.Width = lvListIngredients.Width / 10 * 7;
-            lvhPercent.Width = lvListIngredients.Width / 10;
-            lvhKcal.Width = lvListIngredients.Width / 10;
+            temp100.Height= stpInforDrinksMini.Height / 8;
 
             stpInforDrinksMini1.Width = stpInforDrinksMini.Width;
             gridbtnDeleteDrink.Width = stpInforDrinksMini1.Width / 3;
@@ -591,7 +591,7 @@ namespace GruGru
             btnDeleteDrink.FontSize = height0027;
             btnUpdateInforDrink.FontSize = height0027;
             btnBackInforDrink.FontSize = height0027;
-            stpMainScreen.Opacity = 0.1;
+            
         }
 
         public void AgentScreen()
@@ -967,7 +967,6 @@ namespace GruGru
             public decimal gia { get; set; }
         }
 
-        //List<Drink> ListDrinks = new List<Drink>();
         ObservableCollection<Drink> ListDrinks = new ObservableCollection<Drink>();
 
         private void btnChoose_Click(object sender, RoutedEventArgs e)
@@ -1022,7 +1021,6 @@ namespace GruGru
             string url = SERVER+"putOrder";
 
             string result = Post(url, json);
-
         }
 
         private void btnMinus_Click(object sender, RoutedEventArgs e)
@@ -1483,6 +1481,74 @@ namespace GruGru
             if (type=="1")
             {
                 btnUpdateCalendar.Visibility = Visibility.Hidden;
+            }
+        }
+
+        private void TbDrink_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            griInforDrinks.Visibility = Visibility.Visible;
+            stpMainScreen.Opacity = 0.1;
+            tbxNameDrink.Text = ((TextBlock)sender).Text;
+            tbxCostDrink.Text = ((TextBlock)((StackPanel)((TextBlock)sender).Parent).Children[3]).Text;
+            tbxIngredients.Text = ((TextBlock)((StackPanel)((TextBlock)sender).Parent).Children[4]).Text;
+            btnDeleteDrink.Visibility = Visibility.Visible;
+            btnUpdateInforDrink.Visibility = Visibility.Visible;
+            if (DoLogin()=="1")
+            {
+                btnDeleteDrink.Visibility = Visibility.Collapsed;
+                btnUpdateInforDrink.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void BtnBackInforDrink_Click(object sender, RoutedEventArgs e)
+        {
+            griInforDrinks.Visibility = Visibility.Hidden;
+            stpMainScreen.Opacity = 1;
+        }
+
+        //thêm
+        private void BtnDeleteDrink_Click(object sender, RoutedEventArgs e)
+        {
+            string NameDrink = tbxNameDrink.Text;//"namedrink"
+            string json = "{\"username\": \"" + NameDrink + "\"}";
+            string url = SERVER + "deleteDrink";
+
+            string result = Post(url, json);
+            dynamic stuff = JsonConvert.DeserializeObject(result);
+
+            string code = stuff.code;
+            if(code=="1")
+            {
+                MessageBox.Show("xóa món thành công");
+                LoadMenu();
+            }
+            else
+            {
+                MessageBox.Show("Có lỗi sảy ra, vui lòng thử lại");
+            }
+        }
+
+        //thêm
+        private void BtnUpdateInforDrink_Click(object sender, RoutedEventArgs e)
+        {
+            string NameDrink = tbxNameDrink.Text;//"namedrink"
+            string Cost = tbxCostDrink.Text;//"giá"
+            string Ingredients = tbxIngredients.Text;//mô tả
+            string json = "{\"username\": \"" + NameDrink + "\",\"cost\": \"" + Cost + "\",\"Ingredients\": \"" + Ingredients + "\"}";
+            string url = SERVER + "UpdateDrink";
+
+            string result = Post(url, json);
+            dynamic stuff = JsonConvert.DeserializeObject(result);
+
+            string code = stuff.code;
+            if (code == "1")
+            {
+                MessageBox.Show("Cập nhật món thành công");
+                LoadMenu();
+            }
+            else
+            {
+                MessageBox.Show("Có lỗi sảy ra, vui lòng thử lại");
             }
         }
     }

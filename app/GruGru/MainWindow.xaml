@@ -113,7 +113,7 @@
                                                    FontSize="18"
                                                    Text="{Binding tenSanPham}"
                                                    TextAlignment="Left"
-                                                   TextWrapping="WrapWithOverflow"></TextBlock>
+                                                   TextWrapping="WrapWithOverflow" MouseDown="TbDrink_MouseDown" ></TextBlock>
                                             <ComboBox x:Name="cbbSizeCoffees" FontWeight="Bold" SelectedIndex="0" DropDownClosed="CbbSize_DropDownClosed">
                                             <ComboBoxItem>
                                                 S
@@ -127,7 +127,7 @@
                                             </ComboBox>
                                             <TextBlock Height="0" Width="0" Text="{Binding id}" ></TextBlock>
                                             <TextBlock Height="0" Width="0" Text="{Binding gia}" ></TextBlock>
-
+                                            <TextBlock Height="0" Width="0" Text="{Binding thongTin}" ></TextBlock>
                                         </StackPanel>
                                         <StackPanel Grid.Column = "1">
                                             <Button x:Name="btnChooseCoffees" Width="50" VerticalAlignment="Top" HorizontalAlignment="Left" Content="+" Background="#fac129" BorderBrush="#ffa200" BorderThickness="2" Click="btnChoose_Click"></Button>
@@ -163,7 +163,7 @@
                                                    FontSize="18"
                                                    Text="{Binding tenSanPham}"
                                                    TextAlignment="Left"
-                                                   TextWrapping="WrapWithOverflow"></TextBlock>
+                                                   TextWrapping="WrapWithOverflow" MouseDown="TbDrink_MouseDown"></TextBlock>
                                             <ComboBox x:Name="cbbSizeMilkteas" FontWeight="Bold" SelectedIndex="0" DropDownClosed="CbbSize_DropDownClosed">
                                                 <ComboBoxItem>
                                                     S
@@ -177,6 +177,7 @@
                                             </ComboBox>
                                             <TextBlock Height="0" Width="0" Text="{Binding id}" ></TextBlock>
                                             <TextBlock Height="0" Width="0" Text="{Binding gia}" ></TextBlock>
+                                            <TextBlock Height="0" Width="0" Text="{Binding thongTin}" ></TextBlock>
                                         </StackPanel>
                                         <StackPanel Grid.Column="1">
                                             <Button x:Name="btnChooseMilkteas" Width="50" VerticalAlignment="Top" HorizontalAlignment="Left" Content="+" Click="btnChoose_Click" Background="#fac129" BorderBrush="#ffa200"></Button>
@@ -212,7 +213,7 @@
                                                    FontSize="18"
                                                    Text="{Binding tenSanPham}"
                                                    TextAlignment="Left"
-                                                   TextWrapping="WrapWithOverflow"></TextBlock>
+                                                   TextWrapping="WrapWithOverflow" MouseDown="TbDrink_MouseDown"></TextBlock>
                                             <ComboBox x:Name="cbbSizeToppings" FontWeight="Bold" SelectedIndex="0"  DropDownClosed="CbbSize_DropDownClosed">
                                                 <ComboBoxItem>
                                                     S
@@ -226,6 +227,7 @@
                                             </ComboBox>
                                             <TextBlock Height="0" Width="0" Text="{Binding id}" ></TextBlock>
                                             <TextBlock Height="0" Width="0" Text="{Binding gia}" ></TextBlock>
+                                            <TextBlock Height="0" Width="0" Text="{Binding thongTin}" ></TextBlock>
                                         </StackPanel>
                                         <StackPanel Grid.Column="1">
                                             <Button x:Name="btnChooseToppings" Width="50" VerticalAlignment="Top" HorizontalAlignment="Left" Content="+" Click="btnChoose_Click" Background="#fac129" BorderBrush="#ffa200"></Button>
@@ -246,7 +248,6 @@
                     <Grid x:Name="temp1"></Grid>
                     <TextBlock x:Name="tbEmployee" Text="Phục vụ:"></TextBlock>
                     <TextBlock x:Name="tbTime" Text="Ngày giờ:   19:44:7        12/12/2018"></TextBlock>
-
                     <ScrollViewer VerticalScrollBarVisibility="Auto" >
                         <ListView x:Name="lvListBill">
                             <ListView.View >
@@ -357,36 +358,20 @@
                     <RowDefinition Height="100*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid x:Name="gridCalendarRow0" Grid.Row="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0">
-                        <TextBlock x:Name="tbMonday" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Thứ 2" TextWrapping="WrapWithOverflow" Foreground="Black"></TextBlock>
-                    </Grid>
-                    <Grid Grid.Column="1">
-                        <TextBlock x:Name="tbTuesday" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Thứ 3" TextWrapping="WrapWithOverflow"  Foreground="Black" ></TextBlock>
-                    </Grid>
-                    <Grid Grid.Column="2">
-                        <TextBlock x:Name="tbWednesday" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Thứ 4" TextWrapping="WrapWithOverflow"  Foreground="Black"></TextBlock>
-                    </Grid>
-                    <Grid Grid.Column="3">
-                        <TextBlock x:Name="tbThursday" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Thứ 5" TextWrapping="WrapWithOverflow"  Foreground="Black"></TextBlock>
-                    </Grid>
-                    <Grid Grid.Column="4">
-                        <TextBlock x:Name="tbFriday" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Thứ 6" TextWrapping="WrapWithOverflow"  Foreground="Black"></TextBlock>
-                    </Grid>
-                    <Grid Grid.Column="5">
-                        <TextBlock x:Name="tbSaturday" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Thứ 7" TextWrapping="WrapWithOverflow"  Foreground="Black"></TextBlock>
-                    </Grid>
-                    <Grid Grid.Column="6">
-                        <TextBlock x:Name="tbSunday" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Chủ Nhật" TextWrapping="WrapWithOverflow"  Foreground="Black"></TextBlock>
-                    </Grid>
+                    <ListView x:Name="lvcalendar0" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="7" Rows="1" HorizontalAlignment="Stretch" ></UniformGrid>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ListView.ItemTemplate >
+                            <DataTemplate>
+                                <Grid>
+                                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding name}" TextWrapping="WrapWithOverflow" Foreground="Black"></TextBlock>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
                 </Grid>
                 <Grid x:Name="gridCalendarRow1"  Grid.Row="1">
                     <TextBlock x:Name="tbTime1" Text="9h-1h30'"  Foreground="Black"></TextBlock>
@@ -638,37 +623,27 @@
             <StackPanel x:Name="stpInforDrinksMini" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock x:Name="tbNameDrink" Text="Tên thức uống:" Foreground="Black"></TextBlock>
                 <TextBox x:Name="tbxNameDrink" HorizontalAlignment="Center"
-                     Text="Sữa tươi trân châu đường đen" Foreground="Black"></TextBox>
+                     Text="" Foreground="Black"></TextBox>
                 <Grid x:Name="temp71"></Grid>
-                <TextBlock x:Name="tbTypeDrink" Text="Loại:" Foreground="Black"></TextBlock>
-                <TextBox x:Name="tbxTypeDrink" 
+                <TextBlock x:Name="tbCostDrink" Text="Giá:" Foreground="Black"></TextBlock>
+                <TextBox x:Name="tbxCostDrink" 
                      Text="Trà sữa" Foreground="Black"></TextBox>
                 <Grid x:Name="temp72"></Grid>
                 <TextBlock x:Name="tbIngredients" Text="Thành phần" Foreground="Black"></TextBlock>
-                <ScrollViewer VerticalScrollBarVisibility="Auto" >
-                    <ListView x:Name="lvListIngredients" Foreground="Black">
-                        <ListView.View >
-                            <GridView>
-                                <GridViewColumn x:Name="lvhOrdinalIngredient" Header="STT" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
-                                <GridViewColumn x:Name="lvhNameIngredient" Header="Tên thành phần" DisplayMemberBinding="{Binding ten}"></GridViewColumn>
-                                <GridViewColumn x:Name="lvhPercent" Header="%" DisplayMemberBinding="{Binding percent}"></GridViewColumn>
-                                <GridViewColumn x:Name="lvhKcal" Header="   Kcal" DisplayMemberBinding="{Binding Kcal}"/>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-            </ScrollViewer>
-                <StackPanel x:Name="stpInforDrinksMini1" Orientation="Horizontal">
+                <TextBox x:Name="tbxIngredients" HorizontalAlignment="Stretch" VerticalAlignment="Top" TextWrapping="Wrap"></TextBox>
+                <Grid x:Name="temp100"></Grid>
+                <WrapPanel x:Name="stpInforDrinksMini1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Grid x:Name="gridbtnBackInforDrink">
-                        <Button x:Name="btnBackInforDrink" VerticalAlignment="Center" HorizontalAlignment="Center" Content="Trở về" BorderBrush="#FF4500" Background="#FFA500"></Button>
+                        <Button x:Name="btnBackInforDrink" VerticalAlignment="Center" HorizontalAlignment="Center" Content="Trở về" BorderBrush="#FF4500" Background="#FFA500" Click="BtnBackInforDrink_Click"></Button>
                     </Grid>
                     <Grid x:Name="gridbtnDeleteDrink">
-                        <Button x:Name="btnDeleteDrink" VerticalAlignment="Center" HorizontalAlignment="Center" Content="Xóa" BorderBrush="#FF4500" Background="#FFA500"></Button>
+                        <Button x:Name="btnDeleteDrink" VerticalAlignment="Center" HorizontalAlignment="Center" Content="Xóa" BorderBrush="#FF4500" Background="#FFA500" Click="BtnDeleteDrink_Click"></Button>
                     </Grid>
                     <Grid x:Name="gridbtnUpdateInforDrink">
-                        <Button x:Name="btnUpdateInforDrink" VerticalAlignment="Center" HorizontalAlignment="Center" Content="Cập nhật" BorderBrush="#FF4500" Background="#FFA500"></Button>
+                        <Button x:Name="btnUpdateInforDrink" VerticalAlignment="Center" HorizontalAlignment="Center" Content="Cập nhật" BorderBrush="#FF4500" Background="#FFA500" Click="BtnUpdateInforDrink_Click"></Button>
                     </Grid>
 
-                </StackPanel>
+                </WrapPanel>
             </StackPanel>
         </Grid>
         <WrapPanel x:Name="wrpAgent" Background="#d1efd1" Visibility="Hidden">
