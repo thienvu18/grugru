@@ -230,20 +230,26 @@ app.post("/api/addCustomer", function(req, res) {
   const hoTen = req.body.hoTen;
   const ngaySinh = moment(req.body.ngaySinh, "DD-MM-YYYY").format("YYYY-MM-DD");
   const soDienThoai = req.body.soDienThoai;
+  const cmnd = req.body.cmnd;
+  const diemTichLuy = 0;
   const maKH = Math.random()
     .toString(36)
     .replace(/[^a-z]+/g, "")
     .substr(0, 9);
 
   const insertCustommer =
-    "INSERT INTO KhachHang (maKH, hoTen, ngaySinh, soDienThoai) VALUES ('" +
+    "INSERT INTO KhachHang (maKH, hoTen, ngaySinh, soDienThoai, diemTichLuy, cmnd) VALUES ('" +
     maKH +
-    "', '" +
+    "', N'" +
     hoTen +
     "', '" +
     ngaySinh +
     "', '" +
     soDienThoai +
+    "', '" +
+    diemTichLuy +
+    "', '" +
+    cmnd +
     "')";
   const findExist =
     "SELECT 1 FROM KhachHang WHERE soDienThoai = '" + soDienThoai + "'";
@@ -474,6 +480,96 @@ app.get("/api/getEmployeeByName/:name", function(req, res) {
           code: 0,
           msg: "Thong tin nhân viên da chon",
           payload: result
+        });
+      }
+    }
+  });
+});
+
+app.post("/api/updateEmployee", function(req, res) {
+  console.log(req.body);
+  const id = req.body.id;
+  const maNV = req.body.maNV;
+  const hoTen = req.body.hoTen;
+  const ngaySinh = moment(req.body.ngaySinh, "DD/MM/YYYY").format("YYYY-MM-DD");
+
+  const query =
+    "UPDATE KhachHang SET maKH = '" +
+    maKH +
+    "', hoTen=N'" +
+    hoTen +
+    "', ngaySinh='" +
+    ngaySinh +
+    "', soDienThoai='" +
+    soDienThoai +
+    "', diemTichLuy=" +
+    diemTichLuy +
+    ", cmnd='" +
+    cmnd +
+    "' WHERE id = " +
+    id;
+console.log(query);
+  let request = new sql.Request();
+
+  request.query(query, function(err, result) {
+    if (err) {
+      console.log(err);
+      res.json({
+        code: -3,
+        msg: "Co loi trong truy van CSDL"
+      });
+    } else {
+      res.json({
+        code: 0,
+        msg: "Cap nhat thong tin khach hang thanh cong"
+      });
+    }
+  });
+});
+
+app.get("/api/deleteCustomer/:id", function(req, res) {
+  const findQuery = "SELECT 1 FROM KhachHang WHERE id = " + req.params.id;
+  const updateQuery =
+    "UPDATE HoaDon SET idKhachHangMua = null WHERE idKhachHangMua = " +
+    req.params.id;
+  const deleteQuery = "DELETE FROM KhachHang WHERE id = " + req.params.id;
+
+  let request = new sql.Request();
+
+  request.query(findQuery, function(err, result) {
+    if (err) {
+      res.json({
+        code: -3,
+        msg: "Co loi trong truy van CSDL"
+      });
+    } else {
+      if (result.length != 0) {
+        request.query(updateQuery, function(err, result) {
+          if (err) {
+            res.json({
+              code: -3,
+              msg: "Co loi trong truy van CSDL"
+            });
+          } else {
+            request.query(deleteQuery, function(err, result) {
+              if (err) {
+                res.json({
+                  code: -3,
+                  msg: "Co loi trong truy van CSDL"
+                });
+              } else {
+                res.json({
+                  code: 0,
+                  msg: "Xoa khach hang thanh cong"
+                });
+              }
+            });
+          }
+        });
+      } else {
+        res.json({
+          code: -4,
+          msg: "Khách hàng không tồn tại"
         });
       }
     }
