@@ -21,6 +21,7 @@ using GruGru.Model;
 using System.Collections.ObjectModel;
 using System.Xml.Linq;
 using System.Xml;
+using System.Security.Cryptography;
 
 namespace GruGru
 {
@@ -50,6 +51,30 @@ namespace GruGru
         Double height0023 = SystemParameters.WorkArea.Height * 0.023;//12.5
 
         const string SERVER = "http://localhost:8080/api/";
+        bool rememberme = false;
+        string userLocal;
+        string passLocal;
+
+        static string GetMd5Hash(MD5 md5Hash, string input)
+        {
+
+            // Convert the input string to a byte array and compute the hash.
+            byte[] data = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(input));
+
+            // Create a new Stringbuilder to collect the bytes
+            // and create a string.
+            StringBuilder sBuilder = new StringBuilder();
+
+            // Loop through each byte of the hashed data 
+            // and format each one as a hexadecimal string.
+            for (int i = 0; i < data.Length; i++)
+            {
+                sBuilder.Append(data[i].ToString("x2"));
+            }
+
+            // Return the hexadecimal string.
+            return sBuilder.ToString();
+        }
 
         public string Get(string uri)
         {
@@ -94,6 +119,18 @@ namespace GruGru
             this.Top = 0;
             this.Height = height + 30;
             this.Width = width + 30;
+            string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
+            XDocument objDoc = XDocument.Load(path + "/Rememberme.xml");
+
+
+            if (objDoc.Root.Elements().ElementAt(0).Value == "True")
+            {
+                rememberme = true;
+                userLocal = objDoc.Root.Elements().ElementAt(1).Value;
+                passLocal = objDoc.Root.Elements().ElementAt(2).Value;
+                DoLogin();
+            }
+
             MainScreen();
             StatisticalScreen();
             JobCalendarScreen();
@@ -105,6 +142,7 @@ namespace GruGru
             InforScreen();
             LoadMenu();
             LoadCalendar();
+            
         }
 
         class Name
@@ -126,7 +164,7 @@ namespace GruGru
             lvcalendar0.ItemsSource = listday;
             List<Name> ListName = new List<Name>();
             string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
-            XDocument objDoc = XDocument.Load(path + "/Data.xml");
+            XDocument objDoc = XDocument.Load(path + "/calendar.xml");
             foreach (var item in objDoc.Descendants("Name"))
             {
                 ListName.Add(new Name() { name = item.Value });
@@ -754,22 +792,43 @@ namespace GruGru
         public string DoLogin()
         {
             string type="";
-            if ((txtUsername.Text == "") && (txtPassword.Password == ""))
+            bool error = false;
+            if(rememberme == false)
             {
-                tbMessageBox.Text = "invalid username and password!!!";
+                if ((txtUsername.Text == "") && (txtPassword.Password == ""))
+                {
+                    error = true;
+                    tbMessageBox.Text = "invalid username and password!!!";
+                }
+                else if (txtUsername.Text == "")
+                {
+                    error = true;
+                    tbMessageBox.Text = "invalid username!!!";
+                }
+                else if (txtPassword.Password == "")
+                {
+                    error = true;
+                    tbMessageBox.Text = "invalid password!!!";
+                }
             }
-            else if (txtUsername.Text == "")
-            {
-                tbMessageBox.Text = "invalid username!!!";
-            }
-            else if (txtPassword.Password == "")
-            {
-                tbMessageBox.Text = "invalid password!!!";
-            }
-            else
-            {
 
-                string result = loginRequest();
+            
+            if(error == false)
+            {
+                string result;
+                if (rememberme == true)
+                {
+                    result = loginRequest(userLocal, passLocal);
+
+                }
+                else
+                {
+                    using (MD5 md5Hash = MD5.Create())
+                    {
+                        //đăng nhập với password đã mã hóa
+                        result = loginRequest(txtUsername.Text, GetMd5Hash(md5Hash, txtPassword.Password));
+                    }
+                }
                 dynamic stuff = JsonConvert.DeserializeObject(result);
 
                 string msg = stuff.msg;
@@ -792,7 +851,22 @@ namespace GruGru
                         cbbEmployee.Visibility = System.Windows.Visibility.Hidden;
                     }
                     tbEmployee.Text = "Phục vụ: " + name;
-                    LoadMenu();
+
+                    if (RememberMe.IsThreeState == true)
+                    {
+                        string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
+                        XDocument objDoc = XDocument.Load(path + "/Rememberme.xml");
+
+                        objDoc.Root.Elements().ElementAt(0).Value = "True";
+                        objDoc.Root.Elements().ElementAt(1).Value = txtUsername.Text;
+                        
+                        using (MD5 md5Hash = MD5.Create())
+                        {
+                            objDoc.Root.Elements().ElementAt(2).Value = GetMd5Hash(md5Hash, txtPassword.Password);
+                        };
+
+                        objDoc.Save(path + "/Rememberme.xml");
+                    }
                 }
                 else
                 {
@@ -824,10 +898,9 @@ namespace GruGru
             }
         }
 
-        private string loginRequest()
+        private string loginRequest(string username, string password)
         {
-            string username = txtUsername.Text;//"usercfrnh"
-            string password = txtPassword.Password;//"13874383";
+
             string json = "{\"username\": \"" + username + "\", \"password\": \"" + password + "\"}";
             string url = SERVER + "login";
 
@@ -927,6 +1000,12 @@ namespace GruGru
             GridLoginScreen.Visibility = System.Windows.Visibility.Visible;
             txtUsername.Text = "";
             txtPassword.Password = "";
+
+            string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
+            XDocument objDoc = XDocument.Load(path + "/Rememberme.xml");
+
+            objDoc.Root.Elements().ElementAt(0).Value = "False";
+            objDoc.Save(path + "/Rememberme.xml");
         }
 
         private void btnStatisticalMode1_Click(object sender, RoutedEventArgs e)
@@ -1297,23 +1376,24 @@ namespace GruGru
         private void BtnUpdateCalendar_Click(object sender, RoutedEventArgs e)
         {
             string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
-            XDocument objDoc = XDocument.Load(path + "/Data.xml");
+            XDocument objDoc = XDocument.Load(path + "/calendar.xml");
             objDoc.Root.RemoveNodes();
 
             foreach (Name item in lvcalendar1.ItemsSource)
             {
-                objDoc.Root.Add(new XElement("Name", item.name)); // [index of user node]
+                objDoc.Root.Add(new XElement("Name", item.name));
             }
             foreach (Name item in lvcalendar2.ItemsSource)
             {
-                objDoc.Root.Add(new XElement("Name", item.name)); // [index of user node]
+                objDoc.Root.Add(new XElement("Name", item.name));
             }
             foreach (Name item in lvcalendar3.ItemsSource)
             {
-                objDoc.Root.Add(new XElement("Name", item.name)); // [index of user node]
+                objDoc.Root.Add(new XElement("Name", item.name));
             }
-
-            objDoc.Save(path + "/Data.xml");
+            
+            objDoc.Save(path + "/calendar.xml");
+            MessageBox.Show("Cập nhập lịch làm việc thành công!");
         }
 
         private void CbbSize_DropDownClosed(object sender, EventArgs e)
@@ -1550,6 +1630,11 @@ namespace GruGru
             {
                 MessageBox.Show("Có lỗi sảy ra, vui lòng thử lại");
             }
+        }
+
+        private void RememberMe_Click(object sender, RoutedEventArgs e)
+        {
+            RememberMe.IsThreeState = RememberMe.IsThreeState ? false : true;
         }
     }
 }
