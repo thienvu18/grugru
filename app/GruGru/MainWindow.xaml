@@ -68,16 +68,16 @@
                 <TextBlock x:Name="txbTopping" Text="Topping" Background="#fcc542" TextAlignment="Center"></TextBlock>
                 <TextBlock x:Name="txbInfor" Text="Thông tin hóa đơn" Background="#f8e6b0"  TextAlignment="Center"></TextBlock>
                 <Grid>
-                <ComboBox x:Name="cbbEmployee" Background="#fbf9f2" Visibility="Visible" >
-                    <!--<materialDesign:PackIcon Kind="HamburgerMenu" />-->
-                    <Button x:Name="btnPersonalInforMode" Content="Thông tin cá nhân" Background="#f4a50d" BorderBrush="#ffffff" Click="btnPersonalInforMode_Click"  ></Button>
-                    <Button x:Name="btnCalendarMode" Content="Lịch làm việc" Background="#f4a50d" BorderBrush="#ffffff" Click="BtnCalendarMode_Click" ></Button>
-                    <Button x:Name="btnCustomerInforMode" Content="Thông tin khách hàng" Background="#f4a50d" BorderBrush="#ffffff" Click="btnCustomerInforMode_Click" ></Button>
-                    <Button x:Name="btnRegisterMode" Content="Đăng ký khách hàng" Background="#f4a50d" BorderBrush="#ffffff" Click="btnRegisterMode_Click" ></Button>
-                    <Button x:Name="btnLogoutMode" Content="Đăng xuất" Background="#f4a50d" BorderBrush="#ffffff" Click="btnLogoutMode_Click" ></Button>
+                    <ComboBox x:Name="cbbEmployee" Background="#fbf9f2" Visibility="Visible" >
+                        <!--<materialDesign:PackIcon Kind="HamburgerMenu" />-->
+                        <Button x:Name="btnPersonalInforMode" Content="Thông tin cá nhân" Background="#f4a50d" BorderBrush="#ffffff" Click="btnPersonalInforMode_Click"  ></Button>
+                        <Button x:Name="btnCalendarMode" Content="Lịch làm việc" Background="#f4a50d" BorderBrush="#ffffff" Click="BtnCalendarMode_Click" ></Button>
+                        <Button x:Name="btnCustomerInforMode" Content="Thông tin khách hàng" Background="#f4a50d" BorderBrush="#ffffff" Click="btnCustomerInforMode_Click" ></Button>
+                        <Button x:Name="btnRegisterMode" Content="Đăng ký khách hàng" Background="#f4a50d" BorderBrush="#ffffff" Click="btnRegisterMode_Click" ></Button>
+                        <Button x:Name="btnLogoutMode" Content="Đăng xuất" Background="#f4a50d" BorderBrush="#ffffff" Click="btnLogoutMode_Click" ></Button>
                     </ComboBox>
-                <ComboBox x:Name="cbbManage" Visibility="Visible">
-                    <!--<materialDesign:PackIcon Kind="HamburgerMenu" />-->
+                    <ComboBox x:Name="cbbManage" Visibility="Visible">
+                        <!--<materialDesign:PackIcon Kind="HamburgerMenu" />-->
                         <Button x:Name="btnPersonalInforMode1" Content="Thông tin cá nhân" Click="btnPersonalInforMode_Click" Background="#ffd200" BorderBrush="Orange" Foreground="White"></Button>
                         <Button x:Name="btnCustomerInforMode1" Content="Thông tin khách hàng" Click="btnCustomerInforMode_Click"  Background="#ffd200" BorderBrush="Orange" Foreground="White" ></Button>
                         <Button x:Name="btnCalendarMode1" Content="Lịch làm việc" Background="#ffd200" BorderBrush="#ffffff" Click="BtnCalendarMode_Click" ></Button>
@@ -86,7 +86,7 @@
                         <Button x:Name="btnRegisterMode1" Content="Đăng ký khách hàng"  Click="btnRegisterMode_Click"  Background="#ffd200" BorderBrush="Orange" Foreground="White"></Button>
                         <Button x:Name="btnManageMode1" Content="Quản lý nhân viên" Click="btnManageMode1_Click"  Background="#ffd200" BorderBrush="Orange" Foreground="White"></Button>
                         <Button x:Name="btnLogoutMode1" Content="Đăng xuất" Click="btnLogoutMode_Click"  Background="#ffd200" BorderBrush="Orange" Foreground="White"></Button>
-                </ComboBox>
+                    </ComboBox>
                 </Grid>
 
             </StackPanel>
@@ -115,15 +115,15 @@
                                                    TextAlignment="Left"
                                                    TextWrapping="WrapWithOverflow" MouseDown="TbDrink_MouseDown" ></TextBlock>
                                             <ComboBox x:Name="cbbSizeCoffees" FontWeight="Bold" SelectedIndex="0" DropDownClosed="CbbSize_DropDownClosed">
-                                            <ComboBoxItem>
-                                                S
-                                            </ComboBoxItem>
-                                            <ComboBoxItem>
-                                                M
-                                            </ComboBoxItem>
-                                            <ComboBoxItem>
-                                                L
-                                            </ComboBoxItem>
+                                                <ComboBoxItem>
+                                                    S
+                                                </ComboBoxItem>
+                                                <ComboBoxItem>
+                                                    M
+                                                </ComboBoxItem>
+                                                <ComboBoxItem>
+                                                    L
+                                                </ComboBoxItem>
                                             </ComboBox>
                                             <TextBlock Height="0" Width="0" Text="{Binding id}" ></TextBlock>
                                             <TextBlock Height="0" Width="0" Text="{Binding gia}" ></TextBlock>
@@ -377,16 +377,16 @@
                     <TextBlock x:Name="tbTime1" Text="9h-1h30'"  Foreground="Black"></TextBlock>
                 </Grid>
                 <Grid x:Name="gridCalendarRow2" Grid.Row="2">
-                        <ListView x:Name="lvcalendar1" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <UniformGrid Columns="7" Rows="1" HorizontalAlignment="Stretch" ></UniformGrid>
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ListView.ItemTemplate >
-                                <DataTemplate>
+                    <ListView x:Name="lvcalendar1" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="7" Rows="1" HorizontalAlignment="Stretch" ></UniformGrid>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ListView.ItemTemplate >
+                            <DataTemplate>
                                 <Grid Width="130" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                                        <TextBox
+                                    <TextBox
                                         materialDesign:HintAssist.Hint="Họ và tên"
                                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                         Text="{Binding name}" FontSize="20"
@@ -394,10 +394,10 @@
                                         TextAlignment="Left"
                                         Foreground="Black"
                                         ></TextBox>
-                                    </Grid>
+                                </Grid>
                             </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
+                        </ListView.ItemTemplate>
+                    </ListView>
                 </Grid>
                 <Grid x:Name="gridCalendarRow3" Grid.Row="3">
                     <TextBlock x:Name="tbTime2"  Text="1h30'-6h"  Foreground="Black"></TextBlock>
@@ -587,7 +587,7 @@
                 </StackPanel>
             </Grid>
         </WrapPanel>
-        <WrapPanel x:Name="wrpRegisterNewCustomer" Background="#d0beac" Visibility="Visible">
+        <WrapPanel x:Name="wrpRegisterNewCustomer" Background="#d0beac" Visibility="Hidden">
             <Button x:Name="btnbackRegisterNewCustomer" Background="#CD853F" Click="BtnBack_Click"  >
                 <materialDesign:PackIcon Kind="ArrowLeftBoldCircleOutline" />
             </Button>
@@ -701,7 +701,7 @@
                 <StackPanel x:Name="stpInforPersonalInfor" Orientation="Horizontal">
                     <StackPanel x:Name="stpInforPersonalInfor1">
                         <TextBlock x:Name="tbPersonalInforCode" Text="Mã nhân viên:" Foreground="Black"></TextBlock>
-                        <TextBox x:Name="tbxPersonalInforCode"></TextBox>
+                        <TextBox x:Name="tbxPersonalInforCode" ></TextBox>
                         <Grid x:Name="temp991"></Grid>
                         <TextBlock x:Name="tbPersonalInforName" Text="Họ tên nhân viên:" Foreground="Black"></TextBlock>
                         <TextBox x:Name="tbxPersonalInforName"></TextBox>
@@ -709,7 +709,7 @@
                         <TextBlock x:Name="tbMonthPersonalInfor" Text="Số tháng kinh nghiệm:" Foreground="Black"></TextBlock>
                         <TextBox x:Name="tbxMonthPersonalInfor" IsEnabled="False"></TextBox>
                         <Grid x:Name="temp993"></Grid>
-                        <Button x:Name="btnPersonalInforUpdate" HorizontalAlignment="Center" Content="Cập Nhật" Background="#800000" Foreground="White"></Button>
+                        <Button x:Name="btnPersonalInforUpdate" HorizontalAlignment="Center" Content="Cập Nhật" Background="#800000" Foreground="White" Click="btnPersonalInforUpdate_Click"></Button>
                     </StackPanel>
                     <StackPanel x:Name="stpInforPersonalInfor2">
                         <TextBlock x:Name="tbPhoneNumberPersonalInfor" Text="Số điện thoại:" Foreground="Black"></TextBlock>
@@ -721,10 +721,39 @@
                         <TextBlock x:Name="tbIDPersonalInfor" Text="CMND:" Foreground="Black"></TextBlock>
                         <TextBox x:Name="tbxIDPersonalInfor"></TextBox>
                         <Grid x:Name="temp996"></Grid>
-                        <Button x:Name="btnChangePassword" HorizontalAlignment="Center" Content="Đổi mật khẩu" Background="#800000" Foreground="White"></Button>
+                        <Button x:Name="btnChangePassword" HorizontalAlignment="Center" Content="Đổi mật khẩu" Background="#800000" Foreground="White" Click="btnChangePassword_Click"></Button>
+
                     </StackPanel>
                 </StackPanel>
             </Grid>
         </WrapPanel>
+        <Grid x:Name="GridChangePassScreen" Visibility="Visible">
+            <Grid x:Name="GridChangePass" Height="569" Width="792" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <materialDesign:Card x:Name="cardChangePass" Margin="230,70,230,0" 
+         Background="#FFF8DC" Height="429" Foreground="{x:Null}"/>
+                <materialDesign:PackIcon Height="100" Width="100" HorizontalAlignment="Center"  Kind="AccountCircle" Margin="346,10,346,0" Foreground="Orange" />
+                <Label Target="{Binding ElementName=tbxPersonalInforName}" Margin="326,110,320,414" HorizontalAlignment="Center" FontSize="30" Foreground="Black" Width="146"></Label>
+                <Label Target="{Binding ElementName=txtCurrentPass }" Margin="245,165,370,345" FontSize="21" Foreground="Orange">
+                    _Current Password:
+                </Label>
+                <PasswordBox x:Name="txtCurrentPass" 
+                 Margin="271,200,260,325" 
+                 FontSize="20"
+                 materialDesign:HintAssist.Hint="Current Password" PreviewKeyDown="txtCurrentPass_PreviewKeyDown">
+                </PasswordBox>
+                <Label Target="{Binding ElementName=txtNewPassword}" Margin="245,255,370,250" FontSize="21" Foreground="Orange">
+                    _New Password:
+                </Label>
+                <PasswordBox x:Name="txtNewPassword" 
+                 Margin="271,290,260,235" 
+                 FontSize="20"
+                materialDesign:HintAssist.Hint="New Password" PreviewKeyDown="txtNewPass_PreviewKeyDown">
+                </PasswordBox>
+                <TextBlock x:Name="tbMessageWarning"  FontSize="13" Margin="250,345,250,185" Foreground="Red"></TextBlock>
+                <Button x:Name="btnChange" Content="Change" FontSize="20" Margin="245,389,442,145" Height="Auto" Background="Orange" BorderBrush="White" Click="btnChange_Click"></Button>
+                <Button x:Name="btnCancel" Content="Cancel" FontSize="20" Margin="442,389,246,145" Height="Auto" Background="Orange" BorderBrush="White" Click="btnCancel_Click"></Button>
+            </Grid>
+        </Grid>
+
     </Grid>
 </Window>

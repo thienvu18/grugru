@@ -1391,7 +1391,7 @@ namespace GruGru
 
             }
 
-            string payload = $"{{\"maKH\": \"{tbAgentCode.Text}\",\"hoTen\": \"{tbAgentName.Text}\",\"kinhNghiem\": {tbMonth.Text},\"soDienThoai\": \"{ tbPhoneNumberAgent.Text}\",\"ngaySinh\": \"{tbBirthDayAgent.Text}\",\"cmnd\": \"{tbxIDAgent.Text}\"}}";
+            string payload = $"{{\"maNV\": \"{tbxAgentCode.Text}\",\"hoTen\": \"{tbxAgentName.Text}\",\"kinhNghiem\": {tbxMonth.Text},\"soDienThoai\": \"{ tbxPhoneNumberAgent.Text}\",\"ngaySinh\": \"{tbxBirthDayAgent.Text}\",\"cmnd\": \"{tbxIDAgent.Text}\"}}";
             dynamic resObject;
             try
             {
@@ -1425,7 +1425,7 @@ namespace GruGru
 
             }
 
-            //string customerName = tbxCustomerName.Text;
+            //string name = tbxAgentName.Text;
             string messageBoxText = "Bạn có chắc chắn muốn xoá nhân viên \"" + name + "\"?";
             MessageBoxButton button = MessageBoxButton.YesNo;
             MessageBoxImage icon = MessageBoxImage.Warning;
@@ -1620,5 +1620,134 @@ namespace GruGru
             }
 
         }
+
+        private void btnPersonalInforUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            string payload = $"{{\"maNV\": \"{tbxPersonalInforCode.Text}\",\"hoTen\": \"{tbxPersonalInforName.Text}\",\"kinhNghiem\": {tbxMonthPersonalInfor.Text},\"soDienThoai\": \"{ tbxPhoneNumberPersonalInfor.Text}\",\"ngaySinh\": \"{tbxBirthDayPersonalInfor.Text}\",\"cmnd\": \"{tbxIDPersonalInfor.Text}\"}}";
+            dynamic resObject;
+            try
+            {
+                string res = Post(SERVER + "updateEmployeeInfor", payload);
+                resObject = JsonConvert.DeserializeObject(res);
+            }
+            catch
+            {
+                MessageBox.Show("Không thể kết nối đến server");
+                return;
+            }
+
+            if (resObject.code == "0")
+            {
+                MessageBox.Show("Cập nhật thông tin nhân viên thành công");
+            }
+            else
+            {
+                MessageBox.Show("Đã xảy ra lỗi, vui lòng thử lại");
+            }
+        }
+
+        public string DoChangePass()
+        {
+            string type = "";
+            if ((txtCurrentPass.Password == "") && (txtNewPassword.Password == ""))
+            {
+                tbMessageWarning.Text = "invalid password!!!";
+            }
+            else if (txtCurrentPass.Password == "")
+            {
+                tbMessageWarning.Text = "invalid current password!!!\nPress cancel to return !!!";
+            }
+            else if (txtNewPassword.Password == "")
+            {
+                tbMessageWarning.Text = "invalid new password.\nPress cancel to return !!!";
+            }
+            else
+            {
+                string result = changePassRequest();
+                dynamic stuff = JsonConvert.DeserializeObject(result);
+
+                string msg = stuff.msg;
+                string code = stuff.code;
+                if (code == "0")
+                {
+
+                    string payload = $"{{\"maNV\": \"{tbxPersonalInforCode.Text}\",\"matKhauMoi\": \"{txtNewPassword.Password}\"}}";
+                    dynamic resObject;
+                    try
+                    {
+                        string res = Post(SERVER + "updateEmployeePassword", payload);
+                        resObject = JsonConvert.DeserializeObject(res);
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Không thể kết nối đến server");
+                        return type;
+                    }
+
+                    if (resObject.code == "0")
+                    {
+                        MessageBox.Show("Cập nhật mật khẩu nhân viên thành công");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Đã xảy ra lỗi, vui lòng thử lại");
+                    }
+                    wrpPersonalInfor.Visibility = Visibility.Visible;
+                }
+                else
+                {
+
+                    tbMessageWarning.Text = "current password is wrong!!!";
+                }
+            }
+            return type;
+
+        }
+
+        private void btnChangePassword_Click(object sender, RoutedEventArgs e)
+        {
+            wrpPersonalInfor.Visibility = Visibility.Hidden;
+            GridChangePassScreen.Visibility = Visibility.Visible;
+        }
+
+        private void txtCurrentPass_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+            {
+                DoChangePass();
+            }
+
+        }
+
+        private void txtNewPass_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+            {
+                DoChangePass();
+            }
+
+        }
+
+        private string changePassRequest()
+        {
+            string currentPass = txtCurrentPass.Password;//"V0a10"
+            string userCode = tbxPersonalInforCode.Text;// "3012"
+            string json = "{\"username\": \"" + userCode + "\", \"password\": \"" + currentPass + "\"}";
+            string url = SERVER + "checkPass";
+
+            return Post(url, json);
+        }
+
+        private void btnChange_Click(object sender, RoutedEventArgs e)
+        {
+            DoChangePass();
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            GridChangePassScreen.Visibility = Visibility.Hidden;
+            wrpPersonalInfor.Visibility = Visibility.Visible;
+        }
+
     }
 }
