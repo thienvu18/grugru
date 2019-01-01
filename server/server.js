@@ -66,7 +66,7 @@ app.post("/api/login", function(req, res) {
         });
       } else {
         const user = result[0];
-        if (user.matKhau == password) {
+        if (user.matKhau.toUpperCase() == password.toUpperCase()) {
           res.json({
             code: 0,
             msg: "Dang nhap thanh cong",
@@ -198,9 +198,7 @@ app.post("/api/putOrder", function(req, res) {
     .toString(36)
     .replace(/[^a-z]+/g, "")
     .substr(0, 9); //Random
-  const thoiGianLap = moment(req.body.ngaySinh, "DD-MM-YYYY").format(
-    "YYYY-MM-DD"
-  );
+  const thoiGianLap = moment(req.body.ngaySinh, "DD-MM-YYYY");
   const gia = req.body.gia;
   const idKhachHangMua = req.body.idKhachHangMua;
   const idNhanVienLap = req.body.idNhanVienLap;
@@ -292,7 +290,7 @@ app.post("/api/putOrder", function(req, res) {
 
 app.post("/api/addCustomer", function(req, res) {
   const hoTen = req.body.hoTen;
-  const ngaySinh = moment(req.body.ngaySinh, "DD-MM-YYYY").format("YYYY-MM-DD");
+  const ngaySinh = moment(req.body.ngaySinh, "DD-MM-YYYY");
   const soDienThoai = req.body.soDienThoai;
   const cmnd = req.body.cmnd;
   const diemTichLuy = 0;
@@ -364,7 +362,7 @@ app.post("/api/updateCustomer", function(req, res) {
   const id = req.body.id;
   const maKH = req.body.maKH;
   const hoTen = req.body.hoTen;
-  const ngaySinh = moment(req.body.ngaySinh, "DD/MM/YYYY").format("YYYY-MM-DD");
+  const ngaySinh = moment(req.body.ngaySinh, "DD/MM/YYYY");
   const soDienThoai = req.body.soDienThoai;
   const diemTichLuy = req.body.diemTichLuy;
   const cmnd = req.body.cmnd;
@@ -619,10 +617,9 @@ app.post("/api/updateEmployee", function(req, res) {
 });
 
 app.post("/api/changePassword", function(req, res) {
-  console.log(req.body);
   const id = req.body.id;
-  const oldPass = req.body.oldPass;
-  const newPass = req.body.newPass;
+  const oldPass = req.body.oldPass.toUpperCase();
+  const newPass = req.body.newPass.toUpperCase();
 
   const findOldPass = "SELECT matKhau FROM NhanVien WHERE id = " + id;
   const updatePass =
@@ -644,7 +641,7 @@ app.post("/api/changePassword", function(req, res) {
           msg: "Nhân viên không tồn tại"
         });
       } else {
-        if (result[0].matKhau != oldPass) {
+        if (result[0].matKhau.toUpperCase() != oldPass) {
           res.json({
             code: -5,
             msg: "Mật khẩu cũ không chính xác"
