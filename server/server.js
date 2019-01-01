@@ -48,9 +48,7 @@ app.post("/api/login", function(req, res) {
   const username = req.body.username;
   const password = req.body.password;
   const query =
-    "SELECT NhanVien.* FROM NhanVien WHERE NhanVien.maNV = '" +
-    username +
-    "'";
+    "SELECT NhanVien.* FROM NhanVien WHERE NhanVien.maNV = '" + username + "'";
 
   let request = new sql.Request();
 
@@ -74,7 +72,7 @@ app.post("/api/login", function(req, res) {
             msg: "Dang nhap thanh cong",
             loaiNV: user.idLoaiNV,
             hoTen: user.hoTen,
-            id: user.id,
+            id: user.id
           });
         } else {
           res.json({
@@ -159,6 +157,37 @@ app.post("/api/updateDrink", function(req, res) {
       res.json({
         code: 0,
         msg: "Cap nhat thong tin mon an thanh cong"
+      });
+    }
+  });
+});
+
+app.get("/api/deleteDrink/:id", function(req, res) {
+  const deleteDependencies =
+    "DELETE FROM ChiTietHoaDon WHERE idSanPham = " + req.params.id;
+  const deleteQuery = "DELETE FROM SanPham WHERE id = " + req.params.id;
+
+  let request = new sql.Request();
+
+  request.query(deleteDependencies, function(err, result) {
+    if (err) {
+      res.json({
+        code: -3,
+        msg: "Co loi trong truy van CSDL"
+      });
+    } else {
+      request.query(deleteQuery, function(err, result) {
+        if (err) {
+          res.json({
+            code: -3,
+            msg: "Co loi trong truy van CSDL"
+          });
+        } else {
+          res.json({
+            code: 0,
+            msg: "Xoa khach hang thanh cong"
+          });
+        }
       });
     }
   });
@@ -355,7 +384,7 @@ app.post("/api/updateCustomer", function(req, res) {
     cmnd +
     "' WHERE id = " +
     id;
-console.log(query);
+  console.log(query);
   let request = new sql.Request();
 
   request.query(query, function(err, result) {
@@ -522,8 +551,8 @@ app.get("/api/getEmployeeByName/:name", function(req, res) {
 
 app.get("/api/getEmployeeById/:id", function(req, res) {
   const query =
-    "SELECT TOP (1) * FROM NhanVien WHERE id = " +  req.params.id + ";";
-console.log(query);
+    "SELECT TOP (1) * FROM NhanVien WHERE id = " + req.params.id + ";";
+  console.log(query);
   let request = new sql.Request();
 
   request.query(query, function(err, result) {
@@ -571,7 +600,7 @@ app.post("/api/updateEmployee", function(req, res) {
     cmnd +
     "' WHERE id = " +
     id;
-console.log(query);
+  console.log(query);
   let request = new sql.Request();
 
   request.query(query, function(err, result) {

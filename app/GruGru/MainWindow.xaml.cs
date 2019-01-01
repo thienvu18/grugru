@@ -1597,15 +1597,14 @@ namespace GruGru
         //thêm
         private void BtnDeleteDrink_Click(object sender, RoutedEventArgs e)
         {
-            string NameDrink = tbxNameDrink.Text;//"namedrink"
-            string json = "{\"username\": \"" + NameDrink + "\"}";
-            string url = SERVER + "deleteDrink";
+            string id = tbIdDrink.Text;
+            string url = SERVER + "deleteDrink/" + id;
 
-            string result = Post(url, json);
+            string result = Get(url);
             dynamic stuff = JsonConvert.DeserializeObject(result);
 
             string code = stuff.code;
-            if(code=="1")
+            if(code=="0")
             {
                 MessageBox.Show("xóa món thành công");
                 LoadMenu();
