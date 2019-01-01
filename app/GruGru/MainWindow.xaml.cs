@@ -1791,7 +1791,6 @@ namespace GruGru
 
         private void btnChangePassword_Click(object sender, RoutedEventArgs e)
         {
-            wrpPersonalInfor.Visibility = Visibility.Hidden;
             GridChangePassScreen.Visibility = Visibility.Visible;
         }
 
