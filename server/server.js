@@ -137,7 +137,7 @@ app.post("/api/updateDrink", function(req, res) {
   const query =
     "UPDATE SanPham SET tenSanPham = N'" +
     tenSanPham +
-    "', thongTin='" +
+    "', thongTin= N'" +
     thongTin +
     "', gia=" +
     gia +
