@@ -55,6 +55,8 @@ namespace GruGru
         string userLocal;
         string passLocal;
 
+        int loggedInUserId = -1;
+
         static string GetMd5Hash(MD5 md5Hash, string input)
         {
 
@@ -839,7 +841,10 @@ namespace GruGru
                     GridLoginScreen.Visibility = System.Windows.Visibility.Hidden;
                     stpMainScreen.Visibility = System.Windows.Visibility.Visible;
                     type = stuff.loaiNV;
+
                     string name = stuff.hoTen;
+                    loggedInUserId = stuff.id;
+
                     cbbEmployee.Visibility = System.Windows.Visibility.Visible;
                     cbbManage.Visibility = System.Windows.Visibility.Visible;
                     if (type == "1")//nhân viên

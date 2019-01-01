@@ -73,7 +73,8 @@ app.post("/api/login", function(req, res) {
             code: 0,
             msg: "Dang nhap thanh cong",
             loaiNV: user.idLoaiNV,
-            hoTen: user.hoTen
+            hoTen: user.hoTen,
+            id: user.id,
           });
         } else {
           res.json({
