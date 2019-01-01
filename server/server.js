@@ -476,7 +476,7 @@ app.get("/api/getCustomerInfo/:id", function(req, res) {
             id: customer.id,
             maKH: customer.maKH,
             hoTen: customer.hoTen,
-            ngaySinh: customer.ngaySinh,
+            ngaySinh: moment.unix(customer.ngaySinh).format('DD/MM/YYYY'),
             soDienThoai: customer.soDienThoai
           }
         });
@@ -506,10 +506,16 @@ app.get("/api/getCustomerByPhone/:phoneNumber", function(req, res) {
           msg: "Khong tim thay khach hang"
         });
       } else {
+        var customers= [];
+        result.forEach(customer => {
+          const dob = moment.unix(customer.ngaySinh).format('DD/MM/YYYY');
+          var newCustomer = {...customer, ngaySinh: dob};
+          customers.push(newCustomer);
+        });
         res.json({
           code: 0,
           msg: "Thong tin khach hang da chon",
-          payload: result
+          payload: customers
         });
       }
     }
@@ -537,10 +543,17 @@ app.get("/api/getEmployeeByName/:name", function(req, res) {
           msg: "Khong tim thay nhân viên"
         });
       } else {
+        var employees = [];
+        result.forEach(employee => {
+          const dob = moment.unix(employee.ngaySinh).format('DD/MM/YYYY');
+          var newEmployee = {...employee, ngaySinh: dob};
+          employees.push(newEmployee);
+        });
+        console.log(employees);
         res.json({
           code: 0,
           msg: "Thong tin nhân viên da chon",
-          payload: result
+          payload: employees
         });
       }
     }
@@ -566,10 +579,17 @@ app.get("/api/getEmployeeById/:id", function(req, res) {
           msg: "Khong tim thay nhân viên"
         });
       } else {
+        var employees = [];
+        result.forEach(employee => {
+          const dob = moment.unix(employee.ngaySinh).format('DD/MM/YYYY');
+          var newEmployee = {...employee, ngaySinh: dob};
+          employees.push(newEmployee);
+        });
+        console.log(employees);
         res.json({
           code: 0,
           msg: "Thong tin nhân viên da chon",
-          payload: result
+          payload: employees
         });
       }
     }
