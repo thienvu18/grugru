@@ -579,7 +579,6 @@ app.get("/api/getEmployeeById/:id", function(req, res) {
 });
 
 app.post("/api/updateEmployee", function(req, res) {
-  console.log(req.body);
   const id = req.body.id;
   const maNV = req.body.maNV;
   const hoTen = req.body.hoTen;
@@ -615,6 +614,58 @@ app.post("/api/updateEmployee", function(req, res) {
         code: 0,
         msg: "Cap nhat thong tin khach hang thanh cong"
       });
+    }
+  });
+});
+
+app.post("/api/changePassword", function(req, res) {
+  console.log(req.body);
+  const id = req.body.id;
+  const oldPass = req.body.oldPass;
+  const newPass = req.body.newPass;
+
+  const findOldPass = "SELECT matKhau FROM NhanVien WHERE id = " + id;
+  const updatePass =
+    "UPDATE NhanVien SET matKhau = '" + newPass + "' WHERE id = " + id;
+
+  let request = new sql.Request();
+
+  request.query(findOldPass, function(err, result) {
+    if (err) {
+      console.log(err);
+      res.json({
+        code: -3,
+        msg: "Co loi trong truy van CSDL"
+      });
+    } else {
+      if (result.length == 0) {
+        res.json({
+          code: -4,
+          msg: "Nhân viên không tồn tại"
+        });
+      } else {
+        if (result[0].matKhau != oldPass) {
+          res.json({
+            code: -5,
+            msg: "Mật khẩu cũ không chính xác"
+          });
+        } else {
+          request.query(updatePass, function(err, result) {
+            if (err) {
+              console.log(err);
+              res.json({
+                code: -3,
+                msg: "Co loi trong truy van CSDL"
+              });
+            } else {
+              res.json({
+                code: 0,
+                msg: "Đổi mật khẩu thành công"
+              });
+            }
+          });
+        }
+      }
     }
   });
 });
