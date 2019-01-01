@@ -1237,14 +1237,12 @@ namespace GruGru
 
             if (resObject.code == "0")
             {
-                string dob = resObject.payload[0].ngaySinh;
-
                 tbxCustomerId.Text = resObject.payload[0].id;
                 tbxCustomerCode.Text = resObject.payload[0].maKH;
                 tbxCustomerName.Text = resObject.payload[0].hoTen;
                 tbxScore.Text = resObject.payload[0].diemTichLuy;
                 tbxPhoneNumber.Text = resObject.payload[0].soDienThoai;
-                tbxBirthDay.Text = DateTime.Parse(dob).ToString("dd/MM/yyyy");
+                tbxBirthDay.Text = resObject.payload[0].ngaySinh;
                 tbxID.Text = resObject.payload[0].cmnd;
             }
             else if (resObject.code == "-4")
@@ -1449,13 +1447,11 @@ namespace GruGru
 
             if (resObject.code == "0")
             {
-                string dob = resObject.payload[0].ngaySinh;
-
                 tbxAgentCode.Text = resObject.payload[0].maNV;
                 tbAgentName.Text = resObject.payload[0].hoTen;
                 tbxMonth.Text = resObject.payload[0].kinhNghiem;
                 tbxPhoneNumberAgent.Text = resObject.payload[0].soDienThoai;
-                tbBirthDayAgent.Text = DateTime.Parse(dob).ToString("dd/MM/yyyy");
+                tbBirthDayAgent.Text = resObject.payload[0].ngaySinh;
                 tbxIDAgent.Text = resObject.payload[0].cmnd;
             }
             else if (resObject.code == "-4")
@@ -1847,13 +1843,11 @@ namespace GruGru
                     resObject = JsonConvert.DeserializeObject(res);
                     if (resObject.code == "0")
                     {
-                        string dob = resObject.payload[0].ngaySinh;
-
                         tbxPersonalInforCode.Text = resObject.payload[0].maNV;
                         tbxPersonalInforName.Text = resObject.payload[0].hoTen;
                         tbxMonthPersonalInfor.Text = resObject.payload[0].soThangKinhNghiem;
                         tbxPhoneNumberPersonalInfor.Text = resObject.payload[0].soDienThoai;
-                        tbxBirthDayPersonalInfor.Text = DateTime.Parse(dob).ToString("dd/MM/yyyy");
+                        tbxBirthDayPersonalInfor.Text = resObject.payload[0].ngaySinh;
                         tbxIDPersonalInfor.Text = resObject.payload[0].cmnd;
                     }
                     else if (resObject.code == "-4")

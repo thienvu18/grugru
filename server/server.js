@@ -198,7 +198,7 @@ app.post("/api/putOrder", function(req, res) {
     .toString(36)
     .replace(/[^a-z]+/g, "")
     .substr(0, 9); //Random
-  const thoiGianLap = moment(req.body.ngaySinh, "DD-MM-YYYY");
+  const thoiGianLap = moment(req.body.ngaySinh, "DD-MM-YYYY") / 1000;
   const gia = req.body.gia;
   const idKhachHangMua = req.body.idKhachHangMua;
   const idNhanVienLap = req.body.idNhanVienLap;
@@ -290,7 +290,7 @@ app.post("/api/putOrder", function(req, res) {
 
 app.post("/api/addCustomer", function(req, res) {
   const hoTen = req.body.hoTen;
-  const ngaySinh = moment(req.body.ngaySinh, "DD-MM-YYYY");
+  const ngaySinh = moment(req.body.ngaySinh, "DD-MM-YYYY") / 1000;
   const soDienThoai = req.body.soDienThoai;
   const cmnd = req.body.cmnd;
   const diemTichLuy = 0;
@@ -362,7 +362,7 @@ app.post("/api/updateCustomer", function(req, res) {
   const id = req.body.id;
   const maKH = req.body.maKH;
   const hoTen = req.body.hoTen;
-  const ngaySinh = moment(req.body.ngaySinh, "DD/MM/YYYY");
+  const ngaySinh = moment(req.body.ngaySinh, "DD/MM/YYYY") / 1000;
   const soDienThoai = req.body.soDienThoai;
   const diemTichLuy = req.body.diemTichLuy;
   const cmnd = req.body.cmnd;
@@ -382,7 +382,7 @@ app.post("/api/updateCustomer", function(req, res) {
     cmnd +
     "' WHERE id = " +
     id;
-  console.log(query);
+  
   let request = new sql.Request();
 
   request.query(query, function(err, result) {
@@ -549,7 +549,7 @@ app.get("/api/getEmployeeByName/:name", function(req, res) {
           var newEmployee = {...employee, ngaySinh: dob};
           employees.push(newEmployee);
         });
-        console.log(employees);
+        
         res.json({
           code: 0,
           msg: "Thong tin nhân viên da chon",
@@ -563,7 +563,7 @@ app.get("/api/getEmployeeByName/:name", function(req, res) {
 app.get("/api/getEmployeeById/:id", function(req, res) {
   const query =
     "SELECT TOP (1) * FROM NhanVien WHERE id = " + req.params.id + ";";
-  console.log(query);
+  
   let request = new sql.Request();
 
   request.query(query, function(err, result) {
@@ -585,7 +585,7 @@ app.get("/api/getEmployeeById/:id", function(req, res) {
           var newEmployee = {...employee, ngaySinh: dob};
           employees.push(newEmployee);
         });
-        console.log(employees);
+        
         res.json({
           code: 0,
           msg: "Thong tin nhân viên da chon",
@@ -600,7 +600,7 @@ app.post("/api/updateEmployee", function(req, res) {
   const id = req.body.id;
   const maNV = req.body.maNV;
   const hoTen = req.body.hoTen;
-  const ngaySinh = moment(req.body.ngaySinh, "DD/MM/YYYY").format("YYYY-MM-DD");
+  const ngaySinh = moment(req.body.ngaySinh, "DD/MM/YYYY") / 1000;
 
   const query =
     "UPDATE KhachHang SET maKH = '" +
@@ -617,7 +617,7 @@ app.post("/api/updateEmployee", function(req, res) {
     cmnd +
     "' WHERE id = " +
     id;
-  console.log(query);
+  
   let request = new sql.Request();
 
   request.query(query, function(err, result) {
