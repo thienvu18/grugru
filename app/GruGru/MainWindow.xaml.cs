@@ -1594,7 +1594,6 @@ namespace GruGru
             stpMainScreen.Opacity = 1;
         }
 
-        //thêm
         private void BtnDeleteDrink_Click(object sender, RoutedEventArgs e)
         {
             string id = tbIdDrink.Text;
@@ -1608,6 +1607,8 @@ namespace GruGru
             {
                 MessageBox.Show("xóa món thành công");
                 LoadMenu();
+                griInforDrinks.Visibility = Visibility.Hidden;
+                stpMainScreen.Opacity = 1;
             }
             else
             {
@@ -1615,7 +1616,6 @@ namespace GruGru
             }
         }
 
-        //thêm
         private void BtnUpdateInforDrink_Click(object sender, RoutedEventArgs e)
         {
             string id = tbIdDrink.Text;
@@ -1633,6 +1633,9 @@ namespace GruGru
             {
                 MessageBox.Show("Cập nhật món thành công");
                 LoadMenu();
+                griInforDrinks.Visibility = Visibility.Hidden;
+                stpMainScreen.Opacity = 1;
+
             }
             else
             {
