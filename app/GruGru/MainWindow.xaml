@@ -621,6 +621,9 @@
         </WrapPanel>
         <Grid x:Name="griInforDrinks" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#efeabf" Visibility="Hidden">
             <StackPanel x:Name="stpInforDrinksMini" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <!--Trick-->
+                <TextBlock x:Name="tbIdDrink" Visibility="Hidden"></TextBlock>
+                <!--Trick-->
                 <TextBlock x:Name="tbNameDrink" Text="Tên thức uống:" Foreground="Black"></TextBlock>
                 <TextBox x:Name="tbxNameDrink" HorizontalAlignment="Center"
                      Text="" Foreground="Black"></TextBox>

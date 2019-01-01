@@ -56,6 +56,7 @@ namespace GruGru
         string passLocal;
 
         int loggedInUserId = -1;
+        string loggedInUserType = "1";
 
         static string GetMd5Hash(MD5 md5Hash, string input)
         {
@@ -840,7 +841,7 @@ namespace GruGru
 
                     GridLoginScreen.Visibility = System.Windows.Visibility.Hidden;
                     stpMainScreen.Visibility = System.Windows.Visibility.Visible;
-                    type = stuff.loaiNV;
+                    loggedInUserType = type = stuff.loaiNV;
 
                     string name = stuff.hoTen;
                     loggedInUserId = stuff.id;
@@ -853,7 +854,7 @@ namespace GruGru
                     }
                     if (type == "2")
                     {
-                        cbbEmployee.Visibility = System.Windows.Visibility.Hidden;
+                        cbbEmployee.Visibility = System.Windows.Visibility.Visible;
                     }
                     tbEmployee.Text = "Phục vụ: " + name;
 
@@ -1561,9 +1562,8 @@ namespace GruGru
         private void BtnCalendarMode_Click(object sender, RoutedEventArgs e)
         {
             wrpJobCalendar.Visibility = Visibility.Visible;
-            string type = DoLogin();
             btnUpdateCalendar.Visibility = Visibility.Visible;
-            if (type=="1")
+            if (loggedInUserType == "1")
             {
                 btnUpdateCalendar.Visibility = Visibility.Hidden;
             }
@@ -1573,15 +1573,18 @@ namespace GruGru
         {
             griInforDrinks.Visibility = Visibility.Visible;
             stpMainScreen.Opacity = 0.1;
+            tbIdDrink.Text = ((SanPham)((TextBlock)sender).DataContext).id.ToString();
             tbxNameDrink.Text = ((TextBlock)sender).Text;
             tbxCostDrink.Text = ((TextBlock)((StackPanel)((TextBlock)sender).Parent).Children[3]).Text;
             tbxIngredients.Text = ((TextBlock)((StackPanel)((TextBlock)sender).Parent).Children[4]).Text;
-            btnDeleteDrink.Visibility = Visibility.Visible;
-            btnUpdateInforDrink.Visibility = Visibility.Visible;
-            if (DoLogin()=="1")
+            if (loggedInUserType == "1")
             {
                 btnDeleteDrink.Visibility = Visibility.Collapsed;
                 btnUpdateInforDrink.Visibility = Visibility.Collapsed;
+            } else
+            {
+                btnDeleteDrink.Visibility = Visibility.Visible;
+                btnUpdateInforDrink.Visibility = Visibility.Visible;
             }
         }
 
@@ -1616,24 +1619,25 @@ namespace GruGru
         //thêm
         private void BtnUpdateInforDrink_Click(object sender, RoutedEventArgs e)
         {
+            string id = tbIdDrink.Text;
             string NameDrink = tbxNameDrink.Text;//"namedrink"
             string Cost = tbxCostDrink.Text;//"giá"
             string Ingredients = tbxIngredients.Text;//mô tả
-            string json = "{\"username\": \"" + NameDrink + "\",\"cost\": \"" + Cost + "\",\"Ingredients\": \"" + Ingredients + "\"}";
-            string url = SERVER + "UpdateDrink";
+            string json = "{\"id\": \"" + id + "\",\"tenSanPham\": \"" + NameDrink + "\",\"thongTin\": \"" + Ingredients + "\", \"gia\": "+Cost+"}";
+            string url = SERVER + "updateDrink";
 
             string result = Post(url, json);
             dynamic stuff = JsonConvert.DeserializeObject(result);
 
             string code = stuff.code;
-            if (code == "1")
+            if (code == "0")
             {
                 MessageBox.Show("Cập nhật món thành công");
                 LoadMenu();
             }
             else
             {
-                MessageBox.Show("Có lỗi sảy ra, vui lòng thử lại");
+                MessageBox.Show("Có lỗi xảy ra, vui lòng thử lại");
             }
         }
 

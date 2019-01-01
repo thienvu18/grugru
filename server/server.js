@@ -130,6 +130,40 @@ app.get("/api/getFoodList", function(req, res) {
   });
 });
 
+app.post("/api/updateDrink", function(req, res) {
+  const id = req.body.id;
+  const tenSanPham = req.body.tenSanPham;
+  const gia = req.body.gia;
+  const thongTin = req.body.thongTin;
+
+  const query =
+    "UPDATE SanPham SET tenSanPham = N'" +
+    tenSanPham +
+    "', thongTin='" +
+    thongTin +
+    "', gia=" +
+    gia +
+    " WHERE id = " +
+    id;
+
+  let request = new sql.Request();
+
+  request.query(query, function(err, result) {
+    if (err) {
+      console.log(err);
+      res.json({
+        code: -3,
+        msg: "Co loi trong truy van CSDL"
+      });
+    } else {
+      res.json({
+        code: 0,
+        msg: "Cap nhat thong tin mon an thanh cong"
+      });
+    }
+  });
+});
+
 app.post("/api/putOrder", function(req, res) {
   const maHoaDon = Math.random()
     .toString(36)
@@ -298,7 +332,6 @@ app.post("/api/addCustomer", function(req, res) {
 });
 
 app.post("/api/updateCustomer", function(req, res) {
-  console.log(req.body);
   const id = req.body.id;
   const maKH = req.body.maKH;
   const hoTen = req.body.hoTen;
