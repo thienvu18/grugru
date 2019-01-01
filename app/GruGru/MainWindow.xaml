@@ -38,7 +38,7 @@
                 <TextBox x:Name="txtUsername" Width="250" 
                  Margin="310,200,255,325" 
                  FontSize="20"
-                 materialDesign:HintAssist.Hint="UserName" PreviewKeyDown="txtUsername_PreviewKeyDown">
+                 materialDesign:HintAssist.Hint="UserName">
                 </TextBox>
                 <Label Target="{Binding ElementName=txtPassword}" Margin="245,255,400,250" FontSize="21">
                     _Password:
@@ -47,10 +47,10 @@
                 <PasswordBox x:Name="txtPassword" Width="250" 
                  Margin="310,290,255,235" 
                  FontSize="20"
-                 materialDesign:HintAssist.Hint="Password" PreviewKeyDown="txtPassword_PreviewKeyDown">
+                 materialDesign:HintAssist.Hint="Password">
                 </PasswordBox>
                 <TextBlock x:Name="tbMessageBox" FontSize="13" Margin="250,345,250,200" Foreground="Red"></TextBlock>
-                <Button x:Name="btnLogin" FontSize="30" Margin="300,378,300,145" Height="Auto" Background="Orange" BorderBrush="#FF11C8DA" Click="btnLogin_Click">Login</Button>
+                <Button x:Name="btnLogin" FontSize="30" Margin="300,378,300,145" Height="Auto" Background="Orange" BorderBrush="#FF11C8DA" Click="btnLogin_Click" IsDefault="True">Login</Button>
                 <CheckBox Margin="240,435,400,110"
                       FontSize="15"
                 x:Name="RememberMe"
@@ -552,7 +552,7 @@
                 </Border>
             </StackPanel>
             <Grid x:Name="temp57"></Grid>
-            <Button x:Name="btnCustomer" Content="Tìm kiếm" BorderBrush="#ffffff" Background="#e87f5c" Click="BtnCustomer_Click"></Button>
+            <Button x:Name="btnCustomer" Content="Tìm kiếm" BorderBrush="#ffffff" Background="#e87f5c" Click="BtnCustomer_Click" IsDefault="True"></Button>
             <Grid x:Name="temp59"></Grid>
             <Grid x:Name="temp58"></Grid>
             <Grid x:Name="gridCustomer">
@@ -742,7 +742,7 @@
                 <PasswordBox x:Name="txtCurrentPass" 
                  Margin="271,200,260,325" 
                  FontSize="20"
-                 materialDesign:HintAssist.Hint="Current Password" PreviewKeyDown="txtCurrentPass_PreviewKeyDown">
+                 materialDesign:HintAssist.Hint="Current Password">
                 </PasswordBox>
                 <Label Target="{Binding ElementName=txtNewPassword}" Margin="245,255,370,250" FontSize="21" Foreground="Orange">
                     _New Password:
@@ -750,10 +750,10 @@
                 <PasswordBox x:Name="txtNewPassword" 
                  Margin="271,290,260,235" 
                  FontSize="20"
-                materialDesign:HintAssist.Hint="New Password" PreviewKeyDown="txtNewPass_PreviewKeyDown">
+                materialDesign:HintAssist.Hint="New Password">
                 </PasswordBox>
                 <TextBlock x:Name="tbMessageWarning"  FontSize="13" Margin="250,345,250,185" Foreground="Red"></TextBlock>
-                <Button x:Name="btnChange" Content="Change" FontSize="20" Margin="245,389,442,145" Height="Auto" Background="Orange" BorderBrush="White" Click="btnChange_Click"></Button>
+                <Button x:Name="btnChange" Content="Change" FontSize="20" Margin="245,389,442,145" Height="Auto" Background="Orange" BorderBrush="White" Click="btnChange_Click" IsDefault="True"></Button>
                 <Button x:Name="btnCancel" Content="Cancel" FontSize="20" Margin="442,389,246,145" Height="Auto" Background="Orange" BorderBrush="White" Click="btnCancel_Click"></Button>
             </Grid>
         </Grid>

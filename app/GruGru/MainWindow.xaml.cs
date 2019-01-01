@@ -889,22 +889,6 @@ namespace GruGru
             DoLogin();
         }
 
-        private void txtUsername_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Return)
-            {
-                DoLogin();
-            }
-        }
-
-        private void txtPassword_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Return)
-            {
-                DoLogin();
-            }
-        }
-
         private string loginRequest(string username, string password)
         {
 
@@ -1801,24 +1785,6 @@ namespace GruGru
         private void btnChangePassword_Click(object sender, RoutedEventArgs e)
         {
             GridChangePassScreen.Visibility = Visibility.Visible;
-        }
-
-        private void txtCurrentPass_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Return)
-            {
-                DoChangePass();
-            }
-
-        }
-
-        private void txtNewPass_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Return)
-            {
-                DoChangePass();
-            }
-
         }
 
         private void btnChange_Click(object sender, RoutedEventArgs e)
