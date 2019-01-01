@@ -1611,7 +1611,7 @@ namespace GruGru
             }
             else
             {
-                MessageBox.Show("Có lỗi sảy ra, vui lòng thử lại");
+                MessageBox.Show("Có lỗi xảy ra, vui lòng thử lại");
             }
         }
 
