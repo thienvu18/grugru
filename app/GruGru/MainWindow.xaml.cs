@@ -125,6 +125,7 @@ namespace GruGru
             string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
             XDocument objDoc = XDocument.Load(path + "/Rememberme.xml");
 
+            LoadMenu();
 
             if (objDoc.Root.Elements().ElementAt(0).Value == "True")
             {
@@ -143,7 +144,6 @@ namespace GruGru
             SignUp();
             PersonalInforScreen();
             InforScreen();
-            LoadMenu();
             LoadCalendar();
             
         }
@@ -801,7 +801,7 @@ namespace GruGru
                 if ((txtUsername.Text == "") && (txtPassword.Password == ""))
                 {
                     error = true;
-                    tbMessageBox.Text = "invalid username and password!!!";
+                    tbMessageBox.Text = "Invalid username and password!!!";
                 }
                 else if (txtUsername.Text == "")
                 {
@@ -811,7 +811,7 @@ namespace GruGru
                 else if (txtPassword.Password == "")
                 {
                     error = true;
-                    tbMessageBox.Text = "invalid password!!!";
+                    tbMessageBox.Text = "Invalid password!!!";
                 }
             }
 
@@ -1606,8 +1606,8 @@ namespace GruGru
             if(code=="0")
             {
                 MessageBox.Show("xóa món thành công");
-                LoadMenu();
                 griInforDrinks.Visibility = Visibility.Hidden;
+                LoadMenu();
                 stpMainScreen.Opacity = 1;
             }
             else
@@ -1632,8 +1632,8 @@ namespace GruGru
             if (code == "0")
             {
                 MessageBox.Show("Cập nhật món thành công");
-                LoadMenu();
                 griInforDrinks.Visibility = Visibility.Hidden;
+                LoadMenu();
                 stpMainScreen.Opacity = 1;
 
             }
