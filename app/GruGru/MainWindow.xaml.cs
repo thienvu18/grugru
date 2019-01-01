@@ -1185,6 +1185,7 @@ namespace GruGru
                         {
                             tbxSearchCustomer.Text = (s as TextBlock).Name.Remove(0, 1);
                             border.Visibility = Visibility.Hidden;
+                            BtnCustomer_Click(null, null);
                         };
 
                         block.MouseEnter += (s, notCare) =>
