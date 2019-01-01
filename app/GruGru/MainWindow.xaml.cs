@@ -118,6 +118,7 @@ namespace GruGru
         public MainWindow()
         {
             InitializeComponent();
+            this.WindowState = WindowState.Maximized;
             this.Left = 0;
             this.Top = 0;
             this.Height = height + 30;
