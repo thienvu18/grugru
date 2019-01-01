@@ -690,7 +690,7 @@
                 </StackPanel>
             </Grid>
         </WrapPanel>
-        <WrapPanel x:Name="wrpPersonalInfor" Background="#FFF8DC" Visibility="Hidden" >
+        <WrapPanel x:Name="wrpPersonalInfor" Background="#FFF8DC" Visibility="Hidden" IsVisibleChanged="WrpPersonalInfor_IsVisibleChanged">
             <Button x:Name="btnBackPersonalInfor" Background="#A52A2A" Click="BtnBack_Click">
                 <materialDesign:PackIcon Kind="ArrowLeftBoldOutline" />
             </Button>

@@ -487,6 +487,35 @@ app.get("/api/getEmployeeByName/:name", function(req, res) {
   });
 });
 
+app.get("/api/getEmployeeById/:id", function(req, res) {
+  const query =
+    "SELECT TOP (1) * FROM NhanVien WHERE id = " +  req.params.id + ";";
+console.log(query);
+  let request = new sql.Request();
+
+  request.query(query, function(err, result) {
+    if (err) {
+      res.json({
+        code: -3,
+        msg: "Co loi trong truy van CSDL"
+      });
+    } else {
+      if (result.length == 0) {
+        res.json({
+          code: -4,
+          msg: "Khong tim thay nhân viên"
+        });
+      } else {
+        res.json({
+          code: 0,
+          msg: "Thong tin nhân viên da chon",
+          payload: result
+        });
+      }
+    }
+  });
+});
+
 app.post("/api/updateEmployee", function(req, res) {
   console.log(req.body);
   const id = req.body.id;

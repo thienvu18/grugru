@@ -1838,5 +1838,40 @@ namespace GruGru
             wrpPersonalInfor.Visibility = Visibility.Visible;
         }
 
+        private void WrpPersonalInfor_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (wrpPersonalInfor.Visibility == Visibility.Visible)
+            {
+                dynamic resObject;
+                try
+                {
+                    string res = Get(SERVER + "getEmployeeById/" + loggedInUserId.ToString());
+                    resObject = JsonConvert.DeserializeObject(res);
+                    if (resObject.code == "0")
+                    {
+                        string dob = resObject.payload[0].ngaySinh;
+
+                        tbxPersonalInforCode.Text = resObject.payload[0].maNV;
+                        tbxPersonalInforName.Text = resObject.payload[0].hoTen;
+                        tbxMonthPersonalInfor.Text = resObject.payload[0].soThangKinhNghiem;
+                        tbxPhoneNumberPersonalInfor.Text = resObject.payload[0].soDienThoai;
+                        tbxBirthDayPersonalInfor.Text = DateTime.Parse(dob).ToString("dd/MM/yyyy");
+                        tbxIDPersonalInfor.Text = resObject.payload[0].cmnd;
+                    }
+                    else if (resObject.code == "-4")
+                    {
+                        MessageBox.Show("Không tìm thấy khách hàng");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Đã xảy ra lỗi, vui lòng bấm lại nút Tìm kiếm");
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("Không thể kết nối đến server");
+                }
+            }
+        }
     }
 }
