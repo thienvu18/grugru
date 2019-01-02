@@ -727,7 +727,7 @@
                 </StackPanel>
             </Grid>
         </WrapPanel>
-        <Grid x:Name="GridChangePassScreen" Visibility="Visible">
+        <Grid x:Name="GridChangePassScreen" Visibility="Hidden">
             <Grid x:Name="GridChangePass" Height="569" Width="792" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <materialDesign:Card x:Name="cardChangePass" Margin="230,70,230,0" 
          Background="#FFF8DC" Height="429" Foreground="{x:Null}"/>
