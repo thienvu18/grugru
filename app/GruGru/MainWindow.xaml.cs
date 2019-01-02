@@ -55,6 +55,9 @@ namespace GruGru
         string userLocal;
         string passLocal;
 
+        int loggedInUserId = -1;
+        string loggedInUserType = "1";
+
         static string GetMd5Hash(MD5 md5Hash, string input)
         {
 
@@ -115,6 +118,7 @@ namespace GruGru
         public MainWindow()
         {
             InitializeComponent();
+            this.WindowState = WindowState.Maximized;
             this.Left = 0;
             this.Top = 0;
             this.Height = height + 30;
@@ -122,6 +126,7 @@ namespace GruGru
             string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
             XDocument objDoc = XDocument.Load(path + "/Rememberme.xml");
 
+            LoadMenu();
 
             if (objDoc.Root.Elements().ElementAt(0).Value == "True")
             {
@@ -140,9 +145,8 @@ namespace GruGru
             SignUp();
             PersonalInforScreen();
             InforScreen();
-            LoadMenu();
             LoadCalendar();
-            
+
         }
 
         class Name
@@ -170,7 +174,7 @@ namespace GruGru
                 ListName.Add(new Name() { name = item.Value });
 
             }
-            lvcalendar1.ItemsSource = ListName.GetRange(0,7);
+            lvcalendar1.ItemsSource = ListName.GetRange(0, 7);
             lvcalendar2.ItemsSource = ListName.GetRange(7, 7);
             lvcalendar3.ItemsSource = ListName.GetRange(14, 7);
 
@@ -374,13 +378,13 @@ namespace GruGru
             gridCalendar.Height = height * 0.9;
 
             lvcalendar0.FontSize = height003;
-            
+
             //giờ làm
             tbTime1.FontSize = height0025;
             tbTime2.FontSize = height0025;
             tbTime3.FontSize = height0025;
 
-            
+
 
         }
 
@@ -619,7 +623,7 @@ namespace GruGru
             tbxIngredients.Height = stpInforDrinksMini.Height / 5 * 2;
             tbxIngredients.Width = stpInforDrinksMini.Width;
 
-            temp100.Height= stpInforDrinksMini.Height / 8;
+            temp100.Height = stpInforDrinksMini.Height / 8;
 
             stpInforDrinksMini1.Width = stpInforDrinksMini.Width;
             gridbtnDeleteDrink.Width = stpInforDrinksMini1.Width / 3;
@@ -629,7 +633,7 @@ namespace GruGru
             btnDeleteDrink.FontSize = height0027;
             btnUpdateInforDrink.FontSize = height0027;
             btnBackInforDrink.FontSize = height0027;
-            
+
         }
 
         public void AgentScreen()
@@ -791,14 +795,14 @@ namespace GruGru
 
         public string DoLogin()
         {
-            string type="";
+            string type = "";
             bool error = false;
-            if(rememberme == false)
+            if (rememberme == false)
             {
                 if ((txtUsername.Text == "") && (txtPassword.Password == ""))
                 {
                     error = true;
-                    tbMessageBox.Text = "invalid username and password!!!";
+                    tbMessageBox.Text = "Invalid username and password!!!";
                 }
                 else if (txtUsername.Text == "")
                 {
@@ -808,12 +812,12 @@ namespace GruGru
                 else if (txtPassword.Password == "")
                 {
                     error = true;
-                    tbMessageBox.Text = "invalid password!!!";
+                    tbMessageBox.Text = "Invalid password!!!";
                 }
             }
 
-            
-            if(error == false)
+
+            if (error == false)
             {
                 string result;
                 if (rememberme == true)
@@ -838,8 +842,11 @@ namespace GruGru
 
                     GridLoginScreen.Visibility = System.Windows.Visibility.Hidden;
                     stpMainScreen.Visibility = System.Windows.Visibility.Visible;
-                    type = stuff.loaiNV;
+                    loggedInUserType = type = stuff.loaiNV;
+
                     string name = stuff.hoTen;
+                    loggedInUserId = stuff.id;
+
                     cbbEmployee.Visibility = System.Windows.Visibility.Visible;
                     cbbManage.Visibility = System.Windows.Visibility.Visible;
                     if (type == "1")//nhân viên
@@ -848,7 +855,7 @@ namespace GruGru
                     }
                     if (type == "2")
                     {
-                        cbbEmployee.Visibility = System.Windows.Visibility.Hidden;
+                        cbbEmployee.Visibility = System.Windows.Visibility.Visible;
                     }
                     tbEmployee.Text = "Phục vụ: " + name;
 
@@ -859,7 +866,7 @@ namespace GruGru
 
                         objDoc.Root.Elements().ElementAt(0).Value = "True";
                         objDoc.Root.Elements().ElementAt(1).Value = txtUsername.Text;
-                        
+
                         using (MD5 md5Hash = MD5.Create())
                         {
                             objDoc.Root.Elements().ElementAt(2).Value = GetMd5Hash(md5Hash, txtPassword.Password);
@@ -882,22 +889,6 @@ namespace GruGru
             DoLogin();
         }
 
-        private void txtUsername_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Return)
-            {
-                DoLogin();
-            }
-        }
-
-        private void txtPassword_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Return)
-            {
-                DoLogin();
-            }
-        }
-
         private string loginRequest(string username, string password)
         {
 
@@ -915,9 +906,9 @@ namespace GruGru
             string EndTime = mtpHourEnd.Text;
             string TypeStatistical = cbbTypeStatistical.Text;
             string TypeStatisticalName = tbxSearchStatistical.Text;
-            string json = "{\"BeginDate\": \"" + BeginDate + "\", \"BeginTime\": \"" + BeginTime + 
-                "\", \"EndDate\": \"" + EndDate + "\", \"EndTime\": \""+ EndTime +
-                "\", \"TypeStatistical\": \"" + TypeStatistical + "\", \"TypeStatisticalName\": \"" + TypeStatisticalName +"\"}";
+            string json = "{\"BeginDate\": \"" + BeginDate + "\", \"BeginTime\": \"" + BeginTime +
+                "\", \"EndDate\": \"" + EndDate + "\", \"EndTime\": \"" + EndTime +
+                "\", \"TypeStatistical\": \"" + TypeStatistical + "\", \"TypeStatisticalName\": \"" + TypeStatisticalName + "\"}";
             string url = SERVER + "/Statistical";
 
             string result = Post(url, json);
@@ -1052,7 +1043,7 @@ namespace GruGru
         {
             int idtemp = int.Parse(((TextBlock)((StackPanel)((Grid)((StackPanel)((Button)sender).Parent).Parent).Children[0]).Children[2]).Text);
             string sizetemp = ((ComboBoxItem)((ComboBox)((StackPanel)((Grid)((StackPanel)((Button)sender).Parent).Parent).Children[0]).Children[1]).SelectedItem).Content.ToString();
-            string tentemp =((TextBlock)((StackPanel)((Grid)((StackPanel)((Button)sender).Parent).Parent).Children[0]).Children[0]).Text;
+            string tentemp = ((TextBlock)((StackPanel)((Grid)((StackPanel)((Button)sender).Parent).Parent).Children[0]).Children[0]).Text;
             decimal giatemp = decimal.Parse(((TextBlock)((StackPanel)((Grid)((StackPanel)((Button)sender).Parent).Parent).Children[0]).Children[3]).Text);
             bool temp = false;
             foreach (var item in ListDrinks)
@@ -1076,11 +1067,11 @@ namespace GruGru
                     ten = tentemp,
                     stt = ListDrinks.Count() + 1,
                 });
-                
+
                 ((Button)((StackPanel)((Grid)((StackPanel)((Button)sender).Parent).Parent).Children[1]).Children[1]).Visibility = System.Windows.Visibility.Visible;
             }
             lvListBill.ClearValue(ListView.ItemsSourceProperty);
-            lvListBill.ItemsSource=ListDrinks;
+            lvListBill.ItemsSource = ListDrinks;
             TongTien();
         }
 
@@ -1096,8 +1087,8 @@ namespace GruGru
             json += JsonConvert.SerializeObject(ListDrinks);
             json += "}";
 
-           
-            string url = SERVER+"putOrder";
+
+            string url = SERVER + "putOrder";
 
             string result = Post(url, json);
         }
@@ -1118,7 +1109,7 @@ namespace GruGru
                     else
                     {
                         ListDrinks.RemoveAt(i);
-                        for(int j = i; j < ListDrinks.Count; j++)
+                        for (int j = i; j < ListDrinks.Count; j++)
                         {
                             ListDrinks[j].stt--;
                         }
@@ -1178,6 +1169,7 @@ namespace GruGru
                         {
                             tbxSearchCustomer.Text = (s as TextBlock).Name.Remove(0, 1);
                             border.Visibility = Visibility.Hidden;
+                            BtnCustomer_Click(null, null);
                         };
 
                         block.MouseEnter += (s, notCare) =>
@@ -1229,14 +1221,12 @@ namespace GruGru
 
             if (resObject.code == "0")
             {
-                string dob = resObject.payload[0].ngaySinh;
-
                 tbxCustomerId.Text = resObject.payload[0].id;
                 tbxCustomerCode.Text = resObject.payload[0].maKH;
                 tbxCustomerName.Text = resObject.payload[0].hoTen;
                 tbxScore.Text = resObject.payload[0].diemTichLuy;
                 tbxPhoneNumber.Text = resObject.payload[0].soDienThoai;
-                tbxBirthDay.Text = DateTime.Parse(dob).ToString("dd/MM/yyyy");
+                tbxBirthDay.Text = resObject.payload[0].ngaySinh;
                 tbxID.Text = resObject.payload[0].cmnd;
             }
             else if (resObject.code == "-4")
@@ -1391,7 +1381,7 @@ namespace GruGru
             {
                 objDoc.Root.Add(new XElement("Name", item.name));
             }
-            
+
             objDoc.Save(path + "/calendar.xml");
             MessageBox.Show("Cập nhập lịch làm việc thành công!");
         }
@@ -1403,10 +1393,10 @@ namespace GruGru
             ((Button)((StackPanel)((Grid)((StackPanel)((ComboBox)sender).Parent).Parent).Children[1]).Children[1]).Visibility = System.Windows.Visibility.Hidden;
             foreach (var item in ListDrinks)
             {
-                if ((item.id == idtemp)&& (item.size == sizetemp))
+                if ((item.id == idtemp) && (item.size == sizetemp))
                 {
-                        ((Button)((StackPanel)((Grid)((StackPanel)((ComboBox)sender).Parent).Parent).Children[1]).Children[1]).Visibility = System.Windows.Visibility.Visible;
-                        break;
+                    ((Button)((StackPanel)((Grid)((StackPanel)((ComboBox)sender).Parent).Parent).Children[1]).Children[1]).Visibility = System.Windows.Visibility.Visible;
+                    break;
                 }
             }
         }
@@ -1441,13 +1431,11 @@ namespace GruGru
 
             if (resObject.code == "0")
             {
-                string dob = resObject.payload[0].ngaySinh;
-
                 tbxAgentCode.Text = resObject.payload[0].maNV;
                 tbAgentName.Text = resObject.payload[0].hoTen;
                 tbxMonth.Text = resObject.payload[0].kinhNghiem;
                 tbxPhoneNumberAgent.Text = resObject.payload[0].soDienThoai;
-                tbBirthDayAgent.Text = DateTime.Parse(dob).ToString("dd/MM/yyyy");
+                tbBirthDayAgent.Text = resObject.payload[0].ngaySinh;
                 tbxIDAgent.Text = resObject.payload[0].cmnd;
             }
             else if (resObject.code == "-4")
@@ -1556,9 +1544,8 @@ namespace GruGru
         private void BtnCalendarMode_Click(object sender, RoutedEventArgs e)
         {
             wrpJobCalendar.Visibility = Visibility.Visible;
-            string type = DoLogin();
             btnUpdateCalendar.Visibility = Visibility.Visible;
-            if (type=="1")
+            if (loggedInUserType == "1")
             {
                 btnUpdateCalendar.Visibility = Visibility.Hidden;
             }
@@ -1568,15 +1555,19 @@ namespace GruGru
         {
             griInforDrinks.Visibility = Visibility.Visible;
             stpMainScreen.Opacity = 0.1;
+            tbIdDrink.Text = ((SanPham)((TextBlock)sender).DataContext).id.ToString();
             tbxNameDrink.Text = ((TextBlock)sender).Text;
             tbxCostDrink.Text = ((TextBlock)((StackPanel)((TextBlock)sender).Parent).Children[3]).Text;
             tbxIngredients.Text = ((TextBlock)((StackPanel)((TextBlock)sender).Parent).Children[4]).Text;
-            btnDeleteDrink.Visibility = Visibility.Visible;
-            btnUpdateInforDrink.Visibility = Visibility.Visible;
-            if (DoLogin()=="1")
+            if (loggedInUserType == "1")
             {
                 btnDeleteDrink.Visibility = Visibility.Collapsed;
                 btnUpdateInforDrink.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                btnDeleteDrink.Visibility = Visibility.Visible;
+                btnUpdateInforDrink.Visibility = Visibility.Visible;
             }
         }
 
@@ -1586,49 +1577,52 @@ namespace GruGru
             stpMainScreen.Opacity = 1;
         }
 
-        //thêm
         private void BtnDeleteDrink_Click(object sender, RoutedEventArgs e)
         {
-            string NameDrink = tbxNameDrink.Text;//"namedrink"
-            string json = "{\"username\": \"" + NameDrink + "\"}";
-            string url = SERVER + "deleteDrink";
+            string id = tbIdDrink.Text;
+            string url = SERVER + "deleteDrink/" + id;
 
-            string result = Post(url, json);
+            string result = Get(url);
             dynamic stuff = JsonConvert.DeserializeObject(result);
 
             string code = stuff.code;
-            if(code=="1")
+            if (code == "0")
             {
                 MessageBox.Show("xóa món thành công");
+                griInforDrinks.Visibility = Visibility.Hidden;
                 LoadMenu();
+                stpMainScreen.Opacity = 1;
             }
             else
             {
-                MessageBox.Show("Có lỗi sảy ra, vui lòng thử lại");
+                MessageBox.Show("Có lỗi xảy ra, vui lòng thử lại");
             }
         }
 
-        //thêm
         private void BtnUpdateInforDrink_Click(object sender, RoutedEventArgs e)
         {
+            string id = tbIdDrink.Text;
             string NameDrink = tbxNameDrink.Text;//"namedrink"
             string Cost = tbxCostDrink.Text;//"giá"
             string Ingredients = tbxIngredients.Text;//mô tả
-            string json = "{\"username\": \"" + NameDrink + "\",\"cost\": \"" + Cost + "\",\"Ingredients\": \"" + Ingredients + "\"}";
-            string url = SERVER + "UpdateDrink";
+            string json = "{\"id\": \"" + id + "\",\"tenSanPham\": \"" + NameDrink + "\",\"thongTin\": \"" + Ingredients + "\", \"gia\": " + Cost + "}";
+            string url = SERVER + "updateDrink";
 
             string result = Post(url, json);
             dynamic stuff = JsonConvert.DeserializeObject(result);
 
             string code = stuff.code;
-            if (code == "1")
+            if (code == "0")
             {
                 MessageBox.Show("Cập nhật món thành công");
+                griInforDrinks.Visibility = Visibility.Hidden;
                 LoadMenu();
+                stpMainScreen.Opacity = 1;
+
             }
             else
             {
-                MessageBox.Show("Có lỗi sảy ra, vui lòng thử lại");
+                MessageBox.Show("Có lỗi xảy ra, vui lòng thử lại");
             }
         }
 
@@ -1671,7 +1665,8 @@ namespace GruGru
             try
             {
                 birthDay = DateTime.Parse(birthDay).ToString("dd/MM/yyyy");
-            } catch
+            }
+            catch
             {
                 MessageBox.Show("Ngày sinh không hợp lệ");
                 return;
@@ -1731,9 +1726,20 @@ namespace GruGru
             }
         }
 
-        public string DoChangePass()
+        private string changePassRequest()
         {
-            string type = "";
+            string currentPass = GetMd5Hash(MD5.Create(), txtCurrentPass.Password);
+            string newPass = GetMd5Hash(MD5.Create(), txtNewPassword.Password);
+            //string newPassConfirm = TODO: Thêm ô confirm new pass
+            //Check newPass = newPassConfirm
+
+            string json = "{\"id\": \"" + loggedInUserId + "\", \"oldPass\": \"" + currentPass + "\", \"newPass\": \"" + newPass + "\"}";
+            string url = SERVER + "changePassword";
+            return Post(url, json);
+        }
+
+        public void DoChangePass()
+        {
             if ((txtCurrentPass.Password == "") && (txtNewPassword.Password == ""))
             {
                 tbMessageWarning.Text = "invalid password!!!";
@@ -1748,79 +1754,37 @@ namespace GruGru
             }
             else
             {
-                string result = changePassRequest();
-                dynamic stuff = JsonConvert.DeserializeObject(result);
-
-                string msg = stuff.msg;
-                string code = stuff.code;
-                if (code == "0")
+                try
                 {
-
-                    string payload = $"{{\"maNV\": \"{tbxPersonalInforCode.Text}\",\"matKhauMoi\": \"{txtNewPassword.Password}\"}}";
                     dynamic resObject;
-                    try
-                    {
-                        string res = Post(SERVER + "updateEmployeePassword", payload);
-                        resObject = JsonConvert.DeserializeObject(res);
-                    }
-                    catch
-                    {
-                        MessageBox.Show("Không thể kết nối đến server");
-                        return type;
-                    }
+                    string res = changePassRequest();
 
+                    resObject = JsonConvert.DeserializeObject(res);
                     if (resObject.code == "0")
                     {
                         MessageBox.Show("Cập nhật mật khẩu nhân viên thành công");
+                    }
+                    else if (resObject.code == "-5")
+                    {
+                        tbMessageWarning.Text = "Current password is wrong!!!";
                     }
                     else
                     {
                         MessageBox.Show("Đã xảy ra lỗi, vui lòng thử lại");
                     }
-                    wrpPersonalInfor.Visibility = Visibility.Visible;
                 }
-                else
+                catch
                 {
-
-                    tbMessageWarning.Text = "current password is wrong!!!";
+                    MessageBox.Show("Không thể kết nối đến server");
                 }
             }
-            return type;
-
         }
+
+
 
         private void btnChangePassword_Click(object sender, RoutedEventArgs e)
         {
-            wrpPersonalInfor.Visibility = Visibility.Hidden;
             GridChangePassScreen.Visibility = Visibility.Visible;
-        }
-
-        private void txtCurrentPass_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Return)
-            {
-                DoChangePass();
-            }
-
-        }
-
-        private void txtNewPass_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Return)
-            {
-                DoChangePass();
-            }
-
-        }
-
-        private string changePassRequest()
-        {
-            string currentPass = txtCurrentPass.Password;//"V0a10"
-            string userCode = tbxPersonalInforCode.Text;// "3012"
-            string json = "{\"username\": \"" + userCode + "\", \"password\": \"" + currentPass + "\"}";
-            string url = SERVER + "checkPass";
-
-            return Post(url, json);
         }
 
         private void btnChange_Click(object sender, RoutedEventArgs e)
@@ -1834,5 +1798,38 @@ namespace GruGru
             wrpPersonalInfor.Visibility = Visibility.Visible;
         }
 
+        private void WrpPersonalInfor_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (wrpPersonalInfor.Visibility == Visibility.Visible)
+            {
+                dynamic resObject;
+                try
+                {
+                    string res = Get(SERVER + "getEmployeeById/" + loggedInUserId.ToString());
+                    resObject = JsonConvert.DeserializeObject(res);
+                    if (resObject.code == "0")
+                    {
+                        tbxPersonalInforCode.Text = resObject.payload[0].maNV;
+                        tbxPersonalInforName.Text = resObject.payload[0].hoTen;
+                        tbxMonthPersonalInfor.Text = resObject.payload[0].soThangKinhNghiem;
+                        tbxPhoneNumberPersonalInfor.Text = resObject.payload[0].soDienThoai;
+                        tbxBirthDayPersonalInfor.Text = resObject.payload[0].ngaySinh;
+                        tbxIDPersonalInfor.Text = resObject.payload[0].cmnd;
+                    }
+                    else if (resObject.code == "-4")
+                    {
+                        MessageBox.Show("Không tìm thấy khách hàng");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Đã xảy ra lỗi, vui lòng bấm lại nút Tìm kiếm");
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("Không thể kết nối đến server");
+                }
+            }
+        }
     }
 }

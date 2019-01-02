@@ -48,9 +48,7 @@ app.post("/api/login", function(req, res) {
   const username = req.body.username;
   const password = req.body.password;
   const query =
-    "SELECT NhanVien.* FROM NhanVien WHERE NhanVien.maNV = '" +
-    username +
-    "'";
+    "SELECT NhanVien.* FROM NhanVien WHERE NhanVien.maNV = '" + username + "'";
 
   let request = new sql.Request();
 
@@ -68,12 +66,13 @@ app.post("/api/login", function(req, res) {
         });
       } else {
         const user = result[0];
-        if (user.matKhau == password) {
+        if (user.matKhau.toUpperCase() == password.toUpperCase()) {
           res.json({
             code: 0,
             msg: "Dang nhap thanh cong",
             loaiNV: user.idLoaiNV,
-            hoTen: user.hoTen
+            hoTen: user.hoTen,
+            id: user.id
           });
         } else {
           res.json({
@@ -129,14 +128,77 @@ app.get("/api/getFoodList", function(req, res) {
   });
 });
 
+app.post("/api/updateDrink", function(req, res) {
+  const id = req.body.id;
+  const tenSanPham = req.body.tenSanPham;
+  const gia = req.body.gia;
+  const thongTin = req.body.thongTin;
+
+  const query =
+    "UPDATE SanPham SET tenSanPham = N'" +
+    tenSanPham +
+    "', thongTin= N'" +
+    thongTin +
+    "', gia=" +
+    gia +
+    " WHERE id = " +
+    id;
+
+  let request = new sql.Request();
+
+  request.query(query, function(err, result) {
+    if (err) {
+      console.log(err);
+      res.json({
+        code: -3,
+        msg: "Co loi trong truy van CSDL"
+      });
+    } else {
+      res.json({
+        code: 0,
+        msg: "Cap nhat thong tin mon an thanh cong"
+      });
+    }
+  });
+});
+
+app.get("/api/deleteDrink/:id", function(req, res) {
+  const deleteDependencies =
+    "DELETE FROM ChiTietHoaDon WHERE idSanPham = " + req.params.id;
+  const deleteQuery = "DELETE FROM SanPham WHERE id = " + req.params.id;
+
+  let request = new sql.Request();
+
+  request.query(deleteDependencies, function(err, result) {
+    if (err) {
+      res.json({
+        code: -3,
+        msg: "Co loi trong truy van CSDL"
+      });
+    } else {
+      request.query(deleteQuery, function(err, result) {
+        if (err) {
+          res.json({
+            code: -3,
+            msg: "Co loi trong truy van CSDL"
+          });
+        } else {
+          res.json({
+            code: 0,
+            msg: "Xoa khach hang thanh cong"
+          });
+        }
+      });
+    }
+  });
+});
+
 app.post("/api/putOrder", function(req, res) {
   const maHoaDon = Math.random()
     .toString(36)
     .replace(/[^a-z]+/g, "")
     .substr(0, 9); //Random
-  const thoiGianLap = moment(req.body.ngaySinh, "DD-MM-YYYY").format(
-    "YYYY-MM-DD"
-  );
+  const thoiGianLap = moment(req.body.ngaySinh, "DD-MM-YYYY") / 1000;
   const gia = req.body.gia;
   const idKhachHangMua = req.body.idKhachHangMua;
   const idNhanVienLap = req.body.idNhanVienLap;
@@ -228,7 +290,7 @@ app.post("/api/putOrder", function(req, res) {
 
 app.post("/api/addCustomer", function(req, res) {
   const hoTen = req.body.hoTen;
-  const ngaySinh = moment(req.body.ngaySinh, "DD-MM-YYYY").format("YYYY-MM-DD");
+  const ngaySinh = moment(req.body.ngaySinh, "DD-MM-YYYY") / 1000;
   const soDienThoai = req.body.soDienThoai;
   const cmnd = req.body.cmnd;
   const diemTichLuy = 0;
@@ -297,11 +359,10 @@ app.post("/api/addCustomer", function(req, res) {
 });
 
 app.post("/api/updateCustomer", function(req, res) {
-  console.log(req.body);
   const id = req.body.id;
   const maKH = req.body.maKH;
   const hoTen = req.body.hoTen;
-  const ngaySinh = moment(req.body.ngaySinh, "DD/MM/YYYY").format("YYYY-MM-DD");
+  const ngaySinh = moment(req.body.ngaySinh, "DD/MM/YYYY") / 1000;
   const soDienThoai = req.body.soDienThoai;
   const diemTichLuy = req.body.diemTichLuy;
   const cmnd = req.body.cmnd;
@@ -321,7 +382,7 @@ app.post("/api/updateCustomer", function(req, res) {
     cmnd +
     "' WHERE id = " +
     id;
-console.log(query);
+  
   let request = new sql.Request();
 
   request.query(query, function(err, result) {
@@ -415,7 +476,7 @@ app.get("/api/getCustomerInfo/:id", function(req, res) {
             id: customer.id,
             maKH: customer.maKH,
             hoTen: customer.hoTen,
-            ngaySinh: customer.ngaySinh,
+            ngaySinh: moment.unix(customer.ngaySinh).format('DD/MM/YYYY'),
             soDienThoai: customer.soDienThoai
           }
         });
@@ -445,10 +506,16 @@ app.get("/api/getCustomerByPhone/:phoneNumber", function(req, res) {
           msg: "Khong tim thay khach hang"
         });
       } else {
+        var customers= [];
+        result.forEach(customer => {
+          const dob = moment.unix(customer.ngaySinh).format('DD/MM/YYYY');
+          var newCustomer = {...customer, ngaySinh: dob};
+          customers.push(newCustomer);
+        });
         res.json({
           code: 0,
           msg: "Thong tin khach hang da chon",
-          payload: result
+          payload: customers
         });
       }
     }
@@ -476,10 +543,53 @@ app.get("/api/getEmployeeByName/:name", function(req, res) {
           msg: "Khong tim thay nhân viên"
         });
       } else {
+        var employees = [];
+        result.forEach(employee => {
+          const dob = moment.unix(employee.ngaySinh).format('DD/MM/YYYY');
+          var newEmployee = {...employee, ngaySinh: dob};
+          employees.push(newEmployee);
+        });
+        
         res.json({
           code: 0,
           msg: "Thong tin nhân viên da chon",
-          payload: result
+          payload: employees
+        });
+      }
+    }
+  });
+});
+
+app.get("/api/getEmployeeById/:id", function(req, res) {
+  const query =
+    "SELECT TOP (1) * FROM NhanVien WHERE id = " + req.params.id + ";";
+  
+  let request = new sql.Request();
+
+  request.query(query, function(err, result) {
+    if (err) {
+      res.json({
+        code: -3,
+        msg: "Co loi trong truy van CSDL"
+      });
+    } else {
+      if (result.length == 0) {
+        res.json({
+          code: -4,
+          msg: "Khong tim thay nhân viên"
+        });
+      } else {
+        var employees = [];
+        result.forEach(employee => {
+          const dob = moment.unix(employee.ngaySinh).format('DD/MM/YYYY');
+          var newEmployee = {...employee, ngaySinh: dob};
+          employees.push(newEmployee);
+        });
+        
+        res.json({
+          code: 0,
+          msg: "Thong tin nhân viên da chon",
+          payload: employees
         });
       }
     }
@@ -487,11 +597,10 @@ app.get("/api/getEmployeeByName/:name", function(req, res) {
 });
 
 app.post("/api/updateEmployee", function(req, res) {
-  console.log(req.body);
   const id = req.body.id;
   const maNV = req.body.maNV;
   const hoTen = req.body.hoTen;
-  const ngaySinh = moment(req.body.ngaySinh, "DD/MM/YYYY").format("YYYY-MM-DD");
+  const ngaySinh = moment(req.body.ngaySinh, "DD/MM/YYYY") / 1000;
 
   const query =
     "UPDATE KhachHang SET maKH = '" +
@@ -508,7 +617,7 @@ app.post("/api/updateEmployee", function(req, res) {
     cmnd +
     "' WHERE id = " +
     id;
-console.log(query);
+  
   let request = new sql.Request();
 
   request.query(query, function(err, result) {
@@ -523,6 +632,57 @@ console.log(query);
         code: 0,
         msg: "Cap nhat thong tin khach hang thanh cong"
       });
+    }
+  });
+});
+
+app.post("/api/changePassword", function(req, res) {
+  const id = req.body.id;
+  const oldPass = req.body.oldPass.toUpperCase();
+  const newPass = req.body.newPass.toUpperCase();
+
+  const findOldPass = "SELECT matKhau FROM NhanVien WHERE id = " + id;
+  const updatePass =
+    "UPDATE NhanVien SET matKhau = '" + newPass + "' WHERE id = " + id;
+
+  let request = new sql.Request();
+
+  request.query(findOldPass, function(err, result) {
+    if (err) {
+      console.log(err);
+      res.json({
+        code: -3,
+        msg: "Co loi trong truy van CSDL"
+      });
+    } else {
+      if (result.length == 0) {
+        res.json({
+          code: -4,
+          msg: "Nhân viên không tồn tại"
+        });
+      } else {
+        if (result[0].matKhau.toUpperCase() != oldPass) {
+          res.json({
+            code: -5,
+            msg: "Mật khẩu cũ không chính xác"
+          });
+        } else {
+          request.query(updatePass, function(err, result) {
+            if (err) {
+              console.log(err);
+              res.json({
+                code: -3,
+                msg: "Co loi trong truy van CSDL"
+              });
+            } else {
+              res.json({
+                code: 0,
+                msg: "Đổi mật khẩu thành công"
+              });
+            }
+          });
+        }
+      }
     }
   });
 });
