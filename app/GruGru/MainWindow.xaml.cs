@@ -56,6 +56,7 @@ namespace GruGru
         string passLocal;
 
         int loggedInUserId = -1;
+
         string loggedInUserType = "1";
 
         static string GetMd5Hash(MD5 md5Hash, string input)
@@ -898,20 +899,41 @@ namespace GruGru
             return Post(url, json);
         }
 
-        public void Statistical()
+        public void Find()
         {
-            string BeginDate = dpDayStart.Text;
-            string BeginTime = mtpHourStart.Text;
-            string EndDate = dpDayEnd.Text;
-            string EndTime = mtpHourEnd.Text;
-            string TypeStatistical = cbbTypeStatistical.Text;
-            string TypeStatisticalName = tbxSearchStatistical.Text;
-            string json = "{\"BeginDate\": \"" + BeginDate + "\", \"BeginTime\": \"" + BeginTime +
-                "\", \"EndDate\": \"" + EndDate + "\", \"EndTime\": \"" + EndTime +
-                "\", \"TypeStatistical\": \"" + TypeStatistical + "\", \"TypeStatisticalName\": \"" + TypeStatisticalName + "\"}";
-            string url = SERVER + "/Statistical";
+            string BeginDate = dpDayStartFind.Text;
+            string BeginTime = mtpHourStartFind.Text;
+            string EndDate = dpDayEndFind.Text;
+            string EndTime = mtpHourEndFind.Text;
+            string TypeFind = cbbTypeFind.Text;
+            string TypeFindName = tbxSearchFind.Text;
+            string json = "";
 
-            string result = Post(url, json);
+            //Kiểm tra dữ liệu đầu vào
+            if (BeginDate == "")
+            {
+                BeginDate = DateTime.Today.ToString("dd/MM/yyyy");
+            }
+            if (BeginTime == "")
+            {
+                BeginTime = DateTime.Today.ToString("HH:mm:ss");
+            }
+            if (EndDate == "")
+            {
+                EndDate = DateTime.Today.ToString("dd/MM/yyyy");
+            }
+            if (EndTime == "")
+            {
+                EndTime = "23:59:59";
+            }
+
+            json = "{\"BeginDate\": \"" + BeginDate + "\", \"BeginTime\": \"" + BeginTime +
+                "\", \"EndDate\": \"" + EndDate + "\", \"EndTime\": \"" + EndTime +
+                "\", \"TypeFind\": \"" + TypeFind + "\", \"TypeFindName\": \"" + TypeFindName + "\"}";
+
+            string url = SERVER + "/Search";
+
+            string result = Get(url + json);
 
             dynamic stuff = JsonConvert.DeserializeObject(result);
 
@@ -1726,18 +1748,6 @@ namespace GruGru
             }
         }
 
-        private string changePassRequest()
-        {
-            string currentPass = GetMd5Hash(MD5.Create(), txtCurrentPass.Password);
-            string newPass = GetMd5Hash(MD5.Create(), txtNewPassword.Password);
-            //string newPassConfirm = TODO: Thêm ô confirm new pass
-            //Check newPass = newPassConfirm
-
-            string json = "{\"id\": \"" + loggedInUserId + "\", \"oldPass\": \"" + currentPass + "\", \"newPass\": \"" + newPass + "\"}";
-            string url = SERVER + "changePassword";
-            return Post(url, json);
-        }
-
         public void DoChangePass()
         {
             if ((txtCurrentPass.Password == "") && (txtNewPassword.Password == ""))
@@ -1752,12 +1762,27 @@ namespace GruGru
             {
                 tbMessageWarning.Text = "invalid new password.\nPress cancel to return !!!";
             }
-            else
+            else if (txtConfirmPass.Password == "")
+            {
+                tbMessageWarning.Text = "Please confirm your password !!!";
+            }
+            else if (txtConfirmPass.Password != txtNewPassword.Password)
+            {
+                tbMessageWarning.Text = "Please enter password again !!!";
+            }
+            else //Hoặc check chỗ này
             {
                 try
                 {
                     dynamic resObject;
-                    string res = changePassRequest();
+                    string currentPass = GetMd5Hash(MD5.Create(), txtCurrentPass.Password);
+                    string newPass = GetMd5Hash(MD5.Create(), txtNewPassword.Password);
+                    //string newPassConfirm = TODO: Thêm ô confirm new pass
+                    //Check newPass = newPassConfirm
+
+                    string json = "{\"id\": \"" + loggedInUserId + "\", \"oldPass\": \"" + currentPass + "\", \"newPass\": \"" + newPass + "\"}";
+                    string url = SERVER + "changePassword";
+                    string res = Post(url, json);
 
                     resObject = JsonConvert.DeserializeObject(res);
                     if (resObject.code == "0")
@@ -1779,8 +1804,6 @@ namespace GruGru
                 }
             }
         }
-
-
 
         private void btnChangePassword_Click(object sender, RoutedEventArgs e)
         {
@@ -1818,7 +1841,7 @@ namespace GruGru
                     }
                     else if (resObject.code == "-4")
                     {
-                        MessageBox.Show("Không tìm thấy khách hàng");
+                        MessageBox.Show("Không tìm thấy nhân viên");
                     }
                     else
                     {
@@ -1831,5 +1854,6 @@ namespace GruGru
                 }
             }
         }
+
     }
 }

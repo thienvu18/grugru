@@ -15,7 +15,7 @@
         mc:Ignorable="d"
         Title="MainWindow">
     <Grid>
-        <Grid x:Name="GridLoginScreen" Visibility="Visible">
+        <Grid x:Name="GridLoginScreen" Visibility="Hidden">
             <Image Source="backround.jpg" RenderTransformOrigin="0.5,0.5" >
                 <Image.RenderTransform>
                     <TransformGroup>
@@ -656,10 +656,10 @@
             <Grid x:Name="temp81"/>
             <TextBox x:Name="tbxSearchAgent" Foreground="Black" Background="#c7edc7"
               Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-              materialDesign:HintAssist.Hint="Mã nhân viên/ họ tên/ số điện thoại/ chứng minh"
-              Text="{Binding Content}"
+              materialDesign:HintAssist.Hint="Nhập họ tên"
               Margin="8 0 0 0"
-              VerticalAlignment="Bottom" />
+              VerticalAlignment="Bottom" 
+              Width="285"/>
             <Grid x:Name="temp87"/>
             <Button x:Name="btnAgent" Content="Tìm kiếm" Background="#03c203" BorderBrush="#006400" Click="btnAgent_Click"/>
             <Grid x:Name="temp89"/>
@@ -731,26 +731,32 @@
             </Grid>
         </WrapPanel>
         <Grid x:Name="GridChangePassScreen" Visibility="Hidden">
-            <Grid x:Name="GridChangePass" Height="569" Width="792" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Grid x:Name="GridChangePass" Height="569" Width="792" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#40E0D0">
                 <materialDesign:Card x:Name="cardChangePass" Margin="230,70,230,0" 
-         Background="#FFF8DC" Height="429" Foreground="{x:Null}"/>
-                <materialDesign:PackIcon Height="100" Width="100" HorizontalAlignment="Center"  Kind="AccountCircle" Margin="346,10,346,0" Foreground="Orange" />
-                <Label Target="{Binding ElementName=tbxPersonalInforName}" Margin="326,110,320,414" HorizontalAlignment="Center" FontSize="30" Foreground="Black" Width="146"></Label>
-                <Label Target="{Binding ElementName=txtCurrentPass }" Margin="245,165,370,345" FontSize="21" Foreground="Orange">
+         Background="AliceBlue" Height="429" Foreground="{x:Null}"/>
+                <Label Target="{Binding ElementName=txtCurrentPass }" Margin="245,84,370,451" FontSize="21" Foreground="Orange" RenderTransformOrigin="0.463,0.136">
                     _Current Password:
                 </Label>
                 <PasswordBox x:Name="txtCurrentPass" 
-                 Margin="271,200,260,325" 
+                 Margin="281,118,250,407" 
                  FontSize="20"
                  materialDesign:HintAssist.Hint="Current Password">
                 </PasswordBox>
-                <Label Target="{Binding ElementName=txtNewPassword}" Margin="245,255,370,250" FontSize="21" Foreground="Orange">
+                <Label Target="{Binding ElementName=txtNewPassword}" Margin="245,162,370,372" FontSize="21" Foreground="Orange" RenderTransformOrigin="0.48,0.029">
                     _New Password:
                 </Label>
                 <PasswordBox x:Name="txtNewPassword" 
-                 Margin="271,290,260,235" 
+                 Margin="281,202,250,317" 
                  FontSize="20"
-                materialDesign:HintAssist.Hint="New Password">
+                 materialDesign:HintAssist.Hint="New Password">
+                </PasswordBox>
+                <Label Target="{Binding ElementName=txtConfirmPass}" Margin="245,257,355,274" FontSize="21" Foreground="Orange" RenderTransformOrigin="0.48,0.029">
+                    _Confirm Password:
+                </Label>
+                <PasswordBox x:Name="txtConfirmPass" 
+                 Margin="281,295,250,229" 
+                 FontSize="20"
+                 materialDesign:HintAssist.Hint="Confirm Password">
                 </PasswordBox>
                 <TextBlock x:Name="tbMessageWarning"  FontSize="13" Margin="250,345,250,185" Foreground="Red"></TextBlock>
                 <Button x:Name="btnChange" Content="Change" FontSize="20" Margin="245,389,442,145" Height="Auto" Background="Orange" BorderBrush="White" Click="btnChange_Click" IsDefault="True"></Button>
