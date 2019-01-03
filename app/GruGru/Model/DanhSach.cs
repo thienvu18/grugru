@@ -20,11 +20,11 @@ namespace GruGru.Model
             this.HoaDons = new HashSet<HoaDon>();
         }
 
-        public int id { get; set; }
+        public int stt { get; set; }
         public string maHoaDon { get; set; }
-        public int maNhanVien { get; set; }
-        public Nullable<int> maKhachHang { get; set; }
-        public System.DateTime thoiGian { get; set; }
+        public string nhanVien { get; set; }
+        public string khachHang { get; set; }
+        public string thoiGian { get; set; }
         public decimal gia { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
