@@ -1144,11 +1144,16 @@ namespace GruGru
 
         private void btnPay_Click(object sender, RoutedEventArgs e)
         {
-
+            const string prefix = "__idKhachHang";
             string gia = TongTien().ToString();//"usercfrnh"
-            string idKhachHangMua = "1231156464864";//"13874383";
+            string idKhachHangMua = ((ComboBoxItem)cbbCustomer.SelectedItem).Name.Substring(prefix.Length);//"13874383";
 
-            string json = "{\"gia\": " + gia + ", \"idKhachHangMua\": " + idKhachHangMua + ", \"idNhanVienLap\": " + loggedInUserId + ", \"danhSachMonAn\":";
+            if (idKhachHangMua == "null")
+            {
+                idKhachHangMua = "";
+            }
+
+            string json = "{\"gia\": " + gia + ", \"idKhachHangMua\": \"" + idKhachHangMua + "\", \"idNhanVienLap\": " + loggedInUserId + ", \"danhSachMonAn\":";
 
             json += JsonConvert.SerializeObject(ListDrinks);
             json += "}";
@@ -1956,7 +1961,6 @@ namespace GruGru
                         item.Content = resObject.payload[i].hoTen;
                         cbbCustomer.Items.Add(item);
                     }
-                    
                 }
                 else
                 {
