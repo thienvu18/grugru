@@ -38,8 +38,8 @@ namespace GruGru
         //cbb: combobox
         //lv: listview
         //gvc: gridviewcolumn
-        Double height = SystemParameters.WorkArea.Height - 30;
-        Double width = SystemParameters.WorkArea.Width - 30;
+        Double height = SystemParameters.WorkArea.Height - 10;
+        Double width = SystemParameters.WorkArea.Width - 10;
         Double height005 = SystemParameters.WorkArea.Height * 0.05;//25
         Double height004 = SystemParameters.WorkArea.Height * 0.04;//20
         Double height003 = SystemParameters.WorkArea.Height * 0.03;//15
@@ -126,8 +126,8 @@ namespace GruGru
             this.WindowState = WindowState.Maximized;
             this.Left = 0;
             this.Top = 0;
-            this.Height = height + 30;
-            this.Width = width + 30;
+            this.Height = height + 10;
+            this.Width = width + 10;
             string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
             XDocument objDoc = XDocument.Load(path + "/Rememberme.xml");
 
@@ -214,13 +214,15 @@ namespace GruGru
             txbTopping.Width = 0.23 * width;
             txbTopping.FontSize = height004;
 
+            temp1000.Width = 0.005 * width;
+
             txbInfor.Width = 0.26 * width;
             txbInfor.FontSize = height004;
 
-            cbbEmployee.Width = 0.05 * width;
+            cbbEmployee.Width = 0.045 * width;
             cbbEmployee.FontSize = height004;
 
-            cbbManage.Width = 0.05 * width;
+            cbbManage.Width = 0.045 * width;
             cbbManage.FontSize = height004;
 
             //menu
@@ -237,8 +239,9 @@ namespace GruGru
             lvMenuToppings.Height = stpMenu.Height;
             lvMenuToppings.Width = stpDrink.Width / 3;
 
+            temp1001.Width = 0.01 * width;
             //InforBill
-            gridInforBill.Width = 0.31 * width;
+            gridInforBill.Width = 0.308 * width;
             gridInforBill.Height = height - height005;
 
             Double heighttbBill = gridInforBill.Height * 3 / 60;

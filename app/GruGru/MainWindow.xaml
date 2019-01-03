@@ -66,6 +66,7 @@
                 <TextBlock x:Name="txbCoffee" Text="Coffee" TextAlignment="Center" Background="#b68648" ></TextBlock>
                 <TextBlock x:Name="txbMilktea" Text="Milk tea" Background="#efca8b" TextAlignment="Center"></TextBlock>
                 <TextBlock x:Name="txbTopping" Text="Topping" Background="#fcc542" TextAlignment="Center"></TextBlock>
+                <Grid x:Name="temp1000"></Grid>
                 <TextBlock x:Name="txbInfor" Text="Thông tin hóa đơn" Background="#f8e6b0"  TextAlignment="Center"></TextBlock>
                 <Grid>
                     <ComboBox x:Name="cbbEmployee" Background="#fbf9f2" Visibility="Visible" >
@@ -105,14 +106,15 @@
                                                 VerticalAlignment="Stretch"
                                                 HorizontalAlignment="Stretch">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="9*" />
-                                            <ColumnDefinition Width="1*" />
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
                                         </Grid.ColumnDefinitions>
                                         <StackPanel Grid.Column="0" >
                                             <TextBlock x:Name="tbCoffees"
                                                    FontSize="18"
                                                    Text="{Binding tenSanPham}"
                                                    TextAlignment="Left"
+                                                   Width="228"
                                                    TextWrapping="WrapWithOverflow" MouseDown="TbDrink_MouseDown" ></TextBlock>
                                             <ComboBox x:Name="cbbSizeCoffees" FontWeight="Bold" SelectedIndex="0" DropDownClosed="CbbSize_DropDownClosed">
                                                 <ComboBoxItem>
@@ -151,18 +153,16 @@
                                                 VerticalAlignment="Stretch"
                                                 HorizontalAlignment="Stretch">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="9*" />
-                                            <ColumnDefinition Width="1*" />
+                                            <ColumnDefinition />
+                                            <ColumnDefinition/>
                                         </Grid.ColumnDefinitions>
-                                        <!--<Grid.RowDefinitions>
-                                            <RowDefinition></RowDefinition>
-                                            <RowDefinition></RowDefinition>
-                                        </Grid.RowDefinitions>-->
+                                        
                                         <StackPanel Grid.Column="0" >
                                             <TextBlock x:Name="tbMilkteas"
                                                    FontSize="18"
                                                    Text="{Binding tenSanPham}"
                                                    TextAlignment="Left"
+                                                       Width="228"
                                                    TextWrapping="WrapWithOverflow" MouseDown="TbDrink_MouseDown"></TextBlock>
                                             <ComboBox x:Name="cbbSizeMilkteas" FontWeight="Bold" SelectedIndex="0" DropDownClosed="CbbSize_DropDownClosed">
                                                 <ComboBoxItem>
@@ -201,16 +201,14 @@
                                                 VerticalAlignment="Stretch"
                                                 HorizontalAlignment="Stretch">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="9*" />
-                                            <ColumnDefinition Width="1*" />
+                                            <ColumnDefinition  />
+                                            <ColumnDefinition/>
                                         </Grid.ColumnDefinitions>
-                                        <!--<Grid.RowDefinitions>
-                                            <RowDefinition></RowDefinition>
-                                            <RowDefinition></RowDefinition>
-                                        </Grid.RowDefinitions>-->
+                                       
                                         <StackPanel Grid.Column="0" >
                                             <TextBlock x:Name="tbToppings"
                                                    FontSize="18"
+                                                       Width="228"
                                                    Text="{Binding tenSanPham}"
                                                    TextAlignment="Left"
                                                    TextWrapping="WrapWithOverflow" MouseDown="TbDrink_MouseDown"></TextBlock>
@@ -240,6 +238,7 @@
                     </ScrollViewer>
 
                 </WrapPanel>
+                <Grid x:Name="temp1001"></Grid>
                 <WrapPanel x:Name="gridInforBill" Loaded="GridInforBill_Loaded">
                     <TextBlock x:Name="tbBillNumber" Text="Số hóa đơn:"></TextBlock>
                     <TextBox x:Name="tbxBillNumber"></TextBox>
@@ -511,7 +510,7 @@
             </Grid>
         </WrapPanel>
         <WrapPanel x:Name="wrpCustomer" Background="#ffd1d1" Visibility="Hidden">
-            <Button x:Name="btnBackCustomer" BorderBrush="#ffffff" Background="#e87f5c" Click="BtnBack_Click" >
+            <Button VerticalAlignment="Top" x:Name="btnBackCustomer" BorderBrush="#ffffff" Background="#e87f5c" Click="BtnBack_Click" >
                 <materialDesign:PackIcon Kind="ArrowLeftBoldCircleOutline" />
             </Button>
             <Grid x:Name="temp51"></Grid>
@@ -530,7 +529,7 @@
                 </Border>
             </StackPanel>
             <Grid x:Name="temp57"></Grid>
-            <Button x:Name="btnCustomer" Content="Tìm kiếm" BorderBrush="#ffffff" Background="#e87f5c" Click="BtnCustomer_Click" IsDefault="True"></Button>
+            <Button x:Name="btnCustomer" VerticalAlignment="Top" Content="Tìm kiếm" BorderBrush="#ffffff" Background="#e87f5c" Click="BtnCustomer_Click" IsDefault="True"></Button>
             <Grid x:Name="temp59"></Grid>
             <Grid x:Name="temp58"></Grid>
             <Grid x:Name="gridCustomer">
