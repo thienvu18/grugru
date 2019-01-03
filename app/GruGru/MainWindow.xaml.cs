@@ -22,6 +22,7 @@ using System.Collections.ObjectModel;
 using System.Xml.Linq;
 using System.Xml;
 using System.Security.Cryptography;
+using System.Timers;
 
 namespace GruGru
 {
@@ -51,6 +52,9 @@ namespace GruGru
         Double height0023 = SystemParameters.WorkArea.Height * 0.023;//12.5
 
         const string SERVER = "http://localhost:8080/api/";
+
+        private static Timer timer;
+
         bool rememberme = false;
         string userLocal;
         string passLocal;
@@ -1013,6 +1017,22 @@ namespace GruGru
             lvMenuCoffees.ItemsSource = coffees;
             lvMenuMilkteas.ItemsSource = milkTeas;
             lvMenuToppings.ItemsSource = toppings;
+
+            DateTime now = DateTime.Now;
+            tbTime.Text = "Ngày giờ:   " + now.ToShortTimeString() + "        " + now.ToShortDateString();
+
+            timer = new Timer();
+            timer.Interval = ((60 - DateTime.Now.Second) * 1000 - DateTime.Now.Millisecond);
+            timer.AutoReset = true;
+            timer.Elapsed += (Object o, ElapsedEventArgs e) =>
+            {
+                timer.Interval = ((60 - DateTime.Now.Second) * 1000 - DateTime.Now.Millisecond);
+                timer.Start();
+                this.Dispatcher.Invoke(() => {
+                    tbTime.Text = "Ngày giờ:   " + DateTime.Now.ToShortTimeString() + "        " + DateTime.Now.ToShortDateString();
+                });
+            };
+            timer.Start();
         }
 
         private void btnPersonalInforMode_Click(object sender, RoutedEventArgs e)
