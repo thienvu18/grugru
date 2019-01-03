@@ -15,11 +15,7 @@
         mc:Ignorable="d"
         Title="MainWindow">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="253*"/>
-            <ColumnDefinition Width="127*"/>
-        </Grid.ColumnDefinitions>
-        <Grid x:Name="GridLoginScreen" Visibility="Hidden" Grid.ColumnSpan="2">
+        <Grid x:Name="GridLoginScreen" Visibility="Visible">
             <Image Source="backround.jpg" RenderTransformOrigin="0.5,0.5" >
                 <Image.RenderTransform>
                     <TransformGroup>
@@ -65,7 +61,7 @@
                 <Button x:Name="tbForgotPw" Margin="405,430,232,100" FontSize="15" FontStyle="Italic" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Orange">Fogot Password?</Button>
             </Grid>
         </Grid>
-        <WrapPanel x:Name="stpMainScreen" Background="#e9e7e4" Visibility="Hidden" Grid.ColumnSpan="2">
+        <WrapPanel x:Name="stpMainScreen" Background="#e9e7e4" Visibility="Hidden">
             <StackPanel x:Name="stpTitle" Orientation="Horizontal">
                 <TextBlock x:Name="txbCoffee" Text="Coffee" TextAlignment="Center" Background="#b68648" ></TextBlock>
                 <TextBlock x:Name="txbMilktea" Text="Milk tea" Background="#efca8b" TextAlignment="Center"></TextBlock>
@@ -244,18 +240,19 @@
                     </ScrollViewer>
 
                 </WrapPanel>
-                <WrapPanel x:Name="gridInforBill">
+                <WrapPanel x:Name="gridInforBill" Loaded="GridInforBill_Loaded">
                     <TextBlock x:Name="tbBillNumber" Text="Số hóa đơn:"></TextBlock>
                     <TextBox x:Name="tbxBillNumber"></TextBox>
                     <TextBlock x:Name="tbCustomer" Text="Khách hàng:"></TextBlock>
-                    <TextBox x:Name="tbxCustomer"></TextBox>
+                    <ComboBox x:Name="cbbCustomer" IsEditable="True">
+                    </ComboBox>
                     <Grid x:Name="temp1"></Grid>
                     <TextBlock x:Name="tbEmployee" Text="Phục vụ:"></TextBlock>
                     <TextBlock x:Name="tbTime" Text="Ngày giờ:   19:44:7        12/12/2018"></TextBlock>
                     <ScrollViewer VerticalScrollBarVisibility="Auto" >
-                        <ListView x:Name="lvListBill">
+                        <ListView x:Name="lvListBill" >
                             <ListView.View >
-                                <GridView>
+                                <GridView AllowsColumnReorder="False">
                                     <GridViewColumn x:Name="lvhOrdinal" Header="STT" DisplayMemberBinding="{Binding stt}"></GridViewColumn>
                                     <GridViewColumn x:Name="lvhDrink" Header="Tên Thức uống" DisplayMemberBinding="{Binding ten}"></GridViewColumn>
                                     <GridViewColumn x:Name="lvhSize" Header="Size" DisplayMemberBinding="{Binding size}"/>
@@ -278,7 +275,7 @@
                 </WrapPanel>
             </StackPanel>
         </WrapPanel>
-        <WrapPanel x:Name="wrpStatistical" Background="#d3f7f8" Visibility="Hidden" Grid.ColumnSpan="2">
+        <WrapPanel x:Name="wrpStatistical" Background="#d3f7f8" Visibility="Hidden">
             <Button x:Name="btnBackStatistical" Background="#00baba" BorderBrush="#32cbfd" Width="50" Click="BtnBack_Click" >
                 <materialDesign:PackIcon Kind="ArrowLeftBoldCircle"/>
             </Button>
@@ -322,7 +319,7 @@
             <ScrollViewer VerticalScrollBarVisibility="Auto" >
                 <ListView x:Name="lvListStatistical" Foreground="Black">
                     <ListView.View>
-                        <GridView>
+                        <GridView AllowsColumnReorder="False">
                             <GridViewColumn x:Name="gvcSTT" Header="STT" DisplayMemberBinding="{Binding STT}"/>
                             <GridViewColumn x:Name="gvcHour" Header="Giờ" DisplayMemberBinding="{Binding STT}"/>
                             <GridViewColumn x:Name="gvcDay" Header="Ngày" DisplayMemberBinding="{Binding STT}"/>
@@ -339,7 +336,7 @@
             <Grid x:Name="temp12"/>
             <TextBlock x:Name="tbTotal" Text="Tổng: 0000000 00000000" Foreground="Black"/>
         </WrapPanel>
-        <WrapPanel x:Name="wrpJobCalendar" Background="#FFFACD" Visibility="Hidden" Grid.ColumnSpan="2">
+        <WrapPanel x:Name="wrpJobCalendar" Background="#FFFACD" Visibility="Hidden">
             <Button x:Name="btnJobCalendar" Background="#ffd200" BorderBrush="#FFA500" Click="BtnBack_Click" >
                 <materialDesign:PackIcon Kind="ArrowLeftBoldCircleOutline" />
             </Button>
@@ -459,7 +456,7 @@
                 </Grid>
             </Grid>
         </WrapPanel>
-        <WrapPanel x:Name="wrpFind" Background="#E0FFFF" Visibility="Visible" Grid.ColumnSpan="2">
+        <WrapPanel x:Name="wrpFind" Background="#E0FFFF" Visibility="Hidden">
             <Button x:Name="btnBackFind" Background="#1E90FF" BorderBrush="#0000FF" Click="BtnBack_Click" >
                 <materialDesign:PackIcon Kind="ArrowLeftBoldHexagonOutline" />
             </Button>
@@ -501,7 +498,7 @@
             <Grid x:Name="gridFind">
                 <ListView x:Name="lvListFind" Foreground="Black">
                     <ListView.View>
-                        <GridView>
+                        <GridView AllowsColumnReorder="False">
                             <GridViewColumn x:Name="gvcFindSTT" Header="STT" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
                             <GridViewColumn x:Name="gvcFindDate" Header="Thời gian" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
                             <GridViewColumn x:Name="gvcFindBillCode" Header="Mã hóa đơn" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
@@ -513,7 +510,7 @@
                 </ListView>
             </Grid>
         </WrapPanel>
-        <WrapPanel x:Name="wrpCustomer" Background="#ffd1d1" Visibility="Hidden" Grid.ColumnSpan="2">
+        <WrapPanel x:Name="wrpCustomer" Background="#ffd1d1" Visibility="Hidden">
             <Button x:Name="btnBackCustomer" BorderBrush="#ffffff" Background="#e87f5c" Click="BtnBack_Click" >
                 <materialDesign:PackIcon Kind="ArrowLeftBoldCircleOutline" />
             </Button>
@@ -568,7 +565,7 @@
                 </StackPanel>
             </Grid>
         </WrapPanel>
-        <WrapPanel x:Name="wrpRegisterNewCustomer" Background="#d0beac" Visibility="Hidden" Grid.ColumnSpan="2">
+        <WrapPanel x:Name="wrpRegisterNewCustomer" Background="#d0beac" Visibility="Hidden">
             <Button x:Name="btnbackRegisterNewCustomer" Background="#CD853F" Click="BtnBack_Click"  >
                 <materialDesign:PackIcon Kind="ArrowLeftBoldCircleOutline" />
             </Button>
@@ -600,7 +597,7 @@
                 </StackPanel>
             </Grid>
         </WrapPanel>
-        <Grid x:Name="griInforDrinks" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#efeabf" Visibility="Hidden" Margin="272,166,18,166">
+        <Grid x:Name="griInforDrinks" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#efeabf" Visibility="Hidden">
             <StackPanel x:Name="stpInforDrinksMini" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <!--Trick-->
                 <TextBlock x:Name="tbIdDrink" Visibility="Hidden"></TextBlock>
@@ -630,7 +627,7 @@
                 </WrapPanel>
             </StackPanel>
         </Grid>
-        <WrapPanel x:Name="wrpAgent" Background="#d1efd1" Visibility="Hidden" Grid.ColumnSpan="2">
+        <WrapPanel x:Name="wrpAgent" Background="#d1efd1" Visibility="Hidden">
             <Button x:Name="btnBackAgent" Background="#03c203" BorderBrush="#006400" Click="BtnBack_Click" >
                 <materialDesign:PackIcon Kind="ArrowLeft"/>
             </Button>
@@ -674,7 +671,7 @@
                 </StackPanel>
             </Grid>
         </WrapPanel>
-        <WrapPanel x:Name="wrpPersonalInfor" Background="#FFF8DC" Visibility="Hidden" IsVisibleChanged="WrpPersonalInfor_IsVisibleChanged" Grid.ColumnSpan="2">
+        <WrapPanel x:Name="wrpPersonalInfor" Background="#FFF8DC" Visibility="Hidden" IsVisibleChanged="WrpPersonalInfor_IsVisibleChanged">
             <Button x:Name="btnBackPersonalInfor" Background="#A52A2A" Click="BtnBack_Click">
                 <materialDesign:PackIcon Kind="ArrowLeftBoldOutline" />
             </Button>
@@ -711,7 +708,7 @@
                 </StackPanel>
             </Grid>
         </WrapPanel>
-        <Grid x:Name="GridChangePassScreen" Visibility="Hidden" Grid.ColumnSpan="2">
+        <Grid x:Name="GridChangePassScreen" Visibility="Hidden">
             <Grid x:Name="GridChangePass" Height="569" Width="792" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#40E0D0">
                 <materialDesign:Card x:Name="cardChangePass" Margin="230,70,230,0" 
          Background="AliceBlue" Height="429" Foreground="{x:Null}"/>

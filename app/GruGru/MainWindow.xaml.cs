@@ -22,6 +22,7 @@ using System.Collections.ObjectModel;
 using System.Xml.Linq;
 using System.Xml;
 using System.Security.Cryptography;
+using System.Timers;
 
 namespace GruGru
 {
@@ -51,6 +52,9 @@ namespace GruGru
         Double height0023 = SystemParameters.WorkArea.Height * 0.023;//12.5
 
         const string SERVER = "http://localhost:8080/api/";
+
+        private static Timer timer;
+
         bool rememberme = false;
         string userLocal;
         string passLocal;
@@ -127,14 +131,29 @@ namespace GruGru
             string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
             XDocument objDoc = XDocument.Load(path + "/Rememberme.xml");
 
-            LoadMenu();
+            try
+            {
+                LoadMenu();
+            } catch
+            {
+                MessageBoxResult tmp = MessageBox.Show("Không thể kết nối đến server");
+                Application.Current.Shutdown();
+            }
 
             if (objDoc.Root.Elements().ElementAt(0).Value == "True")
             {
                 rememberme = true;
                 userLocal = objDoc.Root.Elements().ElementAt(1).Value;
                 passLocal = objDoc.Root.Elements().ElementAt(2).Value;
-                DoLogin();
+                try
+                {
+                    DoLogin();
+                }
+                catch
+                {
+                    MessageBoxResult tmp = MessageBox.Show("Không thể kết nối đến server");
+                    Application.Current.Shutdown();
+                }
             }
 
             MainScreen();
@@ -235,9 +254,9 @@ namespace GruGru
             tbCustomer.Height = heighttbBill;
             tbCustomer.Width = gridInforBill.Width * 2 / 6 - 5;
 
-            tbxCustomer.FontSize = height0027;
-            tbxCustomer.Height = heighttbBill;
-            tbxCustomer.Width = gridInforBill.Width * 4 / 6 - 5;
+            cbbCustomer.FontSize = height0027;
+            cbbCustomer.Height = heighttbBill;
+            cbbCustomer.Width = gridInforBill.Width * 4 / 6 - 5;
 
             temp1.Height = heighttbBill / 4;
             temp1.Width = gridInforBill.Width;
@@ -903,7 +922,15 @@ namespace GruGru
             string json = "{\"username\": \"" + username + "\", \"password\": \"" + password + "\"}";
             string url = SERVER + "login";
 
-            return Post(url, json);
+            try
+            {
+                return Post(url, json);
+            }
+            catch
+            {
+                MessageBox.Show("Không thể kết nối đến server");
+                return "";
+            }
         }
 
         public void Find()
@@ -961,6 +988,8 @@ namespace GruGru
 
         private void LoadMenu()
         {
+            ListDrinks.Clear();
+            lvListBill.ItemsSource = null;
             string url = SERVER + "getFoodList";
 
             string result = Get(url);
@@ -1009,6 +1038,22 @@ namespace GruGru
             lvMenuCoffees.ItemsSource = coffees;
             lvMenuMilkteas.ItemsSource = milkTeas;
             lvMenuToppings.ItemsSource = toppings;
+
+            DateTime now = DateTime.Now;
+            tbTime.Text = "Ngày giờ:   " + now.ToShortTimeString() + "        " + now.ToShortDateString();
+
+            timer = new Timer();
+            timer.Interval = ((60 - DateTime.Now.Second) * 1000 - DateTime.Now.Millisecond);
+            timer.AutoReset = true;
+            timer.Elapsed += (Object o, ElapsedEventArgs e) =>
+            {
+                timer.Interval = ((60 - DateTime.Now.Second) * 1000 - DateTime.Now.Millisecond);
+                timer.Start();
+                this.Dispatcher.Invoke(() => {
+                    tbTime.Text = "Ngày giờ:   " + DateTime.Now.ToShortTimeString() + "        " + DateTime.Now.ToShortDateString();
+                });
+            };
+            timer.Start();
         }
 
         private void btnPersonalInforMode_Click(object sender, RoutedEventArgs e)
@@ -1118,20 +1163,39 @@ namespace GruGru
 
         private void btnPay_Click(object sender, RoutedEventArgs e)
         {
-
+            const string prefix = "__idKhachHang";
             string gia = TongTien().ToString();//"usercfrnh"
-            string idKhachHangMua = "1231156464864";//"13874383";
-            string idNhanVienLap = "1";
+            string idKhachHangMua = ((ComboBoxItem)cbbCustomer.SelectedItem).Name.Substring(prefix.Length);//"13874383";
 
-            string json = "{\"gia\": " + gia + ", \"idKhachHangMua\": " + idKhachHangMua + ", \"idNhanVienLap\": " + idNhanVienLap + ", \"danhSachMonAn\":";
+            if (idKhachHangMua == "null")
+            {
+                idKhachHangMua = "";
+            }
+
+            string json = "{\"gia\": " + gia + ", \"idKhachHangMua\": \"" + idKhachHangMua + "\", \"idNhanVienLap\": " + loggedInUserId + ", \"danhSachMonAn\":";
 
             json += JsonConvert.SerializeObject(ListDrinks);
             json += "}";
 
 
             string url = SERVER + "putOrder";
-
-            string result = Post(url, json);
+            try
+            {
+                string result = Post(url, json);
+                dynamic resObject = JsonConvert.DeserializeObject(result);
+                if (resObject.code == "0")
+                {
+                    MessageBox.Show("Đơn hàng đã được xác nhận");
+                    LoadMenu();
+                } else
+                {
+                    MessageBox.Show("Đặt hàng thất bại, vui lòng thử lại");
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Không thể kết nối đến server");
+            }
         }
 
         private void btnMinus_Click(object sender, RoutedEventArgs e)
@@ -1181,61 +1245,69 @@ namespace GruGru
             else
             {
                 border.Visibility = Visibility.Visible;
-                string res = Get(SERVER + "getCustomerByPhone/" + query);
-                dynamic resObject = JsonConvert.DeserializeObject(res);
-                // Clear the list   
-                resultStack.Children.Clear();
-
-                if (resObject.code == "0")
+                try
                 {
-                    for (int i = 0; i < resObject.payload.Count; i++)
+                    string res = Get(SERVER + "getCustomerByPhone/" + query);
+                    dynamic resObject = JsonConvert.DeserializeObject(res);
+                    // Clear the list   
+                    resultStack.Children.Clear();
+
+                    if (resObject.code == "0")
                     {
-                        string text = resObject.payload[i].hoTen;
-
-                        // The word starts with this... Autocomplete must work   
-                        TextBlock block = new TextBlock();
-
-                        // Add the text   
-                        block.Text = text;
-                        //Add id
-                        string fullPhoneNumber = ((string)resObject.payload[i].soDienThoai).Trim();
-                        block.Name = "_" + fullPhoneNumber;
-
-                        // A little style...   
-                        block.Margin = new Thickness(2, 3, 2, 3);
-                        block.Cursor = Cursors.Hand;
-
-                        // Mouse events   
-                        block.MouseLeftButtonUp += (s, notCare) =>
+                        for (int i = 0; i < resObject.payload.Count; i++)
                         {
-                            tbxSearchCustomer.Text = (s as TextBlock).Name.Remove(0, 1);
-                            border.Visibility = Visibility.Hidden;
-                            BtnCustomer_Click(null, null);
-                        };
+                            string text = resObject.payload[i].hoTen;
 
-                        block.MouseEnter += (s, notCare) =>
-                        {
-                            TextBlock b = s as TextBlock;
-                            b.Background = Brushes.PeachPuff;
-                        };
+                            // The word starts with this... Autocomplete must work   
+                            TextBlock block = new TextBlock();
 
-                        block.MouseLeave += (s, notCare) =>
-                        {
-                            TextBlock b = s as TextBlock;
-                            b.Background = Brushes.Transparent;
-                        };
+                            // Add the text   
+                            block.Text = text;
+                            //Add id
+                            string fullPhoneNumber = ((string)resObject.payload[i].soDienThoai).Trim();
+                            block.Name = "_" + fullPhoneNumber;
 
-                        // Add to the panel   
-                        resultStack.Children.Add(block);
-                        found = true;
+                            // A little style...   
+                            block.Margin = new Thickness(2, 3, 2, 3);
+                            block.Cursor = Cursors.Hand;
+
+                            // Mouse events   
+                            block.MouseLeftButtonUp += (s, notCare) =>
+                            {
+                                tbxSearchCustomer.Text = (s as TextBlock).Name.Remove(0, 1);
+                                border.Visibility = Visibility.Hidden;
+                                BtnCustomer_Click(null, null);
+                            };
+
+                            block.MouseEnter += (s, notCare) =>
+                            {
+                                TextBlock b = s as TextBlock;
+                                b.Background = Brushes.PeachPuff;
+                            };
+
+                            block.MouseLeave += (s, notCare) =>
+                            {
+                                TextBlock b = s as TextBlock;
+                                b.Background = Brushes.Transparent;
+                            };
+
+                            // Add to the panel   
+                            resultStack.Children.Add(block);
+                            found = true;
+                        }
+                    }
+
+                    if (!found)
+                    {
+                        resultStack.Children.Add(new TextBlock() { Text = "No results found." });
                     }
                 }
-
-                if (!found)
+                catch
                 {
-                    resultStack.Children.Add(new TextBlock() { Text = "No results found." });
+                    MessageBox.Show("Không thể kết nối đến server");
                 }
             }
+
         }
 
         private void BtnCustomer_Click(object sender, RoutedEventArgs e)
@@ -1622,21 +1694,28 @@ namespace GruGru
         {
             string id = tbIdDrink.Text;
             string url = SERVER + "deleteDrink/" + id;
-
-            string result = Get(url);
-            dynamic stuff = JsonConvert.DeserializeObject(result);
-
-            string code = stuff.code;
-            if (code == "0")
+            try
             {
-                MessageBox.Show("xóa món thành công");
-                griInforDrinks.Visibility = Visibility.Hidden;
-                LoadMenu();
-                stpMainScreen.Opacity = 1;
+                string result = Get(url);
+                dynamic stuff = JsonConvert.DeserializeObject(result);
+
+                string code = stuff.code;
+                if (code == "0")
+                {
+                    MessageBox.Show("xóa món thành công");
+                    griInforDrinks.Visibility = Visibility.Hidden;
+                    LoadMenu();
+                    stpMainScreen.Opacity = 1;
+                }
+                else
+                {
+                    MessageBox.Show("Có lỗi xảy ra, vui lòng thử lại");
+                }
             }
-            else
+            catch
             {
-                MessageBox.Show("Có lỗi xảy ra, vui lòng thử lại");
+                MessageBox.Show("Không thể kết nối đến server");
+
             }
         }
 
@@ -1648,22 +1727,28 @@ namespace GruGru
             string Ingredients = tbxIngredients.Text;//mô tả
             string json = "{\"id\": \"" + id + "\",\"tenSanPham\": \"" + NameDrink + "\",\"thongTin\": \"" + Ingredients + "\", \"gia\": " + Cost + "}";
             string url = SERVER + "updateDrink";
-
-            string result = Post(url, json);
-            dynamic stuff = JsonConvert.DeserializeObject(result);
-
-            string code = stuff.code;
-            if (code == "0")
+            try
             {
-                MessageBox.Show("Cập nhật món thành công");
-                griInforDrinks.Visibility = Visibility.Hidden;
-                LoadMenu();
-                stpMainScreen.Opacity = 1;
+                string result = Post(url, json);
+                dynamic stuff = JsonConvert.DeserializeObject(result);
 
+                string code = stuff.code;
+                if (code == "0")
+                {
+                    MessageBox.Show("Cập nhật món thành công");
+                    griInforDrinks.Visibility = Visibility.Hidden;
+                    LoadMenu();
+                    stpMainScreen.Opacity = 1;
+
+                }
+                else
+                {
+                    MessageBox.Show("Có lỗi xảy ra, vui lòng thử lại");
+                }
             }
-            else
+            catch
             {
-                MessageBox.Show("Có lỗi xảy ra, vui lòng thử lại");
+                MessageBox.Show("Không thể kết nối đến server");
             }
         }
 
@@ -1874,5 +1959,36 @@ namespace GruGru
             }
         }
 
+        private void GridInforBill_Loaded(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string res = Get(SERVER + "getCustomers");
+                dynamic resObject = JsonConvert.DeserializeObject(res);
+                if (resObject.code == "0")
+                {
+                    ComboBoxItem defaultItem = new ComboBoxItem();
+                    defaultItem.Name = "__idKhachHangnull";
+                    defaultItem.Content = "Khách hàng chưa đăng ký";
+                    cbbCustomer.Items.Add(defaultItem);
+
+                    cbbCustomer.SelectedIndex = 0;
+                    for (int i = 0; i < resObject.payload.Count; i++)
+                    {
+                        ComboBoxItem item = new ComboBoxItem();
+                        item.Name = "__idKhachHang" + resObject.payload[i].id;
+                        item.Content = resObject.payload[i].hoTen;
+                        cbbCustomer.Items.Add(item);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Không thể kết nối đến server");
+                }
+            } catch
+            {
+                MessageBox.Show("Không thể kết nối đến server");
+            }
+        }
     }
 }
