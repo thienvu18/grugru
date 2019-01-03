@@ -643,9 +643,15 @@ namespace GruGru
             stpInforDrinksMini.Height = height * 0.7;
             stpInforDrinksMini.Width = width * 0.65;
 
+            stpIngredientmini.Width = stpInforDrinksMini.Width * 0.8;
+
             tbNameDrink.FontSize = height0023;
             tbxNameDrink.FontSize = height0023;
-            tbxNameDrink.Width = stpInforDrinksMini.Width * 0.8;
+            tbxNameDrink.Width = stpInforDrinksMini.Width * 0.6;
+
+            cbbIngredients.FontSize = height0023;
+            //cbbIngredients.Height = stpInforDrinksMini.Height / 20;
+            cbbIngredients.Width = stpInforDrinksMini.Width * 0.25;
 
             temp71.Height = stpInforDrinksMini.Height / 30;
 
@@ -661,6 +667,8 @@ namespace GruGru
             tbxIngredients.FontSize = height0023;
             tbxIngredients.Height = stpInforDrinksMini.Height / 5 * 2;
             tbxIngredients.Width = stpInforDrinksMini.Width;
+
+         
 
             temp100.Height = stpInforDrinksMini.Height / 8;
 
@@ -1686,6 +1694,9 @@ namespace GruGru
             tbxNameDrink.Text = ((TextBlock)sender).Text;
             tbxCostDrink.Text = ((TextBlock)((StackPanel)((TextBlock)sender).Parent).Children[3]).Text;
             tbxIngredients.Text = ((TextBlock)((StackPanel)((TextBlock)sender).Parent).Children[4]).Text;
+            btnInsertDrink.Content = "Thêm mới";
+            cbbIngredients.Visibility = Visibility.Hidden;
+
             if (loggedInUserType == "1")
             {
                 btnDeleteDrink.Visibility = Visibility.Collapsed;
@@ -1718,8 +1729,8 @@ namespace GruGru
                 {
                     MessageBox.Show("xóa món thành công");
                     griInforDrinks.Visibility = Visibility.Hidden;
-                    LoadMenu();
                     ListDrinks.Clear();
+                    LoadMenu();
                     tbTotalMoney.Text = " Tổng tiền:        ";
                     stpMainScreen.Opacity = 1;
                 }
@@ -1753,8 +1764,8 @@ namespace GruGru
                 {
                     MessageBox.Show("Cập nhật món thành công");
                     griInforDrinks.Visibility = Visibility.Hidden;
-                    LoadMenu();
                     ListDrinks.Clear();
+                    LoadMenu();
                     tbTotalMoney.Text = " Tổng tiền:        ";
                     stpMainScreen.Opacity = 1;
 
@@ -2183,11 +2194,37 @@ namespace GruGru
                 tbxNameDrink.Text = "";
                 tbxCostDrink.Text = "";
                 tbxIngredients.Text = "";
+                cbbIngredients.Visibility = Visibility.Visible;
             }
             else if (btnInsertDrink.Content.ToString() == "Xác nhận")
             {
+                btnInsertDrink.Content = "Thêm mới";
+                cbbIngredients.Visibility = Visibility.Hidden;
+                string maSanPham = "";
+                if (cbbIngredients.SelectedIndex == 0)
+                {
+                    maSanPham = "C";
+                }
+                else if(cbbIngredients.SelectedIndex == 1)
+                {
+                    maSanPham = "M";
 
-                string maSanPham = Convert.ToBase64String(Guid.NewGuid().ToByteArray()).Substring(0, 8);
+                }
+                else if (cbbIngredients.SelectedIndex == 2)
+                {
+                    maSanPham = "T";
+
+                }
+                var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+                var stringChars = new char[8];
+                var random = new Random();
+
+                for (int i = 0; i < stringChars.Length; i++)
+                {
+                    stringChars[i] = chars[random.Next(chars.Length)];
+                }
+
+                maSanPham += new String(stringChars);
                 string NameDrink = tbxNameDrink.Text;//"namedrink"
                 string Cost = tbxCostDrink.Text;//"giá"
                 string Ingredients = tbxIngredients.Text;//mô tả
@@ -2216,7 +2253,7 @@ namespace GruGru
                 }
                 catch
                 {
-                    MessageBox.Show("Không thể kết nối đến server");
+                    MessageBox.Show("Có lỗi xảy ra, vui lòng thử lại");
                 }
             }
         }
