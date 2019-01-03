@@ -1790,7 +1790,7 @@ namespace GruGru
             }
             try
             {
-                birthDay = DateTime.Parse(birthDay).ToString("dd/MM/yyyy");
+                DateTime.ParseExact(birthDay, "dd/MM/yyyy", null);
             }
             catch
             {

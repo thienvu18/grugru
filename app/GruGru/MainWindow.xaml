@@ -587,7 +587,7 @@
                             <TextBox x:Name="tbxNewPhoneNumber"></TextBox>
                             <Grid x:Name="temp64"></Grid>
                             <TextBlock x:Name="tbNewBirthDay" Text="Ngày sinh:" Foreground="Black"></TextBlock>
-                            <TextBox x:Name="tbxNewBirthDay"></TextBox>
+                            <TextBox x:Name="tbxNewBirthDay" materialDesign:HintAssist.Hint="Ngày/Tháng/Năm"></TextBox>
                         </StackPanel>
                     </StackPanel>
                     <Grid x:Name="temp65"></Grid>
