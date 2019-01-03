@@ -634,7 +634,7 @@
               VerticalAlignment="Bottom" 
               Width="285"/>
             <Grid x:Name="temp87"/>
-            <Button x:Name="btnAgent" Content="Tìm kiếm" Background="#03c203" BorderBrush="#006400" Click="btnAgent_Click"/>
+            <Button x:Name="btnAgent" Content="Tìm kiếm" Background="#03c203" BorderBrush="#006400" Click="btnAgent_Click" IsDefault="True"/>
             <Grid x:Name="temp89"/>
             <Grid x:Name="temp88"/>
             <Grid x:Name="gridAgent">
