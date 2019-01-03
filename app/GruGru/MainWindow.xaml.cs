@@ -127,14 +127,29 @@ namespace GruGru
             string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
             XDocument objDoc = XDocument.Load(path + "/Rememberme.xml");
 
-            LoadMenu();
+            try
+            {
+                LoadMenu();
+            } catch
+            {
+                MessageBoxResult tmp = MessageBox.Show("Không thể kết nối đến server");
+                Application.Current.Shutdown();
+            }
 
             if (objDoc.Root.Elements().ElementAt(0).Value == "True")
             {
                 rememberme = true;
                 userLocal = objDoc.Root.Elements().ElementAt(1).Value;
                 passLocal = objDoc.Root.Elements().ElementAt(2).Value;
-                DoLogin();
+                try
+                {
+                    DoLogin();
+                }
+                catch
+                {
+                    MessageBoxResult tmp = MessageBox.Show("Không thể kết nối đến server");
+                    Application.Current.Shutdown();
+                }
             }
 
             MainScreen();
@@ -896,7 +911,15 @@ namespace GruGru
             string json = "{\"username\": \"" + username + "\", \"password\": \"" + password + "\"}";
             string url = SERVER + "login";
 
-            return Post(url, json);
+            try
+            {
+                return Post(url, json);
+            }
+            catch
+            {
+                MessageBox.Show("Không thể kết nối đến server");
+                return "";
+            }
         }
 
         public void Find()
@@ -1111,8 +1134,14 @@ namespace GruGru
 
 
             string url = SERVER + "putOrder";
-
-            string result = Post(url, json);
+            try
+            {
+                string result = Post(url, json);
+            }
+            catch
+            {
+                MessageBox.Show("Không thể kết nối đến server");
+            }
         }
 
         private void btnMinus_Click(object sender, RoutedEventArgs e)
@@ -1162,61 +1191,69 @@ namespace GruGru
             else
             {
                 border.Visibility = Visibility.Visible;
-                string res = Get(SERVER + "getCustomerByPhone/" + query);
-                dynamic resObject = JsonConvert.DeserializeObject(res);
-                // Clear the list   
-                resultStack.Children.Clear();
-
-                if (resObject.code == "0")
+                try
                 {
-                    for (int i = 0; i < resObject.payload.Count; i++)
+                    string res = Get(SERVER + "getCustomerByPhone/" + query);
+                    dynamic resObject = JsonConvert.DeserializeObject(res);
+                    // Clear the list   
+                    resultStack.Children.Clear();
+
+                    if (resObject.code == "0")
                     {
-                        string text = resObject.payload[i].hoTen;
-
-                        // The word starts with this... Autocomplete must work   
-                        TextBlock block = new TextBlock();
-
-                        // Add the text   
-                        block.Text = text;
-                        //Add id
-                        string fullPhoneNumber = ((string)resObject.payload[i].soDienThoai).Trim();
-                        block.Name = "_" + fullPhoneNumber;
-
-                        // A little style...   
-                        block.Margin = new Thickness(2, 3, 2, 3);
-                        block.Cursor = Cursors.Hand;
-
-                        // Mouse events   
-                        block.MouseLeftButtonUp += (s, notCare) =>
+                        for (int i = 0; i < resObject.payload.Count; i++)
                         {
-                            tbxSearchCustomer.Text = (s as TextBlock).Name.Remove(0, 1);
-                            border.Visibility = Visibility.Hidden;
-                            BtnCustomer_Click(null, null);
-                        };
+                            string text = resObject.payload[i].hoTen;
 
-                        block.MouseEnter += (s, notCare) =>
-                        {
-                            TextBlock b = s as TextBlock;
-                            b.Background = Brushes.PeachPuff;
-                        };
+                            // The word starts with this... Autocomplete must work   
+                            TextBlock block = new TextBlock();
 
-                        block.MouseLeave += (s, notCare) =>
-                        {
-                            TextBlock b = s as TextBlock;
-                            b.Background = Brushes.Transparent;
-                        };
+                            // Add the text   
+                            block.Text = text;
+                            //Add id
+                            string fullPhoneNumber = ((string)resObject.payload[i].soDienThoai).Trim();
+                            block.Name = "_" + fullPhoneNumber;
 
-                        // Add to the panel   
-                        resultStack.Children.Add(block);
-                        found = true;
+                            // A little style...   
+                            block.Margin = new Thickness(2, 3, 2, 3);
+                            block.Cursor = Cursors.Hand;
+
+                            // Mouse events   
+                            block.MouseLeftButtonUp += (s, notCare) =>
+                            {
+                                tbxSearchCustomer.Text = (s as TextBlock).Name.Remove(0, 1);
+                                border.Visibility = Visibility.Hidden;
+                                BtnCustomer_Click(null, null);
+                            };
+
+                            block.MouseEnter += (s, notCare) =>
+                            {
+                                TextBlock b = s as TextBlock;
+                                b.Background = Brushes.PeachPuff;
+                            };
+
+                            block.MouseLeave += (s, notCare) =>
+                            {
+                                TextBlock b = s as TextBlock;
+                                b.Background = Brushes.Transparent;
+                            };
+
+                            // Add to the panel   
+                            resultStack.Children.Add(block);
+                            found = true;
+                        }
+                    }
+
+                    if (!found)
+                    {
+                        resultStack.Children.Add(new TextBlock() { Text = "No results found." });
                     }
                 }
-
-                if (!found)
+                catch
                 {
-                    resultStack.Children.Add(new TextBlock() { Text = "No results found." });
+                    MessageBox.Show("Không thể kết nối đến server");
                 }
             }
+
         }
 
         private void BtnCustomer_Click(object sender, RoutedEventArgs e)
@@ -1603,21 +1640,28 @@ namespace GruGru
         {
             string id = tbIdDrink.Text;
             string url = SERVER + "deleteDrink/" + id;
-
-            string result = Get(url);
-            dynamic stuff = JsonConvert.DeserializeObject(result);
-
-            string code = stuff.code;
-            if (code == "0")
+            try
             {
-                MessageBox.Show("xóa món thành công");
-                griInforDrinks.Visibility = Visibility.Hidden;
-                LoadMenu();
-                stpMainScreen.Opacity = 1;
+                string result = Get(url);
+                dynamic stuff = JsonConvert.DeserializeObject(result);
+
+                string code = stuff.code;
+                if (code == "0")
+                {
+                    MessageBox.Show("xóa món thành công");
+                    griInforDrinks.Visibility = Visibility.Hidden;
+                    LoadMenu();
+                    stpMainScreen.Opacity = 1;
+                }
+                else
+                {
+                    MessageBox.Show("Có lỗi xảy ra, vui lòng thử lại");
+                }
             }
-            else
+            catch
             {
-                MessageBox.Show("Có lỗi xảy ra, vui lòng thử lại");
+                MessageBox.Show("Không thể kết nối đến server");
+
             }
         }
 
@@ -1629,22 +1673,28 @@ namespace GruGru
             string Ingredients = tbxIngredients.Text;//mô tả
             string json = "{\"id\": \"" + id + "\",\"tenSanPham\": \"" + NameDrink + "\",\"thongTin\": \"" + Ingredients + "\", \"gia\": " + Cost + "}";
             string url = SERVER + "updateDrink";
-
-            string result = Post(url, json);
-            dynamic stuff = JsonConvert.DeserializeObject(result);
-
-            string code = stuff.code;
-            if (code == "0")
+            try
             {
-                MessageBox.Show("Cập nhật món thành công");
-                griInforDrinks.Visibility = Visibility.Hidden;
-                LoadMenu();
-                stpMainScreen.Opacity = 1;
+                string result = Post(url, json);
+                dynamic stuff = JsonConvert.DeserializeObject(result);
 
+                string code = stuff.code;
+                if (code == "0")
+                {
+                    MessageBox.Show("Cập nhật món thành công");
+                    griInforDrinks.Visibility = Visibility.Hidden;
+                    LoadMenu();
+                    stpMainScreen.Opacity = 1;
+
+                }
+                else
+                {
+                    MessageBox.Show("Có lỗi xảy ra, vui lòng thử lại");
+                }
             }
-            else
+            catch
             {
-                MessageBox.Show("Có lỗi xảy ra, vui lòng thử lại");
+                MessageBox.Show("Không thể kết nối đến server");
             }
         }
 
