@@ -38,8 +38,8 @@ namespace GruGru
         //cbb: combobox
         //lv: listview
         //gvc: gridviewcolumn
-        Double height = SystemParameters.WorkArea.Height - 30;
-        Double width = SystemParameters.WorkArea.Width - 30;
+        Double height = SystemParameters.WorkArea.Height - 10;
+        Double width = SystemParameters.WorkArea.Width - 10;
         Double height005 = SystemParameters.WorkArea.Height * 0.05;//25
         Double height004 = SystemParameters.WorkArea.Height * 0.04;//20
         Double height003 = SystemParameters.WorkArea.Height * 0.03;//15
@@ -126,8 +126,8 @@ namespace GruGru
             this.WindowState = WindowState.Maximized;
             this.Left = 0;
             this.Top = 0;
-            this.Height = height + 30;
-            this.Width = width + 30;
+            this.Height = height + 10;
+            this.Width = width + 10;
             string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
             XDocument objDoc = XDocument.Load(path + "/Rememberme.xml");
 
@@ -167,6 +167,21 @@ namespace GruGru
             InforScreen();
             LoadCalendar();
 
+            DateTime now = DateTime.Now;
+            tbTime.Text = "Ngày giờ:   " + now.ToShortTimeString() + "        " + now.ToShortDateString();
+
+            timer = new Timer();
+            timer.Interval = ((60 - DateTime.Now.Second) * 1000 - DateTime.Now.Millisecond);
+            timer.AutoReset = true;
+            timer.Elapsed += (Object o, ElapsedEventArgs e) =>
+            {
+                timer.Interval = ((60 - DateTime.Now.Second) * 1000 - DateTime.Now.Millisecond);
+                timer.Start();
+                this.Dispatcher.Invoke(() => {
+                    tbTime.Text = "Ngày giờ:   " + DateTime.Now.ToShortTimeString() + "        " + DateTime.Now.ToShortDateString();
+                });
+            };
+            timer.Start();
         }
 
         class Name
@@ -988,8 +1003,6 @@ namespace GruGru
 
         private void LoadMenu()
         {
-            ListDrinks.Clear();
-            lvListBill.ItemsSource = null;
             string url = SERVER + "getFoodList";
 
             string result = Get(url);
@@ -1038,22 +1051,6 @@ namespace GruGru
             lvMenuCoffees.ItemsSource = coffees;
             lvMenuMilkteas.ItemsSource = milkTeas;
             lvMenuToppings.ItemsSource = toppings;
-
-            DateTime now = DateTime.Now;
-            tbTime.Text = "Ngày giờ:   " + now.ToShortTimeString() + "        " + now.ToShortDateString();
-
-            timer = new Timer();
-            timer.Interval = ((60 - DateTime.Now.Second) * 1000 - DateTime.Now.Millisecond);
-            timer.AutoReset = true;
-            timer.Elapsed += (Object o, ElapsedEventArgs e) =>
-            {
-                timer.Interval = ((60 - DateTime.Now.Second) * 1000 - DateTime.Now.Millisecond);
-                timer.Start();
-                this.Dispatcher.Invoke(() => {
-                    tbTime.Text = "Ngày giờ:   " + DateTime.Now.ToShortTimeString() + "        " + DateTime.Now.ToShortDateString();
-                });
-            };
-            timer.Start();
         }
 
         private void btnPersonalInforMode_Click(object sender, RoutedEventArgs e)
@@ -1186,7 +1183,13 @@ namespace GruGru
                 if (resObject.code == "0")
                 {
                     MessageBox.Show("Đơn hàng đã được xác nhận");
-                    LoadMenu();
+                    ListDrinks.Clear();
+                    lvListBill.ItemsSource = null;
+
+                    lvMenuCoffees.Items.Refresh();
+                    lvMenuMilkteas.Items.Refresh();
+                    lvMenuToppings.Items.Refresh();
+
                 } else
                 {
                     MessageBox.Show("Đặt hàng thất bại, vui lòng thử lại");
