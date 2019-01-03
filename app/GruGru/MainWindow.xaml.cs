@@ -1136,6 +1136,16 @@ namespace GruGru
             }
             if (temp == false)
             {
+                if (sizetemp == "M")
+                {
+                    giatemp = giatemp*110/100;
+                }
+                if (sizetemp == "L")
+                {
+                    giatemp = giatemp * 120 / 100;
+                }
+                giatemp = Math.Round(giatemp / 1000, 0) * 1000;
+
                 ListDrinks.Add(new Drink()
                 {
                     id = idtemp,
@@ -1703,6 +1713,8 @@ namespace GruGru
                     MessageBox.Show("xóa món thành công");
                     griInforDrinks.Visibility = Visibility.Hidden;
                     LoadMenu();
+                    ListDrinks.Clear();
+                    tbTotalMoney.Text = " Tổng tiền:        ";
                     stpMainScreen.Opacity = 1;
                 }
                 else
@@ -1736,6 +1748,8 @@ namespace GruGru
                     MessageBox.Show("Cập nhật món thành công");
                     griInforDrinks.Visibility = Visibility.Hidden;
                     LoadMenu();
+                    ListDrinks.Clear();
+                    tbTotalMoney.Text = " Tổng tiền:        ";
                     stpMainScreen.Opacity = 1;
 
                 }
