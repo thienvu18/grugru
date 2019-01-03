@@ -2006,5 +2006,82 @@ namespace GruGru
                 MessageBox.Show("Không thể kết nối đến server");
             }
         }
+
+        private void TbxSearchAgent_KeyUp(object sender, KeyEventArgs e)
+        {
+
+            bool found = false;
+            var border = (agentResultStack.Parent as ScrollViewer).Parent as Border;
+
+            string query = (sender as TextBox).Text;
+
+            if (query.Length == 0)
+            {
+                // Clear   
+                agentResultStack.Children.Clear();
+                border.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                border.Visibility = Visibility.Visible;
+                try
+                {
+                    string res = Get(SERVER + "getEmployeeByName/" + query);
+                    dynamic resObject = JsonConvert.DeserializeObject(res);
+                    // Clear the list   
+                    agentResultStack.Children.Clear();
+
+                    if (resObject.code == "0")
+                    {
+                        for (int i = 0; i < resObject.payload.Count; i++)
+                        {
+                            string text = resObject.payload[i].hoTen;
+
+                            // The word starts with this... Autocomplete must work   
+                            TextBlock block = new TextBlock();
+
+                            // Add the text   
+                            block.Text = text;
+
+                            // A little style...   
+                            block.Margin = new Thickness(2, 3, 2, 3);
+                            block.Cursor = Cursors.Hand;
+
+                            // Mouse events   
+                            block.MouseLeftButtonUp += (s, notCare) =>
+                            {
+                                border.Visibility = Visibility.Hidden;
+                                btnAgent_Click(null, null);
+                            };
+
+                            block.MouseEnter += (s, notCare) =>
+                            {
+                                TextBlock b = s as TextBlock;
+                                b.Background = Brushes.PeachPuff;
+                            };
+
+                            block.MouseLeave += (s, notCare) =>
+                            {
+                                TextBlock b = s as TextBlock;
+                                b.Background = Brushes.Transparent;
+                            };
+
+                            // Add to the panel   
+                            agentResultStack.Children.Add(block);
+                            found = true;
+                        }
+                    }
+
+                    if (!found)
+                    {
+                        agentResultStack.Children.Add(new TextBlock() { Text = "No results found." });
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("Không thể kết nối đến server");
+                }
+            }
+        }
     }
 }
