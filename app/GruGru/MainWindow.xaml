@@ -15,7 +15,7 @@
         mc:Ignorable="d"
         Title="MainWindow">
     <Grid>
-        <Grid x:Name="GridLoginScreen" Visibility="Visible">
+        <Grid x:Name="GridLoginScreen" Visibility="Hidden">
             <Image Source="backround.jpg" RenderTransformOrigin="0.5,0.5" >
                 <Image.RenderTransform>
                     <TransformGroup>
@@ -61,7 +61,7 @@
                 <Button x:Name="tbForgotPw" Margin="405,430,232,100" FontSize="15" FontStyle="Italic" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Orange">Fogot Password?</Button>
             </Grid>
         </Grid>
-        <WrapPanel x:Name="stpMainScreen" Background="#e9e7e4" Visibility="Hidden">
+        <WrapPanel x:Name="stpMainScreen" Background="#e9e7e4" Visibility="Visible">
             <StackPanel x:Name="stpTitle" Orientation="Horizontal">
                 <TextBlock x:Name="txbCoffee" Text="Coffee" TextAlignment="Center" Background="#b68648" ></TextBlock>
                 <TextBlock x:Name="txbMilktea" Text="Milk tea" Background="#efca8b" TextAlignment="Center"></TextBlock>
@@ -69,15 +69,16 @@
                 <Grid x:Name="temp1000"></Grid>
                 <TextBlock x:Name="txbInfor" Text="Thông tin hóa đơn" Background="#f8e6b0"  TextAlignment="Center"></TextBlock>
                 <Grid>
-                    <ComboBox x:Name="cbbEmployee" Background="#fbf9f2" Visibility="Visible" >
-                        <!--<materialDesign:PackIcon Kind="HamburgerMenu" />-->
+                    <materialDesign:PackIcon Kind="SettingsOutline" Width="50" Height="30" VerticalAlignment="Top" Margin="10 2"/>
+                    <ComboBox x:Name="cbbEmployee" 
+                              Background="#fbf9f2" Visibility="Visible" Opacity="0">
                         <Button x:Name="btnPersonalInforMode" Content="Thông tin cá nhân" Background="#f4a50d" BorderBrush="#ffffff" Click="btnPersonalInforMode_Click"  ></Button>
                         <Button x:Name="btnCalendarMode" Content="Lịch làm việc" Background="#f4a50d" BorderBrush="#ffffff" Click="BtnCalendarMode_Click" ></Button>
                         <Button x:Name="btnCustomerInforMode" Content="Thông tin khách hàng" Background="#f4a50d" BorderBrush="#ffffff" Click="btnCustomerInforMode_Click" ></Button>
                         <Button x:Name="btnRegisterMode" Content="Đăng ký khách hàng" Background="#f4a50d" BorderBrush="#ffffff" Click="btnRegisterMode_Click" ></Button>
                         <Button x:Name="btnLogoutMode" Content="Đăng xuất" Background="#f4a50d" BorderBrush="#ffffff" Click="btnLogoutMode_Click" ></Button>
                     </ComboBox>
-                    <ComboBox x:Name="cbbManage" Visibility="Visible">
+                    <ComboBox x:Name="cbbManage" Visibility="Visible" Opacity="0">
                         <!--<materialDesign:PackIcon Kind="HamburgerMenu" />-->
                         <Button x:Name="btnPersonalInforMode1" Content="Thông tin cá nhân" Click="btnPersonalInforMode_Click" Background="#ffd200" BorderBrush="Orange" Foreground="White"></Button>
                         <Button x:Name="btnCustomerInforMode1" Content="Thông tin khách hàng" Click="btnCustomerInforMode_Click"  Background="#ffd200" BorderBrush="Orange" Foreground="White" ></Button>
@@ -606,7 +607,9 @@
                      Text="Trà sữa" Foreground="Black"></TextBox>
                 <Grid x:Name="temp72"></Grid>
                 <TextBlock x:Name="tbIngredients" Text="Thành phần" Foreground="Black"></TextBlock>
-                <TextBox x:Name="tbxIngredients" HorizontalAlignment="Stretch" VerticalAlignment="Top" TextWrapping="Wrap"></TextBox>
+                <TextBox x:Name="tbxIngredients"
+                         Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
+                         HorizontalAlignment="Stretch" VerticalAlignment="Top" TextWrapping="Wrap"></TextBox>
                 <Grid x:Name="temp100"></Grid>
                 <WrapPanel x:Name="stpInforDrinksMini1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Grid x:Name="gridbtnBackInforDrink">
