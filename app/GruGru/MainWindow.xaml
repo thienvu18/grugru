@@ -400,19 +400,12 @@
                 materialDesign:HintAssist.Hint="Chọn ngày"
                 Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Width="60" />
 
-            <materialDesign:TimePicker x:Name="mtpHourStartFind"
-                Is24Hours="True"
-                Style="{StaticResource MaterialDesignFloatingHintTimePicker}"
-                materialDesign:HintAssist.Hint="Chọn giờ" Width="60" />
             <Grid x:Name="temp42"></Grid>
             <TextBlock x:Name="tbTimeEndFind"  Text="Đến:" Foreground="Black"></TextBlock>
             <DatePicker x:Name="dpDayEndFind"
                 materialDesign:HintAssist.Hint="Chọn ngày"
                 Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Width="60" />
-            <materialDesign:TimePicker x:Name="mtpHourEndFind"
-                Is24Hours="True"
-                Style="{StaticResource MaterialDesignFloatingHintTimePicker}"
-                materialDesign:HintAssist.Hint="Chọn giờ" Width="60" />
+            
             <Grid x:Name="temp46"></Grid>
             <TextBlock x:Name="tbEmployeeName" Text="Tên nhân viên:" Foreground="Black" />
             <Grid x:Name="temp43"></Grid>
