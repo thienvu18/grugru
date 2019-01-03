@@ -15,7 +15,7 @@
         mc:Ignorable="d"
         Title="MainWindow">
     <Grid>
-        <Grid x:Name="GridLoginScreen" Visibility="Visible">
+        <Grid x:Name="GridLoginScreen" Visibility="Hidden">
             <Image Source="backround.jpg" RenderTransformOrigin="0.5,0.5" >
                 <Image.RenderTransform>
                     <TransformGroup>
@@ -81,7 +81,7 @@
                         <Button x:Name="btnPersonalInforMode1" Content="Thông tin cá nhân" Click="btnPersonalInforMode_Click" Background="#ffd200" BorderBrush="Orange" Foreground="White"></Button>
                         <Button x:Name="btnCustomerInforMode1" Content="Thông tin khách hàng" Click="btnCustomerInforMode_Click"  Background="#ffd200" BorderBrush="Orange" Foreground="White" ></Button>
                         <Button x:Name="btnCalendarMode1" Content="Lịch làm việc" Background="#ffd200" BorderBrush="#ffffff" Click="BtnCalendarMode_Click" ></Button>
-                        <Button x:Name="btnStatisticalMode1" Content="Thống kê" Click="btnStatisticalMode1_Click"  Background="#ffd200" BorderBrush="Orange" Foreground="White"></Button>
+                        <Button x:Name="btnStatisticalScreenMode1" Content="Thống kê" Click="btnStatisticalScreenMode1_Click"  Background="#ffd200" BorderBrush="Orange" Foreground="White"></Button>
                         <Button x:Name="btnFindMode1" Content="Tìm kiếm" Click="btnFindMode1_Click"  Background="#ffd200" BorderBrush="Orange" Foreground="White"></Button>
                         <Button x:Name="btnRegisterMode1" Content="Đăng ký khách hàng"  Click="btnRegisterMode_Click"  Background="#ffd200" BorderBrush="Orange" Foreground="White"></Button>
                         <Button x:Name="btnManageMode1" Content="Quản lý nhân viên" Click="btnManageMode1_Click"  Background="#ffd200" BorderBrush="Orange" Foreground="White"></Button>
@@ -275,67 +275,6 @@
                 </WrapPanel>
             </StackPanel>
         </WrapPanel>
-        <WrapPanel x:Name="wrpStatistical" Background="#d3f7f8" Visibility="Hidden">
-            <Button x:Name="btnBackStatistical" Background="#00baba" BorderBrush="#32cbfd" Width="50" Click="BtnBack_Click" >
-                <materialDesign:PackIcon Kind="ArrowLeftBoldCircle"/>
-            </Button>
-            <Grid x:Name="temp4"/>
-            <TextBlock x:Name="tbTimestart"  Text="Ngày giờ bắt đầu:" Foreground="Black"/>
-            <DatePicker x:Name="dpDayStart"
-                materialDesign:HintAssist.Hint="Chọn ngày"
-                Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
-            <Grid x:Name="temp5"/>
-            <materialDesign:TimePicker x:Name="mtpHourStart"
-                Is24Hours="True"
-                Style="{StaticResource MaterialDesignFloatingHintTimePicker}"
-                materialDesign:HintAssist.Hint="Chọn giờ" />
-            <Grid x:Name="temp6"/>
-            <TextBlock x:Name="tbTimeEnd"  Text="Ngày giờ kết thúc:" Foreground="Black"/>
-            <DatePicker x:Name="dpDayEnd"
-                materialDesign:HintAssist.Hint="Chọn ngày"
-                Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
-            <Grid x:Name="temp7"/>
-            <materialDesign:TimePicker x:Name="mtpHourEnd"
-                Is24Hours="True"
-                Style="{StaticResource MaterialDesignFloatingHintTimePicker}"
-                materialDesign:HintAssist.Hint="Chọn giờ" />
-            <Grid x:Name="temp8"/>
-            <ComboBox x:Name="cbbTypeStatistical"
-            materialDesign:HintAssist.Hint="Khách hàng">
-                <ComboBoxItem Content="Nhân viên"/>
-                <ComboBoxItem Content="Khách hàng"/>
-                <ComboBoxItem Content="Thức uống"/>
-            </ComboBox>
-            <Grid x:Name="temp9"/>
-            <TextBox x:Name="tbxSearchStatistical" Foreground="Black"
-              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-              materialDesign:HintAssist.Hint="Tên nhân viên/ khách hàng/ thức uống"
-              Text="{Binding Content}"
-              Margin="8 0 0 0"
-              VerticalAlignment="Bottom" />
-            <Grid x:Name="temp10"/>
-            <Button x:Name="btnStatistical" Content="Thống kê" Background="#ffc400" BorderBrush="#00baba" Foreground="#ffffff"/>
-            <Grid x:Name="temp11"/>
-            <ScrollViewer VerticalScrollBarVisibility="Auto" >
-                <ListView x:Name="lvListStatistical" Foreground="Black">
-                    <ListView.View>
-                        <GridView AllowsColumnReorder="False">
-                            <GridViewColumn x:Name="gvcSTT" Header="STT" DisplayMemberBinding="{Binding STT}"/>
-                            <GridViewColumn x:Name="gvcHour" Header="Giờ" DisplayMemberBinding="{Binding STT}"/>
-                            <GridViewColumn x:Name="gvcDay" Header="Ngày" DisplayMemberBinding="{Binding STT}"/>
-                            <GridViewColumn x:Name="gvcBillCode" Header="Mã hóa đơn" DisplayMemberBinding="{Binding STT}"/>
-                            <GridViewColumn x:Name="gvcEmployeeCode" Header="Mã nhân viên" DisplayMemberBinding="{Binding STT}"/>
-                            <GridViewColumn x:Name="gvcCustomerCode" Header="Mã khách hàng" DisplayMemberBinding="{Binding STT}"/>
-                            <GridViewColumn x:Name="gvcDrink" Header="Tên thức uống" DisplayMemberBinding="{Binding STT}"/>
-                            <GridViewColumn x:Name="gvcMoney" Header="Giá tiền" DisplayMemberBinding="{Binding STT}"/>
-                            <GridViewColumn x:Name="gvcNumber" Header="số lượng" DisplayMemberBinding="{Binding STT}"/>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-            </ScrollViewer>
-            <Grid x:Name="temp12"/>
-            <TextBlock x:Name="tbTotal" Text="Tổng: 0000000 00000000" Foreground="Black"/>
-        </WrapPanel>
         <WrapPanel x:Name="wrpJobCalendar" Background="#FFFACD" Visibility="Hidden">
             <Button x:Name="btnJobCalendar" Background="#ffd200" BorderBrush="#FFA500" Click="BtnBack_Click" >
                 <materialDesign:PackIcon Kind="ArrowLeftBoldCircleOutline" />
@@ -482,19 +421,19 @@
             <Grid x:Name="temp46"></Grid>
             <TextBlock x:Name="tbEmployeeName" Text="Tên nhân viên:" Foreground="Black" />
             <Grid x:Name="temp43"></Grid>
-            <ComboBox x:Name="cbbEmployeeFind"
-                     materialDesign:HintAssist.Hint="Tên nhân viên" IsEditable="True" Width="150">
-                <ComboBoxItem Content="Tên nhân viên"/>
+            <ComboBox x:Name="cbbEmployeeFind" Foreground="Black"
+                IsEditable="True" Width="150" Loaded="cbbEmployeeFind_Loaded">
+                <ComboBoxItem />
             </ComboBox>
             <Grid x:Name="temp44"></Grid>
-            <TextBlock x:Name="tbPhoneCustomer" Text="SĐT khách hàng:" Foreground="Black"></TextBlock>
+            <TextBlock x:Name="tbPhoneCustomer" Text="Tên khách hàng:" Foreground="Black"></TextBlock>
             <Grid x:Name="temp45"></Grid>
             <ComboBox x:Name="cbbCustomerFind" Foreground="Black"
-              materialDesign:HintAssist.Hint="Sđt khách hàng" Width="200" IsEditable="True">
-                <ComboBoxItem Content="Số điện thoại khách hàng"/>
+              Width="200" IsEditable="True" Loaded="cbbCustomerFind_Loaded">
+                <ComboBoxItem />
             </ComboBox>
             <Grid x:Name="temp48"></Grid>
-            <Button x:Name="btnFind" Content="Tìm kiếm" Background="#1E90FF" BorderBrush="#ffffff" />
+            <Button x:Name="btnFind" Content="Tìm kiếm" Background="#1E90FF" BorderBrush="#ffffff" Click="btnFind_Click" />
             <Grid x:Name="gridFind">
                 <ListView x:Name="lvListFind" Foreground="Black">
                     <ListView.View>
@@ -637,7 +576,8 @@
               materialDesign:HintAssist.Hint="Nhập họ tên"
               Margin="8 0 0 0"
               VerticalAlignment="Bottom" 
-              Width="285"/>
+              Width="285"
+              KeyUp="tbxSearchAgent_KeyUp"/>
             <Grid x:Name="temp87"/>
             <Button x:Name="btnAgent" Content="Tìm kiếm" Background="#03c203" BorderBrush="#006400" Click="btnAgent_Click"/>
             <Grid x:Name="temp89"/>
@@ -741,6 +681,37 @@
                 <Button x:Name="btnCancel" Content="Cancel" FontSize="20" Margin="442,389,246,145" Height="Auto" Background="Orange" BorderBrush="White" Click="btnCancel_Click"></Button>
             </Grid>
         </Grid>
+        <Grid x:Name="gridStatisticalScreen" Background="#d3f7f8" Visibility="Visible" >
+            <Button x:Name="btnBackStatisticalScreen" Background="#00baba" BorderBrush="#32cbfd"  Click="btnBackStatisticalScreen_Click" Height="35" Width="50" VerticalAlignment="Top" HorizontalAlignment="Left" >
+                <materialDesign:PackIcon Kind="ArrowLeftBoldCircle"/>
+            </Button>
+            <materialDesign:Card x:Name="cardStatistical" Height="107"  VerticalAlignment="Top"
+            Background="#02dede" Foreground="{x:Null}" Margin="10,58,10,0" />
+            <CheckBox x:Name="cbSales" Content=" Doanh Thu" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top" Height="37" Width="130" Background="Orange"  Checked="cbSales_Checked" Unchecked="cbSales_UnChecked" Margin="44,92,0,0"/>
+            <Canvas x:Name="cvSelectSaleStatistical" HorizontalAlignment="Left" Height="140" VerticalAlignment="Center" Width="168" Background="#90f4f7" Margin="44,131,0,233" >
+                <RadioButton x:Name="rbByDay" Content="Theo ngày" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Orange" Canvas.Left="10" Canvas.Top="10" Checked="rbByDay_Checked" Unchecked="rbByDay_Unchecked"></RadioButton>
+                <RadioButton x:Name="rbByWeek" Content="Theo tuần" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Orange" Canvas.Left="10" Canvas.Top="66" Checked="rbByWeek_Checked" Unchecked="rbByWeek_Unchecked"></RadioButton>
+                <RadioButton x:Name="rbByMonth" Content="Theo tháng" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Orange" Canvas.Left="10" Canvas.Top="39" Checked="rbByMonth_Checked" Unchecked="rbByMonth_Unchecked"></RadioButton>
+                <RadioButton x:Name="rbByYear" Content="Theo năm" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Orange"  Canvas.Left="10" Canvas.Top="94" Checked="rbByYear_Checked" Unchecked="rbByYear_Unchecked"></RadioButton>
+            </Canvas>
+            <Button x:Name="btnStatistical" Content="Thống kê" HorizontalAlignment="Right"  VerticalAlignment="Top" Width="95" Margin="0,70,16,0" Background="#FF8C00" BorderBrush="Green" BorderThickness="1.5"/>
+            <Button x:Name="btnCancelStatis" Content="Huỷ bỏ" HorizontalAlignment="Right"  VerticalAlignment="Top" Width="95" Margin="0,117,16,0" Background="#FF8C00" BorderBrush="Green" BorderThickness="1.5"/>
+            <Canvas x:Name="cvStatisticalTime" HorizontalAlignment="Left" Height="200" VerticalAlignment="Center" Width="168" Background="#99d4f9" Margin="44,284,0,20" >
+                <TextBox x:Name="txtStartDateStatistical" Width="128" Canvas.Left="10" Canvas.Top="10"
+                    materialDesign:HintAssist.Hint="Ngày bắt đầu" Foreground="Black"></TextBox>
+                <TextBox x:Name="txtStartTimeStatistical" Width="128" Canvas.Left="10" Canvas.Top="52"
+                    materialDesign:HintAssist.Hint="Thời gian bắt đầu" Foreground="Black"></TextBox>
+                <TextBox x:Name="txtEndDateStatistical" Width="129" Canvas.Left="10" Canvas.Top="88" 
+                         materialDesign:HintAssist.Hint="Ngày kết thúc" Foreground="Black"></TextBox>
+                <TextBox x:Name="txtEndTimeStatistical" Width="127" Canvas.Left="10" Canvas.Top="125" 
+                         materialDesign:HintAssist.Hint="Thời gian kết thúc" Foreground="Black"></TextBox>
+            </Canvas>
+            <CheckBox x:Name="cbEmployee" Content=" Nhân Viên" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top" Height="37" Width="130" Background="Orange" Margin="304,94,0,0"/>
 
+
+
+
+
+        </Grid>
     </Grid>
 </Window>

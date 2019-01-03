@@ -38,8 +38,8 @@ namespace GruGru
         //cbb: combobox
         //lv: listview
         //gvc: gridviewcolumn
-        Double height = SystemParameters.WorkArea.Height - 30;
-        Double width = SystemParameters.WorkArea.Width - 30;
+        Double height = SystemParameters.WorkArea.Height - 10;
+        Double width = SystemParameters.WorkArea.Width - 10;
         Double height005 = SystemParameters.WorkArea.Height * 0.05;//25
         Double height004 = SystemParameters.WorkArea.Height * 0.04;//20
         Double height003 = SystemParameters.WorkArea.Height * 0.03;//15
@@ -126,15 +126,16 @@ namespace GruGru
             this.WindowState = WindowState.Maximized;
             this.Left = 0;
             this.Top = 0;
-            this.Height = height + 30;
-            this.Width = width + 30;
+            this.Height = height + 10;
+            this.Width = width + 10;
             string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
             XDocument objDoc = XDocument.Load(path + "/Rememberme.xml");
 
             try
             {
                 LoadMenu();
-            } catch
+            }
+            catch
             {
                 MessageBoxResult tmp = MessageBox.Show("Không thể kết nối đến server");
                 Application.Current.Shutdown();
@@ -312,70 +313,13 @@ namespace GruGru
 
         public void StatisticalScreen()
         {
-            //hàng đầu tiên
-            temp4.Width = width / 90;
+            rbByDay.Visibility = Visibility.Hidden;
+            rbByWeek.Visibility = Visibility.Hidden;
+            rbByMonth.Visibility = Visibility.Hidden;
+            rbByYear.Visibility = Visibility.Hidden;
+            cvStatisticalTime.Visibility = Visibility.Hidden;
+            cvSelectSaleStatistical.Visibility = Visibility.Hidden;
 
-            tbTimestart.FontSize = height002;
-            tbTimestart.Height = height003;
-            tbTimestart.Width = width / 90 * 8;
-
-            dpDayStart.FontSize = height0018;
-            dpDayStart.Height = height005;
-            dpDayStart.Width = width / 90 * 6;
-
-            temp5.Width = width / 180;
-
-            mtpHourStart.FontSize = height0018;
-            mtpHourStart.Height = height004;
-            mtpHourStart.Width = width / 90 * 6;
-
-            temp6.Width = width / 180 * 5;
-
-            tbTimeEnd.FontSize = height002;
-            tbTimeEnd.Height = height003;
-            tbTimeEnd.Width = width / 90 * 8;
-
-            dpDayEnd.FontSize = height0018;
-            dpDayEnd.Height = height005;
-            dpDayEnd.Width = width / 90 * 6;
-
-            temp7.Width = width / 180;
-
-            mtpHourEnd.FontSize = height0018;
-            mtpHourEnd.Height = height004;
-            mtpHourEnd.Width = width / 90 * 6;
-
-            temp8.Width = width / 180 * 5;
-
-            cbbTypeStatistical.FontSize = height0018;
-            cbbTypeStatistical.Height = height004;
-            cbbTypeStatistical.Width = width / 90 * 6;
-
-            temp9.Width = width / 180;
-
-            tbxSearchStatistical.FontSize = height0018;
-            tbxSearchStatistical.Height = height005;
-            tbxSearchStatistical.Width = width / 30 * 8.5;
-
-            temp10.Width = width / 180 * 3;
-
-            //list statistical
-            temp11.Width = width * 0.05;
-
-            lvListStatistical.Height = height * 0.85;
-            lvListStatistical.Width = width * 0.9;
-
-            gvcSTT.Width = lvListStatistical.Width / 20;
-            gvcHour.Width = lvListStatistical.Width / 20 * 2;
-            gvcDay.Width = lvListStatistical.Width / 20 * 2;
-            gvcBillCode.Width = lvListStatistical.Width / 20 * 2;
-            gvcEmployeeCode.Width = lvListStatistical.Width / 15 * 2;
-            gvcCustomerCode.Width = lvListStatistical.Width / 15 * 2;
-            gvcDrink.Width = lvListStatistical.Width / 15 * 3;
-            gvcMoney.Width = lvListStatistical.Width / 20 * 2;
-            gvcNumber.Width = lvListStatistical.Width / 20 * 2;
-
-            temp12.Width = width / 5 * 4;
         }
 
         public void JobCalendarScreen()
@@ -475,7 +419,7 @@ namespace GruGru
             lvListFind.Height = height * 0.9;
             lvListFind.Width = width * 0.7;
 
-            gvcFindSTT.Width = lvListFind.Width / 15 * 2 ;
+            gvcFindSTT.Width = lvListFind.Width / 15 * 2;
             gvcFindDate.Width = lvListFind.Width / 10 * 2;
             gvcFindBillCode.Width = lvListFind.Width / 10 * 2;
             gvcFindEmployeeCode.Width = lvListFind.Width / 10 * 2;
@@ -939,31 +883,29 @@ namespace GruGru
             string BeginTime = mtpHourStartFind.Text;
             string EndDate = dpDayEndFind.Text;
             string EndTime = mtpHourEndFind.Text;
-            //string TypeFind = cbbTypeFind.Text;
-            //string TypeFindName = tbxSearchFind.Text;
             string json = "";
 
-            //Kiểm tra dữ liệu đầu vào
-            if (BeginDate == "")
+            const string prefixNhanVien = "__idNhanVien";
+            string idNhanVienLap = ((ComboBoxItem)cbbEmployeeFind.SelectedItem).Name.Substring(prefixNhanVien.Length);//"13874383";
+            const string prefixKhachHang = "_idKhachHang";
+            string idKhachHangMua = ((ComboBoxItem)cbbCustomerFind.SelectedItem).Name.Substring(prefixKhachHang.Length);//"13874383";
+
+            if (idKhachHangMua == "null" && idNhanVienLap == "null") 
             {
-                BeginDate = DateTime.Today.ToString("dd/MM/yyyy");
+                idKhachHangMua = "";
+                idNhanVienLap = "";
+            }else if(idKhachHangMua=="null")
+            {
+                idKhachHangMua = "";
             }
-            if (BeginTime == "")
+            else if (idNhanVienLap=="null")
             {
-                BeginTime = DateTime.Today.ToString("HH:mm:ss");
-            }
-            if (EndDate == "")
-            {
-                EndDate = DateTime.Today.ToString("dd/MM/yyyy");
-            }
-            if (EndTime == "")
-            {
-                EndTime = "23:59:59";
+                idNhanVienLap = "";
             }
 
             json = "{\"BeginDate\": \"" + BeginDate + "\", \"BeginTime\": \"" + BeginTime +
                 "\", \"EndDate\": \"" + EndDate + "\", \"EndTime\": \"" + EndTime +
-                "\", \"TypeFind\": \"" + "\", \"TypeFindName\": \"" + "\"}";
+                "\", \"idNhanVienLap\": \"" +idNhanVienLap + "\", \"idKhachHangMua\": \"" +idKhachHangMua + "\"}";
 
             string url = SERVER + "/Search";
 
@@ -973,17 +915,19 @@ namespace GruGru
 
             string code = stuff.code;
             List<DanhSach> danhSachTimKiem = new List<DanhSach>();
-            foreach(var item in stuff.danhSachTimKiem)
+            foreach (var item in stuff.danhSachTimKiem)
             {
                 danhSachTimKiem.Add(new DanhSach()
                 {
                     id = item.id,
-                    maHoaDon = item.gia,
-                    maNhanVien = item.maSanPham,
-                    maKhachHang = item.tenSanPham,
-                    gia = item.thongTin,
+                    thoiGian = item.thoiGian,
+                    maHoaDon = item.maHoaDon,
+                    maNhanVien = item.maNhanVien,
+                    maKhachHang = item.maKhachHang,
+                    gia = item.gia,
                 });
             }
+            lvListFind.ItemsSource = danhSachTimKiem;
         }
 
         private void LoadMenu()
@@ -1049,7 +993,8 @@ namespace GruGru
             {
                 timer.Interval = ((60 - DateTime.Now.Second) * 1000 - DateTime.Now.Millisecond);
                 timer.Start();
-                this.Dispatcher.Invoke(() => {
+                this.Dispatcher.Invoke(() =>
+                {
                     tbTime.Text = "Ngày giờ:   " + DateTime.Now.ToShortTimeString() + "        " + DateTime.Now.ToShortDateString();
                 });
             };
@@ -1085,11 +1030,11 @@ namespace GruGru
             objDoc.Save(path + "/Rememberme.xml");
         }
 
-        private void btnStatisticalMode1_Click(object sender, RoutedEventArgs e)
+        private void btnStatisticalScreenMode1_Click(object sender, RoutedEventArgs e)
         {
             //thống kê
             stpMainScreen.Visibility = System.Windows.Visibility.Hidden;
-            wrpStatistical.Visibility = System.Windows.Visibility.Visible;
+            gridStatisticalScreen.Visibility = System.Windows.Visibility.Visible;
         }
 
         private void btnFindMode1_Click(object sender, RoutedEventArgs e)
@@ -1187,7 +1132,8 @@ namespace GruGru
                 {
                     MessageBox.Show("Đơn hàng đã được xác nhận");
                     LoadMenu();
-                } else
+                }
+                else
                 {
                     MessageBox.Show("Đặt hàng thất bại, vui lòng thử lại");
                 }
@@ -1545,10 +1491,10 @@ namespace GruGru
             if (resObject.code == "0")
             {
                 tbxAgentCode.Text = resObject.payload[0].maNV;
-                tbAgentName.Text = resObject.payload[0].hoTen;
+                tbxAgentName.Text = resObject.payload[0].hoTen;
                 tbxMonth.Text = resObject.payload[0].kinhNghiem;
                 tbxPhoneNumberAgent.Text = resObject.payload[0].soDienThoai;
-                tbBirthDayAgent.Text = resObject.payload[0].ngaySinh;
+                tbxBirthDayAgent.Text = resObject.payload[0].ngaySinh;
                 tbxIDAgent.Text = resObject.payload[0].cmnd;
             }
             else if (resObject.code == "-4")
@@ -1985,10 +1931,225 @@ namespace GruGru
                 {
                     MessageBox.Show("Không thể kết nối đến server");
                 }
-            } catch
+            }
+            catch
             {
                 MessageBox.Show("Không thể kết nối đến server");
             }
+        }
+
+        private void cbbEmployeeFind_Loaded(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string res = Get(SERVER + "getEmployers");
+                dynamic resObject = JsonConvert.DeserializeObject(res);
+                if (resObject.code == "0")
+                {
+                    ComboBoxItem defaultItem = new ComboBoxItem();
+                    defaultItem.Name = "__idNhânViennull";
+                    defaultItem.Content = loggedInUserName;
+                    cbbEmployeeFind.Items.Add(defaultItem);
+
+                    cbbCustomer.SelectedIndex = 0;
+                    for (int i = 0; i < resObject.payload.Count; i++)
+                    {
+                        ComboBoxItem item = new ComboBoxItem();
+                        item.Name = "__idNhânViên" + resObject.payload[i].id;
+                        item.Content = resObject.payload[i].hoTen;
+                        cbbEmployeeFind.Items.Add(item);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Không thể kết nối đến server");
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Không thể kết nối đến server");
+            }
+        }
+
+        private void cbbCustomerFind_Loaded(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string res = Get(SERVER + "getCustomers");
+                dynamic resObject = JsonConvert.DeserializeObject(res);
+                if (resObject.code == "0")
+                {
+                    ComboBoxItem defaultItem = new ComboBoxItem();
+                    defaultItem.Name = "__idKhachHangnull";
+                    defaultItem.Content = "Khách hàng chưa đăng kí";
+                    cbbCustomerFind.Items.Add(defaultItem);
+
+                    cbbCustomer.SelectedIndex = 0;
+                    for (int i = 0; i < resObject.payload.Count; i++)
+                    {
+                        ComboBoxItem item = new ComboBoxItem();
+                        item.Name = "_idKhachHang" + resObject.payload[i].id;
+                        item.Content = resObject.payload[i].hoTen;
+                        cbbCustomerFind.Items.Add(item);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Không thể kết nối đến server");
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Không thể kết nối đến server");
+            }
+        }
+
+        private void btnFind_Click(object sender, RoutedEventArgs e)
+        {
+            Find();
+        }
+
+        private void tbxSearchAgent_KeyUp(object sender, KeyEventArgs e)
+        {
+            bool found = false;
+            var border = (resultStack.Parent as ScrollViewer).Parent as Border;
+
+            string query = (sender as TextBox).Text;
+
+            if (query.Length == 0)
+            {
+                // Clear   
+                resultStack.Children.Clear();
+                border.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                border.Visibility = Visibility.Visible;
+                try
+                {
+                    string res = Get(SERVER + "getEmployeeByName/" + query);
+                    dynamic resObject = JsonConvert.DeserializeObject(res);
+                    // Clear the list   
+                    resultStack.Children.Clear();
+
+                    if (resObject.code == "0")
+                    {
+                        for (int i = 0; i < resObject.payload.Count; i++)
+                        {
+                            string text = resObject.payload[i].hoTen;
+
+                            // The word starts with this... Autocomplete must work   
+                            TextBlock block = new TextBlock();
+
+                            // Add the text   
+                            block.Text = text;
+                            //Add id
+                            string nameOfEmployee = ((string)resObject.payload[i].hoTen).Trim();
+                            block.Name = "_" + nameOfEmployee;
+
+                            // A little style...   
+                            block.Margin = new Thickness(2, 3, 2, 3);
+                            block.Cursor = Cursors.Hand;
+
+                            // Mouse events   
+                            block.MouseLeftButtonUp += (s, notCare) =>
+                            {
+                                tbxSearchAgent.Text = (s as TextBlock).Name.Remove(0, 1);
+                                border.Visibility = Visibility.Hidden;
+                                btnAgent_Click(null, null);
+                            };
+
+                            block.MouseEnter += (s, notCare) =>
+                            {
+                                TextBlock b = s as TextBlock;
+                                b.Background = Brushes.PeachPuff;
+                            };
+
+                            block.MouseLeave += (s, notCare) =>
+                            {
+                                TextBlock b = s as TextBlock;
+                                b.Background = Brushes.Transparent;
+                            };
+
+                            // Add to the panel   
+                            resultStack.Children.Add(block);
+                            found = true;
+                        }
+                    }
+
+                    if (!found)
+                    {
+                        resultStack.Children.Add(new TextBlock() { Text = "No results found." });
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("Không thể kết nối đến server");
+                }
+            }
+
+
+        }
+
+        private void btnBackStatisticalScreen_Click(object sender, RoutedEventArgs e)
+        {
+            ((WrapPanel)((Grid)((Grid)((Button)sender).Parent).Parent).Children[1]).Visibility = Visibility.Visible;
+            ((Grid)((Button)sender).Parent).Visibility = Visibility.Hidden;
+        }
+
+        private void cbSales_Checked(object sender, RoutedEventArgs e)
+        {
+            cvSelectSaleStatistical.Visibility = Visibility.Visible;
+            rbByDay.Visibility = Visibility.Visible;
+            rbByWeek.Visibility = Visibility.Visible;
+            rbByMonth.Visibility = Visibility.Visible;
+            rbByYear.Visibility = Visibility.Visible;
+        }
+        private void cbSales_UnChecked(object sender, RoutedEventArgs e)
+        {
+            cvSelectSaleStatistical.Visibility = Visibility.Hidden;
+            cvStatisticalTime.Visibility = Visibility.Hidden;
+
+        }
+
+        private void rbByDay_Checked(object sender, RoutedEventArgs e)
+        {
+            cvStatisticalTime.Visibility = Visibility.Visible;
+        }
+
+        private void rbByMonth_Checked(object sender, RoutedEventArgs e)
+        {
+            cvStatisticalTime.Visibility = Visibility.Visible;
+        }
+
+        private void rbByYear_Checked(object sender, RoutedEventArgs e)
+        {
+            cvStatisticalTime.Visibility = Visibility.Visible;
+        }
+
+        private void rbByWeek_Checked(object sender, RoutedEventArgs e)
+        {
+            cvStatisticalTime.Visibility = Visibility.Visible;
+        }
+
+        private void rbByDay_Unchecked(object sender, RoutedEventArgs e)
+        {
+            cvStatisticalTime.Visibility = Visibility.Hidden;
+        }
+
+        private void rbByWeek_Unchecked(object sender, RoutedEventArgs e)
+        {
+            cvStatisticalTime.Visibility = Visibility.Hidden;
+        }
+
+        private void rbByMonth_Unchecked(object sender, RoutedEventArgs e)
+        {
+            cvStatisticalTime.Visibility = Visibility.Hidden;
+        }
+
+        private void rbByYear_Unchecked(object sender, RoutedEventArgs e)
+        {
+            cvStatisticalTime.Visibility = Visibility.Hidden;
         }
     }
 }
