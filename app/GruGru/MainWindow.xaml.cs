@@ -134,7 +134,8 @@ namespace GruGru
             try
             {
                 LoadMenu();
-            } catch
+            }
+            catch
             {
                 MessageBoxResult tmp = MessageBox.Show("Không thể kết nối đến server");
                 Application.Current.Shutdown();
@@ -177,7 +178,8 @@ namespace GruGru
             {
                 timer.Interval = ((60 - DateTime.Now.Second) * 1000 - DateTime.Now.Millisecond);
                 timer.Start();
-                this.Dispatcher.Invoke(() => {
+                this.Dispatcher.Invoke(() =>
+                {
                     tbTime.Text = "Ngày giờ:   " + DateTime.Now.ToShortTimeString() + "        " + DateTime.Now.ToShortDateString();
                 });
             };
@@ -260,13 +262,9 @@ namespace GruGru
             gridInforBill.Height = height - height005;
 
             Double heighttbBill = gridInforBill.Height * 3 / 60;
-            tbBillNumber.FontSize = height0027;
-            tbBillNumber.Height = heighttbBill;
-            tbBillNumber.Width = gridInforBill.Width * 2 / 6 - 5;
 
-            tbxBillNumber.FontSize = height0027;
-            tbxBillNumber.Height = heighttbBill;
-            tbxBillNumber.Width = gridInforBill.Width * 4 / 6 - 5;
+            temp1002.Height = heighttbBill*0.75;
+            temp1002.Width = gridInforBill.Width - 5;
 
             tbCustomer.FontSize = height0027;
             tbCustomer.Height = heighttbBill;
@@ -485,7 +483,7 @@ namespace GruGru
             lvListFind.Height = height * 0.9;
             lvListFind.Width = width * 0.7;
 
-            gvcFindSTT.Width = lvListFind.Width / 15 * 2 ;
+            gvcFindSTT.Width = lvListFind.Width / 15 * 2;
             gvcFindDate.Width = lvListFind.Width / 10 * 2;
             gvcFindBillCode.Width = lvListFind.Width / 10 * 2;
             gvcFindEmployeeCode.Width = lvListFind.Width / 10 * 2;
@@ -641,9 +639,15 @@ namespace GruGru
             stpInforDrinksMini.Height = height * 0.7;
             stpInforDrinksMini.Width = width * 0.65;
 
+            stpIngredientmini.Width = stpInforDrinksMini.Width * 0.8;
+
             tbNameDrink.FontSize = height0023;
             tbxNameDrink.FontSize = height0023;
-            tbxNameDrink.Width = stpInforDrinksMini.Width * 0.8;
+            tbxNameDrink.Width = stpInforDrinksMini.Width * 0.6;
+
+            cbbIngredients.FontSize = height0023;
+            //cbbIngredients.Height = stpInforDrinksMini.Height / 20;
+            cbbIngredients.Width = stpInforDrinksMini.Width * 0.25;
 
             temp71.Height = stpInforDrinksMini.Height / 30;
 
@@ -654,21 +658,27 @@ namespace GruGru
             temp72.Height = stpInforDrinksMini.Height / 30;
 
             tbIngredients.FontSize = height0023;
+            tbIngredients.Height = height005;
 
             tbxIngredients.FontSize = height0023;
             tbxIngredients.Height = stpInforDrinksMini.Height / 5 * 2;
             tbxIngredients.Width = stpInforDrinksMini.Width;
 
+         
+
             temp100.Height = stpInforDrinksMini.Height / 8;
 
             stpInforDrinksMini1.Width = stpInforDrinksMini.Width;
-            gridbtnDeleteDrink.Width = stpInforDrinksMini1.Width / 3;
-            gridbtnUpdateInforDrink.Width = stpInforDrinksMini1.Width / 3;
-            gridbtnBackInforDrink.Width = stpInforDrinksMini1.Width / 3;
+            gridbtnDeleteDrink.Width = stpInforDrinksMini1.Width / 4;
+            gridbtnUpdateInforDrink.Width = stpInforDrinksMini1.Width / 4;
+            gridbtnBackInforDrink.Width = stpInforDrinksMini1.Width / 4;
+            gridbtnInsertDrink.Width = stpInforDrinksMini1.Width / 4;
+
 
             btnDeleteDrink.FontSize = height0027;
             btnUpdateInforDrink.FontSize = height0027;
             btnBackInforDrink.FontSize = height0027;
+            btnInsertDrink.FontSize = height0027;
 
         }
 
@@ -1082,7 +1092,7 @@ namespace GruGru
             {
                 if (sizetemp == "M")
                 {
-                    giatemp = giatemp*110/100;
+                    giatemp = giatemp * 110 / 100;
                 }
                 if (sizetemp == "L")
                 {
@@ -1109,6 +1119,12 @@ namespace GruGru
 
         private void btnPay_Click(object sender, RoutedEventArgs e)
         {
+            if(ListDrinks.Count==0)
+            {
+                MessageBox.Show("Đơn hàng trống");
+            }
+            else
+            { 
             const string prefix = "__idKhachHang";
             string gia = TongTien().ToString();//"usercfrnh"
             string idKhachHangMua = ((ComboBoxItem)cbbCustomer.SelectedItem).Name.Substring(prefix.Length);//"13874383";
@@ -1140,7 +1156,8 @@ namespace GruGru
                     lvMenuMilkteas.Items.Refresh();
                     lvMenuToppings.Items.Refresh();
 
-                } else
+                }
+                else
                 {
                     MessageBox.Show("Đặt hàng thất bại, vui lòng thử lại");
                 }
@@ -1148,6 +1165,7 @@ namespace GruGru
             catch
             {
                 MessageBox.Show("Không thể kết nối đến server");
+            }
             }
         }
 
@@ -1626,6 +1644,9 @@ namespace GruGru
             tbxNameDrink.Text = ((TextBlock)sender).Text;
             tbxCostDrink.Text = ((TextBlock)((StackPanel)((TextBlock)sender).Parent).Children[3]).Text;
             tbxIngredients.Text = ((TextBlock)((StackPanel)((TextBlock)sender).Parent).Children[4]).Text;
+            btnInsertDrink.Content = "Thêm mới";
+            cbbIngredients.Visibility = Visibility.Hidden;
+
             if (loggedInUserType == "1")
             {
                 btnDeleteDrink.Visibility = Visibility.Collapsed;
@@ -1658,8 +1679,8 @@ namespace GruGru
                 {
                     MessageBox.Show("xóa món thành công");
                     griInforDrinks.Visibility = Visibility.Hidden;
-                    LoadMenu();
                     ListDrinks.Clear();
+                    LoadMenu();
                     tbTotalMoney.Text = " Tổng tiền:        ";
                     stpMainScreen.Opacity = 1;
                 }
@@ -1693,8 +1714,8 @@ namespace GruGru
                 {
                     MessageBox.Show("Cập nhật món thành công");
                     griInforDrinks.Visibility = Visibility.Hidden;
-                    LoadMenu();
                     ListDrinks.Clear();
+                    LoadMenu();
                     tbTotalMoney.Text = " Tổng tiền:        ";
                     stpMainScreen.Opacity = 1;
 
@@ -1937,7 +1958,8 @@ namespace GruGru
                         item.Content = resObject.payload[i].hoTen;
                         cbbCustomer.Items.Add(item);
                     }
-                } else if (resObject.code == "-1")
+                }
+                else if (resObject.code == "-1")
                 {
                     ComboBoxItem defaultItem = new ComboBoxItem();
                     defaultItem.Name = "__idKhachHangnull";
@@ -1946,11 +1968,12 @@ namespace GruGru
 
                     cbbCustomer.SelectedIndex = 0;
                 }
-                else 
+                else
                 {
                     MessageBox.Show("Không thể kết nối đến server");
                 }
-            } catch
+            }
+            catch
             {
                 MessageBox.Show("Không thể kết nối đến server");
             }
@@ -2171,6 +2194,81 @@ namespace GruGru
             } catch
             {
                 MessageBox.Show("Không thể kết nối đến server");
+            }
+        }
+
+        private void btnInsertDrink_Click(object sender, RoutedEventArgs e)
+        {
+            btnDeleteDrink.Visibility = Visibility.Collapsed;
+            btnUpdateInforDrink.Visibility = Visibility.Collapsed;
+
+            if (btnInsertDrink.Content.ToString() == "Thêm mới")
+            {
+                btnInsertDrink.Content = "Xác nhận";
+                tbxNameDrink.Text = "";
+                tbxCostDrink.Text = "";
+                tbxIngredients.Text = "";
+                cbbIngredients.Visibility = Visibility.Visible;
+            }
+            else if (btnInsertDrink.Content.ToString() == "Xác nhận")
+            {
+                btnInsertDrink.Content = "Thêm mới";
+                cbbIngredients.Visibility = Visibility.Hidden;
+                string maSanPham = "";
+                if (cbbIngredients.SelectedIndex == 0)
+                {
+                    maSanPham = "C";
+                }
+                else if(cbbIngredients.SelectedIndex == 1)
+                {
+                    maSanPham = "M";
+
+                }
+                else if (cbbIngredients.SelectedIndex == 2)
+                {
+                    maSanPham = "T";
+
+                }
+                var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+                var stringChars = new char[8];
+                var random = new Random();
+
+                for (int i = 0; i < stringChars.Length; i++)
+                {
+                    stringChars[i] = chars[random.Next(chars.Length)];
+                }
+
+                maSanPham += new String(stringChars);
+                string NameDrink = tbxNameDrink.Text;//"namedrink"
+                string Cost = tbxCostDrink.Text;//"giá"
+                string Ingredients = tbxIngredients.Text;//mô tả
+                string json = "{\"maSanPham\": \"" + maSanPham + "\",\"tenSanPham\": \"" + NameDrink + "\",\"thongTin\": \"" + Ingredients + "\", \"gia\": " + Cost + "}";
+                string url = SERVER + "insertDrink";
+                try
+                {
+                    string result = Post(url, json);
+                    dynamic stuff = JsonConvert.DeserializeObject(result);
+
+                    string code = stuff.code;
+                    if (code == "0")
+                    {
+                        MessageBox.Show("Thêm món thành công");
+                        griInforDrinks.Visibility = Visibility.Hidden;
+                        LoadMenu();
+                        ListDrinks.Clear();
+                        tbTotalMoney.Text = " Tổng tiền:        ";
+                        stpMainScreen.Opacity = 1;
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Có lỗi xảy ra, vui lòng thử lại");
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("Có lỗi xảy ra, vui lòng thử lại");
+                }
             }
         }
     }

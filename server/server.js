@@ -269,7 +269,7 @@ app.post("/api/putOrder", function(req, res) {
                 ", '" +
                 monAn.size +
                 "' )";
-              console.log(insertOrderDetail);
+                console.log(insertOrderDetail);
               request.query(insertOrderDetail, function(err, result) {
                 if (err) {
                   console.log(err);
@@ -1004,6 +1004,41 @@ console.log(query);
         code: 0,
         msg: "Tìm kiếm thành công",
         payload: danhSachHoaDon,
+      });
+    }
+  });
+});
+
+app.post("/api/insertDrink", function(req, res) {
+  const maSanPham = req.body.maSanPham;
+  const tenSanPham = req.body.tenSanPham;
+  const gia = req.body.gia;
+  const thongTin = req.body.thongTin;
+
+  const query =
+    "INSERT INTO SanPham (maSanPham, tenSanPham, gia, thongTin) VALUES ('" +
+    maSanPham +
+    "', N'" +
+    tenSanPham +
+    "', '" +
+    gia +
+    "', '" +
+    thongTin +
+    "')";
+
+  let request = new sql.Request();
+
+  request.query(query, function(err, result) {
+    if (err) {
+      console.log(err);
+      res.json({
+        code: -3,
+        msg: "Co loi trong truy van CSDL"
+      });
+    } else {
+      res.json({
+        code: 0,
+        msg: "Them mon an thanh cong"
       });
     }
   });

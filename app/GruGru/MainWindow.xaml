@@ -241,8 +241,7 @@
                 </WrapPanel>
                 <Grid x:Name="temp1001"></Grid>
                 <WrapPanel x:Name="gridInforBill" Loaded="GridInforBill_Loaded">
-                    <TextBlock x:Name="tbBillNumber" Text="Số hóa đơn:"></TextBlock>
-                    <TextBox x:Name="tbxBillNumber"></TextBox>
+                    <Grid x:Name="temp1002"></Grid>
                     <TextBlock x:Name="tbCustomer" Text="Khách hàng:"></TextBlock>
                     <ComboBox x:Name="cbbCustomer" IsEditable="True">
                     </ComboBox>
@@ -596,9 +595,27 @@
                 <!--Trick-->
                 <TextBlock x:Name="tbIdDrink" Visibility="Hidden"></TextBlock>
                 <!--Trick-->
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel x:Name="stpIngredientmini">
                 <TextBlock x:Name="tbNameDrink" Text="Tên thức uống:" Foreground="Black"></TextBlock>
-                <TextBox x:Name="tbxNameDrink" HorizontalAlignment="Center"
+                    <TextBox x:Name="tbxNameDrink" HorizontalAlignment="Center"
                      Text="" Foreground="Black"></TextBox>
+                    </StackPanel>
+                    <ComboBox x:Name="cbbIngredients" FontWeight="Bold" SelectedIndex="0" Visibility="Hidden">
+                        <ComboBoxItem>
+                            Coffee
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            Milktea
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            Toppings
+                        </ComboBoxItem>
+                    </ComboBox>
+
+                </StackPanel>
+
+               
                 <Grid x:Name="temp71"></Grid>
                 <TextBlock x:Name="tbCostDrink" Text="Giá:" Foreground="Black"></TextBlock>
                 <TextBox x:Name="tbxCostDrink" 
@@ -618,6 +635,9 @@
                     </Grid>
                     <Grid x:Name="gridbtnUpdateInforDrink">
                         <Button x:Name="btnUpdateInforDrink" VerticalAlignment="Center" HorizontalAlignment="Center" Content="Cập nhật" BorderBrush="#FF4500" Background="#FFA500" Click="BtnUpdateInforDrink_Click"></Button>
+                    </Grid>
+                    <Grid x:Name="gridbtnInsertDrink">
+                        <Button x:Name="btnInsertDrink" VerticalAlignment="Center" HorizontalAlignment="Center" Content="Thêm mới" BorderBrush="#FF4500" Background="#FFA500" Click="btnInsertDrink_Click"></Button>
                     </Grid>
 
                 </WrapPanel>
