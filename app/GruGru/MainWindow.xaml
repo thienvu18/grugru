@@ -69,7 +69,7 @@
                 <Grid x:Name="temp1000"></Grid>
                 <TextBlock x:Name="txbInfor" Text="Thông tin hóa đơn" Background="#f8e6b0"  TextAlignment="Center"></TextBlock>
                 <Grid>
-                    <materialDesign:PackIcon Kind="SettingsOutline" Width="50" Height="30" VerticalAlignment="Top" Margin="10 2"/>
+                    <materialDesign:PackIcon Kind="HamburgerMenu" Width="50" Height="30" VerticalAlignment="Top" Margin="10 2"/>
                     <ComboBox x:Name="cbbEmployee" 
                               Background="#fbf9f2" Visibility="Visible" Opacity="0">
                         <Button x:Name="btnPersonalInforMode" Content="Thông tin cá nhân" Background="#f4a50d" BorderBrush="#ffffff" Click="btnPersonalInforMode_Click"  ></Button>
