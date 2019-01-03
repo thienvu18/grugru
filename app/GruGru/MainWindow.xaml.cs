@@ -167,6 +167,21 @@ namespace GruGru
             InforScreen();
             LoadCalendar();
 
+            DateTime now = DateTime.Now;
+            tbTime.Text = "Ngày giờ:   " + now.ToShortTimeString() + "        " + now.ToShortDateString();
+
+            timer = new Timer();
+            timer.Interval = ((60 - DateTime.Now.Second) * 1000 - DateTime.Now.Millisecond);
+            timer.AutoReset = true;
+            timer.Elapsed += (Object o, ElapsedEventArgs e) =>
+            {
+                timer.Interval = ((60 - DateTime.Now.Second) * 1000 - DateTime.Now.Millisecond);
+                timer.Start();
+                this.Dispatcher.Invoke(() => {
+                    tbTime.Text = "Ngày giờ:   " + DateTime.Now.ToShortTimeString() + "        " + DateTime.Now.ToShortDateString();
+                });
+            };
+            timer.Start();
         }
 
         class Name
@@ -983,8 +998,6 @@ namespace GruGru
 
         private void LoadMenu()
         {
-            ListDrinks.Clear();
-            lvListBill.ItemsSource = null;
             string url = SERVER + "getFoodList";
 
             string result = Get(url);
@@ -1033,22 +1046,6 @@ namespace GruGru
             lvMenuCoffees.ItemsSource = coffees;
             lvMenuMilkteas.ItemsSource = milkTeas;
             lvMenuToppings.ItemsSource = toppings;
-
-            DateTime now = DateTime.Now;
-            tbTime.Text = "Ngày giờ:   " + now.ToShortTimeString() + "        " + now.ToShortDateString();
-
-            timer = new Timer();
-            timer.Interval = ((60 - DateTime.Now.Second) * 1000 - DateTime.Now.Millisecond);
-            timer.AutoReset = true;
-            timer.Elapsed += (Object o, ElapsedEventArgs e) =>
-            {
-                timer.Interval = ((60 - DateTime.Now.Second) * 1000 - DateTime.Now.Millisecond);
-                timer.Start();
-                this.Dispatcher.Invoke(() => {
-                    tbTime.Text = "Ngày giờ:   " + DateTime.Now.ToShortTimeString() + "        " + DateTime.Now.ToShortDateString();
-                });
-            };
-            timer.Start();
         }
 
         private void btnPersonalInforMode_Click(object sender, RoutedEventArgs e)
@@ -1181,7 +1178,13 @@ namespace GruGru
                 if (resObject.code == "0")
                 {
                     MessageBox.Show("Đơn hàng đã được xác nhận");
-                    LoadMenu();
+                    ListDrinks.Clear();
+                    lvListBill.ItemsSource = null;
+
+                    lvMenuCoffees.Items.Refresh();
+                    lvMenuMilkteas.Items.Refresh();
+                    lvMenuToppings.Items.Refresh();
+
                 } else
                 {
                     MessageBox.Show("Đặt hàng thất bại, vui lòng thử lại");

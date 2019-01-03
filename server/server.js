@@ -203,7 +203,7 @@ app.post("/api/putOrder", function(req, res) {
   const idKhachHangMua = req.body.idKhachHangMua;
   const idNhanVienLap = req.body.idNhanVienLap;
   const danhSachMonAn = req.body.danhSachMonAn;
-console.log(req.body);
+  console.log(req.body);
   var insertOrder;
   if (idKhachHangMua == "") {
     insertOrder =
@@ -230,7 +230,7 @@ console.log(req.body);
       idNhanVienLap +
       "')";
   }
-console.log(insertOrder);
+  console.log(insertOrder);
   const getOrderId =
     "SELECT id FROM HoaDon WHERE maHoaDon = '" + maHoaDon + "'";
 
@@ -256,10 +256,11 @@ console.log(insertOrder);
               msg: "Them hoa don that bai"
             });
           } else {
-            const id = result[0];
+            const id = result[0].id;
+            var successful = true;
             danhSachMonAn.forEach(monAn => {
               let insertOrderDetail =
-                "INSERT INTO ChiTietHoaDon (idHoaDon, idMonAn, soLuong, size) VALUES (" +
+                "INSERT INTO ChiTietHoaDon (idHoaDon, idSanPham, soLuong, size) VALUES (" +
                 id +
                 ", " +
                 monAn.id +
@@ -268,8 +269,11 @@ console.log(insertOrder);
                 ", '" +
                 monAn.size +
                 "' )";
+                console.log(insertOrderDetail);
               request.query(insertOrderDetail, function(err, result) {
                 if (err) {
+                  console.log(err);
+                  successful = false;
                   res.json({
                     code: -3,
                     msg: "Khong the ket noi den CSDL"
@@ -277,10 +281,12 @@ console.log(insertOrder);
                 }
               });
             });
-            res.json({
-              code: 0,
-              msg: "Them hoa don thanh cong"
-            });
+            if (successful == true) {
+              res.json({
+                code: 0,
+                msg: "Them hoa don thanh cong"
+              });
+            }
           }
         }
       });
@@ -382,7 +388,7 @@ app.post("/api/updateCustomer", function(req, res) {
     cmnd +
     "' WHERE id = " +
     id;
-  
+
   let request = new sql.Request();
 
   request.query(query, function(err, result) {
@@ -452,7 +458,7 @@ app.get("/api/deleteCustomer/:id", function(req, res) {
 
 app.get("/api/getCustomers", function(req, res) {
   const query = "SELECT * FROM KhachHang";
-// console.log();
+  // console.log();
   let request = new sql.Request();
 
   request.query(query, function(err, result) {
@@ -504,7 +510,7 @@ app.get("/api/getCustomerInfo/:id", function(req, res) {
             id: customer.id,
             maKH: customer.maKH,
             hoTen: customer.hoTen,
-            ngaySinh: moment.unix(customer.ngaySinh).format('DD/MM/YYYY'),
+            ngaySinh: moment.unix(customer.ngaySinh).format("DD/MM/YYYY"),
             soDienThoai: customer.soDienThoai
           }
         });
@@ -534,10 +540,10 @@ app.get("/api/getCustomerByPhone/:phoneNumber", function(req, res) {
           msg: "Khong tim thay khach hang"
         });
       } else {
-        var customers= [];
+        var customers = [];
         result.forEach(customer => {
-          const dob = moment.unix(customer.ngaySinh).format('DD/MM/YYYY');
-          var newCustomer = {...customer, ngaySinh: dob};
+          const dob = moment.unix(customer.ngaySinh).format("DD/MM/YYYY");
+          var newCustomer = { ...customer, ngaySinh: dob };
           customers.push(newCustomer);
         });
         res.json({
@@ -573,11 +579,11 @@ app.get("/api/getEmployeeByName/:name", function(req, res) {
       } else {
         var employees = [];
         result.forEach(employee => {
-          const dob = moment.unix(employee.ngaySinh).format('DD/MM/YYYY');
-          var newEmployee = {...employee, ngaySinh: dob};
+          const dob = moment.unix(employee.ngaySinh).format("DD/MM/YYYY");
+          var newEmployee = { ...employee, ngaySinh: dob };
           employees.push(newEmployee);
         });
-        
+
         res.json({
           code: 0,
           msg: "Thong tin nhân viên da chon",
@@ -591,7 +597,7 @@ app.get("/api/getEmployeeByName/:name", function(req, res) {
 app.get("/api/getEmployeeById/:id", function(req, res) {
   const query =
     "SELECT TOP (1) * FROM NhanVien WHERE id = " + req.params.id + ";";
-  
+
   let request = new sql.Request();
 
   request.query(query, function(err, result) {
@@ -609,11 +615,11 @@ app.get("/api/getEmployeeById/:id", function(req, res) {
       } else {
         var employees = [];
         result.forEach(employee => {
-          const dob = moment.unix(employee.ngaySinh).format('DD/MM/YYYY');
-          var newEmployee = {...employee, ngaySinh: dob};
+          const dob = moment.unix(employee.ngaySinh).format("DD/MM/YYYY");
+          var newEmployee = { ...employee, ngaySinh: dob };
           employees.push(newEmployee);
         });
-        
+
         res.json({
           code: 0,
           msg: "Thong tin nhân viên da chon",
@@ -645,7 +651,7 @@ app.post("/api/updateEmployee", function(req, res) {
     cmnd +
     "' WHERE id = " +
     id;
-  
+
   let request = new sql.Request();
 
   request.query(query, function(err, result) {
