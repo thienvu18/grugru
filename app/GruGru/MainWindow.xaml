@@ -26,7 +26,7 @@
                     </TransformGroup>
                 </Image.RenderTransform>
             </Image>
-            <Grid x:Name="GridLogin" Height="569" Width="792" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Grid x:Name="GridLogin" Height="569" Width="792" HorizontalAlignment="Center" VerticalAlignment="Center" FocusManager.FocusedElement="{Binding ElementName=txtUsername}">
                 <materialDesign:Card x:Name="cardLogin" Margin="230,70,230,0" Opacity="0.3"
          Background="White" Height="429" Foreground="{x:Null}"/>
                 <materialDesign:PackIcon Height="100" Width="100" HorizontalAlignment="Center"  Kind="AccountCircle" Margin="346,10,346,0" Foreground="Orange" />
@@ -38,7 +38,7 @@
                 <TextBox x:Name="txtUsername" Width="250" 
                  Margin="310,200,255,325" 
                  FontSize="20"
-                 materialDesign:HintAssist.Hint="UserName">
+                 materialDesign:HintAssist.Hint="Username">
                 </TextBox>
                 <Label Target="{Binding ElementName=txtPassword}" Margin="245,255,400,250" FontSize="21">
                     _Password:
@@ -66,17 +66,19 @@
                 <TextBlock x:Name="txbCoffee" Text="Coffee" TextAlignment="Center" Background="#b68648" ></TextBlock>
                 <TextBlock x:Name="txbMilktea" Text="Milk tea" Background="#efca8b" TextAlignment="Center"></TextBlock>
                 <TextBlock x:Name="txbTopping" Text="Topping" Background="#fcc542" TextAlignment="Center"></TextBlock>
+                <Grid x:Name="temp1000"></Grid>
                 <TextBlock x:Name="txbInfor" Text="Thông tin hóa đơn" Background="#f8e6b0"  TextAlignment="Center"></TextBlock>
                 <Grid>
-                    <ComboBox x:Name="cbbEmployee" Background="#fbf9f2" Visibility="Visible" >
-                        <!--<materialDesign:PackIcon Kind="HamburgerMenu" />-->
+                    <materialDesign:PackIcon Kind="HamburgerMenu" Width="50" Height="30" VerticalAlignment="Top" Margin="10 2"/>
+                    <ComboBox x:Name="cbbEmployee" 
+                              Background="#fbf9f2" Visibility="Visible" Opacity="0">
                         <Button x:Name="btnPersonalInforMode" Content="Thông tin cá nhân" Background="#f4a50d" BorderBrush="#ffffff" Click="btnPersonalInforMode_Click"  ></Button>
                         <Button x:Name="btnCalendarMode" Content="Lịch làm việc" Background="#f4a50d" BorderBrush="#ffffff" Click="BtnCalendarMode_Click" ></Button>
                         <Button x:Name="btnCustomerInforMode" Content="Thông tin khách hàng" Background="#f4a50d" BorderBrush="#ffffff" Click="btnCustomerInforMode_Click" ></Button>
                         <Button x:Name="btnRegisterMode" Content="Đăng ký khách hàng" Background="#f4a50d" BorderBrush="#ffffff" Click="btnRegisterMode_Click" ></Button>
                         <Button x:Name="btnLogoutMode" Content="Đăng xuất" Background="#f4a50d" BorderBrush="#ffffff" Click="btnLogoutMode_Click" ></Button>
                     </ComboBox>
-                    <ComboBox x:Name="cbbManage" Visibility="Visible">
+                    <ComboBox x:Name="cbbManage" Visibility="Visible" Opacity="0">
                         <!--<materialDesign:PackIcon Kind="HamburgerMenu" />-->
                         <Button x:Name="btnPersonalInforMode1" Content="Thông tin cá nhân" Click="btnPersonalInforMode_Click" Background="#ffd200" BorderBrush="Orange" Foreground="White"></Button>
                         <Button x:Name="btnCustomerInforMode1" Content="Thông tin khách hàng" Click="btnCustomerInforMode_Click"  Background="#ffd200" BorderBrush="Orange" Foreground="White" ></Button>
@@ -105,14 +107,15 @@
                                                 VerticalAlignment="Stretch"
                                                 HorizontalAlignment="Stretch">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="9*" />
-                                            <ColumnDefinition Width="1*" />
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
                                         </Grid.ColumnDefinitions>
                                         <StackPanel Grid.Column="0" >
                                             <TextBlock x:Name="tbCoffees"
                                                    FontSize="18"
                                                    Text="{Binding tenSanPham}"
                                                    TextAlignment="Left"
+                                                   Width="228"
                                                    TextWrapping="WrapWithOverflow" MouseDown="TbDrink_MouseDown" ></TextBlock>
                                             <ComboBox x:Name="cbbSizeCoffees" FontWeight="Bold" SelectedIndex="0" DropDownClosed="CbbSize_DropDownClosed">
                                                 <ComboBoxItem>
@@ -151,18 +154,16 @@
                                                 VerticalAlignment="Stretch"
                                                 HorizontalAlignment="Stretch">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="9*" />
-                                            <ColumnDefinition Width="1*" />
+                                            <ColumnDefinition />
+                                            <ColumnDefinition/>
                                         </Grid.ColumnDefinitions>
-                                        <!--<Grid.RowDefinitions>
-                                            <RowDefinition></RowDefinition>
-                                            <RowDefinition></RowDefinition>
-                                        </Grid.RowDefinitions>-->
+                                        
                                         <StackPanel Grid.Column="0" >
                                             <TextBlock x:Name="tbMilkteas"
                                                    FontSize="18"
                                                    Text="{Binding tenSanPham}"
                                                    TextAlignment="Left"
+                                                       Width="228"
                                                    TextWrapping="WrapWithOverflow" MouseDown="TbDrink_MouseDown"></TextBlock>
                                             <ComboBox x:Name="cbbSizeMilkteas" FontWeight="Bold" SelectedIndex="0" DropDownClosed="CbbSize_DropDownClosed">
                                                 <ComboBoxItem>
@@ -201,16 +202,14 @@
                                                 VerticalAlignment="Stretch"
                                                 HorizontalAlignment="Stretch">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="9*" />
-                                            <ColumnDefinition Width="1*" />
+                                            <ColumnDefinition  />
+                                            <ColumnDefinition/>
                                         </Grid.ColumnDefinitions>
-                                        <!--<Grid.RowDefinitions>
-                                            <RowDefinition></RowDefinition>
-                                            <RowDefinition></RowDefinition>
-                                        </Grid.RowDefinitions>-->
+                                       
                                         <StackPanel Grid.Column="0" >
                                             <TextBlock x:Name="tbToppings"
                                                    FontSize="18"
+                                                       Width="228"
                                                    Text="{Binding tenSanPham}"
                                                    TextAlignment="Left"
                                                    TextWrapping="WrapWithOverflow" MouseDown="TbDrink_MouseDown"></TextBlock>
@@ -240,31 +239,27 @@
                     </ScrollViewer>
 
                 </WrapPanel>
+                <Grid x:Name="temp1001"></Grid>
                 <WrapPanel x:Name="gridInforBill" Loaded="GridInforBill_Loaded">
-                    <TextBlock x:Name="tbBillNumber" Text="Số hóa đơn:"></TextBlock>
-                    <TextBox x:Name="tbxBillNumber"></TextBox>
+                    <Grid x:Name="temp1002"></Grid>
                     <TextBlock x:Name="tbCustomer" Text="Khách hàng:"></TextBlock>
                     <ComboBox x:Name="cbbCustomer" IsEditable="True">
                     </ComboBox>
                     <Grid x:Name="temp1"></Grid>
                     <TextBlock x:Name="tbEmployee" Text="Phục vụ:"></TextBlock>
                     <TextBlock x:Name="tbTime" Text="Ngày giờ:   19:44:7        12/12/2018"></TextBlock>
-                    <ScrollViewer VerticalScrollBarVisibility="Auto" >
                         <ListView x:Name="lvListBill" >
                             <ListView.View >
                                 <GridView AllowsColumnReorder="False">
                                     <GridViewColumn x:Name="lvhOrdinal" Header="STT" DisplayMemberBinding="{Binding stt}"></GridViewColumn>
-                                    <GridViewColumn x:Name="lvhDrink" Header="Tên Thức uống" DisplayMemberBinding="{Binding ten}"></GridViewColumn>
+                                    <GridViewColumn x:Name="lvhDrink" Header="Tên Thức uống" Width="150" DisplayMemberBinding="{Binding ten}"></GridViewColumn>
                                     <GridViewColumn x:Name="lvhSize" Header="Size" DisplayMemberBinding="{Binding size}"/>
                                     <GridViewColumn x:Name="lvhPrices" Header="Giá" DisplayMemberBinding="{Binding gia}"></GridViewColumn>
                                     <GridViewColumn x:Name="lvhNumber" Header="Số lượng" DisplayMemberBinding="{Binding soLuong}"/>
                                 </GridView>
                             </ListView.View>
                         </ListView>
-                    </ScrollViewer>
 
-                    <TextBlock x:Name="tbOfferCode" Text="Mã khuyến mãi:" />
-                    <ComboBox x:Name="cbbOfferCode"></ComboBox>
                     <Grid x:Name="temp2"></Grid>
                     <TextBlock x:Name="tbTotalMoney" Text=" Tổng tiền:        0"/>
                     <Button x:Name="btnPay" Content="Xuất" Background="#fcc542" BorderBrush="Orange" Click="btnPay_Click"></Button>
@@ -395,7 +390,7 @@
                 </Grid>
             </Grid>
         </WrapPanel>
-        <WrapPanel x:Name="wrpFind" Background="#E0FFFF" Visibility="Hidden">
+        <WrapPanel x:Name="wrpFind" Background="#E0FFFF" Visibility="Hidden" Loaded="WrpFind_Loaded">
             <Button x:Name="btnBackFind" Background="#1E90FF" BorderBrush="#0000FF" Click="BtnBack_Click" >
                 <materialDesign:PackIcon Kind="ArrowLeftBoldHexagonOutline" />
             </Button>
@@ -421,37 +416,35 @@
             <Grid x:Name="temp46"></Grid>
             <TextBlock x:Name="tbEmployeeName" Text="Tên nhân viên:" Foreground="Black" />
             <Grid x:Name="temp43"></Grid>
-            <ComboBox x:Name="cbbEmployeeFind" Foreground="Black"
-                IsEditable="True" Width="150" Loaded="cbbEmployeeFind_Loaded">
-                <ComboBoxItem />
+            <ComboBox x:Name="cbbEmployeeFind"
+                     materialDesign:HintAssist.Hint="Tên nhân viên" IsEditable="True" Width="150">
             </ComboBox>
             <Grid x:Name="temp44"></Grid>
-            <TextBlock x:Name="tbPhoneCustomer" Text="Tên khách hàng:" Foreground="Black"></TextBlock>
+            <TextBlock x:Name="tbPhoneCustomer" Text="Khách hàng:" Foreground="Black"></TextBlock>
             <Grid x:Name="temp45"></Grid>
             <ComboBox x:Name="cbbCustomerFind" Foreground="Black"
-              Width="200" IsEditable="True" Loaded="cbbCustomerFind_Loaded">
-                <ComboBoxItem />
+              materialDesign:HintAssist.Hint="Khách hàng" Width="200" IsEditable="True">
             </ComboBox>
             <Grid x:Name="temp48"></Grid>
-            <Button x:Name="btnFind" Content="Tìm kiếm" Background="#1E90FF" BorderBrush="#ffffff" Click="btnFind_Click" />
+            <Button x:Name="btnFind" Content="Tìm kiếm" Background="#1E90FF" BorderBrush="#ffffff" Click="BtnFind_Click"/>
             <Grid x:Name="gridFind">
                 <ListView x:Name="lvListFind" Foreground="Black">
                     <ListView.View>
                         <GridView AllowsColumnReorder="False">
-                            <GridViewColumn x:Name="gvcFindSTT" Header="STT" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
-                            <GridViewColumn x:Name="gvcFindDate" Header="Thời gian" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
-                            <GridViewColumn x:Name="gvcFindBillCode" Header="Mã hóa đơn" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
-                            <GridViewColumn x:Name="gvcFindEmployeeCode" Header="Mã nhân viên" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
-                            <GridViewColumn x:Name="gvcFindCustomerCode" Header="Mã khách hàng" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
-                            <GridViewColumn x:Name="gvcFindMoney" Header="Giá tiền" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
+                            <GridViewColumn x:Name="gvcFindSTT" Header="STT" DisplayMemberBinding="{Binding stt}"></GridViewColumn>
+                            <GridViewColumn x:Name="gvcFindDate" Header="Thời gian" DisplayMemberBinding="{Binding thoiGian}"></GridViewColumn>
+                            <GridViewColumn x:Name="gvcFindBillCode" Header="Mã hóa đơn" DisplayMemberBinding="{Binding maHoaDon}"></GridViewColumn>
+                            <GridViewColumn x:Name="gvcFindEmployeeCode" Header="Mã nhân viên" DisplayMemberBinding="{Binding nhanVien}"></GridViewColumn>
+                            <GridViewColumn x:Name="gvcFindCustomerCode" Header="Mã khách hàng" DisplayMemberBinding="{Binding khachHang}"></GridViewColumn>
+                            <GridViewColumn x:Name="gvcFindMoney" Header="Giá tiền" DisplayMemberBinding="{Binding gia}"></GridViewColumn>
                         </GridView>
                     </ListView.View>
                 </ListView>
             </Grid>
         </WrapPanel>
         <WrapPanel x:Name="wrpCustomer" Background="#ffd1d1" Visibility="Hidden">
-            <Button x:Name="btnBackCustomer" BorderBrush="#ffffff" Background="#e87f5c" Click="BtnBack_Click" >
-                <materialDesign:PackIcon Kind="ArrowLeftBoldCircleOutline" />
+            <Button VerticalAlignment="Top" x:Name="btnBackCustomer" BorderBrush="#ffffff" Background="#e87f5c" Click="BtnBack_Click" >
+                <materialDesign:PackIcon Kind="ArrowLeft" />
             </Button>
             <Grid x:Name="temp51"></Grid>
             <StackPanel>
@@ -469,7 +462,7 @@
                 </Border>
             </StackPanel>
             <Grid x:Name="temp57"></Grid>
-            <Button x:Name="btnCustomer" Content="Tìm kiếm" BorderBrush="#ffffff" Background="#e87f5c" Click="BtnCustomer_Click" IsDefault="True"></Button>
+            <Button x:Name="btnCustomer" VerticalAlignment="Top" Content="Tìm kiếm" BorderBrush="#ffffff" Background="#e87f5c" Click="BtnCustomer_Click" IsDefault="True"></Button>
             <Grid x:Name="temp59"></Grid>
             <Grid x:Name="temp58"></Grid>
             <Grid x:Name="gridCustomer">
@@ -541,16 +534,36 @@
                 <!--Trick-->
                 <TextBlock x:Name="tbIdDrink" Visibility="Hidden"></TextBlock>
                 <!--Trick-->
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel x:Name="stpIngredientmini">
                 <TextBlock x:Name="tbNameDrink" Text="Tên thức uống:" Foreground="Black"></TextBlock>
-                <TextBox x:Name="tbxNameDrink" HorizontalAlignment="Center"
+                    <TextBox x:Name="tbxNameDrink" HorizontalAlignment="Center"
                      Text="" Foreground="Black"></TextBox>
+                    </StackPanel>
+                    <ComboBox x:Name="cbbIngredients" FontWeight="Bold" SelectedIndex="0" Visibility="Hidden">
+                        <ComboBoxItem>
+                            Coffee
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            Milktea
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            Toppings
+                        </ComboBoxItem>
+                    </ComboBox>
+
+                </StackPanel>
+
+               
                 <Grid x:Name="temp71"></Grid>
                 <TextBlock x:Name="tbCostDrink" Text="Giá:" Foreground="Black"></TextBlock>
                 <TextBox x:Name="tbxCostDrink" 
                      Text="Trà sữa" Foreground="Black"></TextBox>
                 <Grid x:Name="temp72"></Grid>
                 <TextBlock x:Name="tbIngredients" Text="Thành phần" Foreground="Black"></TextBlock>
-                <TextBox x:Name="tbxIngredients" HorizontalAlignment="Stretch" VerticalAlignment="Top" TextWrapping="Wrap"></TextBox>
+                <TextBox x:Name="tbxIngredients"
+                         Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
+                         HorizontalAlignment="Stretch" VerticalAlignment="Top" TextWrapping="Wrap"></TextBox>
                 <Grid x:Name="temp100"></Grid>
                 <WrapPanel x:Name="stpInforDrinksMini1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Grid x:Name="gridbtnBackInforDrink">
@@ -562,24 +575,34 @@
                     <Grid x:Name="gridbtnUpdateInforDrink">
                         <Button x:Name="btnUpdateInforDrink" VerticalAlignment="Center" HorizontalAlignment="Center" Content="Cập nhật" BorderBrush="#FF4500" Background="#FFA500" Click="BtnUpdateInforDrink_Click"></Button>
                     </Grid>
+                    <Grid x:Name="gridbtnInsertDrink">
+                        <Button x:Name="btnInsertDrink" VerticalAlignment="Center" HorizontalAlignment="Center" Content="Thêm mới" BorderBrush="#FF4500" Background="#FFA500" Click="btnInsertDrink_Click"></Button>
+                    </Grid>
 
                 </WrapPanel>
             </StackPanel>
         </Grid>
         <WrapPanel x:Name="wrpAgent" Background="#d1efd1" Visibility="Hidden">
-            <Button x:Name="btnBackAgent" Background="#03c203" BorderBrush="#006400" Click="BtnBack_Click" >
+            <Button VerticalAlignment="Top" x:Name="btnBackAgent" Background="#03c203" BorderBrush="#006400" Click="BtnBack_Click" >
                 <materialDesign:PackIcon Kind="ArrowLeft"/>
             </Button>
             <Grid x:Name="temp81"/>
-            <TextBox x:Name="tbxSearchAgent" Foreground="Black" Background="#c7edc7"
+            <StackPanel>
+                <TextBox x:Name="tbxSearchAgent" Foreground="Black" Background="#c7edc7"
               Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-              materialDesign:HintAssist.Hint="Nhập họ tên"
+              materialDesign:HintAssist.Hint="Họ và tên"
               Margin="8 0 0 0"
               VerticalAlignment="Bottom" 
-              Width="285"
-              KeyUp="tbxSearchAgent_KeyUp"/>
+              Width="285"  KeyUp="TbxSearchAgent_KeyUp"/>
+                <Border Width="298" Height="150" BorderBrush="Black"   
+                    BorderThickness="1" Visibility="Hidden">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <StackPanel Name="agentResultStack"></StackPanel>
+                    </ScrollViewer>
+                </Border>
+            </StackPanel>
             <Grid x:Name="temp87"/>
-            <Button x:Name="btnAgent" Content="Tìm kiếm" Background="#03c203" BorderBrush="#006400" Click="btnAgent_Click"/>
+            <Button x:Name="btnAgent" Content="Tìm kiếm" Background="#03c203" BorderBrush="#006400" Click="btnAgent_Click" IsDefault="True"/>
             <Grid x:Name="temp89"/>
             <Grid x:Name="temp88"/>
             <Grid x:Name="gridAgent">

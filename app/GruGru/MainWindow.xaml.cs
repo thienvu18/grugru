@@ -168,6 +168,22 @@ namespace GruGru
             InforScreen();
             LoadCalendar();
 
+            DateTime now = DateTime.Now;
+            tbTime.Text = "Ngày giờ:   " + now.ToShortTimeString() + "        " + now.ToShortDateString();
+
+            timer = new Timer();
+            timer.Interval = ((60 - DateTime.Now.Second) * 1000 - DateTime.Now.Millisecond);
+            timer.AutoReset = true;
+            timer.Elapsed += (Object o, ElapsedEventArgs e) =>
+            {
+                timer.Interval = ((60 - DateTime.Now.Second) * 1000 - DateTime.Now.Millisecond);
+                timer.Start();
+                this.Dispatcher.Invoke(() =>
+                {
+                    tbTime.Text = "Ngày giờ:   " + DateTime.Now.ToShortTimeString() + "        " + DateTime.Now.ToShortDateString();
+                });
+            };
+            timer.Start();
         }
 
         class Name
@@ -215,13 +231,15 @@ namespace GruGru
             txbTopping.Width = 0.23 * width;
             txbTopping.FontSize = height004;
 
+            temp1000.Width = 0.005 * width;
+
             txbInfor.Width = 0.26 * width;
             txbInfor.FontSize = height004;
 
-            cbbEmployee.Width = 0.05 * width;
+            cbbEmployee.Width = 0.045 * width;
             cbbEmployee.FontSize = height004;
 
-            cbbManage.Width = 0.05 * width;
+            cbbManage.Width = 0.045 * width;
             cbbManage.FontSize = height004;
 
             //menu
@@ -238,18 +256,15 @@ namespace GruGru
             lvMenuToppings.Height = stpMenu.Height;
             lvMenuToppings.Width = stpDrink.Width / 3;
 
+            temp1001.Width = 0.01 * width;
             //InforBill
-            gridInforBill.Width = 0.31 * width;
+            gridInforBill.Width = 0.308 * width;
             gridInforBill.Height = height - height005;
 
             Double heighttbBill = gridInforBill.Height * 3 / 60;
-            tbBillNumber.FontSize = height0027;
-            tbBillNumber.Height = heighttbBill;
-            tbBillNumber.Width = gridInforBill.Width * 2 / 6 - 5;
 
-            tbxBillNumber.FontSize = height0027;
-            tbxBillNumber.Height = heighttbBill;
-            tbxBillNumber.Width = gridInforBill.Width * 4 / 6 - 5;
+            temp1002.Height = heighttbBill * 0.75;
+            temp1002.Width = gridInforBill.Width - 5;
 
             tbCustomer.FontSize = height0027;
             tbCustomer.Height = heighttbBill;
@@ -271,16 +286,8 @@ namespace GruGru
             tbTime.Width = gridInforBill.Width - 10;
 
             lvListBill.FontSize = height002;
-            lvListBill.Height = gridInforBill.Height * 6 / 11;
+            lvListBill.Height = gridInforBill.Height * 7.7 / 13;
             lvListBill.Width = gridInforBill.Width;
-
-            tbOfferCode.FontSize = height0027;
-            tbOfferCode.Height = heighttbBill;
-            tbOfferCode.Width = gridInforBill.Width * 3 / 8 - 5;
-
-            cbbOfferCode.FontSize = height0027;
-            cbbOfferCode.Height = heighttbBill;
-            cbbOfferCode.Width = gridInforBill.Width * 5 / 8 - 5;
 
             temp2.Height = heighttbBill / 4;
             temp2.Width = gridInforBill.Width;
@@ -575,9 +582,15 @@ namespace GruGru
             stpInforDrinksMini.Height = height * 0.7;
             stpInforDrinksMini.Width = width * 0.65;
 
+            stpIngredientmini.Width = stpInforDrinksMini.Width * 0.8;
+
             tbNameDrink.FontSize = height0023;
             tbxNameDrink.FontSize = height0023;
-            tbxNameDrink.Width = stpInforDrinksMini.Width * 0.8;
+            tbxNameDrink.Width = stpInforDrinksMini.Width * 0.6;
+
+            cbbIngredients.FontSize = height0023;
+            //cbbIngredients.Height = stpInforDrinksMini.Height / 20;
+            cbbIngredients.Width = stpInforDrinksMini.Width * 0.25;
 
             temp71.Height = stpInforDrinksMini.Height / 30;
 
@@ -588,21 +601,27 @@ namespace GruGru
             temp72.Height = stpInforDrinksMini.Height / 30;
 
             tbIngredients.FontSize = height0023;
+            tbIngredients.Height = height005;
 
             tbxIngredients.FontSize = height0023;
             tbxIngredients.Height = stpInforDrinksMini.Height / 5 * 2;
             tbxIngredients.Width = stpInforDrinksMini.Width;
 
+
+
             temp100.Height = stpInforDrinksMini.Height / 8;
 
             stpInforDrinksMini1.Width = stpInforDrinksMini.Width;
-            gridbtnDeleteDrink.Width = stpInforDrinksMini1.Width / 3;
-            gridbtnUpdateInforDrink.Width = stpInforDrinksMini1.Width / 3;
-            gridbtnBackInforDrink.Width = stpInforDrinksMini1.Width / 3;
+            gridbtnDeleteDrink.Width = stpInforDrinksMini1.Width / 4;
+            gridbtnUpdateInforDrink.Width = stpInforDrinksMini1.Width / 4;
+            gridbtnBackInforDrink.Width = stpInforDrinksMini1.Width / 4;
+            gridbtnInsertDrink.Width = stpInforDrinksMini1.Width / 4;
+
 
             btnDeleteDrink.FontSize = height0027;
             btnUpdateInforDrink.FontSize = height0027;
             btnBackInforDrink.FontSize = height0027;
+            btnInsertDrink.FontSize = height0027;
 
         }
 
@@ -786,7 +805,6 @@ namespace GruGru
                 }
             }
 
-
             if (error == false)
             {
                 string result;
@@ -814,8 +832,6 @@ namespace GruGru
                     stpMainScreen.Visibility = System.Windows.Visibility.Visible;
                     loggedInUserType = type = stuff.loaiNV;
                     loggedInUserName = stuff.hoTen;
-
-                    string name = stuff.hoTen;
                     loggedInUserId = stuff.id;
 
                     cbbEmployee.Visibility = System.Windows.Visibility.Visible;
@@ -826,9 +842,9 @@ namespace GruGru
                     }
                     if (type == "2")
                     {
-                        cbbEmployee.Visibility = System.Windows.Visibility.Visible;
+                        cbbEmployee.Visibility = System.Windows.Visibility.Hidden;
                     }
-                    tbEmployee.Text = "Phục vụ: " + name;
+                    tbEmployee.Text = "Phục vụ: " + loggedInUserName;
 
                     if (RememberMe.IsThreeState == true)
                     {
@@ -877,63 +893,8 @@ namespace GruGru
             }
         }
 
-        public void Find()
-        {
-            string BeginDate = dpDayStartFind.Text;
-            string BeginTime = mtpHourStartFind.Text;
-            string EndDate = dpDayEndFind.Text;
-            string EndTime = mtpHourEndFind.Text;
-            string json = "";
-
-            const string prefixNhanVien = "__idNhanVien";
-            string idNhanVienLap = ((ComboBoxItem)cbbEmployeeFind.SelectedItem).Name.Substring(prefixNhanVien.Length);//"13874383";
-            const string prefixKhachHang = "_idKhachHang";
-            string idKhachHangMua = ((ComboBoxItem)cbbCustomerFind.SelectedItem).Name.Substring(prefixKhachHang.Length);//"13874383";
-
-            if (idKhachHangMua == "null" && idNhanVienLap == "null") 
-            {
-                idKhachHangMua = "";
-                idNhanVienLap = "";
-            }else if(idKhachHangMua=="null")
-            {
-                idKhachHangMua = "";
-            }
-            else if (idNhanVienLap=="null")
-            {
-                idNhanVienLap = "";
-            }
-
-            json = "{\"BeginDate\": \"" + BeginDate + "\", \"BeginTime\": \"" + BeginTime +
-                "\", \"EndDate\": \"" + EndDate + "\", \"EndTime\": \"" + EndTime +
-                "\", \"idNhanVienLap\": \"" +idNhanVienLap + "\", \"idKhachHangMua\": \"" +idKhachHangMua + "\"}";
-
-            string url = SERVER + "/Search";
-
-            string result = Get(url + json);
-
-            dynamic stuff = JsonConvert.DeserializeObject(result);
-
-            string code = stuff.code;
-            List<DanhSach> danhSachTimKiem = new List<DanhSach>();
-            foreach (var item in stuff.danhSachTimKiem)
-            {
-                danhSachTimKiem.Add(new DanhSach()
-                {
-                    id = item.id,
-                    thoiGian = item.thoiGian,
-                    maHoaDon = item.maHoaDon,
-                    maNhanVien = item.maNhanVien,
-                    maKhachHang = item.maKhachHang,
-                    gia = item.gia,
-                });
-            }
-            lvListFind.ItemsSource = danhSachTimKiem;
-        }
-
         private void LoadMenu()
         {
-            ListDrinks.Clear();
-            lvListBill.ItemsSource = null;
             string url = SERVER + "getFoodList";
 
             string result = Get(url);
@@ -982,23 +943,6 @@ namespace GruGru
             lvMenuCoffees.ItemsSource = coffees;
             lvMenuMilkteas.ItemsSource = milkTeas;
             lvMenuToppings.ItemsSource = toppings;
-
-            DateTime now = DateTime.Now;
-            tbTime.Text = "Ngày giờ:   " + now.ToShortTimeString() + "        " + now.ToShortDateString();
-
-            timer = new Timer();
-            timer.Interval = ((60 - DateTime.Now.Second) * 1000 - DateTime.Now.Millisecond);
-            timer.AutoReset = true;
-            timer.Elapsed += (Object o, ElapsedEventArgs e) =>
-            {
-                timer.Interval = ((60 - DateTime.Now.Second) * 1000 - DateTime.Now.Millisecond);
-                timer.Start();
-                this.Dispatcher.Invoke(() =>
-                {
-                    tbTime.Text = "Ngày giờ:   " + DateTime.Now.ToShortTimeString() + "        " + DateTime.Now.ToShortDateString();
-                });
-            };
-            timer.Start();
         }
 
         private void btnPersonalInforMode_Click(object sender, RoutedEventArgs e)
@@ -1089,6 +1033,16 @@ namespace GruGru
             }
             if (temp == false)
             {
+                if (sizetemp == "M")
+                {
+                    giatemp = giatemp * 110 / 100;
+                }
+                if (sizetemp == "L")
+                {
+                    giatemp = giatemp * 120 / 100;
+                }
+                giatemp = Math.Round(giatemp / 1000, 0) * 1000;
+
                 ListDrinks.Add(new Drink()
                 {
                     id = idtemp,
@@ -1108,39 +1062,53 @@ namespace GruGru
 
         private void btnPay_Click(object sender, RoutedEventArgs e)
         {
-            const string prefix = "__idKhachHang";
-            string gia = TongTien().ToString();//"usercfrnh"
-            string idKhachHangMua = ((ComboBoxItem)cbbCustomer.SelectedItem).Name.Substring(prefix.Length);//"13874383";
-
-            if (idKhachHangMua == "null")
+            if (ListDrinks.Count == 0)
             {
-                idKhachHangMua = "";
+                MessageBox.Show("Đơn hàng trống");
             }
-
-            string json = "{\"gia\": " + gia + ", \"idKhachHangMua\": \"" + idKhachHangMua + "\", \"idNhanVienLap\": " + loggedInUserId + ", \"danhSachMonAn\":";
-
-            json += JsonConvert.SerializeObject(ListDrinks);
-            json += "}";
-
-
-            string url = SERVER + "putOrder";
-            try
+            else
             {
-                string result = Post(url, json);
-                dynamic resObject = JsonConvert.DeserializeObject(result);
-                if (resObject.code == "0")
+                const string prefix = "__idKhachHang";
+                string gia = TongTien().ToString();//"usercfrnh"
+                string idKhachHangMua = ((ComboBoxItem)cbbCustomer.SelectedItem).Name.Substring(prefix.Length);//"13874383";
+
+                if (idKhachHangMua == "null")
                 {
-                    MessageBox.Show("Đơn hàng đã được xác nhận");
-                    LoadMenu();
+                    idKhachHangMua = "";
                 }
-                else
+
+                string json = "{\"gia\": " + gia + ", \"idKhachHangMua\": \"" + idKhachHangMua + "\", \"idNhanVienLap\": " + loggedInUserId + ", \"danhSachMonAn\":";
+
+                json += JsonConvert.SerializeObject(ListDrinks);
+                json += "}";
+
+
+                string url = SERVER + "putOrder";
+                try
                 {
-                    MessageBox.Show("Đặt hàng thất bại, vui lòng thử lại");
+                    string result = Post(url, json);
+                    dynamic resObject = JsonConvert.DeserializeObject(result);
+                    if (resObject.code == "0")
+                    {
+                        MessageBox.Show("Đơn hàng đã được xác nhận");
+                        ListDrinks.Clear();
+                        lvListBill.ItemsSource = null;
+                        tbTotalMoney.Text = " Tổng tiền:        ";
+
+                        lvMenuCoffees.Items.Refresh();
+                        lvMenuMilkteas.Items.Refresh();
+                        lvMenuToppings.Items.Refresh();
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Đặt hàng thất bại, vui lòng thử lại");
+                    }
                 }
-            }
-            catch
-            {
-                MessageBox.Show("Không thể kết nối đến server");
+                catch
+                {
+                    MessageBox.Show("Không thể kết nối đến server");
+                }
             }
         }
 
@@ -1398,6 +1366,7 @@ namespace GruGru
             {
                 tongTien += item.gia * item.soLuong;
             }
+            decimal tmp = tongTien;
             tbTotalMoney.Text = " Tổng tiền:        " + tongTien.ToString();
             return tongTien;
         }
@@ -1492,7 +1461,7 @@ namespace GruGru
             {
                 tbxAgentCode.Text = resObject.payload[0].maNV;
                 tbxAgentName.Text = resObject.payload[0].hoTen;
-                tbxMonth.Text = resObject.payload[0].kinhNghiem;
+                tbxMonth.Text = resObject.payload[0].soThangKinhNghiem;
                 tbxPhoneNumberAgent.Text = resObject.payload[0].soDienThoai;
                 tbxBirthDayAgent.Text = resObject.payload[0].ngaySinh;
                 tbxIDAgent.Text = resObject.payload[0].cmnd;
@@ -1618,16 +1587,19 @@ namespace GruGru
             tbxNameDrink.Text = ((TextBlock)sender).Text;
             tbxCostDrink.Text = ((TextBlock)((StackPanel)((TextBlock)sender).Parent).Children[3]).Text;
             tbxIngredients.Text = ((TextBlock)((StackPanel)((TextBlock)sender).Parent).Children[4]).Text;
+            btnInsertDrink.Content = "Thêm mới";
+            cbbIngredients.Visibility = Visibility.Hidden;
+
+            btnDeleteDrink.Visibility = Visibility.Visible;
+            btnUpdateInforDrink.Visibility = Visibility.Visible;
+            btnInsertDrink.Visibility = Visibility.Visible;
             if (loggedInUserType == "1")
             {
                 btnDeleteDrink.Visibility = Visibility.Collapsed;
                 btnUpdateInforDrink.Visibility = Visibility.Collapsed;
+                btnInsertDrink.Visibility = Visibility.Collapsed;
             }
-            else
-            {
-                btnDeleteDrink.Visibility = Visibility.Visible;
-                btnUpdateInforDrink.Visibility = Visibility.Visible;
-            }
+
         }
 
         private void BtnBackInforDrink_Click(object sender, RoutedEventArgs e)
@@ -1650,7 +1622,9 @@ namespace GruGru
                 {
                     MessageBox.Show("xóa món thành công");
                     griInforDrinks.Visibility = Visibility.Hidden;
+                    ListDrinks.Clear();
                     LoadMenu();
+                    tbTotalMoney.Text = " Tổng tiền:        ";
                     stpMainScreen.Opacity = 1;
                 }
                 else
@@ -1683,7 +1657,9 @@ namespace GruGru
                 {
                     MessageBox.Show("Cập nhật món thành công");
                     griInforDrinks.Visibility = Visibility.Hidden;
+                    ListDrinks.Clear();
                     LoadMenu();
+                    tbTotalMoney.Text = " Tổng tiền:        ";
                     stpMainScreen.Opacity = 1;
 
                 }
@@ -1745,7 +1721,6 @@ namespace GruGru
             }
 
             string payload = $"{{\"hoTen\": \"{name}\",\"ngaySinh\": \"{birthDay}\",\"soDienThoai\": \"{phone}\",\"cmnd\": \"{ cmnd}\"}}";
-            MessageBox.Show(payload);
             dynamic resObject;
             try
             {
@@ -1927,6 +1902,15 @@ namespace GruGru
                         cbbCustomer.Items.Add(item);
                     }
                 }
+                else if (resObject.code == "-1")
+                {
+                    ComboBoxItem defaultItem = new ComboBoxItem();
+                    defaultItem.Name = "__idKhachHangnull";
+                    defaultItem.Content = "Khách hàng chưa đăng ký";
+                    cbbCustomer.Items.Add(defaultItem);
+
+                    cbbCustomer.SelectedIndex = 0;
+                }
                 else
                 {
                     MessageBox.Show("Không thể kết nối đến server");
@@ -1971,6 +1955,229 @@ namespace GruGru
             }
         }
 
+        private void TbxSearchAgent_KeyUp(object sender, KeyEventArgs e)
+        {
+
+            bool found = false;
+            var border = (agentResultStack.Parent as ScrollViewer).Parent as Border;
+
+            string query = (sender as TextBox).Text;
+
+            if (query.Length == 0)
+            {
+                // Clear   
+                agentResultStack.Children.Clear();
+                border.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                border.Visibility = Visibility.Visible;
+                try
+                {
+                    string res = Get(SERVER + "getEmployeeByName/" + query);
+                    dynamic resObject = JsonConvert.DeserializeObject(res);
+                    // Clear the list   
+                    agentResultStack.Children.Clear();
+
+                    if (resObject.code == "0")
+                    {
+                        for (int i = 0; i < resObject.payload.Count; i++)
+                        {
+                            string text = resObject.payload[i].hoTen;
+
+                            // The word starts with this... Autocomplete must work   
+                            TextBlock block = new TextBlock();
+
+                            // Add the text   
+                            block.Text = text;
+
+                            // A little style...   
+                            block.Margin = new Thickness(2, 3, 2, 3);
+                            block.Cursor = Cursors.Hand;
+
+                            // Mouse events   
+                            block.MouseLeftButtonUp += (s, notCare) =>
+                            {
+                                border.Visibility = Visibility.Hidden;
+                                btnAgent_Click(null, null);
+                            };
+
+                            block.MouseEnter += (s, notCare) =>
+                            {
+                                TextBlock b = s as TextBlock;
+                                b.Background = Brushes.PeachPuff;
+                            };
+
+                            block.MouseLeave += (s, notCare) =>
+                            {
+                                TextBlock b = s as TextBlock;
+                                b.Background = Brushes.Transparent;
+                            };
+
+                            // Add to the panel   
+                            agentResultStack.Children.Add(block);
+                            found = true;
+                        }
+                    }
+
+                    if (!found)
+                    {
+                        agentResultStack.Children.Add(new TextBlock() { Text = "No results found." });
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("Không thể kết nối đến server");
+                }
+            }
+        }
+
+        private void WrpFind_Loaded(object sender, RoutedEventArgs e)
+        {
+            //Tên khách hàng mặc định
+            ComboBoxItem defaultCustomer = new ComboBoxItem();
+            defaultCustomer.Name = "__idCustomernull";
+            defaultCustomer.Content = "Khách hàng chưa đăng ký";
+            cbbCustomerFind.Items.Add(defaultCustomer);
+
+            try
+            {
+                string res = Get(SERVER + "getCustomers");
+                dynamic resObject = JsonConvert.DeserializeObject(res);
+                if (resObject.code == "0")
+                {
+                    for (int i = 0; i < resObject.payload.Count; i++)
+                    {
+                        ComboBoxItem item = new ComboBoxItem();
+                        item.Name = "__idCustomer" + resObject.payload[i].id;
+                        item.Content = resObject.payload[i].hoTen;
+                        cbbCustomerFind.Items.Add(item);
+                    }
+                }
+                else if (resObject.code == "-1")
+                {
+                    //trick
+                }
+                else
+                {
+                    MessageBox.Show("Không thể kết nối đến server");
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Không thể kết nối đến server");
+            }
+
+            try
+            {
+                string res = Get(SERVER + "getEmployees");
+                dynamic resObject = JsonConvert.DeserializeObject(res);
+                if (resObject.code == "0")
+                {
+                    for (int i = 0; i < resObject.payload.Count; i++)
+                    {
+                        ComboBoxItem item = new ComboBoxItem();
+                        item.Name = "__idEmployee" + resObject.payload[i].id;
+                        item.Content = resObject.payload[i].hoTen;
+                        cbbEmployeeFind.Items.Add(item);
+                    }
+                }
+                else if (resObject.code == "-1")
+                {
+                    //trick
+                }
+                else
+                {
+                    MessageBox.Show("Không thể kết nối đến server");
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Không thể kết nối đến server");
+            }
+        }
+
+        private void BtnFind_Click(object sender, RoutedEventArgs e)
+        {
+            const string employeePrefix = "__idEmployee";
+            const string customerPrefix = "__idCustomer";
+            string BeginDate = "";
+            string EndDate = "";
+            string idNhanVien;
+            string idKhachHang;
+            string json = "";
+
+            //Kiểm tra dữ liệu đầu vào
+            if (dpDayStartFind.SelectedDate != null)
+            {
+                BeginDate = ((DateTime)dpDayStartFind.SelectedDate).ToString("dd/MM/yyyy");
+            }
+
+            if (dpDayEndFind.SelectedDate != null)
+            {
+                EndDate = ((DateTime)dpDayEndFind.SelectedDate).ToString("dd/MM/yyyy");
+            }
+
+            if (cbbEmployeeFind.SelectedItem != null)
+            {
+                idNhanVien = ((ComboBoxItem)cbbEmployeeFind.SelectedItem).Name.Substring(employeePrefix.Length);
+            }
+            else
+            {
+                idNhanVien = "";
+            }
+
+            if (cbbCustomerFind.SelectedItem != null)
+            {
+                idKhachHang = ((ComboBoxItem)cbbCustomerFind.SelectedItem).Name.Substring(customerPrefix.Length);
+            }
+            else
+            {
+                idKhachHang = "";
+            }
+
+            json = "{\"BeginDate\": \"" + BeginDate +
+                "\", \"EndDate\": \"" + EndDate +
+                "\", \"idNhanVien\": \"" + idNhanVien + "\", \"idKhachHang\": \"" + idKhachHang + "\"}";
+
+            string url = SERVER + "search";
+            try
+            {
+                string result = Post(url, json);
+                dynamic stuff = JsonConvert.DeserializeObject(result);
+
+                string code = stuff.code;
+                if (code == "0")
+                {
+                    List<DanhSach> danhSachTimKiem = new List<DanhSach>();
+                    int i = 1;
+                    foreach (var item in stuff.payload)
+                    {
+                        danhSachTimKiem.Add(new DanhSach()
+                        {
+                            stt = i++,
+                            thoiGian = item.thoiGian,
+                            maHoaDon = item.maHoaDon,
+                            nhanVien = item.nhanVien,
+                            khachHang = item.khachHang == null ? "Khách vãng lai" : item.khachHang,
+                            gia = item.gia,
+                        });
+                    }
+                    lvListFind.ItemsSource = danhSachTimKiem;
+                }
+                else
+                {
+                    MessageBox.Show("Không thể kết nối đến server");
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Không thể kết nối đến server");
+            }
+        }
+
+
+
         private void cbbCustomerFind_Loaded(object sender, RoutedEventArgs e)
         {
             try
@@ -2002,11 +2209,6 @@ namespace GruGru
             {
                 MessageBox.Show("Không thể kết nối đến server");
             }
-        }
-
-        private void btnFind_Click(object sender, RoutedEventArgs e)
-        {
-            Find();
         }
 
         private void tbxSearchAgent_KeyUp(object sender, KeyEventArgs e)
@@ -2150,6 +2352,83 @@ namespace GruGru
         private void rbByYear_Unchecked(object sender, RoutedEventArgs e)
         {
             cvStatisticalTime.Visibility = Visibility.Hidden;
+        }
+
+        private void btnInsertDrink_Click(object sender, RoutedEventArgs e)
+        {
+            btnDeleteDrink.Visibility = Visibility.Collapsed;
+            btnUpdateInforDrink.Visibility = Visibility.Collapsed;
+
+
+
+            if (btnInsertDrink.Content.ToString() == "Thêm mới")
+            {
+                btnInsertDrink.Content = "Xác nhận";
+                tbxNameDrink.Text = "";
+                tbxCostDrink.Text = "";
+                tbxIngredients.Text = "";
+                cbbIngredients.Visibility = Visibility.Visible;
+            }
+            else if (btnInsertDrink.Content.ToString() == "Xác nhận")
+            {
+                btnInsertDrink.Content = "Thêm mới";
+                cbbIngredients.Visibility = Visibility.Hidden;
+                string maSanPham = "";
+                if (cbbIngredients.SelectedIndex == 0)
+                {
+                    maSanPham = "C";
+                }
+                else if (cbbIngredients.SelectedIndex == 1)
+                {
+                    maSanPham = "M";
+
+                }
+                else if (cbbIngredients.SelectedIndex == 2)
+                {
+                    maSanPham = "T";
+
+                }
+                var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+                var stringChars = new char[8];
+                var random = new Random();
+
+                for (int i = 0; i < stringChars.Length; i++)
+                {
+                    stringChars[i] = chars[random.Next(chars.Length)];
+                }
+
+                maSanPham += new String(stringChars);
+                string NameDrink = tbxNameDrink.Text;//"namedrink"
+                string Cost = tbxCostDrink.Text;//"giá"
+                string Ingredients = tbxIngredients.Text;//mô tả
+                string json = "{\"maSanPham\": \"" + maSanPham + "\",\"tenSanPham\": \"" + NameDrink + "\",\"thongTin\": \"" + Ingredients + "\", \"gia\": " + Cost + "}";
+                string url = SERVER + "insertDrink";
+                try
+                {
+                    string result = Post(url, json);
+                    dynamic stuff = JsonConvert.DeserializeObject(result);
+
+                    string code = stuff.code;
+                    if (code == "0")
+                    {
+                        MessageBox.Show("Thêm món thành công");
+                        griInforDrinks.Visibility = Visibility.Hidden;
+                        LoadMenu();
+                        ListDrinks.Clear();
+                        tbTotalMoney.Text = " Tổng tiền:        ";
+                        stpMainScreen.Opacity = 1;
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Có lỗi xảy ra, vui lòng thử lại");
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("Có lỗi xảy ra, vui lòng thử lại");
+                }
+            }
         }
     }
 }

@@ -203,7 +203,7 @@ app.post("/api/putOrder", function(req, res) {
   const idKhachHangMua = req.body.idKhachHangMua;
   const idNhanVienLap = req.body.idNhanVienLap;
   const danhSachMonAn = req.body.danhSachMonAn;
-console.log(req.body);
+  console.log(req.body);
   var insertOrder;
   if (idKhachHangMua == "") {
     insertOrder =
@@ -230,7 +230,7 @@ console.log(req.body);
       idNhanVienLap +
       "')";
   }
-console.log(insertOrder);
+  console.log(insertOrder);
   const getOrderId =
     "SELECT id FROM HoaDon WHERE maHoaDon = '" + maHoaDon + "'";
 
@@ -256,10 +256,11 @@ console.log(insertOrder);
               msg: "Them hoa don that bai"
             });
           } else {
-            const id = result[0];
+            const id = result[0].id;
+            var successful = true;
             danhSachMonAn.forEach(monAn => {
               let insertOrderDetail =
-                "INSERT INTO ChiTietHoaDon (idHoaDon, idMonAn, soLuong, size) VALUES (" +
+                "INSERT INTO ChiTietHoaDon (idHoaDon, idSanPham, soLuong, size) VALUES (" +
                 id +
                 ", " +
                 monAn.id +
@@ -268,8 +269,11 @@ console.log(insertOrder);
                 ", '" +
                 monAn.size +
                 "' )";
+                console.log(insertOrderDetail);
               request.query(insertOrderDetail, function(err, result) {
                 if (err) {
+                  console.log(err);
+                  successful = false;
                   res.json({
                     code: -3,
                     msg: "Khong the ket noi den CSDL"
@@ -277,10 +281,12 @@ console.log(insertOrder);
                 }
               });
             });
-            res.json({
-              code: 0,
-              msg: "Them hoa don thanh cong"
-            });
+            if (successful == true) {
+              res.json({
+                code: 0,
+                msg: "Them hoa don thanh cong"
+              });
+            }
           }
         }
       });
@@ -382,7 +388,7 @@ app.post("/api/updateCustomer", function(req, res) {
     cmnd +
     "' WHERE id = " +
     id;
-  
+
   let request = new sql.Request();
 
   request.query(query, function(err, result) {
@@ -452,7 +458,7 @@ app.get("/api/deleteCustomer/:id", function(req, res) {
 
 app.get("/api/getCustomers", function(req, res) {
   const query = "SELECT * FROM KhachHang";
-// console.log();
+  // console.log();
   let request = new sql.Request();
 
   request.query(query, function(err, result) {
@@ -504,7 +510,7 @@ app.get("/api/getCustomerInfo/:id", function(req, res) {
             id: customer.id,
             maKH: customer.maKH,
             hoTen: customer.hoTen,
-            ngaySinh: moment.unix(customer.ngaySinh).format('DD/MM/YYYY'),
+            ngaySinh: moment.unix(customer.ngaySinh).format("DD/MM/YYYY"),
             soDienThoai: customer.soDienThoai
           }
         });
@@ -534,10 +540,10 @@ app.get("/api/getCustomerByPhone/:phoneNumber", function(req, res) {
           msg: "Khong tim thay khach hang"
         });
       } else {
-        var customers= [];
+        var customers = [];
         result.forEach(customer => {
-          const dob = moment.unix(customer.ngaySinh).format('DD/MM/YYYY');
-          var newCustomer = {...customer, ngaySinh: dob};
+          const dob = moment.unix(customer.ngaySinh).format("DD/MM/YYYY");
+          var newCustomer = { ...customer, ngaySinh: dob };
           customers.push(newCustomer);
         });
         res.json({
@@ -550,9 +556,37 @@ app.get("/api/getCustomerByPhone/:phoneNumber", function(req, res) {
   });
 });
 
+app.get("/api/getEmployees", function(req, res) {
+  const query = "SELECT * FROM NhanVien";
+  // console.log();
+  let request = new sql.Request();
+
+  request.query(query, function(err, result) {
+    if (err) {
+      res.json({
+        code: -3,
+        msg: "Co loi trong truy van CSDL"
+      });
+    } else {
+      if (result.length == 0) {
+        res.json({
+          code: -1,
+          msg: "Khong tim thay nhan vien"
+        });
+      } else {
+        res.json({
+          code: 0,
+          msg: "Thong tin nhan vien da chon",
+          payload: result
+        });
+      }
+    }
+  });
+});
+
 app.get("/api/getEmployeeByName/:name", function(req, res) {
   const query =
-    "SELECT TOP (10) * FROM NhanVien WHERE hoTen LIKE '" +
+    "SELECT TOP (10) * FROM NhanVien WHERE hoTen LIKE N'" +
     req.params.name +
     "%';";
 
@@ -573,11 +607,11 @@ app.get("/api/getEmployeeByName/:name", function(req, res) {
       } else {
         var employees = [];
         result.forEach(employee => {
-          const dob = moment.unix(employee.ngaySinh).format('DD/MM/YYYY');
-          var newEmployee = {...employee, ngaySinh: dob};
+          const dob = moment.unix(employee.ngaySinh).format("DD/MM/YYYY");
+          var newEmployee = { ...employee, ngaySinh: dob };
           employees.push(newEmployee);
         });
-        
+
         res.json({
           code: 0,
           msg: "Thong tin nhân viên da chon",
@@ -591,7 +625,7 @@ app.get("/api/getEmployeeByName/:name", function(req, res) {
 app.get("/api/getEmployeeById/:id", function(req, res) {
   const query =
     "SELECT TOP (1) * FROM NhanVien WHERE id = " + req.params.id + ";";
-  
+
   let request = new sql.Request();
 
   request.query(query, function(err, result) {
@@ -609,11 +643,11 @@ app.get("/api/getEmployeeById/:id", function(req, res) {
       } else {
         var employees = [];
         result.forEach(employee => {
-          const dob = moment.unix(employee.ngaySinh).format('DD/MM/YYYY');
-          var newEmployee = {...employee, ngaySinh: dob};
+          const dob = moment.unix(employee.ngaySinh).format("DD/MM/YYYY");
+          var newEmployee = { ...employee, ngaySinh: dob };
           employees.push(newEmployee);
         });
-        
+
         res.json({
           code: 0,
           msg: "Thong tin nhân viên da chon",
@@ -645,7 +679,7 @@ app.post("/api/updateEmployee", function(req, res) {
     cmnd +
     "' WHERE id = " +
     id;
-  
+
   let request = new sql.Request();
 
   request.query(query, function(err, result) {
@@ -760,6 +794,252 @@ app.get("/api/deleteCustomer/:id", function(req, res) {
           msg: "Khách hàng không tồn tại"
         });
       }
+    }
+  });
+});
+
+app.post("/api/search", function(req, res) {
+  const beginDate = req.body.BeginDate == ""? "": moment(req.body.BeginDate, "DD/MM/YYYY") / 1000;
+  const endDate = req.body.EndDate == ""? "": moment(req.body.EndDate, "DD/MM/YYYY") / 1000;
+  const idNhanVien = req.body.idNhanVien;
+  const idKhachHang = req.body.idKhachHang == 'null'? "" : req.body.idKhachHang;
+
+  var flag = req.body.idKhachHang == 'null';
+
+  var query;
+  if (
+    beginDate == "" &&
+    endDate == "" &&
+    idNhanVien == "" &&
+    idKhachHang == ""
+  ) {
+    //NULL hết
+    query =
+      "SELECT maHoaDon, thoiGianLap, gia, KhachHang.hoTen as tenKhachHang, NhanVien.hoTen as tenNhanVien FROM HoaDon LEFT JOIN KhachHang ON HoaDon.idKhachHangMua = KhachHang.id JOIN NhanVien ON HoaDon.idNhanVienLap = NhanVien.id";
+  } else if (
+    beginDate == "" &&
+    endDate == "" &&
+    idNhanVien == "" &&
+    idKhachHang != ""
+  ) {
+    //Null 3
+    query =
+      "SELECT maHoaDon, thoiGianLap, gia, KhachHang.hoTen as tenKhachHang, NhanVien.hoTen as tenNhanVien FROM HoaDon LEFT JOIN KhachHang ON HoaDon.idKhachHangMua = KhachHang.id JOIN NhanVien ON HoaDon.idNhanVienLap = NhanVien.id WHERE KhachHang.id = " +
+      idKhachHang;
+  } else if (
+    beginDate == "" &&
+    endDate == "" &&
+    idKhachHang == "" &&
+    idNhanVien != ""
+  ) {
+    //NULL 3
+    query =
+      "SELECT maHoaDon, thoiGianLap, gia, KhachHang.hoTen as tenKhachHang, NhanVien.hoTen as tenNhanVien FROM HoaDon LEFT JOIN KhachHang ON HoaDon.idKhachHangMua = KhachHang.id JOIN NhanVien ON HoaDon.idNhanVienLap = NhanVien.id WHERE NhanVien.id = " +
+      idNhanVien;
+  } else if (
+    beginDate == "" &&
+    idNhanVien == "" &&
+    idKhachHang == "" &&
+    endDate != ""
+  ) {
+    //NULL 3
+    query =
+      "SELECT maHoaDon, thoiGianLap, gia, KhachHang.hoTen as tenKhachHang, NhanVien.hoTen as tenNhanVien FROM HoaDon LEFT JOIN KhachHang ON HoaDon.idKhachHangMua = KhachHang.id JOIN NhanVien ON HoaDon.idNhanVienLap = NhanVien.id WHERE thoiGianLap > 0 AND thoiGianLap < " +
+      endDate;
+  } else if (
+    endDate == "" &&
+    idNhanVien == "" &&
+    idKhachHang == "" &&
+    beginDate != ""
+  ) {
+    //NULL 3
+    query =
+      "SELECT maHoaDon, thoiGianLap, gia, KhachHang.hoTen as tenKhachHang, NhanVien.hoTen as tenNhanVien FROM HoaDon LEFT JOIN KhachHang ON HoaDon.idKhachHangMua = KhachHang.id JOIN NhanVien ON HoaDon.idNhanVienLap = NhanVien.id WHERE thoiGianLap > " +
+      beginDate;
+  } else if (
+    idNhanVien == "" &&
+    idKhachHang == "" &&
+    beginDate != "" &&
+    endDate != ""
+  ) {
+    //NULL 2
+    query =
+      "SELECT maHoaDon, thoiGianLap, gia, KhachHang.hoTen as tenKhachHang, NhanVien.hoTen as tenNhanVien FROM HoaDon LEFT JOIN KhachHang ON HoaDon.idKhachHangMua = KhachHang.id JOIN NhanVien ON HoaDon.idNhanVienLap = NhanVien.id WHERE thoiGianLap > " +
+      beginDate +
+      " AND thoiGianLap < " +
+      endDate;
+  } else if (
+    idNhanVien != "" &&
+    idKhachHang != "" &&
+    beginDate == "" &&
+    endDate == ""
+  ) {
+    //NULL 2
+    query =
+      "SELECT maHoaDon, thoiGianLap, gia, KhachHang.hoTen as tenKhachHang, NhanVien.hoTen as tenNhanVien FROM HoaDon LEFT JOIN KhachHang ON HoaDon.idKhachHangMua = KhachHang.id JOIN NhanVien ON HoaDon.idNhanVienLap = NhanVien.id WHERE KhachHang.id = " +
+      idKhachHang +
+      " AND NhanVien.id = " +
+      idNhanVien;
+  } else if (
+    idNhanVien != "" &&
+    idKhachHang == "" &&
+    beginDate != "" &&
+    endDate == ""
+  ) {
+    //NULL 2
+    query =
+      "SELECT maHoaDon, thoiGianLap, gia, KhachHang.hoTen as tenKhachHang, NhanVien.hoTen as tenNhanVien FROM HoaDon LEFT JOIN KhachHang ON HoaDon.idKhachHangMua = KhachHang.id JOIN NhanVien ON HoaDon.idNhanVienLap = NhanVien.id WHERE thoiGianLap > " +
+      beginDate +
+      " AND NhanVien.id = " +
+      idNhanVien;
+  } else if (
+    idNhanVien == "" &&
+    idKhachHang != "" &&
+    beginDate == "" &&
+    endDate != ""
+  ) {
+    //NULL 2
+    query =
+      "SELECT maHoaDon, thoiGianLap, gia, KhachHang.hoTen as tenKhachHang, NhanVien.hoTen as tenNhanVien FROM HoaDon LEFT JOIN KhachHang ON HoaDon.idKhachHangMua = KhachHang.id JOIN NhanVien ON HoaDon.idNhanVienLap = NhanVien.id WHERE thoiGianLap < " +
+      endDate +
+      " AND KhachHang.id = " +
+      idKhachHang;
+  } else if (
+    idNhanVien != "" &&
+    idKhachHang != "" &&
+    beginDate != "" &&
+    endDate == ""
+  ) {
+    //NULL 1
+    query =
+      "SELECT maHoaDon, thoiGianLap, gia, KhachHang.hoTen as tenKhachHang, NhanVien.hoTen as tenNhanVien FROM HoaDon LEFT JOIN KhachHang ON HoaDon.idKhachHangMua = KhachHang.id JOIN NhanVien ON HoaDon.idNhanVienLap = NhanVien.id WHERE thoiGianLap > " +
+      beginDate +
+      " AND NhanVien.id = " +
+      idNhanVien +
+      " AND KhachHang.id = " +
+      idKhachHang;
+  } else if (
+    idNhanVien != "" &&
+    idKhachHang != "" &&
+    beginDate == "" &&
+    endDate != ""
+  ) {
+    //NULL 1
+    query =
+      "SELECT maHoaDon, thoiGianLap, gia, KhachHang.hoTen as tenKhachHang, NhanVien.hoTen as tenNhanVien FROM HoaDon LEFT JOIN KhachHang ON HoaDon.idKhachHangMua = KhachHang.id JOIN NhanVien ON HoaDon.idNhanVienLap = NhanVien.id WHERE thoiGianLap < " +
+      endDate +
+      " AND NhanVien.id = " +
+      idNhanVien +
+      " AND KhachHang.id = " +
+      idKhachHang;
+  } else if (
+    idNhanVien != "" &&
+    idKhachHang == "" &&
+    beginDate != "" &&
+    endDate != ""
+  ) {
+    //NULL 1
+    query =
+      "SELECT maHoaDon, thoiGianLap, gia, KhachHang.hoTen as tenKhachHang, NhanVien.hoTen as tenNhanVien FROM HoaDon LEFT JOIN KhachHang ON HoaDon.idKhachHangMua = KhachHang.id JOIN NhanVien ON HoaDon.idNhanVienLap = NhanVien.id WHERE thoiGianLap > " +
+      beginDate +
+      " AND thoiGianLap < " +
+      endDate +
+      " AND NhanVien.id = " +
+      idNhanVien;
+  } else if (
+    idNhanVien == "" &&
+    idKhachHang != "" &&
+    beginDate != "" &&
+    endDate != ""
+  ) {
+    //NULL 1
+    query =
+      "SELECT maHoaDon, thoiGianLap, gia, KhachHang.hoTen as tenKhachHang, NhanVien.hoTen as tenNhanVien FROM HoaDon LEFT JOIN KhachHang ON HoaDon.idKhachHangMua = KhachHang.id JOIN NhanVien ON HoaDon.idNhanVienLap = NhanVien.id WHERE thoiGianLap > " +
+      beginDate +
+      " AND thoiGianLap < " +
+      endDate +
+      " AND KhachHang.id = " +
+      idKhachHang;
+  } else {
+    //NULL 0
+    query =
+      "SELECT maHoaDon, thoiGianLap, gia, KhachHang.hoTen as tenKhachHang, NhanVien.hoTen as tenNhanVien FROM HoaDon LEFT JOIN KhachHang ON HoaDon.idKhachHangMua = KhachHang.id JOIN NhanVien ON HoaDon.idNhanVienLap = NhanVien.id WHERE thoiGianLap > " +
+      beginDate +
+      " AND thoiGianLap < " +
+      endDate +
+      " AND KhachHang.id = " +
+      idKhachHang +
+      " AND NhanVien.id = " +
+      idNhanVien;
+  }
+console.log(query);
+  let request = new sql.Request();
+
+  request.query(query, function(err, result) {
+    if (err) {
+      console.log(err);
+      res.json({
+        code: -3,
+        msg: "Co loi trong truy van CSDL"
+      });
+    } else {
+      var danhSachHoaDon = [];
+      result.forEach(hoaDon => {
+        var newHD = {
+          id: hoaDon.id,
+          thoiGian: moment.unix(hoaDon.thoiGianLap).format("DD/MM/YYYY"),
+          maHoaDon: hoaDon.maHoaDon,
+          nhanVien: hoaDon.tenNhanVien,
+          khachHang: hoaDon.tenKhachHang,
+          gia: hoaDon.gia,
+        }
+        if (flag) {
+          if (hoaDon.tenKhachHang == null) {
+            danhSachHoaDon.push(newHD);
+          }
+        }
+        else danhSachHoaDon.push(newHD);
+      });
+      res.json({
+        code: 0,
+        msg: "Tìm kiếm thành công",
+        payload: danhSachHoaDon,
+      });
+    }
+  });
+});
+
+app.post("/api/insertDrink", function(req, res) {
+  const maSanPham = req.body.maSanPham;
+  const tenSanPham = req.body.tenSanPham;
+  const gia = req.body.gia;
+  const thongTin = req.body.thongTin;
+
+  const query =
+    "INSERT INTO SanPham (maSanPham, tenSanPham, gia, thongTin) VALUES ('" +
+    maSanPham +
+    "', N'" +
+    tenSanPham +
+    "', '" +
+    gia +
+    "', '" +
+    thongTin +
+    "')";
+
+  let request = new sql.Request();
+
+  request.query(query, function(err, result) {
+    if (err) {
+      console.log(err);
+      res.json({
+        code: -3,
+        msg: "Co loi trong truy van CSDL"
+      });
+    } else {
+      res.json({
+        code: 0,
+        msg: "Them mon an thanh cong"
+      });
     }
   });
 });
