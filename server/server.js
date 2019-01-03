@@ -972,7 +972,6 @@ app.post("/api/search", function(req, res) {
       " AND NhanVien.id = " +
       idNhanVien;
   }
-console.log(query);
   let request = new sql.Request();
 
   request.query(query, function(err, result) {
@@ -1042,4 +1041,34 @@ app.post("/api/insertDrink", function(req, res) {
       });
     }
   });
+});
+
+app.get("/api/saleReport/:type", function(req, res) {
+  var type = req.params.type.toUpperCase();
+
+  if (type != "YEAR" && type != "MONTH" && type != "DAY") {
+    res.json({
+      code: -6,
+      msg: "Loại không hợp lệ"
+    });
+  } else {
+    const query = "SELECT " + type + "(DATEADD(S, thoiGianLap, '1970-01-01 07:00:00')) as "+type+", sum(HoaDon.gia) as DoanhThu FROM HoaDon GROUP BY "+type+"(DATEADD(S, thoiGianLap, '1970-01-01 07:00:00'))"
+    let request = new sql.Request();
+
+    request.query(query, function(err, result) {
+      if (err) {
+        console.log(err);
+        res.json({
+          code: -3,
+          msg: "Co loi trong truy van CSDL"
+        });
+      } else {
+        res.json({
+          code: 0,
+          msg: "Kết quả thống kê",
+          payload: result
+        });
+      }
+    });
+  }
 });
