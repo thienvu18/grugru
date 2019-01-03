@@ -1043,8 +1043,10 @@ app.post("/api/insertDrink", function(req, res) {
   });
 });
 
-app.get("/api/saleReport/:type", function(req, res) {
-  var type = req.params.type.toUpperCase();
+app.get("/api/saleReport/:from/:to/:type", function(req, res) {
+  const from = moment(req.params.from, "DD-MM-YYYY") / 1000;
+  const to = moment(req.params.to, "DD-MM-YYYY") / 1000;
+  const type = req.params.type.toUpperCase();
 
   if (type != "YEAR" && type != "MONTH" && type != "DAY") {
     res.json({
@@ -1052,7 +1054,17 @@ app.get("/api/saleReport/:type", function(req, res) {
       msg: "Loại không hợp lệ"
     });
   } else {
-    const query = "SELECT " + type + "(DATEADD(S, thoiGianLap, '1970-01-01 07:00:00')) as "+type+", sum(HoaDon.gia) as DoanhThu FROM HoaDon GROUP BY "+type+"(DATEADD(S, thoiGianLap, '1970-01-01 07:00:00'))"
+    var query;
+    if (type == "DAY" && (to - from) > 2419200 && (to - from) < 31536000) {//28 ngày, 365 ngày
+      query = "SELECT " + type + "(DATEADD(S, thoiGianLap, '1970-01-01 07:00:00')) as "+type+", sum(HoaDon.gia) as DoanhThu FROM HoaDon GROUP BY MONTH(DATEADD(S, thoiGianLap, '1970-01-01 07:00:00')), DAY(DATEADD(S, thoiGianLap, '1970-01-01 07:00:00'))";
+    } else if (type == "DAY" && (to - from) < 31536000) {
+      query = "SELECT " + type + "(DATEADD(S, thoiGianLap, '1970-01-01 07:00:00')) as "+type+", sum(HoaDon.gia) as DoanhThu FROM HoaDon GROUP BY YEAR(DATEADD(S, thoiGianLap, '1970-01-01 07:00:00')), MONTH(DATEADD(S, thoiGianLap, '1970-01-01 07:00:00')), DAY(DATEADD(S, thoiGianLap, '1970-01-01 07:00:00'))";
+    } else if (type == "MONTH" && (to - from) < 31536000) {
+    query = "SELECT " + type + "(DATEADD(S, thoiGianLap, '1970-01-01 07:00:00')) as "+type+", sum(HoaDon.gia) as DoanhThu FROM HoaDon GROUP BY YEAR(DATEADD(S, thoiGianLap, '1970-01-01 07:00:00')), MONTH(DATEADD(S, thoiGianLap, '1970-01-01 07:00:00'))";
+    } else {
+      query = "SELECT " + type + "(DATEADD(S, thoiGianLap, '1970-01-01 07:00:00')) as "+type+", sum(HoaDon.gia) as DoanhThu FROM HoaDon GROUP BY YEAR(DATEADD(S, thoiGianLap, '1970-01-01 07:00:00'))";
+    }
+
     let request = new sql.Request();
 
     request.query(query, function(err, result) {
