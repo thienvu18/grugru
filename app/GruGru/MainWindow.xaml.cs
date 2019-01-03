@@ -1553,10 +1553,10 @@ namespace GruGru
             if (resObject.code == "0")
             {
                 tbxAgentCode.Text = resObject.payload[0].maNV;
-                tbAgentName.Text = resObject.payload[0].hoTen;
-                tbxMonth.Text = resObject.payload[0].kinhNghiem;
+                tbxAgentName.Text = resObject.payload[0].hoTen;
+                tbxMonth.Text = resObject.payload[0].soThangKinhNghiem;
                 tbxPhoneNumberAgent.Text = resObject.payload[0].soDienThoai;
-                tbBirthDayAgent.Text = resObject.payload[0].ngaySinh;
+                tbxBirthDayAgent.Text = resObject.payload[0].ngaySinh;
                 tbxIDAgent.Text = resObject.payload[0].cmnd;
             }
             else if (resObject.code == "-4")
@@ -1811,7 +1811,6 @@ namespace GruGru
             }
 
             string payload = $"{{\"hoTen\": \"{name}\",\"ngaySinh\": \"{birthDay}\",\"soDienThoai\": \"{phone}\",\"cmnd\": \"{ cmnd}\"}}";
-            MessageBox.Show(payload);
             dynamic resObject;
             try
             {
