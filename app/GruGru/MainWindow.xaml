@@ -15,7 +15,7 @@
         mc:Ignorable="d"
         Title="MainWindow">
     <Grid>
-        <Grid x:Name="GridLoginScreen" Visibility="Hidden">
+        <Grid x:Name="GridLoginScreen" Visibility="Visible">
             <Image Source="backround.jpg" RenderTransformOrigin="0.5,0.5" >
                 <Image.RenderTransform>
                     <TransformGroup>
@@ -249,9 +249,9 @@
                     <TextBlock x:Name="tbEmployee" Text="Phục vụ:"></TextBlock>
                     <TextBlock x:Name="tbTime" Text="Ngày giờ:   19:44:7        12/12/2018"></TextBlock>
                     <ScrollViewer VerticalScrollBarVisibility="Auto" >
-                        <ListView x:Name="lvListBill">
+                        <ListView x:Name="lvListBill" >
                             <ListView.View >
-                                <GridView>
+                                <GridView AllowsColumnReorder="False">
                                     <GridViewColumn x:Name="lvhOrdinal" Header="STT" DisplayMemberBinding="{Binding stt}"></GridViewColumn>
                                     <GridViewColumn x:Name="lvhDrink" Header="Tên Thức uống" DisplayMemberBinding="{Binding ten}"></GridViewColumn>
                                     <GridViewColumn x:Name="lvhSize" Header="Size" DisplayMemberBinding="{Binding size}"/>
@@ -318,7 +318,7 @@
             <ScrollViewer VerticalScrollBarVisibility="Auto" >
                 <ListView x:Name="lvListStatistical" Foreground="Black">
                     <ListView.View>
-                        <GridView>
+                        <GridView AllowsColumnReorder="False">
                             <GridViewColumn x:Name="gvcSTT" Header="STT" DisplayMemberBinding="{Binding STT}"/>
                             <GridViewColumn x:Name="gvcHour" Header="Giờ" DisplayMemberBinding="{Binding STT}"/>
                             <GridViewColumn x:Name="gvcDay" Header="Ngày" DisplayMemberBinding="{Binding STT}"/>
@@ -516,7 +516,7 @@
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <ListView x:Name="lvListFind" Foreground="Black">
                         <ListView.View>
-                            <GridView>
+                            <GridView AllowsColumnReorder="False">
                                 <GridViewColumn x:Name="gvcFindSTT" Header="STT" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
                                 <GridViewColumn x:Name="gvcFindHour" Header="Giờ" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
                                 <GridViewColumn x:Name="gvcFindDay" Header="Ngày" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
