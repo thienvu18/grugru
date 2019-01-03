@@ -451,7 +451,7 @@
                 </Grid>
             </Grid>
         </WrapPanel>
-        <WrapPanel x:Name="wrpFind" Background="#E0FFFF" Visibility="Hidden" Loaded="WrpFind_Loaded">
+        <WrapPanel x:Name="wrpFind" Background="#E0FFFF" Visibility="Visible" Loaded="WrpFind_Loaded">
             <Button x:Name="btnBackFind" Background="#1E90FF" BorderBrush="#0000FF" Click="BtnBack_Click" >
                 <materialDesign:PackIcon Kind="ArrowLeftBoldHexagonOutline" />
             </Button>
@@ -492,12 +492,12 @@
                 <ListView x:Name="lvListFind" Foreground="Black">
                     <ListView.View>
                         <GridView AllowsColumnReorder="False">
-                            <GridViewColumn x:Name="gvcFindSTT" Header="STT" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
-                            <GridViewColumn x:Name="gvcFindDate" Header="Thời gian" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
-                            <GridViewColumn x:Name="gvcFindBillCode" Header="Mã hóa đơn" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
-                            <GridViewColumn x:Name="gvcFindEmployeeCode" Header="Mã nhân viên" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
-                            <GridViewColumn x:Name="gvcFindCustomerCode" Header="Mã khách hàng" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
-                            <GridViewColumn x:Name="gvcFindMoney" Header="Giá tiền" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
+                            <GridViewColumn x:Name="gvcFindSTT" Header="STT" DisplayMemberBinding="{Binding stt}"></GridViewColumn>
+                            <GridViewColumn x:Name="gvcFindDate" Header="Thời gian" DisplayMemberBinding="{Binding thoiGian}"></GridViewColumn>
+                            <GridViewColumn x:Name="gvcFindBillCode" Header="Mã hóa đơn" DisplayMemberBinding="{Binding maHoaDon}"></GridViewColumn>
+                            <GridViewColumn x:Name="gvcFindEmployeeCode" Header="Mã nhân viên" DisplayMemberBinding="{Binding nhanVien}"></GridViewColumn>
+                            <GridViewColumn x:Name="gvcFindCustomerCode" Header="Mã khách hàng" DisplayMemberBinding="{Binding khachHang}"></GridViewColumn>
+                            <GridViewColumn x:Name="gvcFindMoney" Header="Giá tiền" DisplayMemberBinding="{Binding gia}"></GridViewColumn>
                         </GridView>
                     </ListView.View>
                 </ListView>

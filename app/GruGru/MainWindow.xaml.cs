@@ -950,59 +950,6 @@ namespace GruGru
             }
         }
 
-        public void Find()
-        {
-            string BeginDate = dpDayStartFind.Text;
-            string BeginTime = mtpHourStartFind.Text;
-            string EndDate = dpDayEndFind.Text;
-            string EndTime = mtpHourEndFind.Text;
-            //string TypeFind = cbbTypeFind.Text;
-            //string TypeFindName = tbxSearchFind.Text;
-            string json = "";
-
-            //Kiểm tra dữ liệu đầu vào
-            if (BeginDate == "")
-            {
-                BeginDate = DateTime.Today.ToString("dd/MM/yyyy");
-            }
-            if (BeginTime == "")
-            {
-                BeginTime = DateTime.Today.ToString("HH:mm:ss");
-            }
-            if (EndDate == "")
-            {
-                EndDate = DateTime.Today.ToString("dd/MM/yyyy");
-            }
-            if (EndTime == "")
-            {
-                EndTime = "23:59:59";
-            }
-
-            json = "{\"BeginDate\": \"" + BeginDate + "\", \"BeginTime\": \"" + BeginTime +
-                "\", \"EndDate\": \"" + EndDate + "\", \"EndTime\": \"" + EndTime +
-                "\", \"TypeFind\": \"" + "\", \"TypeFindName\": \"" + "\"}";
-
-            string url = SERVER + "/Search";
-
-            string result = Get(url + json);
-
-            dynamic stuff = JsonConvert.DeserializeObject(result);
-
-            string code = stuff.code;
-            List<DanhSach> danhSachTimKiem = new List<DanhSach>();
-            foreach (var item in stuff.danhSachTimKiem)
-            {
-                danhSachTimKiem.Add(new DanhSach()
-                {
-                    id = item.id,
-                    maHoaDon = item.gia,
-                    maNhanVien = item.maSanPham,
-                    maKhachHang = item.tenSanPham,
-                    gia = item.thongTin,
-                });
-            }
-        }
-
         private void LoadMenu()
         {
             string url = SERVER + "getFoodList";
@@ -2111,13 +2058,6 @@ namespace GruGru
 
         private void WrpFind_Loaded(object sender, RoutedEventArgs e)
         {
-            //Tên nhân viên mặc định
-            ComboBoxItem defaultEmployee = new ComboBoxItem();
-            defaultEmployee.Name = "__idEmployee" + loggedInUserId.ToString();
-            defaultEmployee.Content = loggedInUserName;
-            cbbEmployeeFind.Items.Add(defaultEmployee);
-            cbbEmployeeFind.SelectedIndex = 0;
-
             //Tên khách hàng mặc định
             ComboBoxItem defaultCustomer = new ComboBoxItem();
             defaultCustomer.Name = "__idCustomernull";
@@ -2183,7 +2123,78 @@ namespace GruGru
 
         private void BtnFind_Click(object sender, RoutedEventArgs e)
         {
-            //TODO
+            const string employeePrefix = "__idEmployee";
+            const string customerPrefix = "__idCustomer";
+            string BeginDate = "";
+            string EndDate = "";
+            string idNhanVien;
+            string idKhachHang;
+            string json = "";
+
+            //Kiểm tra dữ liệu đầu vào
+            if (dpDayStartFind.SelectedDate != null)
+            {
+                BeginDate = ((DateTime)dpDayStartFind.SelectedDate).ToString("dd/MM/yyyy");
+            }
+
+            if (dpDayEndFind.SelectedDate != null)
+            {
+                EndDate = ((DateTime)dpDayEndFind.SelectedDate).ToString("dd/MM/yyyy");
+            }
+
+            if (cbbEmployeeFind.SelectedItem != null)
+            {
+                idNhanVien = ((ComboBoxItem)cbbEmployeeFind.SelectedItem).Name.Substring(employeePrefix.Length);
+            } else
+            {
+                idNhanVien = "";
+            }
+
+            if (cbbCustomerFind.SelectedItem != null)
+            {
+                idKhachHang = ((ComboBoxItem)cbbCustomerFind.SelectedItem).Name.Substring(customerPrefix.Length);
+            }
+            else
+            {
+                idKhachHang = "";
+            }
+
+            json = "{\"BeginDate\": \"" + BeginDate +
+                "\", \"EndDate\": \"" + EndDate +
+                "\", \"idNhanVien\": \"" + idNhanVien + "\", \"idKhachHang\": \"" + idKhachHang + "\"}";
+
+            string url = SERVER + "search";
+            try
+            {
+                string result = Post(url, json);
+                dynamic stuff = JsonConvert.DeserializeObject(result);
+
+                string code = stuff.code;
+                if (code == "0")
+                {
+                    List<DanhSach> danhSachTimKiem = new List<DanhSach>();
+                    int i = 1;
+                    foreach (var item in stuff.payload)
+                    {
+                        danhSachTimKiem.Add(new DanhSach()
+                        {
+                            stt = i++,
+                            thoiGian = item.thoiGian,
+                            maHoaDon = item.maHoaDon,
+                            nhanVien = item.nhanVien,
+                            khachHang = item.khachHang == null? "Khách vãng lai": item.khachHang,
+                            gia = item.gia,
+                        });
+                    }
+                    lvListFind.ItemsSource = danhSachTimKiem;
+                } else
+                {
+                    MessageBox.Show("Không thể kết nối đến server");
+                }
+            } catch
+            {
+                MessageBox.Show("Không thể kết nối đến server");
+            }
         }
 
         private void btnInsertDrink_Click(object sender, RoutedEventArgs e)
