@@ -508,7 +508,7 @@
         </WrapPanel>
         <WrapPanel x:Name="wrpCustomer" Background="#ffd1d1" Visibility="Hidden">
             <Button VerticalAlignment="Top" x:Name="btnBackCustomer" BorderBrush="#ffffff" Background="#e87f5c" Click="BtnBack_Click" >
-                <materialDesign:PackIcon Kind="ArrowLeftBoldCircleOutline" />
+                <materialDesign:PackIcon Kind="ArrowLeft" />
             </Button>
             <Grid x:Name="temp51"></Grid>
             <StackPanel>
@@ -626,16 +626,24 @@
             </StackPanel>
         </Grid>
         <WrapPanel x:Name="wrpAgent" Background="#d1efd1" Visibility="Hidden">
-            <Button x:Name="btnBackAgent" Background="#03c203" BorderBrush="#006400" Click="BtnBack_Click" >
+            <Button VerticalAlignment="Top" x:Name="btnBackAgent" Background="#03c203" BorderBrush="#006400" Click="BtnBack_Click" >
                 <materialDesign:PackIcon Kind="ArrowLeft"/>
             </Button>
             <Grid x:Name="temp81"/>
-            <TextBox x:Name="tbxSearchAgent" Foreground="Black" Background="#c7edc7"
+            <StackPanel>
+                <TextBox x:Name="tbxSearchAgent" Foreground="Black" Background="#c7edc7"
               Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-              materialDesign:HintAssist.Hint="Nhập họ tên"
+              materialDesign:HintAssist.Hint="Họ và tên"
               Margin="8 0 0 0"
               VerticalAlignment="Bottom" 
-              Width="285"/>
+              Width="285"  KeyUp="TbxSearchAgent_KeyUp"/>
+                <Border Width="298" Height="150" BorderBrush="Black"   
+                    BorderThickness="1" Visibility="Hidden">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <StackPanel Name="agentResultStack"></StackPanel>
+                    </ScrollViewer>
+                </Border>
+            </StackPanel>
             <Grid x:Name="temp87"/>
             <Button x:Name="btnAgent" Content="Tìm kiếm" Background="#03c203" BorderBrush="#006400" Click="btnAgent_Click" IsDefault="True"/>
             <Grid x:Name="temp89"/>
