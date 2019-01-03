@@ -1983,8 +1983,16 @@ namespace GruGru
                         item.Content = resObject.payload[i].hoTen;
                         cbbCustomer.Items.Add(item);
                     }
+                } else if (resObject.code == "-1")
+                {
+                    ComboBoxItem defaultItem = new ComboBoxItem();
+                    defaultItem.Name = "__idKhachHangnull";
+                    defaultItem.Content = "Khách hàng chưa đăng ký";
+                    cbbCustomer.Items.Add(defaultItem);
+
+                    cbbCustomer.SelectedIndex = 0;
                 }
-                else
+                else 
                 {
                     MessageBox.Show("Không thể kết nối đến server");
                 }
