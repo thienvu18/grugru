@@ -198,14 +198,14 @@ app.post("/api/putOrder", function(req, res) {
     .toString(36)
     .replace(/[^a-z]+/g, "")
     .substr(0, 9); //Random
-  const thoiGianLap = moment(req.body.ngaySinh, "DD-MM-YYYY") / 1000;
+  const thoiGianLap = Math.round(moment() / 1000);
   const gia = req.body.gia;
   const idKhachHangMua = req.body.idKhachHangMua;
   const idNhanVienLap = req.body.idNhanVienLap;
   const danhSachMonAn = req.body.danhSachMonAn;
-
+console.log(req.body);
   var insertOrder;
-  if (idKhachHangMua == null) {
+  if (idKhachHangMua == "") {
     insertOrder =
       "INSERT INTO HoaDon (maHoaDon, thoiGianLap, gia, idKhachHangMua, idNhanVienLap) VALUES ('" +
       maHoaDon +
@@ -230,7 +230,7 @@ app.post("/api/putOrder", function(req, res) {
       idNhanVienLap +
       "')";
   }
-
+console.log(insertOrder);
   const getOrderId =
     "SELECT id FROM HoaDon WHERE maHoaDon = '" + maHoaDon + "'";
 
@@ -444,6 +444,34 @@ app.get("/api/deleteCustomer/:id", function(req, res) {
         res.json({
           code: -4,
           msg: "Khách hàng không tồn tại"
+        });
+      }
+    }
+  });
+});
+
+app.get("/api/getCustomers", function(req, res) {
+  const query = "SELECT * FROM KhachHang";
+// console.log();
+  let request = new sql.Request();
+
+  request.query(query, function(err, result) {
+    if (err) {
+      res.json({
+        code: -3,
+        msg: "Co loi trong truy van CSDL"
+      });
+    } else {
+      if (result.length == 0) {
+        res.json({
+          code: -1,
+          msg: "Khong tim thay khach hang"
+        });
+      } else {
+        res.json({
+          code: 0,
+          msg: "Thong tin khach hang da chon",
+          payload: result
         });
       }
     }
