@@ -241,8 +241,7 @@
                 </WrapPanel>
                 <Grid x:Name="temp1001"></Grid>
                 <WrapPanel x:Name="gridInforBill" Loaded="GridInforBill_Loaded">
-                    <TextBlock x:Name="tbBillNumber" Text="Số hóa đơn:"></TextBlock>
-                    <TextBox x:Name="tbxBillNumber"></TextBox>
+                    <Grid x:Name="temp1002"></Grid>
                     <TextBlock x:Name="tbCustomer" Text="Khách hàng:"></TextBlock>
                     <ComboBox x:Name="cbbCustomer" IsEditable="True">
                     </ComboBox>

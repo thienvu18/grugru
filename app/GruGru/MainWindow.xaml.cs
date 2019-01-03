@@ -262,13 +262,9 @@ namespace GruGru
             gridInforBill.Height = height - height005;
 
             Double heighttbBill = gridInforBill.Height * 3 / 60;
-            tbBillNumber.FontSize = height0027;
-            tbBillNumber.Height = heighttbBill;
-            tbBillNumber.Width = gridInforBill.Width * 2 / 6 - 5;
 
-            tbxBillNumber.FontSize = height0027;
-            tbxBillNumber.Height = heighttbBill;
-            tbxBillNumber.Width = gridInforBill.Width * 4 / 6 - 5;
+            temp1002.Height = heighttbBill*0.75;
+            temp1002.Width = gridInforBill.Width - 5;
 
             tbCustomer.FontSize = height0027;
             tbCustomer.Height = heighttbBill;
@@ -1176,6 +1172,12 @@ namespace GruGru
 
         private void btnPay_Click(object sender, RoutedEventArgs e)
         {
+            if(ListDrinks.Count==0)
+            {
+                MessageBox.Show("Đơn hàng trống");
+            }
+            else
+            { 
             const string prefix = "__idKhachHang";
             string gia = TongTien().ToString();//"usercfrnh"
             string idKhachHangMua = ((ComboBoxItem)cbbCustomer.SelectedItem).Name.Substring(prefix.Length);//"13874383";
@@ -1216,6 +1218,7 @@ namespace GruGru
             catch
             {
                 MessageBox.Show("Không thể kết nối đến server");
+            }
             }
         }
 
