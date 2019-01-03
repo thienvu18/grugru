@@ -1191,6 +1191,7 @@ namespace GruGru
                     MessageBox.Show("Đơn hàng đã được xác nhận");
                     ListDrinks.Clear();
                     lvListBill.ItemsSource = null;
+                    tbTotalMoney.Text = " Tổng tiền:        ";
 
                     lvMenuCoffees.Items.Refresh();
                     lvMenuMilkteas.Items.Refresh();
@@ -1461,6 +1462,7 @@ namespace GruGru
             {
                 tongTien += item.gia * item.soLuong;
             }
+            decimal tmp = tongTien;
             tbTotalMoney.Text = " Tổng tiền:        " + tongTien.ToString();
             return tongTien;
         }
@@ -2088,55 +2090,81 @@ namespace GruGru
             }
         }
 
-        private void btnInsertDrink_Click(object sender, RoutedEventArgs e)
+        private void WrpFind_Loaded(object sender, RoutedEventArgs e)
         {
-            btnDeleteDrink.Visibility = Visibility.Collapsed;
-            btnUpdateInforDrink.Visibility = Visibility.Collapsed;
+            //Tên nhân viên mặc định
+            ComboBoxItem defaultEmployee = new ComboBoxItem();
+            defaultEmployee.Name = "__idEmployee" + loggedInUserId.ToString();
+            defaultEmployee.Content = loggedInUserName;
+            cbbEmployeeFind.Items.Add(defaultEmployee);
+            cbbEmployeeFind.SelectedIndex = 0;
 
-            if (btnInsertDrink.Content.ToString() == "Thêm mới")
-            {
-                btnInsertDrink.Content = "Xác nhận";
-                tbxNameDrink.Text = "";
-                tbxCostDrink.Text = "";
-                tbxIngredients.Text = "";
-            }
-            else if (btnInsertDrink.Content.ToString() == "Xác nhận")
-            {
+            //Tên khách hàng mặc định
+            ComboBoxItem defaultCustomer = new ComboBoxItem();
+            defaultCustomer.Name = "__idCustomernull";
+            defaultCustomer.Content = "Khách hàng chưa đăng ký";
+            cbbCustomerFind.Items.Add(defaultCustomer);
 
-                string maSanPham = Convert.ToBase64String(Guid.NewGuid().ToByteArray()).Substring(0, 8);
-                string NameDrink = tbxNameDrink.Text;//"namedrink"
-                string Cost = tbxCostDrink.Text;//"giá"
-                string Ingredients = tbxIngredients.Text;//mô tả
-                string json = "{\"maSanPham\": \"" + maSanPham + "\",\"tenSanPham\": \"" + NameDrink + "\",\"thongTin\": \"" + Ingredients + "\", \"gia\": " + Cost + "}";
-                string url = SERVER + "insertDrink";
-                try
+            try
+            {
+                string res = Get(SERVER + "getCustomers");
+                dynamic resObject = JsonConvert.DeserializeObject(res);
+                if (resObject.code == "0")
                 {
-                    string result = Post(url, json);
-                    dynamic stuff = JsonConvert.DeserializeObject(result);
-
-                    string code = stuff.code;
-                    if (code == "0")
+                    for (int i = 0; i < resObject.payload.Count; i++)
                     {
-                        MessageBox.Show("Thêm món thành công");
-                        griInforDrinks.Visibility = Visibility.Hidden;
-                        LoadMenu();
-                        ListDrinks.Clear();
-                        tbTotalMoney.Text = " Tổng tiền:        ";
-                        stpMainScreen.Opacity = 1;
-
-                    }
-                    else
-                    {
-                        MessageBox.Show("Có lỗi xảy ra, vui lòng thử lại");
+                        ComboBoxItem item = new ComboBoxItem();
+                        item.Name = "__idCustomer" + resObject.payload[i].id;
+                        item.Content = resObject.payload[i].hoTen;
+                        cbbCustomerFind.Items.Add(item);
                     }
                 }
-                catch
+                else if (resObject.code == "-1")
+                {
+                    //trick
+                }
+                else
                 {
                     MessageBox.Show("Không thể kết nối đến server");
                 }
             }
+            catch
+            {
+                MessageBox.Show("Không thể kết nối đến server");
+            }
 
-            
+            try
+            {
+                string res = Get(SERVER + "getEmployees");
+                dynamic resObject = JsonConvert.DeserializeObject(res);
+                if (resObject.code == "0")
+                {
+                    for (int i = 0; i < resObject.payload.Count; i++)
+                    {
+                        ComboBoxItem item = new ComboBoxItem();
+                        item.Name = "__idEmployee" + resObject.payload[i].id;
+                        item.Content = resObject.payload[i].hoTen;
+                        cbbEmployeeFind.Items.Add(item);
+                    }
+                }
+                else if (resObject.code == "-1")
+                {
+                    //trick
+                }
+                else
+                {
+                    MessageBox.Show("Không thể kết nối đến server");
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Không thể kết nối đến server");
+            }
+        }
+
+        private void BtnFind_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO
         }
     }
 }
