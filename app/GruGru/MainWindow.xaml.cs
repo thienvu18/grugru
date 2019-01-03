@@ -1797,7 +1797,6 @@ namespace GruGru
             }
 
             string payload = $"{{\"hoTen\": \"{name}\",\"ngaySinh\": \"{birthDay}\",\"soDienThoai\": \"{phone}\",\"cmnd\": \"{ cmnd}\"}}";
-            MessageBox.Show(payload);
             dynamic resObject;
             try
             {
