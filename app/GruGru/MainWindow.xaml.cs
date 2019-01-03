@@ -134,7 +134,8 @@ namespace GruGru
             try
             {
                 LoadMenu();
-            } catch
+            }
+            catch
             {
                 MessageBoxResult tmp = MessageBox.Show("Không thể kết nối đến server");
                 Application.Current.Shutdown();
@@ -177,7 +178,8 @@ namespace GruGru
             {
                 timer.Interval = ((60 - DateTime.Now.Second) * 1000 - DateTime.Now.Millisecond);
                 timer.Start();
-                this.Dispatcher.Invoke(() => {
+                this.Dispatcher.Invoke(() =>
+                {
                     tbTime.Text = "Ngày giờ:   " + DateTime.Now.ToShortTimeString() + "        " + DateTime.Now.ToShortDateString();
                 });
             };
@@ -485,7 +487,7 @@ namespace GruGru
             lvListFind.Height = height * 0.9;
             lvListFind.Width = width * 0.7;
 
-            gvcFindSTT.Width = lvListFind.Width / 15 * 2 ;
+            gvcFindSTT.Width = lvListFind.Width / 15 * 2;
             gvcFindDate.Width = lvListFind.Width / 10 * 2;
             gvcFindBillCode.Width = lvListFind.Width / 10 * 2;
             gvcFindEmployeeCode.Width = lvListFind.Width / 10 * 2;
@@ -984,7 +986,7 @@ namespace GruGru
 
             string code = stuff.code;
             List<DanhSach> danhSachTimKiem = new List<DanhSach>();
-            foreach(var item in stuff.danhSachTimKiem)
+            foreach (var item in stuff.danhSachTimKiem)
             {
                 danhSachTimKiem.Add(new DanhSach()
                 {
@@ -1139,7 +1141,7 @@ namespace GruGru
             {
                 if (sizetemp == "M")
                 {
-                    giatemp = giatemp*110/100;
+                    giatemp = giatemp * 110 / 100;
                 }
                 if (sizetemp == "L")
                 {
@@ -1197,7 +1199,8 @@ namespace GruGru
                     lvMenuMilkteas.Items.Refresh();
                     lvMenuToppings.Items.Refresh();
 
-                } else
+                }
+                else
                 {
                     MessageBox.Show("Đặt hàng thất bại, vui lòng thử lại");
                 }
@@ -1994,7 +1997,8 @@ namespace GruGru
                         item.Content = resObject.payload[i].hoTen;
                         cbbCustomer.Items.Add(item);
                     }
-                } else if (resObject.code == "-1")
+                }
+                else if (resObject.code == "-1")
                 {
                     ComboBoxItem defaultItem = new ComboBoxItem();
                     defaultItem.Name = "__idKhachHangnull";
@@ -2003,11 +2007,12 @@ namespace GruGru
 
                     cbbCustomer.SelectedIndex = 0;
                 }
-                else 
+                else
                 {
                     MessageBox.Show("Không thể kết nối đến server");
                 }
-            } catch
+            }
+            catch
             {
                 MessageBox.Show("Không thể kết nối đến server");
             }
@@ -2165,6 +2170,55 @@ namespace GruGru
         private void BtnFind_Click(object sender, RoutedEventArgs e)
         {
             //TODO
+        }
+
+        private void btnInsertDrink_Click(object sender, RoutedEventArgs e)
+        {
+            btnDeleteDrink.Visibility = Visibility.Collapsed;
+            btnUpdateInforDrink.Visibility = Visibility.Collapsed;
+
+            if (btnInsertDrink.Content.ToString() == "Thêm mới")
+            {
+                btnInsertDrink.Content = "Xác nhận";
+                tbxNameDrink.Text = "";
+                tbxCostDrink.Text = "";
+                tbxIngredients.Text = "";
+            }
+            else if (btnInsertDrink.Content.ToString() == "Xác nhận")
+            {
+
+                string maSanPham = Convert.ToBase64String(Guid.NewGuid().ToByteArray()).Substring(0, 8);
+                string NameDrink = tbxNameDrink.Text;//"namedrink"
+                string Cost = tbxCostDrink.Text;//"giá"
+                string Ingredients = tbxIngredients.Text;//mô tả
+                string json = "{\"maSanPham\": \"" + maSanPham + "\",\"tenSanPham\": \"" + NameDrink + "\",\"thongTin\": \"" + Ingredients + "\", \"gia\": " + Cost + "}";
+                string url = SERVER + "insertDrink";
+                try
+                {
+                    string result = Post(url, json);
+                    dynamic stuff = JsonConvert.DeserializeObject(result);
+
+                    string code = stuff.code;
+                    if (code == "0")
+                    {
+                        MessageBox.Show("Thêm món thành công");
+                        griInforDrinks.Visibility = Visibility.Hidden;
+                        LoadMenu();
+                        ListDrinks.Clear();
+                        tbTotalMoney.Text = " Tổng tiền:        ";
+                        stpMainScreen.Opacity = 1;
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Có lỗi xảy ra, vui lòng thử lại");
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("Không thể kết nối đến server");
+                }
+            }
         }
     }
 }
