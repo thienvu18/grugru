@@ -15,7 +15,7 @@
         mc:Ignorable="d"
         Title="MainWindow">
     <Grid>
-        <Grid x:Name="GridLoginScreen" Visibility="Hidden">
+        <Grid x:Name="GridLoginScreen" Visibility="Visible">
             <Image Source="backround.jpg" RenderTransformOrigin="0.5,0.5" >
                 <Image.RenderTransform>
                     <TransformGroup>
@@ -61,7 +61,7 @@
                 <Button x:Name="tbForgotPw" Margin="405,430,232,100" FontSize="15" FontStyle="Italic" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Orange">Fogot Password?</Button>
             </Grid>
         </Grid>
-        <WrapPanel x:Name="stpMainScreen" Background="#e9e7e4" Visibility="Visible">
+        <WrapPanel x:Name="stpMainScreen" Background="#e9e7e4" Visibility="Hidden">
             <StackPanel x:Name="stpTitle" Orientation="Horizontal">
                 <TextBlock x:Name="txbCoffee" Text="Coffee" TextAlignment="Center" Background="#b68648" ></TextBlock>
                 <TextBlock x:Name="txbMilktea" Text="Milk tea" Background="#efca8b" TextAlignment="Center"></TextBlock>
@@ -451,7 +451,7 @@
                 </Grid>
             </Grid>
         </WrapPanel>
-        <WrapPanel x:Name="wrpFind" Background="#E0FFFF" Visibility="Visible" Loaded="WrpFind_Loaded">
+        <WrapPanel x:Name="wrpFind" Background="#E0FFFF" Visibility="Hidden" Loaded="WrpFind_Loaded">
             <Button x:Name="btnBackFind" Background="#1E90FF" BorderBrush="#0000FF" Click="BtnBack_Click" >
                 <materialDesign:PackIcon Kind="ArrowLeftBoldHexagonOutline" />
             </Button>

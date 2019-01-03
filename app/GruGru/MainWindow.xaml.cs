@@ -1647,16 +1647,16 @@ namespace GruGru
             btnInsertDrink.Content = "Thêm mới";
             cbbIngredients.Visibility = Visibility.Hidden;
 
+            btnDeleteDrink.Visibility = Visibility.Visible;
+            btnUpdateInforDrink.Visibility = Visibility.Visible;
+            btnInsertDrink.Visibility = Visibility.Visible;
             if (loggedInUserType == "1")
             {
                 btnDeleteDrink.Visibility = Visibility.Collapsed;
                 btnUpdateInforDrink.Visibility = Visibility.Collapsed;
+                btnInsertDrink.Visibility = Visibility.Collapsed;
             }
-            else
-            {
-                btnDeleteDrink.Visibility = Visibility.Visible;
-                btnUpdateInforDrink.Visibility = Visibility.Visible;
-            }
+ 
         }
 
         private void BtnBackInforDrink_Click(object sender, RoutedEventArgs e)
@@ -2201,6 +2201,8 @@ namespace GruGru
         {
             btnDeleteDrink.Visibility = Visibility.Collapsed;
             btnUpdateInforDrink.Visibility = Visibility.Collapsed;
+
+            
 
             if (btnInsertDrink.Content.ToString() == "Thêm mới")
             {
