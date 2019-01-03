@@ -263,7 +263,7 @@ namespace GruGru
 
             Double heighttbBill = gridInforBill.Height * 3 / 60;
 
-            temp1002.Height = heighttbBill*0.75;
+            temp1002.Height = heighttbBill * 0.75;
             temp1002.Width = gridInforBill.Width - 5;
 
             tbCustomer.FontSize = height0027;
@@ -664,7 +664,7 @@ namespace GruGru
             tbxIngredients.Height = stpInforDrinksMini.Height / 5 * 2;
             tbxIngredients.Width = stpInforDrinksMini.Width;
 
-         
+
 
             temp100.Height = stpInforDrinksMini.Height / 8;
 
@@ -899,7 +899,7 @@ namespace GruGru
                     }
                     if (type == "2")
                     {
-                        cbbEmployee.Visibility = System.Windows.Visibility.Visible;
+                        cbbEmployee.Visibility = System.Windows.Visibility.Hidden;
                     }
                     tbEmployee.Text = "Phục vụ: " + loggedInUserName;
 
@@ -1172,53 +1172,53 @@ namespace GruGru
 
         private void btnPay_Click(object sender, RoutedEventArgs e)
         {
-            if(ListDrinks.Count==0)
+            if (ListDrinks.Count == 0)
             {
                 MessageBox.Show("Đơn hàng trống");
             }
             else
-            { 
-            const string prefix = "__idKhachHang";
-            string gia = TongTien().ToString();//"usercfrnh"
-            string idKhachHangMua = ((ComboBoxItem)cbbCustomer.SelectedItem).Name.Substring(prefix.Length);//"13874383";
-
-            if (idKhachHangMua == "null")
             {
-                idKhachHangMua = "";
-            }
+                const string prefix = "__idKhachHang";
+                string gia = TongTien().ToString();//"usercfrnh"
+                string idKhachHangMua = ((ComboBoxItem)cbbCustomer.SelectedItem).Name.Substring(prefix.Length);//"13874383";
 
-            string json = "{\"gia\": " + gia + ", \"idKhachHangMua\": \"" + idKhachHangMua + "\", \"idNhanVienLap\": " + loggedInUserId + ", \"danhSachMonAn\":";
-
-            json += JsonConvert.SerializeObject(ListDrinks);
-            json += "}";
-
-
-            string url = SERVER + "putOrder";
-            try
-            {
-                string result = Post(url, json);
-                dynamic resObject = JsonConvert.DeserializeObject(result);
-                if (resObject.code == "0")
+                if (idKhachHangMua == "null")
                 {
-                    MessageBox.Show("Đơn hàng đã được xác nhận");
-                    ListDrinks.Clear();
-                    lvListBill.ItemsSource = null;
-                    tbTotalMoney.Text = " Tổng tiền:        ";
-
-                    lvMenuCoffees.Items.Refresh();
-                    lvMenuMilkteas.Items.Refresh();
-                    lvMenuToppings.Items.Refresh();
-
+                    idKhachHangMua = "";
                 }
-                else
+
+                string json = "{\"gia\": " + gia + ", \"idKhachHangMua\": \"" + idKhachHangMua + "\", \"idNhanVienLap\": " + loggedInUserId + ", \"danhSachMonAn\":";
+
+                json += JsonConvert.SerializeObject(ListDrinks);
+                json += "}";
+
+
+                string url = SERVER + "putOrder";
+                try
                 {
-                    MessageBox.Show("Đặt hàng thất bại, vui lòng thử lại");
+                    string result = Post(url, json);
+                    dynamic resObject = JsonConvert.DeserializeObject(result);
+                    if (resObject.code == "0")
+                    {
+                        MessageBox.Show("Đơn hàng đã được xác nhận");
+                        ListDrinks.Clear();
+                        lvListBill.ItemsSource = null;
+                        tbTotalMoney.Text = " Tổng tiền:        ";
+
+                        lvMenuCoffees.Items.Refresh();
+                        lvMenuMilkteas.Items.Refresh();
+                        lvMenuToppings.Items.Refresh();
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Đặt hàng thất bại, vui lòng thử lại");
+                    }
                 }
-            }
-            catch
-            {
-                MessageBox.Show("Không thể kết nối đến server");
-            }
+                catch
+                {
+                    MessageBox.Show("Không thể kết nối đến server");
+                }
             }
         }
 
@@ -2208,7 +2208,7 @@ namespace GruGru
                 {
                     maSanPham = "C";
                 }
-                else if(cbbIngredients.SelectedIndex == 1)
+                else if (cbbIngredients.SelectedIndex == 1)
                 {
                     maSanPham = "M";
 
