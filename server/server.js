@@ -1048,6 +1048,9 @@ app.get("/api/saleReport/:from/:to/:type", function(req, res) {
   const to = moment(req.params.to, "DD-MM-YYYY") / 1000;
   const type = req.params.type.toUpperCase();
 
+  console.log(from);
+  console.log(to);
+  console.log(to - from);
   if (type != "YEAR" && type != "MONTH" && type != "DAY") {
     res.json({
       code: -6,
@@ -1062,7 +1065,7 @@ app.get("/api/saleReport/:from/:to/:type", function(req, res) {
     } else if (type == "MONTH" && (to - from) < 31536000) {
     query = "SELECT " + type + "(DATEADD(S, thoiGianLap, '1970-01-01 07:00:00')) as "+type+", sum(HoaDon.gia) as DoanhThu FROM HoaDon GROUP BY YEAR(DATEADD(S, thoiGianLap, '1970-01-01 07:00:00')), MONTH(DATEADD(S, thoiGianLap, '1970-01-01 07:00:00'))";
     } else {
-      query = "SELECT " + type + "(DATEADD(S, thoiGianLap, '1970-01-01 07:00:00')) as "+type+", sum(HoaDon.gia) as DoanhThu FROM HoaDon GROUP BY YEAR(DATEADD(S, thoiGianLap, '1970-01-01 07:00:00'))";
+      query = "SELECT " + type + "(DATEADD(S, thoiGianLap, '1970-01-01 07:00:00')) as "+type+", sum(HoaDon.gia) as DoanhThu FROM HoaDon GROUP BY "+type+"(DATEADD(S, thoiGianLap, '1970-01-01 07:00:00'))";
     }
 
     let request = new sql.Request();
