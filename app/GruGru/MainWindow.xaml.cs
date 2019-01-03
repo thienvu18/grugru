@@ -44,7 +44,7 @@ namespace GruGru
         Double height003 = SystemParameters.WorkArea.Height * 0.03;//15
         Double height0025 = SystemParameters.WorkArea.Height * 0.025;//12.5
         Double height0027 = SystemParameters.WorkArea.Height * 0.027;
-        Double height002 = SystemParameters.WorkArea.Height * 0.02;//40
+        Double height002 = SystemParameters.WorkArea.Height * 0.019;//40
         Double height0013 = SystemParameters.WorkArea.Height * 0.013;//15
         Double height0018 = SystemParameters.WorkArea.Height * 0.018;//15
         Double height0028 = SystemParameters.WorkArea.Height * 0.028;//40
@@ -56,8 +56,8 @@ namespace GruGru
         string passLocal;
 
         int loggedInUserId = -1;
-
         string loggedInUserType = "1";
+        string loggedInUserName = "";
 
         static string GetMd5Hash(MD5 md5Hash, string input)
         {
@@ -396,47 +396,56 @@ namespace GruGru
 
             tbTimestartFind.FontSize = height002;
             tbTimestartFind.Height = height003;
-            tbTimestartFind.Width = width / 90 * 8;
+            tbTimestartFind.Width = width / 90 * 4;
 
             dpDayStartFind.FontSize = height0018;
             dpDayStartFind.Height = height005;
             dpDayStartFind.Width = width / 90 * 6;
 
-            temp42.Width = width / 180;
+            temp42.Width = width / 90;
 
             mtpHourStartFind.FontSize = height0018;
             mtpHourStartFind.Height = height004;
             mtpHourStartFind.Width = width / 90 * 6;
 
-            temp43.Width = width / 180 * 5;
 
             tbTimeEndFind.FontSize = height002;
             tbTimeEndFind.Height = height003;
-            tbTimeEndFind.Width = width / 90 * 8;
+            tbTimeEndFind.Width = width / 90 * 4;
 
             dpDayEndFind.FontSize = height0018;
             dpDayEndFind.Height = height005;
             dpDayEndFind.Width = width / 90 * 6;
 
-            temp44.Width = width / 180;
 
             mtpHourEndFind.FontSize = height0018;
             mtpHourEndFind.Height = height004;
             mtpHourEndFind.Width = width / 90 * 6;
 
-            temp45.Width = width / 180 * 5;
+            temp45.Width = width / 90;
 
-            cbbTypeFind.FontSize = height0018;
+            /*cbbTypeFind.FontSize = height0018;
             cbbTypeFind.Height = height004;
-            cbbTypeFind.Width = width / 90 * 6;
+            cbbTypeFind.Width = width / 90 * 6;*/
 
             temp46.Width = width / 180;
 
-            tbxSearchFind.FontSize = height0018;
-            tbxSearchFind.Height = height005;
-            tbxSearchFind.Width = width / 30 * 8.5;
+            tbEmployeeName.FontSize = height002;
+            tbEmployeeName.Height = height003;
 
-            temp47.Width = width / 180 * 3;
+            temp43.Width = width / 90;
+            temp44.Width = width / 90;
+
+
+            tbPhoneCustomer.FontSize = height002;
+            tbPhoneCustomer.Height = height003;
+
+
+            /* tbxSearchFind.FontSize = height0018;
+             tbxSearchFind.Height = height005;
+             tbxSearchFind.Width = width / 30 * 8.5;
+
+            */ //temp47.Width = width / 180 * 3;
 
             //list Find
             temp48.Width = width * 0.05;
@@ -445,17 +454,14 @@ namespace GruGru
             gridFind.Width = width * 0.9;
 
             lvListFind.Height = height * 0.9;
-            lvListFind.Width = width * 0.9;
+            lvListFind.Width = width * 0.7;
 
-            gvcFindSTT.Width = lvListFind.Width / 20;
-            gvcFindHour.Width = lvListFind.Width / 20 * 2;
-            gvcFindDay.Width = lvListFind.Width / 20 * 2;
-            gvcFindBillCode.Width = lvListFind.Width / 20 * 2;
-            gvcFindEmployeeCode.Width = lvListFind.Width / 15 * 2;
-            gvcFindCustomerCode.Width = lvListFind.Width / 15 * 2;
-            gvcFindDrink.Width = lvListFind.Width / 15 * 3;
-            gvcFindMoney.Width = lvListFind.Width / 20 * 2;
-            gvcFindNumber.Width = lvListFind.Width / 20 * 2;
+            gvcFindSTT.Width = lvListFind.Width / 15 * 2 ;
+            gvcFindDate.Width = lvListFind.Width / 10 * 2;
+            gvcFindBillCode.Width = lvListFind.Width / 10 * 2;
+            gvcFindEmployeeCode.Width = lvListFind.Width / 10 * 2;
+            gvcFindCustomerCode.Width = lvListFind.Width / 10 * 2;
+            gvcFindMoney.Width = lvListFind.Width / 10 * 2;
 
         }
 
@@ -844,6 +850,7 @@ namespace GruGru
                     GridLoginScreen.Visibility = System.Windows.Visibility.Hidden;
                     stpMainScreen.Visibility = System.Windows.Visibility.Visible;
                     loggedInUserType = type = stuff.loaiNV;
+                    loggedInUserName = stuff.hoTen;
 
                     string name = stuff.hoTen;
                     loggedInUserId = stuff.id;
@@ -905,8 +912,8 @@ namespace GruGru
             string BeginTime = mtpHourStartFind.Text;
             string EndDate = dpDayEndFind.Text;
             string EndTime = mtpHourEndFind.Text;
-            string TypeFind = cbbTypeFind.Text;
-            string TypeFindName = tbxSearchFind.Text;
+            //string TypeFind = cbbTypeFind.Text;
+            //string TypeFindName = tbxSearchFind.Text;
             string json = "";
 
             //Kiểm tra dữ liệu đầu vào
@@ -929,7 +936,7 @@ namespace GruGru
 
             json = "{\"BeginDate\": \"" + BeginDate + "\", \"BeginTime\": \"" + BeginTime +
                 "\", \"EndDate\": \"" + EndDate + "\", \"EndTime\": \"" + EndTime +
-                "\", \"TypeFind\": \"" + TypeFind + "\", \"TypeFindName\": \"" + TypeFindName + "\"}";
+                "\", \"TypeFind\": \"" + "\", \"TypeFindName\": \"" + "\"}";
 
             string url = SERVER + "/Search";
 
@@ -938,6 +945,18 @@ namespace GruGru
             dynamic stuff = JsonConvert.DeserializeObject(result);
 
             string code = stuff.code;
+            List<DanhSach> danhSachTimKiem = new List<DanhSach>();
+            foreach(var item in stuff.danhSachTimKiem)
+            {
+                danhSachTimKiem.Add(new DanhSach()
+                {
+                    id = item.id,
+                    maHoaDon = item.gia,
+                    maNhanVien = item.maSanPham,
+                    maKhachHang = item.tenSanPham,
+                    gia = item.thongTin,
+                });
+            }
         }
 
         private void LoadMenu()

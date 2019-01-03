@@ -22,11 +22,10 @@ namespace GruGru.Model
 
         public int id { get; set; }
         public string maHoaDon { get; set; }
-        public string maNhanVien { get; set; }
-        public string maKhachHang { get; set; }
-        public string tenThucUong { get; set; }
+        public int maNhanVien { get; set; }
+        public Nullable<int> maKhachHang { get; set; }
+        public System.DateTime thoiGian { get; set; }
         public decimal gia { get; set; }
-        public decimal soLuong { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HoaDon> HoaDons { get; set; }

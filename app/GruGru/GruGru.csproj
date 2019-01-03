@@ -87,6 +87,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\DanhSach.cs" />
     <Compile Include="Model\HoaDon.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

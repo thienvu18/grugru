@@ -15,7 +15,11 @@
         mc:Ignorable="d"
         Title="MainWindow">
     <Grid>
-        <Grid x:Name="GridLoginScreen" Visibility="Hidden">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="253*"/>
+            <ColumnDefinition Width="127*"/>
+        </Grid.ColumnDefinitions>
+        <Grid x:Name="GridLoginScreen" Visibility="Hidden" Grid.ColumnSpan="2">
             <Image Source="backround.jpg" RenderTransformOrigin="0.5,0.5" >
                 <Image.RenderTransform>
                     <TransformGroup>
@@ -61,7 +65,7 @@
                 <Button x:Name="tbForgotPw" Margin="405,430,232,100" FontSize="15" FontStyle="Italic" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Orange">Fogot Password?</Button>
             </Grid>
         </Grid>
-        <WrapPanel x:Name="stpMainScreen" Background="#e9e7e4" Visibility="Hidden">
+        <WrapPanel x:Name="stpMainScreen" Background="#e9e7e4" Visibility="Hidden" Grid.ColumnSpan="2">
             <StackPanel x:Name="stpTitle" Orientation="Horizontal">
                 <TextBlock x:Name="txbCoffee" Text="Coffee" TextAlignment="Center" Background="#b68648" ></TextBlock>
                 <TextBlock x:Name="txbMilktea" Text="Milk tea" Background="#efca8b" TextAlignment="Center"></TextBlock>
@@ -274,7 +278,7 @@
                 </WrapPanel>
             </StackPanel>
         </WrapPanel>
-        <WrapPanel x:Name="wrpStatistical" Background="#d3f7f8" Visibility="Hidden">
+        <WrapPanel x:Name="wrpStatistical" Background="#d3f7f8" Visibility="Hidden" Grid.ColumnSpan="2">
             <Button x:Name="btnBackStatistical" Background="#00baba" BorderBrush="#32cbfd" Width="50" Click="BtnBack_Click" >
                 <materialDesign:PackIcon Kind="ArrowLeftBoldCircle"/>
             </Button>
@@ -335,7 +339,7 @@
             <Grid x:Name="temp12"/>
             <TextBlock x:Name="tbTotal" Text="Tổng: 0000000 00000000" Foreground="Black"/>
         </WrapPanel>
-        <WrapPanel x:Name="wrpJobCalendar" Background="#FFFACD" Visibility="Hidden">
+        <WrapPanel x:Name="wrpJobCalendar" Background="#FFFACD" Visibility="Hidden" Grid.ColumnSpan="2">
             <Button x:Name="btnJobCalendar" Background="#ffd200" BorderBrush="#FFA500" Click="BtnBack_Click" >
                 <materialDesign:PackIcon Kind="ArrowLeftBoldCircleOutline" />
             </Button>
@@ -455,84 +459,61 @@
                 </Grid>
             </Grid>
         </WrapPanel>
-        <WrapPanel x:Name="wrpFind" Background="#E0FFFF" Visibility="Hidden">
+        <WrapPanel x:Name="wrpFind" Background="#E0FFFF" Visibility="Visible" Grid.ColumnSpan="2">
             <Button x:Name="btnBackFind" Background="#1E90FF" BorderBrush="#0000FF" Click="BtnBack_Click" >
                 <materialDesign:PackIcon Kind="ArrowLeftBoldHexagonOutline" />
             </Button>
             <Grid x:Name="temp41"></Grid>
-            <TextBlock x:Name="tbTimestartFind"  Text="Ngày giờ bắt đầu:" Foreground="Black"></TextBlock>
+            <TextBlock x:Name="tbTimestartFind"  Text="Từ:" Foreground="Black"></TextBlock>
             <DatePicker x:Name="dpDayStartFind"
                 materialDesign:HintAssist.Hint="Chọn ngày"
-                Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
-            <Grid x:Name="temp42"></Grid>
+                Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Width="60" />
+
             <materialDesign:TimePicker x:Name="mtpHourStartFind"
                 Is24Hours="True"
                 Style="{StaticResource MaterialDesignFloatingHintTimePicker}"
-                materialDesign:HintAssist.Hint="Chọn giờ" />
-            <Grid x:Name="temp43"></Grid>
-            <TextBlock x:Name="tbTimeEndFind"  Text="Ngày giờ kết thúc:" Foreground="Black"></TextBlock>
+                materialDesign:HintAssist.Hint="Chọn giờ" Width="60" />
+            <Grid x:Name="temp42"></Grid>
+            <TextBlock x:Name="tbTimeEndFind"  Text="Đến:" Foreground="Black"></TextBlock>
             <DatePicker x:Name="dpDayEndFind"
                 materialDesign:HintAssist.Hint="Chọn ngày"
-                Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
-            <Grid x:Name="temp44"></Grid>
+                Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Width="60" />
             <materialDesign:TimePicker x:Name="mtpHourEndFind"
                 Is24Hours="True"
                 Style="{StaticResource MaterialDesignFloatingHintTimePicker}"
-                materialDesign:HintAssist.Hint="Chọn giờ" />
-            <Grid x:Name="temp45"></Grid>
-            <ComboBox x:Name="cbbTypeFind"
-                     materialDesign:HintAssist.Hint="Hóa Đơn">
-                <ComboBoxItem>
-                    Thông tin nhân viên
-                </ComboBoxItem>
-                <ComboBoxItem>
-                    Thông tin khách hàng
-                </ComboBoxItem>
-                <ComboBoxItem>
-                    Hóa đơn
-                </ComboBoxItem>
-                <ComboBoxItem>
-                    Thức uống
-                </ComboBoxItem>
-                <ComboBoxItem>
-                    Giá tiền
-                </ComboBoxItem>
-                <ComboBoxItem>
-                    Số lượng
-                </ComboBoxItem>
-            </ComboBox>
+                materialDesign:HintAssist.Hint="Chọn giờ" Width="60" />
             <Grid x:Name="temp46"></Grid>
-            <TextBox x:Name="tbxSearchFind" Foreground="Black"
-              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-              materialDesign:HintAssist.Hint="Hóa đơn/ số lượng/ giá cả/ nhân viên/ khách hàng/ thức uống"
-              Text="{Binding Content}"
-              Margin="8 0 0 0"
-              VerticalAlignment="Bottom" />
-            <Grid x:Name="temp47"></Grid>
-            <Button x:Name="btnFind" Content="Tìm kiếm" Background="#1E90FF" BorderBrush="#ffffff"></Button>
-            <Grid x:Name="temp49"></Grid>
+            <TextBlock x:Name="tbEmployeeName" Text="Tên nhân viên:" Foreground="Black" />
+            <Grid x:Name="temp43"></Grid>
+            <ComboBox x:Name="cbbEmployeeFind"
+                     materialDesign:HintAssist.Hint="Tên nhân viên" IsEditable="True" Width="150">
+                <ComboBoxItem Content="Tên nhân viên"/>
+            </ComboBox>
+            <Grid x:Name="temp44"></Grid>
+            <TextBlock x:Name="tbPhoneCustomer" Text="SĐT khách hàng:" Foreground="Black"></TextBlock>
+            <Grid x:Name="temp45"></Grid>
+            <ComboBox x:Name="cbbCustomerFind" Foreground="Black"
+              materialDesign:HintAssist.Hint="Sđt khách hàng" Width="200" IsEditable="True">
+                <ComboBoxItem Content="Số điện thoại khách hàng"/>
+            </ComboBox>
             <Grid x:Name="temp48"></Grid>
+            <Button x:Name="btnFind" Content="Tìm kiếm" Background="#1E90FF" BorderBrush="#ffffff" />
             <Grid x:Name="gridFind">
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <ListView x:Name="lvListFind" Foreground="Black">
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn x:Name="gvcFindSTT" Header="STT" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
-                                <GridViewColumn x:Name="gvcFindHour" Header="Giờ" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
-                                <GridViewColumn x:Name="gvcFindDay" Header="Ngày" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
-                                <GridViewColumn x:Name="gvcFindBillCode" Header="Mã hóa đơn" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
-                                <GridViewColumn x:Name="gvcFindEmployeeCode" Header="Mã nhân viên" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
-                                <GridViewColumn x:Name="gvcFindCustomerCode" Header="Mã khách hàng" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
-                                <GridViewColumn x:Name="gvcFindDrink" Header="Tên thức uống" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
-                                <GridViewColumn x:Name="gvcFindMoney" Header="Giá tiền" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
-                                <GridViewColumn x:Name="gvcFindNumber" Header="số lượng" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-                </ScrollViewer>
+                <ListView x:Name="lvListFind" Foreground="Black">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn x:Name="gvcFindSTT" Header="STT" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
+                            <GridViewColumn x:Name="gvcFindDate" Header="Thời gian" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
+                            <GridViewColumn x:Name="gvcFindBillCode" Header="Mã hóa đơn" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
+                            <GridViewColumn x:Name="gvcFindEmployeeCode" Header="Mã nhân viên" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
+                            <GridViewColumn x:Name="gvcFindCustomerCode" Header="Mã khách hàng" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
+                            <GridViewColumn x:Name="gvcFindMoney" Header="Giá tiền" DisplayMemberBinding="{Binding STT}"></GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
             </Grid>
         </WrapPanel>
-        <WrapPanel x:Name="wrpCustomer" Background="#ffd1d1" Visibility="Hidden">
+        <WrapPanel x:Name="wrpCustomer" Background="#ffd1d1" Visibility="Hidden" Grid.ColumnSpan="2">
             <Button x:Name="btnBackCustomer" BorderBrush="#ffffff" Background="#e87f5c" Click="BtnBack_Click" >
                 <materialDesign:PackIcon Kind="ArrowLeftBoldCircleOutline" />
             </Button>
@@ -587,7 +568,7 @@
                 </StackPanel>
             </Grid>
         </WrapPanel>
-        <WrapPanel x:Name="wrpRegisterNewCustomer" Background="#d0beac" Visibility="Hidden">
+        <WrapPanel x:Name="wrpRegisterNewCustomer" Background="#d0beac" Visibility="Hidden" Grid.ColumnSpan="2">
             <Button x:Name="btnbackRegisterNewCustomer" Background="#CD853F" Click="BtnBack_Click"  >
                 <materialDesign:PackIcon Kind="ArrowLeftBoldCircleOutline" />
             </Button>
@@ -619,7 +600,7 @@
                 </StackPanel>
             </Grid>
         </WrapPanel>
-        <Grid x:Name="griInforDrinks" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#efeabf" Visibility="Hidden">
+        <Grid x:Name="griInforDrinks" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#efeabf" Visibility="Hidden" Margin="272,166,18,166">
             <StackPanel x:Name="stpInforDrinksMini" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <!--Trick-->
                 <TextBlock x:Name="tbIdDrink" Visibility="Hidden"></TextBlock>
@@ -649,7 +630,7 @@
                 </WrapPanel>
             </StackPanel>
         </Grid>
-        <WrapPanel x:Name="wrpAgent" Background="#d1efd1" Visibility="Hidden">
+        <WrapPanel x:Name="wrpAgent" Background="#d1efd1" Visibility="Hidden" Grid.ColumnSpan="2">
             <Button x:Name="btnBackAgent" Background="#03c203" BorderBrush="#006400" Click="BtnBack_Click" >
                 <materialDesign:PackIcon Kind="ArrowLeft"/>
             </Button>
@@ -693,7 +674,7 @@
                 </StackPanel>
             </Grid>
         </WrapPanel>
-        <WrapPanel x:Name="wrpPersonalInfor" Background="#FFF8DC" Visibility="Hidden" IsVisibleChanged="WrpPersonalInfor_IsVisibleChanged">
+        <WrapPanel x:Name="wrpPersonalInfor" Background="#FFF8DC" Visibility="Hidden" IsVisibleChanged="WrpPersonalInfor_IsVisibleChanged" Grid.ColumnSpan="2">
             <Button x:Name="btnBackPersonalInfor" Background="#A52A2A" Click="BtnBack_Click">
                 <materialDesign:PackIcon Kind="ArrowLeftBoldOutline" />
             </Button>
@@ -730,7 +711,7 @@
                 </StackPanel>
             </Grid>
         </WrapPanel>
-        <Grid x:Name="GridChangePassScreen" Visibility="Hidden">
+        <Grid x:Name="GridChangePassScreen" Visibility="Hidden" Grid.ColumnSpan="2">
             <Grid x:Name="GridChangePass" Height="569" Width="792" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#40E0D0">
                 <materialDesign:Card x:Name="cardChangePass" Margin="230,70,230,0" 
          Background="AliceBlue" Height="429" Foreground="{x:Null}"/>
