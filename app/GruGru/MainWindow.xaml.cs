@@ -852,7 +852,6 @@ namespace GruGru
                 }
             }
 
-
             if (error == false)
             {
                 string result;
@@ -880,8 +879,6 @@ namespace GruGru
                     stpMainScreen.Visibility = System.Windows.Visibility.Visible;
                     loggedInUserType = type = stuff.loaiNV;
                     loggedInUserName = stuff.hoTen;
-
-                    string name = stuff.hoTen;
                     loggedInUserId = stuff.id;
 
                     cbbEmployee.Visibility = System.Windows.Visibility.Visible;
@@ -894,7 +891,7 @@ namespace GruGru
                     {
                         cbbEmployee.Visibility = System.Windows.Visibility.Visible;
                     }
-                    tbEmployee.Text = "Phục vụ: " + name;
+                    tbEmployee.Text = "Phục vụ: " + loggedInUserName;
 
                     if (RememberMe.IsThreeState == true)
                     {
