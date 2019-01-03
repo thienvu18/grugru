@@ -229,13 +229,15 @@ namespace GruGru
             txbTopping.Width = 0.23 * width;
             txbTopping.FontSize = height004;
 
+            temp1000.Width = 0.005 * width;
+
             txbInfor.Width = 0.26 * width;
             txbInfor.FontSize = height004;
 
-            cbbEmployee.Width = 0.05 * width;
+            cbbEmployee.Width = 0.045 * width;
             cbbEmployee.FontSize = height004;
 
-            cbbManage.Width = 0.05 * width;
+            cbbManage.Width = 0.045 * width;
             cbbManage.FontSize = height004;
 
             //menu
@@ -252,8 +254,9 @@ namespace GruGru
             lvMenuToppings.Height = stpMenu.Height;
             lvMenuToppings.Width = stpDrink.Width / 3;
 
+            temp1001.Width = 0.01 * width;
             //InforBill
-            gridInforBill.Width = 0.31 * width;
+            gridInforBill.Width = 0.308 * width;
             gridInforBill.Height = height - height005;
 
             Double heighttbBill = gridInforBill.Height * 3 / 60;
