@@ -252,7 +252,7 @@
                             <ListView.View >
                                 <GridView AllowsColumnReorder="False">
                                     <GridViewColumn x:Name="lvhOrdinal" Header="STT" DisplayMemberBinding="{Binding stt}"></GridViewColumn>
-                                    <GridViewColumn x:Name="lvhDrink" Header="Tên Thức uống" DisplayMemberBinding="{Binding ten}"></GridViewColumn>
+                                    <GridViewColumn x:Name="lvhDrink" Header="Tên Thức uống" Width="150" DisplayMemberBinding="{Binding ten}"></GridViewColumn>
                                     <GridViewColumn x:Name="lvhSize" Header="Size" DisplayMemberBinding="{Binding size}"/>
                                     <GridViewColumn x:Name="lvhPrices" Header="Giá" DisplayMemberBinding="{Binding gia}"></GridViewColumn>
                                     <GridViewColumn x:Name="lvhNumber" Header="Số lượng" DisplayMemberBinding="{Binding soLuong}"/>
@@ -260,8 +260,6 @@
                             </ListView.View>
                         </ListView>
 
-                    <TextBlock x:Name="tbOfferCode" Text="Mã khuyến mãi:" />
-                    <ComboBox x:Name="cbbOfferCode"></ComboBox>
                     <Grid x:Name="temp2"></Grid>
                     <TextBlock x:Name="tbTotalMoney" Text=" Tổng tiền:        0"/>
                     <Button x:Name="btnPay" Content="Xuất" Background="#fcc542" BorderBrush="Orange" Click="btnPay_Click"></Button>

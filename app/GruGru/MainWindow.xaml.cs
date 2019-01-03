@@ -273,16 +273,8 @@ namespace GruGru
             tbTime.Width = gridInforBill.Width - 10;
 
             lvListBill.FontSize = height002;
-            lvListBill.Height = gridInforBill.Height * 6 / 11;
+            lvListBill.Height = gridInforBill.Height * 7.7 / 13;
             lvListBill.Width = gridInforBill.Width;
-
-            tbOfferCode.FontSize = height0027;
-            tbOfferCode.Height = heighttbBill;
-            tbOfferCode.Width = gridInforBill.Width * 3 / 8 - 5;
-
-            cbbOfferCode.FontSize = height0027;
-            cbbOfferCode.Height = heighttbBill;
-            cbbOfferCode.Width = gridInforBill.Width * 5 / 8 - 5;
 
             temp2.Height = heighttbBill / 4;
             temp2.Width = gridInforBill.Width;
