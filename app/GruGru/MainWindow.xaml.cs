@@ -254,9 +254,9 @@ namespace GruGru
             tbCustomer.Height = heighttbBill;
             tbCustomer.Width = gridInforBill.Width * 2 / 6 - 5;
 
-            tbxCustomer.FontSize = height0027;
-            tbxCustomer.Height = heighttbBill;
-            tbxCustomer.Width = gridInforBill.Width * 4 / 6 - 5;
+            cbbCustomer.FontSize = height0027;
+            cbbCustomer.Height = heighttbBill;
+            cbbCustomer.Width = gridInforBill.Width * 4 / 6 - 5;
 
             temp1.Height = heighttbBill / 4;
             temp1.Width = gridInforBill.Width;
@@ -969,6 +969,8 @@ namespace GruGru
 
         private void LoadMenu()
         {
+            ListDrinks.Clear();
+            lvListBill.ItemsSource = null;
             string url = SERVER + "getFoodList";
 
             string result = Get(url);
@@ -1145,9 +1147,8 @@ namespace GruGru
 
             string gia = TongTien().ToString();//"usercfrnh"
             string idKhachHangMua = "1231156464864";//"13874383";
-            string idNhanVienLap = "1";
 
-            string json = "{\"gia\": " + gia + ", \"idKhachHangMua\": " + idKhachHangMua + ", \"idNhanVienLap\": " + idNhanVienLap + ", \"danhSachMonAn\":";
+            string json = "{\"gia\": " + gia + ", \"idKhachHangMua\": " + idKhachHangMua + ", \"idNhanVienLap\": " + loggedInUserId + ", \"danhSachMonAn\":";
 
             json += JsonConvert.SerializeObject(ListDrinks);
             json += "}";
@@ -1157,6 +1158,15 @@ namespace GruGru
             try
             {
                 string result = Post(url, json);
+                dynamic resObject = JsonConvert.DeserializeObject(result);
+                if (resObject.code == "0")
+                {
+                    MessageBox.Show("Đơn hàng đã được xác nhận");
+                    LoadMenu();
+                } else
+                {
+                    MessageBox.Show("Đặt hàng thất bại, vui lòng thử lại");
+                }
             }
             catch
             {
@@ -1925,5 +1935,37 @@ namespace GruGru
             }
         }
 
+        private void GridInforBill_Loaded(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string res = Get(SERVER + "getCustomers");
+                dynamic resObject = JsonConvert.DeserializeObject(res);
+                if (resObject.code == "0")
+                {
+                    ComboBoxItem defaultItem = new ComboBoxItem();
+                    defaultItem.Name = "__idKhachHangnull";
+                    defaultItem.Content = "Khách hàng chưa đăng ký";
+                    cbbCustomer.Items.Add(defaultItem);
+
+                    cbbCustomer.SelectedIndex = 0;
+                    for (int i = 0; i < resObject.payload.Count; i++)
+                    {
+                        ComboBoxItem item = new ComboBoxItem();
+                        item.Name = "__idKhachHang" + resObject.payload[i].id;
+                        item.Content = resObject.payload[i].hoTen;
+                        cbbCustomer.Items.Add(item);
+                    }
+                    
+                }
+                else
+                {
+                    MessageBox.Show("Không thể kết nối đến server");
+                }
+            } catch
+            {
+                MessageBox.Show("Không thể kết nối đến server");
+            }
+        }
     }
 }

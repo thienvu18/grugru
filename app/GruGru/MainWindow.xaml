@@ -240,11 +240,12 @@
                     </ScrollViewer>
 
                 </WrapPanel>
-                <WrapPanel x:Name="gridInforBill">
+                <WrapPanel x:Name="gridInforBill" Loaded="GridInforBill_Loaded">
                     <TextBlock x:Name="tbBillNumber" Text="Số hóa đơn:"></TextBlock>
                     <TextBox x:Name="tbxBillNumber"></TextBox>
                     <TextBlock x:Name="tbCustomer" Text="Khách hàng:"></TextBlock>
-                    <TextBox x:Name="tbxCustomer"></TextBox>
+                    <ComboBox x:Name="cbbCustomer" IsEditable="True">
+                    </ComboBox>
                     <Grid x:Name="temp1"></Grid>
                     <TextBlock x:Name="tbEmployee" Text="Phục vụ:"></TextBlock>
                     <TextBlock x:Name="tbTime" Text="Ngày giờ:   19:44:7        12/12/2018"></TextBlock>
