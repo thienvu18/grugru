@@ -157,7 +157,7 @@
                                             <ColumnDefinition />
                                             <ColumnDefinition/>
                                         </Grid.ColumnDefinitions>
-                                        
+
                                         <StackPanel Grid.Column="0" >
                                             <TextBlock x:Name="tbMilkteas"
                                                    FontSize="18"
@@ -205,7 +205,7 @@
                                             <ColumnDefinition  />
                                             <ColumnDefinition/>
                                         </Grid.ColumnDefinitions>
-                                       
+
                                         <StackPanel Grid.Column="0" >
                                             <TextBlock x:Name="tbToppings"
                                                    FontSize="18"
@@ -248,17 +248,17 @@
                     <Grid x:Name="temp1"></Grid>
                     <TextBlock x:Name="tbEmployee" Text="Phục vụ:"></TextBlock>
                     <TextBlock x:Name="tbTime" Text="Ngày giờ:   19:44:7        12/12/2018"></TextBlock>
-                        <ListView x:Name="lvListBill" >
-                            <ListView.View >
-                                <GridView AllowsColumnReorder="False">
-                                    <GridViewColumn x:Name="lvhOrdinal" Header="STT" DisplayMemberBinding="{Binding stt}"></GridViewColumn>
-                                    <GridViewColumn x:Name="lvhDrink" Header="Tên Thức uống" Width="150" DisplayMemberBinding="{Binding ten}"></GridViewColumn>
-                                    <GridViewColumn x:Name="lvhSize" Header="Size" DisplayMemberBinding="{Binding size}"/>
-                                    <GridViewColumn x:Name="lvhPrices" Header="Giá" DisplayMemberBinding="{Binding gia}"></GridViewColumn>
-                                    <GridViewColumn x:Name="lvhNumber" Header="Số lượng" DisplayMemberBinding="{Binding soLuong}"/>
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
+                    <ListView x:Name="lvListBill" >
+                        <ListView.View >
+                            <GridView AllowsColumnReorder="False">
+                                <GridViewColumn x:Name="lvhOrdinal" Header="STT" DisplayMemberBinding="{Binding stt}"></GridViewColumn>
+                                <GridViewColumn x:Name="lvhDrink" Header="Tên Thức uống" Width="150" DisplayMemberBinding="{Binding ten}"></GridViewColumn>
+                                <GridViewColumn x:Name="lvhSize" Header="Size" DisplayMemberBinding="{Binding size}"/>
+                                <GridViewColumn x:Name="lvhPrices" Header="Giá" DisplayMemberBinding="{Binding gia}"></GridViewColumn>
+                                <GridViewColumn x:Name="lvhNumber" Header="Số lượng" DisplayMemberBinding="{Binding soLuong}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
 
                     <Grid x:Name="temp2"></Grid>
                     <TextBlock x:Name="tbTotalMoney" Text=" Tổng tiền:        0"/>
@@ -536,8 +536,8 @@
                 <!--Trick-->
                 <StackPanel Orientation="Horizontal">
                     <StackPanel x:Name="stpIngredientmini">
-                <TextBlock x:Name="tbNameDrink" Text="Tên thức uống:" Foreground="Black"></TextBlock>
-                    <TextBox x:Name="tbxNameDrink" HorizontalAlignment="Center"
+                        <TextBlock x:Name="tbNameDrink" Text="Tên thức uống:" Foreground="Black"></TextBlock>
+                        <TextBox x:Name="tbxNameDrink" HorizontalAlignment="Center"
                      Text="" Foreground="Black"></TextBox>
                     </StackPanel>
                     <ComboBox x:Name="cbbIngredients" FontWeight="Bold" SelectedIndex="0" Visibility="Hidden">
@@ -554,7 +554,7 @@
 
                 </StackPanel>
 
-               
+
                 <Grid x:Name="temp71"></Grid>
                 <TextBlock x:Name="tbCostDrink" Text="Giá:" Foreground="Black"></TextBlock>
                 <TextBox x:Name="tbxCostDrink" 
@@ -710,30 +710,28 @@
             </Button>
             <materialDesign:Card x:Name="cardStatistical" Height="107"  VerticalAlignment="Top"
             Background="#02dede" Foreground="{x:Null}" Margin="10,58,10,0" />
-            <CheckBox x:Name="cbSales" Content=" Doanh Thu" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top" Height="37" Width="130" Background="Orange"  Checked="cbSales_Checked" Unchecked="cbSales_UnChecked" Margin="44,92,0,0"/>
-            <Canvas x:Name="cvSelectSaleStatistical" HorizontalAlignment="Left" Height="140" VerticalAlignment="Center" Width="168" Background="#90f4f7" Margin="44,131,0,233" >
+            <CheckBox x:Name="cbSales" IsChecked="False" Content=" Doanh Thu" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top" Height="37" Width="130" Background="Orange"  Checked="cbSales_Checked" Unchecked="cbSales_UnChecked" Margin="44,92,0,0"/>
+            <Canvas x:Name="cvSelectSaleStatistical" HorizontalAlignment="Left" Height="140" VerticalAlignment="Center" Width="168" Background="#90f4f7" Margin="44,302,0,62" >
                 <RadioButton x:Name="rbByDay" Content="Theo ngày" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Orange" Canvas.Left="10" Canvas.Top="10" Checked="rbByDay_Checked" Unchecked="rbByDay_Unchecked"></RadioButton>
-                <RadioButton x:Name="rbByWeek" Content="Theo tuần" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Orange" Canvas.Left="10" Canvas.Top="66" Checked="rbByWeek_Checked" Unchecked="rbByWeek_Unchecked"></RadioButton>
-                <RadioButton x:Name="rbByMonth" Content="Theo tháng" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Orange" Canvas.Left="10" Canvas.Top="39" Checked="rbByMonth_Checked" Unchecked="rbByMonth_Unchecked"></RadioButton>
+                <RadioButton x:Name="rbByMonth" Content="Theo tháng" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Orange" Canvas.Left="10" Canvas.Top="51" Checked="rbByMonth_Checked" Unchecked="rbByMonth_Unchecked" RenderTransformOrigin="0.5,0.972"></RadioButton>
                 <RadioButton x:Name="rbByYear" Content="Theo năm" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Orange"  Canvas.Left="10" Canvas.Top="94" Checked="rbByYear_Checked" Unchecked="rbByYear_Unchecked"></RadioButton>
             </Canvas>
-            <Button x:Name="btnStatistical" Content="Thống kê" HorizontalAlignment="Right"  VerticalAlignment="Top" Width="95" Margin="0,70,16,0" Background="#FF8C00" BorderBrush="Green" BorderThickness="1.5"/>
+            <Button x:Name="btnStatistical" Content="Thống kê" HorizontalAlignment="Right"  VerticalAlignment="Top" Width="95" Margin="0,70,16,0" Background="#FF8C00" BorderBrush="Green" BorderThickness="1.5" Click="btnStatistical_Click"/>
             <Button x:Name="btnCancelStatis" Content="Huỷ bỏ" HorizontalAlignment="Right"  VerticalAlignment="Top" Width="95" Margin="0,117,16,0" Background="#FF8C00" BorderBrush="Green" BorderThickness="1.5"/>
-            <Canvas x:Name="cvStatisticalTime" HorizontalAlignment="Left" Height="200" VerticalAlignment="Center" Width="168" Background="#99d4f9" Margin="44,284,0,20" >
-                <TextBox x:Name="txtStartDateStatistical" Width="128" Canvas.Left="10" Canvas.Top="10"
-                    materialDesign:HintAssist.Hint="Ngày bắt đầu" Foreground="Black"></TextBox>
-                <TextBox x:Name="txtStartTimeStatistical" Width="128" Canvas.Left="10" Canvas.Top="52"
-                    materialDesign:HintAssist.Hint="Thời gian bắt đầu" Foreground="Black"></TextBox>
-                <TextBox x:Name="txtEndDateStatistical" Width="129" Canvas.Left="10" Canvas.Top="88" 
-                         materialDesign:HintAssist.Hint="Ngày kết thúc" Foreground="Black"></TextBox>
-                <TextBox x:Name="txtEndTimeStatistical" Width="127" Canvas.Left="10" Canvas.Top="125" 
-                         materialDesign:HintAssist.Hint="Thời gian kết thúc" Foreground="Black"></TextBox>
+            <Canvas x:Name="cvStatisticalTime" HorizontalAlignment="Left" Height="166" VerticalAlignment="Center" Width="168" Background="#99d4f9" Margin="44,117,0,221" >
+                <TextBox x:Name="txtStartDateStatistical" Width="148" Canvas.Left="10"
+                    materialDesign:HintAssist.Hint="Ngày bắt đầu" Foreground="Black" Height="47"/>
+                <TextBox x:Name="txtEndDateStatistical" Width="143" Canvas.Top="60" 
+                         materialDesign:HintAssist.Hint="Ngày kết thúc" Foreground="Black" Canvas.Left="15" Height="41"/>
+                <Button x:Name="btnTypeSaleStatistical" Content="Thống kê theo" Canvas.Left="16" Canvas.Top="122" Width="126" Height="34" Background="Green" BorderBrush="GreenYellow"  Click="btnTypeSaleStatistical_Click"/>
             </Canvas>
-            <CheckBox x:Name="cbEmployee" Content=" Nhân Viên" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top" Height="37" Width="130" Background="Orange" Margin="304,94,0,0"/>
-
-
-
-
+            <CheckBox x:Name="cbTop10Famous" IsChecked="False" Content=" Top 10 thức uống" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top" Height="37" Width="196" Background="Orange" Margin="304,94,0,0" Checked="cbTop10Famous_Checked" Unchecked="cbTop10Famous_Unchecked"/>
+            <Canvas x:Name="cvStatisticalTimeTop10" HorizontalAlignment="Left" Height="139" VerticalAlignment="Center" Width="168" Background="#99d4f9" Margin="304,117,0,248" >
+                <TextBox x:Name="txtStartDateStatisticalTop10" Width="148" Canvas.Left="10"
+                    materialDesign:HintAssist.Hint="Ngày bắt đầu" Foreground="Black" Height="47"/>
+                <TextBox x:Name="txtEndDateStatisticalTop10" Width="143" Canvas.Top="60" 
+                         materialDesign:HintAssist.Hint="Ngày kết thúc" Foreground="Black" Canvas.Left="15" Height="41"/>
+            </Canvas>
 
         </Grid>
     </Grid>

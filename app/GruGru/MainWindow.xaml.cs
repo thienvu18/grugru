@@ -321,11 +321,11 @@ namespace GruGru
         public void StatisticalScreen()
         {
             rbByDay.Visibility = Visibility.Hidden;
-            rbByWeek.Visibility = Visibility.Hidden;
             rbByMonth.Visibility = Visibility.Hidden;
             rbByYear.Visibility = Visibility.Hidden;
             cvStatisticalTime.Visibility = Visibility.Hidden;
             cvSelectSaleStatistical.Visibility = Visibility.Hidden;
+            cvStatisticalTimeTop10.Visibility= Visibility.Hidden; 
 
         }
 
@@ -2176,8 +2176,6 @@ namespace GruGru
             }
         }
 
-
-
         private void cbbCustomerFind_Loaded(object sender, RoutedEventArgs e)
         {
             try
@@ -2301,12 +2299,9 @@ namespace GruGru
 
         private void cbSales_Checked(object sender, RoutedEventArgs e)
         {
-            cvSelectSaleStatistical.Visibility = Visibility.Visible;
-            rbByDay.Visibility = Visibility.Visible;
-            rbByWeek.Visibility = Visibility.Visible;
-            rbByMonth.Visibility = Visibility.Visible;
-            rbByYear.Visibility = Visibility.Visible;
+            cvStatisticalTime.Visibility = Visibility.Visible;
         }
+
         private void cbSales_UnChecked(object sender, RoutedEventArgs e)
         {
             cvSelectSaleStatistical.Visibility = Visibility.Hidden;
@@ -2316,42 +2311,26 @@ namespace GruGru
 
         private void rbByDay_Checked(object sender, RoutedEventArgs e)
         {
-            cvStatisticalTime.Visibility = Visibility.Visible;
         }
 
         private void rbByMonth_Checked(object sender, RoutedEventArgs e)
         {
-            cvStatisticalTime.Visibility = Visibility.Visible;
         }
 
         private void rbByYear_Checked(object sender, RoutedEventArgs e)
         {
-            cvStatisticalTime.Visibility = Visibility.Visible;
-        }
-
-        private void rbByWeek_Checked(object sender, RoutedEventArgs e)
-        {
-            cvStatisticalTime.Visibility = Visibility.Visible;
         }
 
         private void rbByDay_Unchecked(object sender, RoutedEventArgs e)
         {
-            cvStatisticalTime.Visibility = Visibility.Hidden;
-        }
-
-        private void rbByWeek_Unchecked(object sender, RoutedEventArgs e)
-        {
-            cvStatisticalTime.Visibility = Visibility.Hidden;
         }
 
         private void rbByMonth_Unchecked(object sender, RoutedEventArgs e)
         {
-            cvStatisticalTime.Visibility = Visibility.Hidden;
         }
 
         private void rbByYear_Unchecked(object sender, RoutedEventArgs e)
         {
-            cvStatisticalTime.Visibility = Visibility.Hidden;
         }
 
         private void btnInsertDrink_Click(object sender, RoutedEventArgs e)
@@ -2429,6 +2408,79 @@ namespace GruGru
                     MessageBox.Show("Có lỗi xảy ra, vui lòng thử lại");
                 }
             }
+        }
+
+        private void btnStatistical_Click(object sender, RoutedEventArgs e)
+        {
+            string BeginDateSale = txtStartDateStatistical.Text;
+            string EndDateSale = txtEndDateStatistical.Text;
+            string BeginDateTop10 = txtStartDateStatisticalTop10.Text;
+            string EndDateTop10 = txtEndDateStatisticalTop10.Text;
+            string TypeSaleStatistical = "";
+            string url = "";
+            string result = "";
+
+            try
+            {
+                DateTime.ParseExact(BeginDateSale, "dd-MM-yyyy", null);
+                DateTime.ParseExact(EndDateSale, "dd-MM-yyyy", null);
+            }
+            catch
+            {
+                MessageBox.Show("Ngày sinh không hợp lệ");
+                return;
+            }
+
+            if (cbSales.IsChecked == true) 
+            {
+                if(rbByDay.IsChecked==true)
+                {
+                    TypeSaleStatistical = "Day";            
+                }
+                if (rbByMonth.IsChecked == true)
+                {
+                    TypeSaleStatistical = "Month";
+                }
+                if (rbByYear.IsChecked == true)
+                {
+                    TypeSaleStatistical = "Year";
+                }
+
+                url = SERVER + "saleReport/"+BeginDateSale+"/"+EndDateSale+"/"+TypeSaleStatistical;
+
+                try
+                {
+                    result = Get(url);
+                }
+                catch
+                {
+                    //
+                }
+            }
+            //if(cbTop10Famous.IsChecked==true)
+            //{
+            //}
+
+        }
+
+        private void btnTypeSaleStatistical_Click(object sender, RoutedEventArgs e)
+        {
+            cvSelectSaleStatistical.Visibility = Visibility.Visible;
+            rbByDay.Visibility = Visibility.Visible;
+            rbByMonth.Visibility = Visibility.Visible;
+            rbByYear.Visibility = Visibility.Visible;
+
+        }
+
+        private void cbTop10Famous_Checked(object sender, RoutedEventArgs e)
+        {
+            cvStatisticalTimeTop10.Visibility = Visibility.Visible;
+
+        }
+
+        private void cbTop10Famous_Unchecked(object sender, RoutedEventArgs e)
+        {
+            cvStatisticalTimeTop10.Visibility = Visibility.Hidden;
         }
     }
 }
