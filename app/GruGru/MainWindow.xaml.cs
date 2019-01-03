@@ -372,13 +372,8 @@ namespace GruGru
             dpDayStartFind.Height = height005;
             dpDayStartFind.Width = width / 90 * 6;
 
-            temp42.Width = width / 90;
-
-            mtpHourStartFind.FontSize = height0018;
-            mtpHourStartFind.Height = height004;
-            mtpHourStartFind.Width = width / 90 * 6;
-
-
+            temp42.Width = width / 90*7;
+            
             tbTimeEndFind.FontSize = height002;
             tbTimeEndFind.Height = height003;
             tbTimeEndFind.Width = width / 90 * 4;
@@ -386,19 +381,14 @@ namespace GruGru
             dpDayEndFind.FontSize = height0018;
             dpDayEndFind.Height = height005;
             dpDayEndFind.Width = width / 90 * 6;
-
-
-            mtpHourEndFind.FontSize = height0018;
-            mtpHourEndFind.Height = height004;
-            mtpHourEndFind.Width = width / 90 * 6;
-
+            
             temp45.Width = width / 90;
 
             /*cbbTypeFind.FontSize = height0018;
             cbbTypeFind.Height = height004;
             cbbTypeFind.Width = width / 90 * 6;*/
 
-            temp46.Width = width / 180;
+            temp46.Width = width / 90*6.5;
 
             tbEmployeeName.FontSize = height002;
             tbEmployeeName.Height = height003;

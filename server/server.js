@@ -972,7 +972,6 @@ app.post("/api/search", function(req, res) {
       " AND NhanVien.id = " +
       idNhanVien;
   }
-console.log(query);
   let request = new sql.Request();
 
   request.query(query, function(err, result) {
@@ -1042,4 +1041,46 @@ app.post("/api/insertDrink", function(req, res) {
       });
     }
   });
+});
+
+app.get("/api/saleReport/:from/:to/:type", function(req, res) {
+  const from = moment(req.params.from, "DD-MM-YYYY") / 1000;
+  const to = moment(req.params.to, "DD-MM-YYYY") / 1000;
+  const type = req.params.type.toUpperCase();
+
+  if (type != "YEAR" && type != "MONTH" && type != "DAY") {
+    res.json({
+      code: -6,
+      msg: "Loại không hợp lệ"
+    });
+  } else {
+    var query;
+    if (type == "DAY" && (to - from) > 2419200 && (to - from) < 31536000) {//28 ngày, 365 ngày
+      query = "SELECT " + type + "(DATEADD(S, thoiGianLap, '1970-01-01 07:00:00')) as "+type+", sum(HoaDon.gia) as DoanhThu FROM HoaDon GROUP BY MONTH(DATEADD(S, thoiGianLap, '1970-01-01 07:00:00')), DAY(DATEADD(S, thoiGianLap, '1970-01-01 07:00:00'))";
+    } else if (type == "DAY" && (to - from) < 31536000) {
+      query = "SELECT " + type + "(DATEADD(S, thoiGianLap, '1970-01-01 07:00:00')) as "+type+", sum(HoaDon.gia) as DoanhThu FROM HoaDon GROUP BY YEAR(DATEADD(S, thoiGianLap, '1970-01-01 07:00:00')), MONTH(DATEADD(S, thoiGianLap, '1970-01-01 07:00:00')), DAY(DATEADD(S, thoiGianLap, '1970-01-01 07:00:00'))";
+    } else if (type == "MONTH" && (to - from) < 31536000) {
+    query = "SELECT " + type + "(DATEADD(S, thoiGianLap, '1970-01-01 07:00:00')) as "+type+", sum(HoaDon.gia) as DoanhThu FROM HoaDon GROUP BY YEAR(DATEADD(S, thoiGianLap, '1970-01-01 07:00:00')), MONTH(DATEADD(S, thoiGianLap, '1970-01-01 07:00:00'))";
+    } else {
+      query = "SELECT " + type + "(DATEADD(S, thoiGianLap, '1970-01-01 07:00:00')) as "+type+", sum(HoaDon.gia) as DoanhThu FROM HoaDon GROUP BY YEAR(DATEADD(S, thoiGianLap, '1970-01-01 07:00:00'))";
+    }
+
+    let request = new sql.Request();
+
+    request.query(query, function(err, result) {
+      if (err) {
+        console.log(err);
+        res.json({
+          code: -3,
+          msg: "Co loi trong truy van CSDL"
+        });
+      } else {
+        res.json({
+          code: 0,
+          msg: "Kết quả thống kê",
+          payload: result
+        });
+      }
+    });
+  }
 });
