@@ -556,6 +556,34 @@ app.get("/api/getCustomerByPhone/:phoneNumber", function(req, res) {
   });
 });
 
+app.get("/api/getEmployees", function(req, res) {
+  const query = "SELECT * FROM NhanVien";
+  // console.log();
+  let request = new sql.Request();
+
+  request.query(query, function(err, result) {
+    if (err) {
+      res.json({
+        code: -3,
+        msg: "Co loi trong truy van CSDL"
+      });
+    } else {
+      if (result.length == 0) {
+        res.json({
+          code: -1,
+          msg: "Khong tim thay nhan vien"
+        });
+      } else {
+        res.json({
+          code: 0,
+          msg: "Thong tin nhan vien da chon",
+          payload: result
+        });
+      }
+    }
+  });
+});
+
 app.get("/api/getEmployeeByName/:name", function(req, res) {
   const query =
     "SELECT TOP (10) * FROM NhanVien WHERE hoTen LIKE N'" +

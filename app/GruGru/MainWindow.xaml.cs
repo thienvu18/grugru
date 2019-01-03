@@ -1187,6 +1187,7 @@ namespace GruGru
                     MessageBox.Show("Đơn hàng đã được xác nhận");
                     ListDrinks.Clear();
                     lvListBill.ItemsSource = null;
+                    tbTotalMoney.Text = " Tổng tiền:        ";
 
                     lvMenuCoffees.Items.Refresh();
                     lvMenuMilkteas.Items.Refresh();
@@ -1457,6 +1458,7 @@ namespace GruGru
             {
                 tongTien += item.gia * item.soLuong;
             }
+            decimal tmp = tongTien;
             tbTotalMoney.Text = " Tổng tiền:        " + tongTien.ToString();
             return tongTien;
         }
@@ -2082,6 +2084,83 @@ namespace GruGru
                     MessageBox.Show("Không thể kết nối đến server");
                 }
             }
+        }
+
+        private void WrpFind_Loaded(object sender, RoutedEventArgs e)
+        {
+            //Tên nhân viên mặc định
+            ComboBoxItem defaultEmployee = new ComboBoxItem();
+            defaultEmployee.Name = "__idEmployee" + loggedInUserId.ToString();
+            defaultEmployee.Content = loggedInUserName;
+            cbbEmployeeFind.Items.Add(defaultEmployee);
+            cbbEmployeeFind.SelectedIndex = 0;
+
+            //Tên khách hàng mặc định
+            ComboBoxItem defaultCustomer = new ComboBoxItem();
+            defaultCustomer.Name = "__idCustomernull";
+            defaultCustomer.Content = "Khách hàng chưa đăng ký";
+            cbbCustomerFind.Items.Add(defaultCustomer);
+
+            try
+            {
+                string res = Get(SERVER + "getCustomers");
+                dynamic resObject = JsonConvert.DeserializeObject(res);
+                if (resObject.code == "0")
+                {
+                    for (int i = 0; i < resObject.payload.Count; i++)
+                    {
+                        ComboBoxItem item = new ComboBoxItem();
+                        item.Name = "__idCustomer" + resObject.payload[i].id;
+                        item.Content = resObject.payload[i].hoTen;
+                        cbbCustomerFind.Items.Add(item);
+                    }
+                }
+                else if (resObject.code == "-1")
+                {
+                    //trick
+                }
+                else
+                {
+                    MessageBox.Show("Không thể kết nối đến server");
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Không thể kết nối đến server");
+            }
+
+            try
+            {
+                string res = Get(SERVER + "getEmployees");
+                dynamic resObject = JsonConvert.DeserializeObject(res);
+                if (resObject.code == "0")
+                {
+                    for (int i = 0; i < resObject.payload.Count; i++)
+                    {
+                        ComboBoxItem item = new ComboBoxItem();
+                        item.Name = "__idEmployee" + resObject.payload[i].id;
+                        item.Content = resObject.payload[i].hoTen;
+                        cbbEmployeeFind.Items.Add(item);
+                    }
+                }
+                else if (resObject.code == "-1")
+                {
+                    //trick
+                }
+                else
+                {
+                    MessageBox.Show("Không thể kết nối đến server");
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Không thể kết nối đến server");
+            }
+        }
+
+        private void BtnFind_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO
         }
     }
 }

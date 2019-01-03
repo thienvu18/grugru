@@ -452,7 +452,7 @@
                 </Grid>
             </Grid>
         </WrapPanel>
-        <WrapPanel x:Name="wrpFind" Background="#E0FFFF" Visibility="Hidden">
+        <WrapPanel x:Name="wrpFind" Background="#E0FFFF" Visibility="Hidden" Loaded="WrpFind_Loaded">
             <Button x:Name="btnBackFind" Background="#1E90FF" BorderBrush="#0000FF" Click="BtnBack_Click" >
                 <materialDesign:PackIcon Kind="ArrowLeftBoldHexagonOutline" />
             </Button>
@@ -480,17 +480,15 @@
             <Grid x:Name="temp43"></Grid>
             <ComboBox x:Name="cbbEmployeeFind"
                      materialDesign:HintAssist.Hint="Tên nhân viên" IsEditable="True" Width="150">
-                <ComboBoxItem Content="Tên nhân viên"/>
             </ComboBox>
             <Grid x:Name="temp44"></Grid>
-            <TextBlock x:Name="tbPhoneCustomer" Text="SĐT khách hàng:" Foreground="Black"></TextBlock>
+            <TextBlock x:Name="tbPhoneCustomer" Text="Khách hàng:" Foreground="Black"></TextBlock>
             <Grid x:Name="temp45"></Grid>
             <ComboBox x:Name="cbbCustomerFind" Foreground="Black"
-              materialDesign:HintAssist.Hint="Sđt khách hàng" Width="200" IsEditable="True">
-                <ComboBoxItem Content="Số điện thoại khách hàng"/>
+              materialDesign:HintAssist.Hint="Khách hàng" Width="200" IsEditable="True">
             </ComboBox>
             <Grid x:Name="temp48"></Grid>
-            <Button x:Name="btnFind" Content="Tìm kiếm" Background="#1E90FF" BorderBrush="#ffffff" />
+            <Button x:Name="btnFind" Content="Tìm kiếm" Background="#1E90FF" BorderBrush="#ffffff" Click="BtnFind_Click"/>
             <Grid x:Name="gridFind">
                 <ListView x:Name="lvListFind" Foreground="Black">
                     <ListView.View>
