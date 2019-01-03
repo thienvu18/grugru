@@ -621,6 +621,9 @@
                     <Grid x:Name="gridbtnUpdateInforDrink">
                         <Button x:Name="btnUpdateInforDrink" VerticalAlignment="Center" HorizontalAlignment="Center" Content="Cập nhật" BorderBrush="#FF4500" Background="#FFA500" Click="BtnUpdateInforDrink_Click"></Button>
                     </Grid>
+                    <Grid x:Name="gridbtnInsertDrink">
+                        <Button x:Name="btnInsertDrink" VerticalAlignment="Center" HorizontalAlignment="Center" Content="Thêm mới" BorderBrush="#FF4500" Background="#FFA500" Click="btnInsertDrink_Click"></Button>
+                    </Grid>
 
                 </WrapPanel>
             </StackPanel>

@@ -654,6 +654,7 @@ namespace GruGru
             temp72.Height = stpInforDrinksMini.Height / 30;
 
             tbIngredients.FontSize = height0023;
+            tbIngredients.Height = height005;
 
             tbxIngredients.FontSize = height0023;
             tbxIngredients.Height = stpInforDrinksMini.Height / 5 * 2;
@@ -662,13 +663,16 @@ namespace GruGru
             temp100.Height = stpInforDrinksMini.Height / 8;
 
             stpInforDrinksMini1.Width = stpInforDrinksMini.Width;
-            gridbtnDeleteDrink.Width = stpInforDrinksMini1.Width / 3;
-            gridbtnUpdateInforDrink.Width = stpInforDrinksMini1.Width / 3;
-            gridbtnBackInforDrink.Width = stpInforDrinksMini1.Width / 3;
+            gridbtnDeleteDrink.Width = stpInforDrinksMini1.Width / 4;
+            gridbtnUpdateInforDrink.Width = stpInforDrinksMini1.Width / 4;
+            gridbtnBackInforDrink.Width = stpInforDrinksMini1.Width / 4;
+            gridbtnInsertDrink.Width = stpInforDrinksMini1.Width / 4;
+
 
             btnDeleteDrink.FontSize = height0027;
             btnUpdateInforDrink.FontSize = height0027;
             btnBackInforDrink.FontSize = height0027;
+            btnInsertDrink.FontSize = height0027;
 
         }
 
@@ -2082,6 +2086,57 @@ namespace GruGru
                     MessageBox.Show("Không thể kết nối đến server");
                 }
             }
+        }
+
+        private void btnInsertDrink_Click(object sender, RoutedEventArgs e)
+        {
+            btnDeleteDrink.Visibility = Visibility.Collapsed;
+            btnUpdateInforDrink.Visibility = Visibility.Collapsed;
+
+            if (btnInsertDrink.Content.ToString() == "Thêm mới")
+            {
+                btnInsertDrink.Content = "Xác nhận";
+                tbxNameDrink.Text = "";
+                tbxCostDrink.Text = "";
+                tbxIngredients.Text = "";
+            }
+            else if (btnInsertDrink.Content.ToString() == "Xác nhận")
+            {
+
+                string maSanPham = Convert.ToBase64String(Guid.NewGuid().ToByteArray()).Substring(0, 8);
+                string NameDrink = tbxNameDrink.Text;//"namedrink"
+                string Cost = tbxCostDrink.Text;//"giá"
+                string Ingredients = tbxIngredients.Text;//mô tả
+                string json = "{\"maSanPham\": \"" + maSanPham + "\",\"tenSanPham\": \"" + NameDrink + "\",\"thongTin\": \"" + Ingredients + "\", \"gia\": " + Cost + "}";
+                string url = SERVER + "insertDrink";
+                try
+                {
+                    string result = Post(url, json);
+                    dynamic stuff = JsonConvert.DeserializeObject(result);
+
+                    string code = stuff.code;
+                    if (code == "0")
+                    {
+                        MessageBox.Show("Thêm món thành công");
+                        griInforDrinks.Visibility = Visibility.Hidden;
+                        LoadMenu();
+                        ListDrinks.Clear();
+                        tbTotalMoney.Text = " Tổng tiền:        ";
+                        stpMainScreen.Opacity = 1;
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Có lỗi xảy ra, vui lòng thử lại");
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("Không thể kết nối đến server");
+                }
+            }
+
+            
         }
     }
 }
