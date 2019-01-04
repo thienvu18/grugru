@@ -1123,7 +1123,7 @@ app.get("/api/reportTopDrink/:from/:to/:top", function(req, res) {
     const query =
       "SELECT TOP (" +
       top +
-      ") SanPham.tenSanPham, COUNT(ChiTietHoaDon.soLuong) AS soLuong FROM SanPham JOIN ChiTietHoaDon ON SanPham.id = ChiTietHoaDon.idSanPham JOIN HoaDon ON HoaDon.id = ChiTietHoaDon.idHoaDon WHERE HoaDon.thoiGianLap > " +
+      ") SanPham.tenSanPham, SUM(ChiTietHoaDon.soLuong) AS soLuong FROM SanPham JOIN ChiTietHoaDon ON SanPham.id = ChiTietHoaDon.idSanPham JOIN HoaDon ON HoaDon.id = ChiTietHoaDon.idHoaDon WHERE HoaDon.thoiGianLap > " +
       from +
       " AND HoaDon.thoiGianLap < " +
       to +
