@@ -17,11 +17,11 @@ using LiveCharts.Wpf;
 namespace GruGru
 {
     /// <summary>
-    /// Interaction logic for SaleReport.xaml
+    /// Interaction logic for ReportChart.xaml
     /// </summary>
-    public partial class SaleReport : Window
+    public partial class ReportChart : Window
     {
-        public SaleReport()
+        public ReportChart()
         {
             InitializeComponent();
         }

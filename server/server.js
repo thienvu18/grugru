@@ -1052,9 +1052,6 @@ app.get("/api/saleReport/:from/:to/:type", function(req, res) {
   const to = moment(req.params.to, "DD-MM-YYYY") / 1000;
   const type = req.params.type.toUpperCase();
 
-  console.log(from);
-  console.log(to);
-  console.log(to - from);
   if (type != "YEAR" && type != "MONTH" && type != "DAY") {
     res.json({
       code: -6,
@@ -1111,6 +1108,45 @@ app.get("/api/saleReport/:from/:to/:type", function(req, res) {
           payload: result
         });
       }
+    });
+  }
+});
+
+app.get("/api/reportTopDrink/:from/:to/:top", function(req, res) {
+  const from = moment(req.params.from, "DD-MM-YYYY") / 1000;
+  const to = moment(req.params.to, "DD-MM-YYYY") / 1000;
+  try {
+    const top = parseInt(req.params.top, 10);
+    const query =
+      "SELECT TOP (" +
+      top +
+      ") SanPham.tenSanPham, COUNT(ChiTietHoaDon.soLuong) AS soLuong FROM SanPham JOIN ChiTietHoaDon ON SanPham.id = ChiTietHoaDon.idSanPham JOIN HoaDon ON HoaDon.id = ChiTietHoaDon.idHoaDon WHERE HoaDon.thoiGianLap > " +
+      from +
+      " AND HoaDon.thoiGianLap < " +
+      to +
+      " GROUP BY SanPham.tenSanPham ORDER BY soLuong DESC";
+
+    let request = new sql.Request();
+
+    request.query(query, function(err, result) {
+      if (err) {
+        console.log(err);
+        res.json({
+          code: -3,
+          msg: "Co loi trong truy van CSDL"
+        });
+      } else {
+        res.json({
+          code: 0,
+          msg: "Kết quả thống kê",
+          payload: result
+        });
+      }
+    });
+  } catch (error) {
+    res.json({
+      code: -7,
+      msg: "Tham số top không hợp lệ"
     });
   }
 });
