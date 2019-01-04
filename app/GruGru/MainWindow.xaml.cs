@@ -1071,7 +1071,28 @@ namespace GruGru
 
                 string json = "{\"gia\": " + gia + ", \"idKhachHangMua\": \"" + idKhachHangMua + "\", \"idNhanVienLap\": " + loggedInUserId + ", \"danhSachMonAn\":";
 
-                json += JsonConvert.SerializeObject(ListDrinks);
+                List<Drink> listtemp = new List<Drink>();
+                
+                foreach (Drink ld in ListDrinks)
+                {
+                    bool flag = false;
+                    foreach (Drink d in listtemp)
+                    {
+                        if (ld.id == d.id)
+                        {
+                            d.soLuong += ld.soLuong;
+                            flag = true;
+                        }
+           
+                    }
+
+                    if (flag == false)
+                    {
+                        listtemp.Add(ld);
+                    }
+                }
+
+                json += JsonConvert.SerializeObject(listtemp);
                 json += "}";
 
 
