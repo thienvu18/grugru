@@ -1742,11 +1742,11 @@ namespace GruGru
 
         private void btnPersonalInforUpdate_Click(object sender, RoutedEventArgs e)
         {
-            string payload = $"{{\"maNV\": \"{tbxPersonalInforCode.Text}\",\"hoTen\": \"{tbxPersonalInforName.Text}\",\"kinhNghiem\": {tbxMonthPersonalInfor.Text},\"soDienThoai\": \"{ tbxPhoneNumberPersonalInfor.Text}\",\"ngaySinh\": \"{tbxBirthDayPersonalInfor.Text}\",\"cmnd\": \"{tbxIDPersonalInfor.Text}\"}}";
+            string payload = $"{{\"id\": {loggedInUserId},\"maNV\": \"{tbxPersonalInforCode.Text}\",\"hoTen\": \"{tbxPersonalInforName.Text}\",\"kinhNghiem\": {tbxMonthPersonalInfor.Text},\"soDienThoai\": \"{ tbxPhoneNumberPersonalInfor.Text}\",\"ngaySinh\": \"{tbxBirthDayPersonalInfor.Text}\",\"cmnd\": \"{tbxIDPersonalInfor.Text}\"}}";
             dynamic resObject;
             try
             {
-                string res = Post(SERVER + "updateEmployeeInfor", payload);
+                string res = Post(SERVER + "updateEmployee", payload);
                 resObject = JsonConvert.DeserializeObject(res);
             }
             catch

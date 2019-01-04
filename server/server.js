@@ -663,18 +663,21 @@ app.post("/api/updateEmployee", function(req, res) {
   const maNV = req.body.maNV;
   const hoTen = req.body.hoTen;
   const ngaySinh = moment(req.body.ngaySinh, "DD/MM/YYYY") / 1000;
+  const cmnd = req.body.cmnd;
+  const soThangKinhNghiem = req.body.kinhNghiem;
+  const soDienThoai = req.body.soDienThoai;
 
   const query =
-    "UPDATE KhachHang SET maKH = '" +
-    maKH +
+    "UPDATE NhanVien SET maNV = '" +
+    maNV +
     "', hoTen=N'" +
     hoTen +
     "', ngaySinh='" +
     ngaySinh +
     "', soDienThoai='" +
     soDienThoai +
-    "', diemTichLuy=" +
-    diemTichLuy +
+    "', soThangKinhNghiem=" +
+    soThangKinhNghiem +
     ", cmnd='" +
     cmnd +
     "' WHERE id = " +
@@ -692,7 +695,7 @@ app.post("/api/updateEmployee", function(req, res) {
     } else {
       res.json({
         code: 0,
-        msg: "Cap nhat thong tin khach hang thanh cong"
+        msg: "Cap nhat thong tin nhân viên thanh cong"
       });
     }
   });
