@@ -13,7 +13,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GruGru"
         mc:Ignorable="d"
-        Title="Gru Gru" Icon="backround.jpg">
+        Title="Gru Gru" Icon="icon.ico">
     <Grid>
         <Grid x:Name="GridLoginScreen" Visibility="Visible">
             <Image Source="backround.jpg" RenderTransformOrigin="0.5,0.5" >
