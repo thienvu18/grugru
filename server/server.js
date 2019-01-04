@@ -196,8 +196,8 @@ app.get("/api/deleteDrink/:id", function(req, res) {
 app.post("/api/putOrder", function(req, res) {
   const maHoaDon = Math.random()
     .toString(36)
-    .replace(/[^a-z]+/g, "")
-    .substr(0, 9); //Random
+    .replace(/[^a-z0-9]+/g, "")
+    .substr(0, 9).toUpperCase(); //Random
   const thoiGianLap = Math.round(moment() / 1000);
   const gia = req.body.gia;
   const idKhachHangMua = req.body.idKhachHangMua;
@@ -302,8 +302,8 @@ app.post("/api/addCustomer", function(req, res) {
   const diemTichLuy = 0;
   const maKH = Math.random()
     .toString(36)
-    .replace(/[^a-z]+/g, "")
-    .substr(0, 9);
+    .replace(/[^a-z0-9]+/g, "")
+    .substr(0, 9).toUpperCase();
 
   const insertCustommer =
     "INSERT INTO KhachHang (maKH, hoTen, ngaySinh, soDienThoai, diemTichLuy, cmnd) VALUES ('" +
@@ -1025,7 +1025,7 @@ app.post("/api/insertDrink", function(req, res) {
     tenSanPham +
     "', '" +
     gia +
-    "', '" +
+    "', N'" +
     thongTin +
     "')";
 

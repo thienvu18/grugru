@@ -15,7 +15,7 @@
         mc:Ignorable="d"
         Title="MainWindow">
     <Grid>
-        <Grid x:Name="GridLoginScreen" Visibility="Hidden">
+        <Grid x:Name="GridLoginScreen" Visibility="Visible">
             <Image Source="backround.jpg" RenderTransformOrigin="0.5,0.5" >
                 <Image.RenderTransform>
                     <TransformGroup>
@@ -697,7 +697,7 @@
                 <Button x:Name="btnCancel" Content="Cancel" FontSize="20" Margin="442,389,246,145" Height="Auto" Background="Orange" BorderBrush="White" Click="btnCancel_Click"></Button>
             </Grid>
         </Grid>
-        <Grid x:Name="gridStatisticalScreen" Background="#d3f7f8" Visibility="Visible" >
+        <Grid x:Name="gridStatisticalScreen" Background="#d3f7f8" Visibility="Hidden" >
             <Button x:Name="btnBackStatisticalScreen" Background="#00baba" BorderBrush="#32cbfd"  Click="btnBackStatisticalScreen_Click" Height="35" Width="50" VerticalAlignment="Top" HorizontalAlignment="Left" >
                 <materialDesign:PackIcon Kind="ArrowLeftBoldCircle"/>
             </Button>
