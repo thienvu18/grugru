@@ -405,7 +405,7 @@
             <DatePicker x:Name="dpDayEndFind"
                 materialDesign:HintAssist.Hint="Chọn ngày"
                 Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Width="60" />
-            
+
             <Grid x:Name="temp46"></Grid>
             <TextBlock x:Name="tbEmployeeName" Text="Tên nhân viên:" Foreground="Black" />
             <Grid x:Name="temp43"></Grid>
@@ -701,25 +701,25 @@
             <Button x:Name="btnBackStatisticalScreen" Background="#00baba" BorderBrush="#32cbfd"  Click="btnBackStatisticalScreen_Click" Height="35" Width="50" VerticalAlignment="Top" HorizontalAlignment="Left" >
                 <materialDesign:PackIcon Kind="ArrowLeftBoldCircle"/>
             </Button>
-            <materialDesign:Card x:Name="cardStatistical" Height="107"  VerticalAlignment="Top"
-            Background="#02dede" Foreground="{x:Null}" Margin="10,58,10,0" />
-            <CheckBox x:Name="cbSales" IsChecked="False" Content=" Doanh Thu" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top" Height="37" Width="130" Background="Orange"  Checked="cbSales_Checked" Unchecked="cbSales_UnChecked" Margin="44,92,0,0"/>
-            <Canvas x:Name="cvSelectSaleStatistical" HorizontalAlignment="Left" Height="140" VerticalAlignment="Center" Width="168" Background="#90f4f7" Margin="44,302,0,62" >
-                <RadioButton x:Name="rbByDay" Content="Theo ngày" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Orange" Canvas.Left="10" Canvas.Top="10" Checked="rbByDay_Checked" Unchecked="rbByDay_Unchecked"></RadioButton>
-                <RadioButton x:Name="rbByMonth" Content="Theo tháng" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Orange" Canvas.Left="10" Canvas.Top="51" Checked="rbByMonth_Checked" Unchecked="rbByMonth_Unchecked" RenderTransformOrigin="0.5,0.972"></RadioButton>
-                <RadioButton x:Name="rbByYear" Content="Theo năm" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Orange"  Canvas.Left="10" Canvas.Top="94" Checked="rbByYear_Checked" Unchecked="rbByYear_Unchecked"></RadioButton>
+            <materialDesign:Card x:Name="cardStatistical" Height="454"  VerticalAlignment="Top"
+            Background="#02dede" Foreground="{x:Null}" Margin="10,50,10,0" />
+            <CheckBox x:Name="cbSales" IsChecked="False" Content=" Doanh Thu" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top" Height="38" Width="130" Background="Orange"  Checked="cbSales_Checked" Unchecked="cbSales_UnChecked" Margin="112,60,0,0"/>
+            <Canvas x:Name="cvSelectSaleStatistical" HorizontalAlignment="Left" Height="164" VerticalAlignment="Center" Width="168" Background="#90f4f7" Margin="87,230,0,110">
+                <RadioButton x:Name="rbByDay" Content="Theo ngày" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Orange" Canvas.Left="10" Canvas.Top="31" Checked="rbByDay_Checked" Unchecked="rbByDay_Unchecked"></RadioButton>
+                <RadioButton x:Name="rbByMonth" Content="Theo tháng" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Orange" Canvas.Left="10" Canvas.Top="68" Checked="rbByMonth_Checked" Unchecked="rbByMonth_Unchecked" RenderTransformOrigin="0.5,0.972"></RadioButton>
+                <RadioButton x:Name="rbByYear" Content="Theo năm" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Orange"  Canvas.Left="10" Canvas.Top="106" Checked="rbByYear_Checked" Unchecked="rbByYear_Unchecked"></RadioButton>
             </Canvas>
-            <Button x:Name="btnStatistical" Content="Thống kê" HorizontalAlignment="Right"  VerticalAlignment="Top" Width="95" Margin="0,70,16,0" Background="#FF8C00" BorderBrush="Green" BorderThickness="1.5" Click="btnStatistical_Click"/>
-            <Button x:Name="btnCancelStatis" Content="Huỷ bỏ" HorizontalAlignment="Right"  VerticalAlignment="Top" Width="95" Margin="0,117,16,0" Background="#FF8C00" BorderBrush="Green" BorderThickness="1.5"/>
-            <Canvas x:Name="cvStatisticalTime" HorizontalAlignment="Left" Height="166" VerticalAlignment="Center" Width="168" Background="#99d4f9" Margin="44,117,0,221" >
+            <Button x:Name="btnStatistical" Content="Thống kê" HorizontalAlignment="Right"  VerticalAlignment="Top" Width="96"  Background="#FF8C00" BorderBrush="Green" BorderThickness="1.5" Click="btnStatistical_Click" Margin="0,66,67,0"/>
+            <Button x:Name="btnCancelStatis" Content="Huỷ bỏ" HorizontalAlignment="Right"  VerticalAlignment="Top" Width="96"  Background="#FF8C00" BorderBrush="Green" BorderThickness="1.5" Margin="0,118,67,0" Click="btnCancelStatis_Click"/>
+            <Canvas x:Name="cvStatisticalTime" HorizontalAlignment="Left" Height="166" VerticalAlignment="Center" Width="168" Background="#99d4f9" Margin="87,47,0,291" >
                 <TextBox x:Name="txtStartDateStatistical" Width="148" Canvas.Left="10"
                     materialDesign:HintAssist.Hint="Ngày bắt đầu" Foreground="Black" Height="47"/>
                 <TextBox x:Name="txtEndDateStatistical" Width="143" Canvas.Top="60" 
                          materialDesign:HintAssist.Hint="Ngày kết thúc" Foreground="Black" Canvas.Left="15" Height="41"/>
                 <Button x:Name="btnTypeSaleStatistical" Content="Thống kê theo" Canvas.Left="16" Canvas.Top="122" Width="126" Height="34" Background="Green" BorderBrush="GreenYellow"  Click="btnTypeSaleStatistical_Click"/>
             </Canvas>
-            <CheckBox x:Name="cbTop10Famous" IsChecked="False" Content=" Top 10 thức uống" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top" Height="37" Width="196" Background="Orange" Margin="304,94,0,0" Checked="cbTop10Famous_Checked" Unchecked="cbTop10Famous_Unchecked"/>
-            <Canvas x:Name="cvStatisticalTimeTop10" HorizontalAlignment="Left" Height="139" VerticalAlignment="Center" Width="168" Background="#99d4f9" Margin="304,117,0,248" >
+            <CheckBox x:Name="cbTop10Famous" IsChecked="False" Content=" Top 10 thức uống" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Top" Height="36" Width="196" Background="Orange" Checked="cbTop10Famous_Checked" Unchecked="cbTop10Famous_Unchecked" Margin="341,60,223,0" />
+            <Canvas x:Name="cvStatisticalTimeTop10" HorizontalAlignment="Center" Height="139" VerticalAlignment="Center" Width="168" Background="#99d4f9" Margin="369,71,223,294" >
                 <TextBox x:Name="txtStartDateStatisticalTop10" Width="148" Canvas.Left="10"
                     materialDesign:HintAssist.Hint="Ngày bắt đầu" Foreground="Black" Height="47"/>
                 <TextBox x:Name="txtEndDateStatisticalTop10" Width="143" Canvas.Top="60" 

@@ -23,6 +23,8 @@ using System.Xml.Linq;
 using System.Xml;
 using System.Security.Cryptography;
 using System.Timers;
+using LiveCharts;
+using LiveCharts.Wpf;
 
 namespace GruGru
 {
@@ -2410,6 +2412,7 @@ namespace GruGru
             string url = "";
             string result = "";
 
+            checkInputOfStatisticalScreen();
             try
             {
                 DateTime.ParseExact(BeginDateSale, "dd-MM-yyyy", null);
@@ -2441,6 +2444,49 @@ namespace GruGru
                 try
                 {
                     result = Get(url);
+                    dynamic stuff = JsonConvert.DeserializeObject(result);
+
+                    string[] label = new string[stuff.payload.Count];
+                    double[] data = new double[stuff.payload.Count];
+                    for (int i = 0; i < stuff.payload.Count; i++)
+                    {
+                        //Label
+                        if (TypeSaleStatistical == "Day")
+                        {
+                            if (((Newtonsoft.Json.Linq.JContainer)stuff.payload[i]).Count == 2)
+                            {
+                                label[i] = stuff.payload[i].DAY.Value + "";
+                            } else if (((Newtonsoft.Json.Linq.JContainer)stuff.payload[i]).Count == 3)
+                            {
+                                label[i] = stuff.payload[i].DAY.Value + "/" + stuff.payload[i].MONTH.Value;
+                            } else if (((Newtonsoft.Json.Linq.JContainer)stuff.payload[i]).Count == 4)
+                            {
+                                label[i] = stuff.payload[i].DAY.Value + "/" + stuff.payload[i].MONTH.Value + "/" + stuff.payload[i].YEAR.Value;
+                            }
+                        } else if (TypeSaleStatistical == "Month")
+                        {
+                            if (((Newtonsoft.Json.Linq.JContainer)stuff.payload[i]).Count == 2)
+                            {
+                                label[i] = stuff.payload[i].MONTH.Value;
+                            }
+                            else if (((Newtonsoft.Json.Linq.JContainer)stuff.payload[i]).Count == 3)
+                            {
+                                label[i] = stuff.payload[i].MONTH.Value + "/" + stuff.payload[i].YEAR.Value;
+                            }
+                            
+                        } else if (TypeSaleStatistical == "Year")
+                        {
+                            if (((Newtonsoft.Json.Linq.JContainer)stuff.payload[i]).Count == 2)
+                            {
+                                label[i] = stuff.payload[i].YEAR.Value;
+                            }
+                        }
+
+                        data[i] = stuff.payload[i].DoanhThu;
+                    }
+
+                    Window1 form1 = new Window1(data, label);
+                    form1.Show();
                 }
                 catch
                 {
@@ -2471,6 +2517,39 @@ namespace GruGru
         private void cbTop10Famous_Unchecked(object sender, RoutedEventArgs e)
         {
             cvStatisticalTimeTop10.Visibility = Visibility.Hidden;
+        }
+
+        private void checkInputOfStatisticalScreen()
+        {
+            if(txtStartDateStatistical.Text=="")
+            {
+                MessageBox.Show("Vui lòng nhập thời gian thống kê!!!");
+            }
+            if (txtEndDateStatistical.Text == "")
+            {
+                MessageBox.Show("Vui lòng nhập thời gian thống kê!!!");
+            }
+            if (txtStartDateStatisticalTop10.Text == "")
+            {
+                MessageBox.Show("Vui lòng nhập thời gian thống kê!!!");
+            }
+            if (txtEndDateStatisticalTop10.Text == "")
+            {
+                MessageBox.Show("Vui lòng nhập thời gian thống kê!!!");
+            }
+        }
+
+        private void btnCancelStatis_Click(object sender, RoutedEventArgs e)
+        {
+            cbSales.IsChecked = false;
+            cbTop10Famous.IsChecked = false;
+            txtStartDateStatistical.Text = "";
+            txtEndDateStatistical.Text = "";
+            txtStartDateStatisticalTop10.Text = "";
+            txtEndDateStatisticalTop10.Text = "";
+            rbByDay.IsChecked = false;
+            rbByMonth.IsChecked = false;
+            rbByYear.IsChecked = false;
         }
     }
 }
