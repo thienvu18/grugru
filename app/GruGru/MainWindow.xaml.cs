@@ -2433,8 +2433,6 @@ namespace GruGru
             string url = "";
             string result = "";
 
-            checkInputOfStatisticalScreen();
-
             if (cbSales.IsChecked == true)
             {
                 if (rbByDay.IsChecked == true)
@@ -2587,6 +2585,7 @@ namespace GruGru
                         };
                         topReport.Labels = label;
                         topReport.AxisY.Title = "Loại thức uống";
+                        topReport.AxisX.LabelsRotation = 45;
                         topReport.Formatter = value =>
                         {
                             return value.ToString("N0");
@@ -2629,31 +2628,6 @@ namespace GruGru
             cvStatisticalTimeTop10.Visibility = Visibility.Hidden;
         }
 
-        private void checkInputOfStatisticalScreen()
-        {
-            if (cbSales.IsChecked == true)
-            {
-                if (txtStartDateStatistical.Text == "")
-                {
-                    MessageBox.Show("Vui lòng nhập thời gian thống kê!!!");
-                }
-                if (txtEndDateStatistical.Text == "")
-                {
-                    MessageBox.Show("Vui lòng nhập thời gian thống kê!!!");
-                }
-            }
-            else if (cbTop10Famous.IsChecked == true)
-            {
-                if (txtStartDateStatisticalTop10.Text == "")
-                {
-                    MessageBox.Show("Vui lòng nhập thời gian thống kê!!!");
-                }
-                if (txtEndDateStatisticalTop10.Text == "")
-                {
-                    MessageBox.Show("Vui lòng nhập thời gian thống kê!!!");
-                }
-            }
-        }
 
         private void btnCancelStatis_Click(object sender, RoutedEventArgs e)
         {
