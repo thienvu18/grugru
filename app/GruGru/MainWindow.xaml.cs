@@ -2413,16 +2413,6 @@ namespace GruGru
             string result = "";
 
             checkInputOfStatisticalScreen();
-            try
-            {
-                DateTime.ParseExact(BeginDateSale, "dd-MM-yyyy", null);
-                DateTime.ParseExact(EndDateSale, "dd-MM-yyyy", null);
-            }
-            catch
-            {
-                MessageBox.Show("Vui lòng nhập định dạng ngày-tháng-năm");
-                return;
-            }
 
             if (cbSales.IsChecked == true)
             {
@@ -2439,6 +2429,17 @@ namespace GruGru
                     TypeSaleStatistical = "Year";
                 }
 
+                try
+                {
+                    DateTime.ParseExact(BeginDateSale, "dd-MM-yyyy", null);
+                    DateTime.ParseExact(EndDateSale, "dd-MM-yyyy", null);
+                }
+                catch
+                {
+                    MessageBox.Show("Vui lòng nhập định dạng ngày-tháng-năm");
+                    return;
+                }
+
                 url = SERVER + "saleReport/" + BeginDateSale + "/" + EndDateSale + "/" + TypeSaleStatistical;
 
                 try
@@ -2448,7 +2449,7 @@ namespace GruGru
 
                     if (stuff.code == "0")
                     {
-                        SaleReport saleReport = new SaleReport();
+                        ReportChart saleReport = new ReportChart();
                         long[] data = new long[stuff.payload.Count];
                         string[] label = new string[stuff.payload.Count];
 
@@ -2508,7 +2509,7 @@ namespace GruGru
                         saleReport.AxisY.Title = "Doanh thu";
                         saleReport.Formatter = value =>
                         {
-                            return value.ToString("N") + " VND";
+                            return value.ToString("N0") + " VND";
                         };
                         saleReport.Title = "Biểu đồ doanh thu";
                         saleReport.DataContext = saleReport;
@@ -2524,9 +2525,66 @@ namespace GruGru
                     MessageBox.Show("Đã xảy ra lỗi");
                 }
             }
-            //if(cbTop10Famous.IsChecked==true)
-            //{
-            //}
+            if (cbTop10Famous.IsChecked == true)
+            {
+                try
+                {
+                    DateTime.ParseExact(BeginDateTop10, "dd-MM-yyyy", null);
+                    DateTime.ParseExact(EndDateTop10, "dd-MM-yyyy", null);
+                }
+                catch
+                {
+                    MessageBox.Show("Vui lòng nhập định dạng ngày-tháng-năm");
+                    return;
+                }
+                url = SERVER + "reportTopDrink/" + BeginDateTop10 + "/" + EndDateTop10 + "/10";
+
+                try
+                {
+                    result = Get(url);
+                    dynamic stuff = JsonConvert.DeserializeObject(result);
+
+                    if (stuff.code == "0")
+                    {
+                        ReportChart topReport = new ReportChart();
+                        long[] data = new long[stuff.payload.Count];
+                        string[] label = new string[stuff.payload.Count];
+
+                        for (int i = 0; i < stuff.payload.Count; i++)
+                        {
+                            label[i] = stuff.payload[i].tenSanPham.Value + "";
+                            data[i] = stuff.payload[i].soLuong;
+                        }
+
+                        topReport.SeriesCollection = new SeriesCollection
+                        {
+                            new ColumnSeries
+                            {
+                                Title = "Số lượng",
+                                Values = new ChartValues<long>(data)
+                            }
+                        };
+                        topReport.Labels = label;
+                        topReport.AxisY.Title = "Loại thức uống";
+                        topReport.Formatter = value =>
+                        {
+                            return value.ToString("N0");
+                        };
+                        topReport.Title = "Biểu đồ top 10 thức uống";
+                        topReport.DataContext = topReport;
+                        topReport.Show();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Không thể kết nối đến server");
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("Đã xảy ra lỗi");
+                }
+                
+            }
 
         }
 
