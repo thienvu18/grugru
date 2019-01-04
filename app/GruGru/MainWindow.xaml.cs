@@ -2446,51 +2446,78 @@ namespace GruGru
                     result = Get(url);
                     dynamic stuff = JsonConvert.DeserializeObject(result);
 
-                    string[] label = new string[stuff.payload.Count];
-                    double[] data = new double[stuff.payload.Count];
-                    for (int i = 0; i < stuff.payload.Count; i++)
+                    if (stuff.code == "0")
                     {
-                        //Label
-                        if (TypeSaleStatistical == "Day")
+                        SaleReport saleReport = new SaleReport();
+                        long[] data = new long[stuff.payload.Count];
+                        string[] label = new string[stuff.payload.Count];
+
+                        for (int i = 0; i < stuff.payload.Count; i++)
                         {
-                            if (((Newtonsoft.Json.Linq.JContainer)stuff.payload[i]).Count == 2)
+                            //Label
+                            if (TypeSaleStatistical == "Day")
                             {
-                                label[i] = stuff.payload[i].DAY.Value + "";
+                                saleReport.AxisX.Title = "Ngày";
+                                if (((Newtonsoft.Json.Linq.JContainer)stuff.payload[i]).Count == 2)
+                                {
+                                    label[i] = stuff.payload[i].DAY.Value + "";
+                                }
+                                else if (((Newtonsoft.Json.Linq.JContainer)stuff.payload[i]).Count == 3)
+                                {
+                                    label[i] = stuff.payload[i].DAY.Value + "/" + stuff.payload[i].MONTH.Value;
+                                }
+                                else if (((Newtonsoft.Json.Linq.JContainer)stuff.payload[i]).Count == 4)
+                                {
+                                    label[i] = stuff.payload[i].DAY.Value + "/" + stuff.payload[i].MONTH.Value + "/" + stuff.payload[i].YEAR.Value;
+                                }
                             }
-                            else if (((Newtonsoft.Json.Linq.JContainer)stuff.payload[i]).Count == 3)
+                            else if (TypeSaleStatistical == "Month")
                             {
-                                label[i] = stuff.payload[i].DAY.Value + "/" + stuff.payload[i].MONTH.Value;
+                                saleReport.AxisX.Title = "Tháng";
+                                if (((Newtonsoft.Json.Linq.JContainer)stuff.payload[i]).Count == 2)
+                                {
+                                    label[i] = stuff.payload[i].MONTH.Value + "";
+                                }
+                                else if (((Newtonsoft.Json.Linq.JContainer)stuff.payload[i]).Count == 3)
+                                {
+                                    label[i] = stuff.payload[i].MONTH.Value + "/" + stuff.payload[i].YEAR.Value;
+                                }
+
                             }
-                            else if (((Newtonsoft.Json.Linq.JContainer)stuff.payload[i]).Count == 4)
+                            else if (TypeSaleStatistical == "Year")
                             {
-                                label[i] = stuff.payload[i].DAY.Value + "/" + stuff.payload[i].MONTH.Value + "/" + stuff.payload[i].YEAR.Value;
-                            }
-                        }
-                        else if (TypeSaleStatistical == "Month")
-                        {
-                            if (((Newtonsoft.Json.Linq.JContainer)stuff.payload[i]).Count == 2)
-                            {
-                                label[i] = stuff.payload[i].MONTH.Value + "";
-                            }
-                            else if (((Newtonsoft.Json.Linq.JContainer)stuff.payload[i]).Count == 3)
-                            {
-                                label[i] = stuff.payload[i].MONTH.Value + "/" + stuff.payload[i].YEAR.Value;
+                                saleReport.AxisX.Title = "Năm";
+                                if (((Newtonsoft.Json.Linq.JContainer)stuff.payload[i]).Count == 2)
+                                {
+                                    label[i] = stuff.payload[i].YEAR.Value + "";
+                                }
                             }
 
-                        }
-                        else if (TypeSaleStatistical == "Year")
-                        {
-                            if (((Newtonsoft.Json.Linq.JContainer)stuff.payload[i]).Count == 2)
-                            {
-                                label[i] = stuff.payload[i].YEAR.Value + "";
-                            }
+                            data[i] = stuff.payload[i].DoanhThu;
                         }
 
-                        data[i] = stuff.payload[i].DoanhThu;
+                        saleReport.SeriesCollection = new SeriesCollection
+                        {
+                            new ColumnSeries
+                            {
+                                Title = "Doanh thu",
+                                Values = new ChartValues<long>(data)
+                            }
+                        };
+                        saleReport.Labels = label;
+                        saleReport.AxisY.Title = "Doanh thu";
+                        saleReport.Formatter = value =>
+                        {
+                            return value.ToString("N") + " VND";
+                        };
+                        saleReport.Title = "Biểu đồ doanh thu";
+                        saleReport.DataContext = saleReport;
+                        saleReport.Show();
                     }
-
-                    SaleReport saleReport = new SaleReport(data, label);
-                    saleReport.Show();
+                    else
+                    {
+                        MessageBox.Show("Không thể kết nối đến server");
+                    }
                 }
                 catch
                 {

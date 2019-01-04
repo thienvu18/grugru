@@ -21,23 +21,9 @@ namespace GruGru
     /// </summary>
     public partial class SaleReport : Window
     {
-        public SaleReport(double[] data, string[] label)
+        public SaleReport()
         {
             InitializeComponent();
-
-            SeriesCollection = new SeriesCollection
-                {
-                    new ColumnSeries
-                    {
-              
-                        Values = new ChartValues<double>(data)
-                    }
-                };
-
-            Labels = label;
-            Formatter = value => value.ToString("N");
-
-            DataContext = this;
         }
 
         public SeriesCollection SeriesCollection { get; set; }
