@@ -269,7 +269,7 @@ app.post("/api/putOrder", function(req, res) {
                 ", '" +
                 monAn.size +
                 "' )";
-                console.log(insertOrderDetail);
+              console.log(insertOrderDetail);
               request.query(insertOrderDetail, function(err, result) {
                 if (err) {
                   console.log(err);
@@ -799,12 +799,17 @@ app.get("/api/deleteCustomer/:id", function(req, res) {
 });
 
 app.post("/api/search", function(req, res) {
-  const beginDate = req.body.BeginDate == ""? "": moment(req.body.BeginDate, "DD/MM/YYYY") / 1000;
-  const endDate = req.body.EndDate == ""? "": moment(req.body.EndDate, "DD/MM/YYYY") / 1000;
+  const beginDate =
+    req.body.BeginDate == ""
+      ? ""
+      : moment(req.body.BeginDate, "DD/MM/YYYY") / 1000;
+  const endDate =
+    req.body.EndDate == "" ? "" : moment(req.body.EndDate, "DD/MM/YYYY") / 1000;
   const idNhanVien = req.body.idNhanVien;
-  const idKhachHang = req.body.idKhachHang == 'null'? "" : req.body.idKhachHang;
+  const idKhachHang =
+    req.body.idKhachHang == "null" ? "" : req.body.idKhachHang;
 
-  var flag = req.body.idKhachHang == 'null';
+  var flag = req.body.idKhachHang == "null";
 
   var query;
   if (
@@ -990,19 +995,18 @@ app.post("/api/search", function(req, res) {
           maHoaDon: hoaDon.maHoaDon,
           nhanVien: hoaDon.tenNhanVien,
           khachHang: hoaDon.tenKhachHang,
-          gia: hoaDon.gia,
-        }
+          gia: hoaDon.gia
+        };
         if (flag) {
           if (hoaDon.tenKhachHang == null) {
             danhSachHoaDon.push(newHD);
           }
-        }
-        else danhSachHoaDon.push(newHD);
+        } else danhSachHoaDon.push(newHD);
       });
       res.json({
         code: 0,
         msg: "Tìm kiếm thành công",
-        payload: danhSachHoaDon,
+        payload: danhSachHoaDon
       });
     }
   });
@@ -1058,14 +1062,37 @@ app.get("/api/saleReport/:from/:to/:type", function(req, res) {
     });
   } else {
     var query;
-    if (type == "DAY" && (to - from) > 2419200 && (to - from) < 31536000) {//28 ngày, 365 ngày
-      query = "SELECT " + type + "(DATEADD(S, thoiGianLap, '1970-01-01 07:00:00')) as "+type+", sum(HoaDon.gia) as DoanhThu FROM HoaDon GROUP BY MONTH(DATEADD(S, thoiGianLap, '1970-01-01 07:00:00')), DAY(DATEADD(S, thoiGianLap, '1970-01-01 07:00:00'))";
-    } else if (type == "DAY" && (to - from) < 31536000) {
-      query = "SELECT " + type + "(DATEADD(S, thoiGianLap, '1970-01-01 07:00:00')) as "+type+", sum(HoaDon.gia) as DoanhThu FROM HoaDon GROUP BY YEAR(DATEADD(S, thoiGianLap, '1970-01-01 07:00:00')), MONTH(DATEADD(S, thoiGianLap, '1970-01-01 07:00:00')), DAY(DATEADD(S, thoiGianLap, '1970-01-01 07:00:00'))";
-    } else if (type == "MONTH" && (to - from) < 31536000) {
-    query = "SELECT " + type + "(DATEADD(S, thoiGianLap, '1970-01-01 07:00:00')) as "+type+", sum(HoaDon.gia) as DoanhThu FROM HoaDon GROUP BY YEAR(DATEADD(S, thoiGianLap, '1970-01-01 07:00:00')), MONTH(DATEADD(S, thoiGianLap, '1970-01-01 07:00:00'))";
+    if (type == "DAY" && to - from > 2419200 && to - from < 31536000) {
+      //28 ngày, 365 ngày
+      query =
+        "SELECT " +
+        type +
+        "(DATEADD(S, thoiGianLap, '1970-01-01 07:00:00')) as " +
+        type +
+        ", sum(HoaDon.gia) as DoanhThu FROM HoaDon GROUP BY MONTH(DATEADD(S, thoiGianLap, '1970-01-01 07:00:00')), DAY(DATEADD(S, thoiGianLap, '1970-01-01 07:00:00'))";
+    } else if (type == "DAY" && to - from > 31536000) {
+      query =
+        "SELECT " +
+        type +
+        "(DATEADD(S, thoiGianLap, '1970-01-01 07:00:00')) as " +
+        type +
+        ", sum(HoaDon.gia) as DoanhThu FROM HoaDon GROUP BY YEAR(DATEADD(S, thoiGianLap, '1970-01-01 07:00:00')), MONTH(DATEADD(S, thoiGianLap, '1970-01-01 07:00:00')), DAY(DATEADD(S, thoiGianLap, '1970-01-01 07:00:00'))";
+    } else if (type == "MONTH" && to - from > 31536000) {
+      query =
+        "SELECT " +
+        type +
+        "(DATEADD(S, thoiGianLap, '1970-01-01 07:00:00')) as " +
+        type +
+        ", sum(HoaDon.gia) as DoanhThu FROM HoaDon GROUP BY YEAR(DATEADD(S, thoiGianLap, '1970-01-01 07:00:00')), MONTH(DATEADD(S, thoiGianLap, '1970-01-01 07:00:00'))";
     } else {
-      query = "SELECT " + type + "(DATEADD(S, thoiGianLap, '1970-01-01 07:00:00')) as "+type+", sum(HoaDon.gia) as DoanhThu FROM HoaDon GROUP BY "+type+"(DATEADD(S, thoiGianLap, '1970-01-01 07:00:00'))";
+      query =
+        "SELECT " +
+        type +
+        "(DATEADD(S, thoiGianLap, '1970-01-01 07:00:00')) as " +
+        type +
+        ", sum(HoaDon.gia) as DoanhThu FROM HoaDon GROUP BY " +
+        type +
+        "(DATEADD(S, thoiGianLap, '1970-01-01 07:00:00'))";
     }
 
     let request = new sql.Request();

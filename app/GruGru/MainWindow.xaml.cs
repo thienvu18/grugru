@@ -327,7 +327,7 @@ namespace GruGru
             rbByYear.Visibility = Visibility.Hidden;
             cvStatisticalTime.Visibility = Visibility.Hidden;
             cvSelectSaleStatistical.Visibility = Visibility.Hidden;
-            cvStatisticalTimeTop10.Visibility= Visibility.Hidden; 
+            cvStatisticalTimeTop10.Visibility = Visibility.Hidden;
 
         }
 
@@ -374,8 +374,8 @@ namespace GruGru
             dpDayStartFind.Height = height005;
             dpDayStartFind.Width = width / 90 * 6;
 
-            temp42.Width = width / 90*7;
-            
+            temp42.Width = width / 90 * 7;
+
             tbTimeEndFind.FontSize = height002;
             tbTimeEndFind.Height = height003;
             tbTimeEndFind.Width = width / 90 * 4;
@@ -383,14 +383,14 @@ namespace GruGru
             dpDayEndFind.FontSize = height0018;
             dpDayEndFind.Height = height005;
             dpDayEndFind.Width = width / 90 * 6;
-            
+
             temp45.Width = width / 90;
 
             /*cbbTypeFind.FontSize = height0018;
             cbbTypeFind.Height = height004;
             cbbTypeFind.Width = width / 90 * 6;*/
 
-            temp46.Width = width / 90*6.5;
+            temp46.Width = width / 90 * 6.5;
 
             tbEmployeeName.FontSize = height002;
             tbEmployeeName.Height = height003;
@@ -2420,15 +2420,15 @@ namespace GruGru
             }
             catch
             {
-                MessageBox.Show("Ngày sinh không hợp lệ");
+                MessageBox.Show("Vui lòng nhập định dạng ngày-tháng-năm");
                 return;
             }
 
-            if (cbSales.IsChecked == true) 
+            if (cbSales.IsChecked == true)
             {
-                if(rbByDay.IsChecked==true)
+                if (rbByDay.IsChecked == true)
                 {
-                    TypeSaleStatistical = "Day";            
+                    TypeSaleStatistical = "Day";
                 }
                 if (rbByMonth.IsChecked == true)
                 {
@@ -2439,7 +2439,7 @@ namespace GruGru
                     TypeSaleStatistical = "Year";
                 }
 
-                url = SERVER + "saleReport/"+BeginDateSale+"/"+EndDateSale+"/"+TypeSaleStatistical;
+                url = SERVER + "saleReport/" + BeginDateSale + "/" + EndDateSale + "/" + TypeSaleStatistical;
 
                 try
                 {
@@ -2456,41 +2456,45 @@ namespace GruGru
                             if (((Newtonsoft.Json.Linq.JContainer)stuff.payload[i]).Count == 2)
                             {
                                 label[i] = stuff.payload[i].DAY.Value + "";
-                            } else if (((Newtonsoft.Json.Linq.JContainer)stuff.payload[i]).Count == 3)
+                            }
+                            else if (((Newtonsoft.Json.Linq.JContainer)stuff.payload[i]).Count == 3)
                             {
                                 label[i] = stuff.payload[i].DAY.Value + "/" + stuff.payload[i].MONTH.Value;
-                            } else if (((Newtonsoft.Json.Linq.JContainer)stuff.payload[i]).Count == 4)
+                            }
+                            else if (((Newtonsoft.Json.Linq.JContainer)stuff.payload[i]).Count == 4)
                             {
                                 label[i] = stuff.payload[i].DAY.Value + "/" + stuff.payload[i].MONTH.Value + "/" + stuff.payload[i].YEAR.Value;
                             }
-                        } else if (TypeSaleStatistical == "Month")
+                        }
+                        else if (TypeSaleStatistical == "Month")
                         {
                             if (((Newtonsoft.Json.Linq.JContainer)stuff.payload[i]).Count == 2)
                             {
-                                label[i] = stuff.payload[i].MONTH.Value;
+                                label[i] = stuff.payload[i].MONTH.Value + "";
                             }
                             else if (((Newtonsoft.Json.Linq.JContainer)stuff.payload[i]).Count == 3)
                             {
                                 label[i] = stuff.payload[i].MONTH.Value + "/" + stuff.payload[i].YEAR.Value;
                             }
-                            
-                        } else if (TypeSaleStatistical == "Year")
+
+                        }
+                        else if (TypeSaleStatistical == "Year")
                         {
                             if (((Newtonsoft.Json.Linq.JContainer)stuff.payload[i]).Count == 2)
                             {
-                                label[i] = stuff.payload[i].YEAR.Value;
+                                label[i] = stuff.payload[i].YEAR.Value + "";
                             }
                         }
 
                         data[i] = stuff.payload[i].DoanhThu;
                     }
 
-                    Window1 form1 = new Window1(data, label);
-                    form1.Show();
+                    SaleReport saleReport = new SaleReport(data, label);
+                    saleReport.Show();
                 }
                 catch
                 {
-                    //
+                    MessageBox.Show("Đã xảy ra lỗi");
                 }
             }
             //if(cbTop10Famous.IsChecked==true)
@@ -2521,21 +2525,27 @@ namespace GruGru
 
         private void checkInputOfStatisticalScreen()
         {
-            if(txtStartDateStatistical.Text=="")
+            if (cbSales.IsChecked == true)
             {
-                MessageBox.Show("Vui lòng nhập thời gian thống kê!!!");
+                if (txtStartDateStatistical.Text == "")
+                {
+                    MessageBox.Show("Vui lòng nhập thời gian thống kê!!!");
+                }
+                if (txtEndDateStatistical.Text == "")
+                {
+                    MessageBox.Show("Vui lòng nhập thời gian thống kê!!!");
+                }
             }
-            if (txtEndDateStatistical.Text == "")
+            else if (cbTop10Famous.IsChecked == true)
             {
-                MessageBox.Show("Vui lòng nhập thời gian thống kê!!!");
-            }
-            if (txtStartDateStatisticalTop10.Text == "")
-            {
-                MessageBox.Show("Vui lòng nhập thời gian thống kê!!!");
-            }
-            if (txtEndDateStatisticalTop10.Text == "")
-            {
-                MessageBox.Show("Vui lòng nhập thời gian thống kê!!!");
+                if (txtStartDateStatisticalTop10.Text == "")
+                {
+                    MessageBox.Show("Vui lòng nhập thời gian thống kê!!!");
+                }
+                if (txtEndDateStatisticalTop10.Text == "")
+                {
+                    MessageBox.Show("Vui lòng nhập thời gian thống kê!!!");
+                }
             }
         }
 
